@@ -6,7 +6,6 @@ const Search = (props) => {
 
 
     const keyword = searchParams.get("keyword");
-    console.log(keyword);
     return (<div>
             {/*{keyword}*/}
             <div style={{fontSize: "2rem"}}>{keyword}에 대한 검색결과 입니다.</div>

@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 
 const Pagination = ({currentPage, totalPost, handlePageChange}) => {
 
-    console.log("totalPost: ", totalPost);
+    // console.log("totalPost: ", totalPost);
 
     const [page, setPage] = useState(1); // 현재 페이지 수
 
@@ -23,7 +23,6 @@ const Pagination = ({currentPage, totalPost, handlePageChange}) => {
 
     return (
         <>
-            {console.log(currentPage)}
             <div>
                 <div className="pagination">
                     <button disabled={startPage === 1} onClick={() => setPage(startPage - 1)}>

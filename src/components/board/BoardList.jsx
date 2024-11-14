@@ -36,7 +36,6 @@ const BoardList = (props) => {
             method: "GET",
 
         }).then((response) => {
-            console.log(response.data)
             setData(response.data);
             setLoading(false);
             // console.log(response.data.total);

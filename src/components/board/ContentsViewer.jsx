@@ -37,7 +37,7 @@ const ContentsViewer = ({props}) => {
             url: `/${category}/${post_id}/edit`
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 if (response.data === true) {
                     setIsAuth(true)
                 } else {
@@ -54,7 +54,7 @@ const ContentsViewer = ({props}) => {
     }
 
 
-    console.log('데이터: ', contentInfo);
+    // console.log('데이터: ', contentInfo);
 
     const editHandler = () => {
         navigate("/post/write", {state: contentInfo});

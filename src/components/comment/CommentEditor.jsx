@@ -81,7 +81,7 @@ const CommentEditor = (props) => {
             return;
         setImg(e.target.files[0]);
         // console.log(e.target.files[0]);
-        console.log("등록");
+        // console.log("등록");
     }
 
     const clearInput = () => {

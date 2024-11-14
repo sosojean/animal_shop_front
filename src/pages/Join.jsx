@@ -79,20 +79,20 @@ const Join = ({props}) => {
         event.preventDefault();
         const isInvalid = pwdInvalid || idInvalid || emailInvalid || pwdDiff;
         if (!isInvalid) {
-            console.log("회원가입");
+            // console.log("회원가입");
             setInvalidRequest(false);
         } else {
-            console.log("회원가입 불가");
+            // console.log("회원가입 불가");
             setInvalidRequest(true);
         }
     }
 
     const passwordEqualChecker = (password2) => {
         if (password === password2) {
-            console.log("비밀번호 일치");
+            // console.log("비밀번호 일치");
             setPwdDiff(false);
         } else {
-            console.log("비밀번호 불일치");
+            // console.log("비밀번호 불일치");
             setPwdDiff(true);
         }
     }
@@ -100,12 +100,12 @@ const Join = ({props}) => {
     const passwordValidChecker = (password) => {
         let regPass = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,20}$/
         if (regPass.test(password)) {
-            console.log("비밀번호 유효");
+            // console.log("비밀번호 유효");
             setPassword(password);
             setPwdInvalid(false);
 
         } else {
-            console.log("비밀번호 무효");
+            // console.log("비밀번호 무효");
             setPwdInvalid(true);
         }
     }
@@ -113,12 +113,12 @@ const Join = ({props}) => {
     const emailChecker = (email) => {
         const regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
         if (regEmail.test(email)) {
-            console.log("이메일 유효");
+            // console.log("이메일 유효");
             setEmailInvalid(false);
             setEmail(email)
 
         } else {
-            console.log("이메일 무효");
+            // console.log("이메일 무효");
             setEmailInvalid(true);
         }
     }
@@ -127,11 +127,11 @@ const Join = ({props}) => {
         const regId = /^[a-z]+[a-z0-9]{5,19}$/g;
         if (regId.test(userId)) {
             setIdInvalid(false);
-            console.log("아이디 유효");
+            // console.log("아이디 유효");
             setUserId(userId)
 
         } else {
-            console.log("아이디 무효");
+            // console.log("아이디 무효");
             setIdInvalid(true);
         }
     }
@@ -140,10 +140,10 @@ const Join = ({props}) => {
         const regName = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
         if (regName.test(name)) {
             setNameInvalid(false);
-            console.log("닉네임 유효");
+            // console.log("닉네임 유효");
             setName(name)
         } else {
-            console.log("닉네임 무효");
+            // console.log("닉네임 무효");
             setNameInvalid(true);
         }
 
