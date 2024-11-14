@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import Comment from "./Comment";
 import {useParams} from "react-router-dom";
 import CommentEditor from "./CommentEditor";
+import instance from "../../utils/axios";
 
 const Comments = () => {
     const {post_id} = useParams()
@@ -12,11 +13,11 @@ const Comments = () => {
 
     useEffect(() => {
         // console.log("postid =" + post_id);
-        axios({
+        instance({
             method: 'get',
-            url: `http://localhost:8080/comment/${post_id}`,
+            url: `/comment/${post_id}`,
         }).then(({data}) => {
-            console.log(data)
+            // console.log(data)
             setData(data.comments)
             replySort(data.comments)
         }).catch((error) => {
@@ -25,12 +26,10 @@ const Comments = () => {
         setCommentSummited(false);
     }, [commentSummited])
 
-
     const replySort = (data) => {
         const map = new Map();
         const finalList = new Set();
         const parentList = new Set();
-
 
         data.forEach((item) => {
             map.set(item.id, []);
@@ -58,9 +57,6 @@ const Comments = () => {
 
         const order = Array.from(finalList);
         const sortedData = data.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
-
-        // console.log("정렬된 data:", sortedData);
-        // console.log(parentList);
         setParent(parentList);
 
         return sortedData;
@@ -72,7 +68,7 @@ const Comments = () => {
         {/*{data ? console.log(data) : null}*/}
         {data ? data.map((comment) => {
             return (<Comment key={comment.id} commentSummited={commentSummited} setCommentSummited={setCommentSummited}
-                             parentList={parent} comment={comment}> </Comment>)
+                             parentList={parent} comment={comment}/>)
         }) : null}
 
         <CommentEditor commentSummited={commentSummited} setCommentSummited={setCommentSummited}></CommentEditor>
