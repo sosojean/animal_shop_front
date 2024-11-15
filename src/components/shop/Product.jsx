@@ -52,7 +52,7 @@ const Product = (props) => {
                   <div className="option">
                       <span className="option">참치맛</span>
                       <hr className="vertical"/>
-                      <span className="count">1개</span>
+                      <span className="count">{props.data?.count}</span>
                   </div>
                   <span className="star"><FontAwesomeIcon icon={faStar}/>4.5</span>
                   <button onClick={addCart} className="cart-button">장바구니</button>
