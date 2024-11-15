@@ -1,0 +1,80 @@
+
+.detailContainer{
+    display: flex;
+    gap: 1rem;
+    margin-top: 3rem;
+
+    > div {
+        width: 50%;
+    }
+
+    .detailTextContainer {
+        display: flex;
+        flex-direction: column;
+
+        h2 {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+    
+        h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 3rem;
+        }
+    
+        select {
+            margin-bottom: 1rem;
+            padding: 10px;
+        }
+    
+        .optionListContainer {
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            margin-bottom: 2rem;
+            box-sizing: border-box;
+    
+            .optionContainer {
+                display: flex;
+                justify-content: space-between;
+                padding: 1rem 0 1rem 0;
+                border-bottom: 1px solid black;
+    
+                .spContainer {
+                    width: 150px;
+                    display: flex;
+                    justify-content: space-between;
+    
+                    .stockContainer {
+                        display: flex;
+
+                        div, p {
+                            border: 1px solid black;
+                            padding: 2px;
+                        }
+
+                        p {
+                            width: 20px;
+                            text-align: center;
+                            border-right: none;
+                            border-left: none;
+                        }
+                    }
+                }
+            }
+    
+            .optionContainer:last-child {
+                border-bottom: none;
+            }
+        }
+    
+        .purchaseLinkContainer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            font-size: 1.5rem;
+    
+            margin-top: auto;
+        }
+    }
+}

@@ -10,6 +10,7 @@ import "../../assets/styles/layout/router.scss";
 import MyPage from "../../pages/MyPage";
 import ContentsViewer from "../board/ContentsViewer";
 import Search from "../../pages/Search";
+import MainDetail from "../store/MainDetail";
 import Product from "../shop/Product";
 import Products from "../shop/Products";
 import ShopMain from "../../pages/ShopMain";
@@ -37,6 +38,7 @@ const Router = (props) => {
                         <Route path="/mypage" element={<MyPage/>}/>
                         <Route path="/:category/:post_id" element={<ContentsViewer/>}/>
                         <Route path="/search" element={<Search/>}/>
+                        <Route path="/product/detail" element={<MainDetail/>}/>
                         <Route path="/shop" element={<ShopMain/>}/>
                         <Route path="/cart" element={<Cart/>}/>
 

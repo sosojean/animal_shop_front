@@ -56,16 +56,17 @@ const Header = (props) => {
                 <div className="headerContainer">
                     <div className="headerContentsContainer">
                         <div className="headerLnCContainer">
-                            <Link to="/"><h1 className="logo" onMouseEnter={leaveHeader}>FanCafe</h1></Link>
+                            <Link to="/"><h1 className="logo" onMouseEnter={leaveHeader}>ANIMALPING</h1></Link>
+
                             <ul className="headerCatecoryContainer">
                                 <Link onMouseEnter={leaveHeader} to="/best">
-                                    <li>인기글</li>
+                                    <li>스토어</li>
                                 </Link>
                                 <Link onMouseEnter={leaveHeader} to="/new">
-                                    <li>전체글</li>
+                                    <li>커뮤니티</li>
                                 </Link>
                                 <Link onMouseEnter={hoverCategory} className="category">
-                                    <li>카테고리 <FontAwesomeIcon icon={faChevronDown}/></li>
+                                    <li>유틸리티 <FontAwesomeIcon icon={faChevronDown}/></li>
                                 </Link>
                             </ul>
                         </div>
@@ -80,7 +81,7 @@ const Header = (props) => {
                                    onChange={(e) => {
                                        setKeyword(e.target.value)
                                    }}/>
-                            {/*<button onClick={searchHandler}></button>*/}
+                            {/* <button onClick={searchHandler}>검색</button> */}
                         </form>
 
                         <div className="headerRegisterContainer" onMouseEnter={leaveHeader}>
