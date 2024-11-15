@@ -1,4 +1,4 @@
-import '../../assets/styles/shop/product.scss';
+import '../../assets/styles/shop/products.scss';
 import Product from "./Product";
 import ProductsLabel from "./ProductsLabel";
 
@@ -10,10 +10,11 @@ const Products = (props) => {
         <>
         <ProductsLabel/>
           <div className="products">
-              <Product/>
-              <Product/>
-              <Product/>
-              <Product/>
+              <Product position = "product"/>
+              <Product position = "product"/>
+              <Product position = "product"/>
+              <Product position = "product"/>
+
           </div>
         </>
 
