@@ -15,4 +15,9 @@
     li:first-child {
         border-left: none;
     }
+
+    li:hover {
+        text-decoration-line: underline;
+        text-decoration-style: wavy;
+    }
 }
