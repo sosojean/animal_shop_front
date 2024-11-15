@@ -1,9 +1,11 @@
-import {faUserPen} from "@fortawesome/free-solid-svg-icons";
+import {faImage, faPen, faUserPen} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import "../assets/styles/layout/mypage.scss"
 import {useEffect, useState} from "react";
 import instance from "../utils/axios";
 import {useNavigate} from "react-router-dom";
+import {faUser} from "@fortawesome/free-regular-svg-icons";
+import axios from "axios";
 
 function MyPage(props) {
     const navigate = useNavigate();
@@ -24,6 +26,8 @@ function MyPage(props) {
     const [isModified, setIsModified] = useState(false);
 
     const [submitted, setSubmitted] = useState(false)
+    const [imgUrl, setImgUrl] = useState("");
+
     useEffect(() => {
         const fetchData = async () => {
             const response = await instance({
@@ -170,11 +174,56 @@ function MyPage(props) {
         }
     }
 
+    const imageUploadHandler = (e) =>  {
+        const file = e.target.files[0];
+
+        // const reader = new FileReader();
+        // reader.readAsDataURL(file);
+        // reader.onloadend = ()=> {
+            // setImgUrl(reader.result)
+            // console.log(reader.result)
+
+        const formData = new FormData();
+
+        if (file != null) {
+            formData.append('image', new Blob([file], {type: 'multipart/form-data'}), file.name);
+        }
+
+        axios({
+            url: 'http://localhost:8080/file/profile-image-upload',
+            method: 'POST',
+            data: formData,
+        }).then((response) => {
+            setImgUrl(`http://localhost:8080/file/image-print?filename=${response.data}`)
+        }).catch((error) => {
+            console.log(error)
+        })
+        // }
+    }
+
     return (
         <div className="container">
             <div className="box">
+                {/*<FontAwesomeIcon className={"icon"} icon={faUserPen}/>*/}
 
-                <FontAwesomeIcon className={"icon"} icon={faUserPen}/>
+                {imgUrl ? <img src={imgUrl} alt=""/>: <>
+                    <label className="edit-profile-image" htmlFor="profile">
+                        <FontAwesomeIcon className={"icon"} icon={faUser}/>
+                        <FontAwesomeIcon icon={faPen}/>
+                    </label>
+                    <input onChange={imageUploadHandler} accept="image/*" id="profile" type="file"
+                           style={{display: "none"}}/>
+
+                </>
+
+                }
+
+                {/*<label className="edit-profile-image" htmlFor="profile">*/}
+                {/*    <FontAwesomeIcon className={"icon"} icon={faUser}/>*/}
+                {/*    <FontAwesomeIcon icon={faPen}/>*/}
+                {/*</label>*/}
+                {/*<input onChange={imageUploadHandler} accept="image/*" id="profile" type="file" style={{display: "none"}}/>*/}
+
                 <form action="post">
                     <span>아이디</span>
                     <span>{username}</span>

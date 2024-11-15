@@ -10,11 +10,23 @@
     width: 300px;
 
     .icon {
+      position: relative;
+      left: -200px;
+
       width: 300px;
       font-size: 5rem;
       color: var(--point-background-color-80);
-      margin-bottom: 30px;
+      //margin-bottom: 30px;
 
+    }
+
+    .edit-profile-image{
+      position: relative;
+      color: var(--point-background-color-80);
+      left: 200px;
+      top: -30px;
+      cursor: pointer;
+      font-size: 1.5rem;
     }
 
     form {
