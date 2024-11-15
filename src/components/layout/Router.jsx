@@ -11,6 +11,10 @@ import MyPage from "../../pages/MyPage";
 import ContentsViewer from "../board/ContentsViewer";
 import Search from "../../pages/Search";
 import MainDetail from "../store/MainDetail";
+import Product from "../shop/Product";
+import Products from "../shop/Products";
+import ShopMain from "../../pages/ShopMain";
+import Cart from "../../pages/shop/Cart";
 
 const Router = (props) => {
     return (
@@ -35,6 +39,10 @@ const Router = (props) => {
                         <Route path="/:category/:post_id" element={<ContentsViewer/>}/>
                         <Route path="/search" element={<Search/>}/>
                         <Route path="/product/detail" element={<MainDetail/>}/>
+                        <Route path="/shop" element={<ShopMain/>}/>
+                        <Route path="/cart" element={<Cart/>}/>
+
+
                     </Routes>
                 </div>
 

@@ -41,7 +41,7 @@ const Login = (props) => {
     }
 
     const setError = (error) => {
-        console.log(error);
+        // console.log(error);
         if (error === "id password wrong") {
             setIsInvalid(true);
             setIsError(false);

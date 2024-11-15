@@ -10,7 +10,7 @@ const WriteEditor = forwardRef((props, ref) => {
 
     const onUploadImage = async (blob, callback) => {
         try {
-            console.log(blob);
+            // console.log(blob);
 
             let filename
             let imageUrl
@@ -23,7 +23,7 @@ const WriteEditor = forwardRef((props, ref) => {
                 method: 'POST',
                 data: formData,
             }).then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 imageUrl = `http://localhost:8080/file/image-print?filename=${response.data}`;
                 callback(imageUrl, 'image alt attribute');
             }).catch((error) => {

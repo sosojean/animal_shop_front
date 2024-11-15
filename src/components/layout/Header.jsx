@@ -42,7 +42,7 @@ const Header = (props) => {
     }
 
     const hoverCategory = () => {
-        console.log("hoverCategory");
+        // console.log("hoverCategory");
         setHover(true);
     }
 
@@ -56,7 +56,8 @@ const Header = (props) => {
                 <div className="headerContainer">
                     <div className="headerContentsContainer">
                         <div className="headerLnCContainer">
-                            <Link to="/public"><h1 className="logo" onMouseEnter={leaveHeader}>ANIMALPING</h1></Link>
+                            <Link to="/"><h1 className="logo" onMouseEnter={leaveHeader}>ANIMALPING</h1></Link>
+
                             <ul className="headerCatecoryContainer">
                                 <Link onMouseEnter={leaveHeader} to="/best">
                                     <li>스토어</li>

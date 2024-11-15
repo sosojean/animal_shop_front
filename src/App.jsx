@@ -1,5 +1,7 @@
 import "../src/assets/styles/setting.css";
 import "../src/assets/styles/reset.css";
+import "../src/assets/styles/common.css";
+
 import {QueryClient, QueryClientProvider} from "react-query";
 import Router from "./components/layout/Router";
 import {useEffect, useState} from "react";

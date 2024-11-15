@@ -85,7 +85,7 @@ function MyPage(props) {
         }
     }
     const errorHandler = (error) => {
-        console.log(error);
+        // console.log(error);
         // setInvalidRequest(true)
         if (error === "mail already exists") {
             setEmailAlreadyExist(true);
@@ -104,11 +104,11 @@ function MyPage(props) {
         setEmail(email)
 
         if (regEmail.test(email)) {
-            console.log("이메일 유효");
+            // console.log("이메일 유효");
             setEmailInvalid(false);
 
         } else {
-            console.log("이메일 무효");
+            // console.log("이메일 무효");
             setEmailInvalid(true);
         }
     }
@@ -118,9 +118,9 @@ function MyPage(props) {
 
         if (regName.test(name)) {
             setNameInvalid(false);
-            console.log("닉네임 유효");
+            // console.log("닉네임 유효");
         } else {
-            console.log("닉네임 무효");
+            // console.log("닉네임 무효");
             setNameInvalid(true);
         }
 
@@ -159,14 +159,14 @@ function MyPage(props) {
             const resultAgain = confirm("정말로 정말로 탈퇴하실건가요?");
 
             if (resultAgain) {
-                console.log("회원탈퇴")
+                // console.log("회원탈퇴")
 
                 deleteUser();
             } else {
-                console.log("탈퇴안함")
+                // console.log("탈퇴안함")
             }
         } else {
-            console.log("탈퇴안함")
+            // console.log("탈퇴안함")
         }
     }
 
