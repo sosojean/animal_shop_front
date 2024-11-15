@@ -21,15 +21,19 @@
   img{width: 100%;}
 
 
+
   .product-info{
+
     display: flex;
     flex-direction: column;
     gap: 8px;
+
 
     .brand{
       font-size: 0.8rem;
     }
     .title{
+      //text-overflow: ellipsis;
       font-size: 1.2rem;
 
     }
