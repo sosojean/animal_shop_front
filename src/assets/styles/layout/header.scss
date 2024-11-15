@@ -5,17 +5,17 @@ $logo-suit-margin: 1.6rem;
 
 
   width: 100%;
-  background-color: var(--point-color);
-  color: var(--header-font-color);
+  background-color: white;
+  color: black;
   display: flex;
   justify-content: center;
   height: 76px;
   align-items: center;
-  border-bottom: 1px solid var(--point-shadow-color-50, rgb(14 122 128 / 50%));
+  border-bottom: 1px solid black;
 
   .headerContentsContainer {
-    background-color: var(--point-color);
-    color: var(--body-background-color);
+    background-color: white;
+    color: black;
 
     display: flex;
     justify-content: space-between;
@@ -23,14 +23,14 @@ $logo-suit-margin: 1.6rem;
     width: var(--site-width);
 
     h1 {
-      color: var(--header-font-color);
+      color: black;
 
       font-size: 1.5rem;
       font-weight: bold;
     }
 
     li {
-      color: var(--body-background-color);
+      color: black;
 
       &:hover {
         text-decoration: underline;
@@ -50,14 +50,14 @@ $logo-suit-margin: 1.6rem;
       padding-left: 30px;
       background: rgb(0 0 0 / 10%) url(../../img/search.svg) 6px center no-repeat;
 
-      border: 1px solid var(--point-shadow-color, rgb(0, 0, 0));
+      border: 1px solid black;
       border-radius: 10px/10px;
 
 
     }
 
     ::placeholder {
-      color: rgba(255, 255, 255, 0.50);
+      color: black;
       opacity: 1; /* Firefox */
     }
 
@@ -66,8 +66,8 @@ $logo-suit-margin: 1.6rem;
       padding-left: 10px;
 
 
-      background: white;
-      border: 1px solid var(--point-shadow-color, rgb(0, 0, 0));
+      background: black;
+      border: 1px solid black;
       border-radius: 10px/10px;
     }
 
@@ -103,7 +103,7 @@ $logo-suit-margin: 1.6rem;
     a {
       font-size: 1.3rem;
       color: var(--header-font-color);
-      background: var(--body-background-color-30);
+      background: black;
       width: 2.5rem;
       height: 2.5rem;
       border-radius: 20px/20px;
@@ -116,7 +116,7 @@ $logo-suit-margin: 1.6rem;
 
     //margin-top: 1rem;
     .logout {
-      color: var(--header-font-color);
+      color: black;
       font-size: 0.9rem;
 
       padding: 0;
@@ -129,7 +129,7 @@ $logo-suit-margin: 1.6rem;
       align-items: center;
       justify-content: center;
       display: flex;
-      color: var(--header-font-color);
+      color: black;
       background: var(--body-background-color-30);
       gap: 4px;
 

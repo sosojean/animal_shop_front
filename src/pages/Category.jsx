@@ -12,16 +12,16 @@ const Category = (props) => {
                 <div className="category-menu">
                     <ul className="category-menu-item">
                         <Link to="/free">
-                            <li>🎲 자유게시판</li>
+                            <li>🐶 보험</li>
                         </Link>
                         <Link to="/question">
-                            <li>❔ 강사님께 질문</li>
+                            <li>🐱 입양</li>
                         </Link>
                         <Link to="/ootd">
-                            <li>😎 강사님 OOTD</li>
+                            <li>🐰 반려동물 시설</li>
                         </Link>
                         <Link to="/fanart">
-                            <li>🖼️ 강사님 팬아트</li>
+                            <li>🐹 건강 계산기</li>
                         </Link>
                         <Link to="/graduate">
                             <li>🎓 졸업생 커뮤니티</li>
