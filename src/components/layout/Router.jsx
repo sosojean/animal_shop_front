@@ -15,6 +15,7 @@ import Product from "../shop/Product";
 import Products from "../shop/Products";
 import ShopMain from "../../pages/ShopMain";
 import Cart from "../../pages/shop/Cart";
+import DeliverInfo from "../../pages/shop/DeliverInfo";
 
 const Router = (props) => {
     return (
@@ -34,13 +35,14 @@ const Router = (props) => {
                         <Route path="/login" element={<Login reload={props.reload} setReload={props.setReload}/>}/>
                         <Route path="/post/write" element={<PostWrite/>}/>
                         <Route path="/join/success" element={<JoinSuccess/>}/>
-                        <Route path="/login" element={<Login/>}/>
                         <Route path="/mypage" element={<MyPage/>}/>
                         <Route path="/:category/:post_id" element={<ContentsViewer/>}/>
                         <Route path="/search" element={<Search/>}/>
                         <Route path="/product/detail" element={<MainDetail/>}/>
                         <Route path="/shop" element={<ShopMain/>}/>
                         <Route path="/cart" element={<Cart/>}/>
+                        <Route path="/deliver" element={<DeliverInfo/>}/>
+
 
 
                     </Routes>

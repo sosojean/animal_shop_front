@@ -1,0 +1,50 @@
+.buttons{
+  display: flex;
+  flex-direction: row;
+  *{
+    width: 160px;
+    height: 48px;
+  }
+}
+
+.deliver-info{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .input-address{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    .input-post-number{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between ;
+      #address1{
+        width: 200px;
+      }
+      button{
+        width: 110px;
+      }
+    }
+  }
+
+  .input-phone-number{
+    gap: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    input{
+      width: 100px
+    }
+
+
+
+  }
+  input,select{
+    height: 40px;
+    width: 320px;
+  }
+
+
+}
