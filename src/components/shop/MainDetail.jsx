@@ -1,5 +1,5 @@
 import { useState } from "react";
-import '../../assets/styles/store/mainDetail.scss'
+import '../../assets/styles/shop/mainDetail.scss'
 
 const MainDetail = () => {
 
