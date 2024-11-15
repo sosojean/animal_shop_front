@@ -10,6 +10,7 @@ import "../../assets/styles/layout/router.scss";
 import MyPage from "../../pages/MyPage";
 import ContentsViewer from "../board/ContentsViewer";
 import Search from "../../pages/Search";
+import MainDetail from "../store/MainDetail";
 
 const Router = (props) => {
     return (
@@ -33,7 +34,7 @@ const Router = (props) => {
                         <Route path="/mypage" element={<MyPage/>}/>
                         <Route path="/:category/:post_id" element={<ContentsViewer/>}/>
                         <Route path="/search" element={<Search/>}/>
-
+                        <Route path="/product/detail" element={<MainDetail/>}/>
                     </Routes>
                 </div>
 
