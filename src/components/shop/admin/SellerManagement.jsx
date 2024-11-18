@@ -1,28 +1,30 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 import SellerInfoItem from "./SellerInfoItem";
+import instance from "../../../utils/axios";
 
 const SellerManagement = (props) => {
     const [data, setData] = useState()
 
     useEffect(() => {
-        axios({
-            url:"https://jsonplaceholder.typicode.com/users",
+        instance({
+            url:"/admin/request-list?page=1",
             method:"get"
         }).then((response) => {
-            setData(response.data);
+            setData(response.data.sellerDTOS);
             console.log(response);
 
+        }).catch(error => {
+            console.log(error)
         })
     },[])
 
     const header = {
         username: "이름",
-        email: "이메일",
-        phone: "전화번호",
-        website : "정보"
-
-
+        bln: "사업자 번호",
+        phone_number: "전화번호",
+        category : "카테고리",
+        contents:"신청 상세"
     }
 
 

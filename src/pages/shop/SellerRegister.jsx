@@ -5,8 +5,7 @@ import axios, {get} from "axios";
 import {useNavigate} from "react-router-dom";
 
 // const data =1208800767  -> 테스트용 쿠팡 사업자 번호
-// const data =2118841856  -> 테스트용 티몬 사업자 번호
-// const data =5668701096  -> 테스트용 위메프 사업자 번호
+
 
 
 
@@ -219,7 +218,9 @@ const SellerRegister = (props) => {
                 <span className="placeholder">관리자 권한 승인후 판매자로 등록됩니다.</span>
                 <hr/>
 
+                <span>테스트용 쿠팡 사업자 1208800767</span>
             </form>
+
 
 
         </div>
