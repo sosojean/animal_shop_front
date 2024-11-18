@@ -8,6 +8,7 @@
     flex-direction: column;
     height: 700px;
     width: 300px;
+    margin-top: 80px;
 
     .icon {
       position: relative;
@@ -74,6 +75,12 @@
 
       .warning-btn {
         background: var(--warning-color);
+      }
+
+      .seller-register-link{
+        margin-top: 80px;
+        text-decoration : underline;
+        color: var(--alpha-30);
       }
     }
 

@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import "../assets/styles/layout/mypage.scss"
 import {useEffect, useState} from "react";
 import instance from "../utils/axios";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
 
@@ -251,6 +251,10 @@ function MyPage(props) {
 
 
                     <button onClick={confirmUser} className="warning-btn">회원탈퇴</button>
+
+                    <Link className="seller-register-link" to={"/seller/register"} >
+                        판매자이신가요? 권한신청하러가기>
+                    </Link>
 
                 </form>
             </div>

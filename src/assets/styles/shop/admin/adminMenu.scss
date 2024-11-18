@@ -1,0 +1,26 @@
+.adminMenu{
+  width: 100%;
+  height: 50px;
+  color: #000;
+  border-bottom: solid 1px #7c7c7c;
+  //position: relative;
+  ul{
+    list-style:none;
+    display: flex;
+    align-items: center;
+    //justify-content: center;
+    text-align: center;
+
+    li{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      float: left;
+      width: 100px;
+      height: 50px;
+
+    }
+  }
+
+}

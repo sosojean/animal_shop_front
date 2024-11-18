@@ -1,0 +1,66 @@
+.form-container{
+  height: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .seller-register-form{
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    hr{
+      width: 100%;
+      color: black;
+    }
+    label{
+      width: 100%;
+    }
+    input,select{
+      width: 100%;
+      border: 0.1px solid var(--alpha-40);
+      border-radius: 5px/5px;
+      height: 2.5rem;
+      font-size: 1.0625rem;
+      padding-left: 0.875rem;
+      line-height: 147.6%;
+    }
+    .split-input{
+      align-items: center;
+      gap: 4px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+
+
+    button {
+      width: 100%;
+      border-radius: 5px/5px;
+      border: none;
+      height: 2.5rem;
+      background: var(--point-color);
+      color: var(--header-font-color);
+    }
+    .bln-confirm{
+      width: 100px;
+    }
+
+    .placeholder{
+      color: var(--default-visited-anchor-color);
+      width: 100%;
+    }
+    .register{
+      margin-top: 8px;
+    }
+    .warning {
+      width: 100%;
+      color: var(--warning-color);
+      font-size: .8rem;
+    }
+
+
+  }
+}

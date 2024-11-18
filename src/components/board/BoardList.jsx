@@ -4,7 +4,7 @@ import Pagination from "./Pagination";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
-import DataNotExist from "../layout/DataNotExist";
+import Information from "../layout/Information";
 
 const BoardList = (props) => {
 
@@ -69,7 +69,7 @@ const BoardList = (props) => {
                 );
             })}
             {props.isAuth ? <WriteButton/> : null}
-            {data.totalCount == 0 && <DataNotExist/>}
+            {data.totalCount == 0 && <Information case = "dataNan"/>}
             {data && data.totalCount >= 10 && <Pagination
                 totalPost={data.totalCount}
                 currentPage={currentPage}
