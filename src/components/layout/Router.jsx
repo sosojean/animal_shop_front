@@ -15,6 +15,8 @@ import Products from "../shop/Products";
 import ShopMain from "../../pages/ShopMain";
 import Cart from "../../pages/shop/Cart";
 import ProductDetail from "../../pages/shop/ProductDetail";
+import SellerItemResigter from "../shop/SellerItemResgister";
+import MultipleImgUploader from "../test/MultipleImgUploader";
 
 const Router = (props) => {
     return (
@@ -41,8 +43,10 @@ const Router = (props) => {
                         <Route path="/product/detail" element={<ProductDetail/>}/>
                         <Route path="/shop" element={<ShopMain/>}/>
                         <Route path="/cart" element={<Cart/>}/>
-
-
+                        <Route path="/seller/item/register" element={<SellerItemResigter/>}/>
+                        
+                        {/* 다중 이미지 업로드 테스트 페이지 */}
+                        <Route path="/test/multipe" element={<MultipleImgUploader/>}/>
                     </Routes>
                 </div>
 
