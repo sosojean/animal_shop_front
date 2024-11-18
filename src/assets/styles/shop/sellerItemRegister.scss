@@ -1,22 +1,31 @@
 .itemRegContainer {
     h1 {
         margin: 2rem 0 2rem 0;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid black;
+    }
+
+    .RegNameContainer {
+        display: flex;
+        gap: 1rem;
+
+        p {
+            padding-top: 8px;
+        }
+
     }
 
     .RegInputContainer {
         display: flex;
         margin-bottom: 1rem;
-
-        h3 {
-            margin-right: 5px;
-        }
-
-        :nth-child(2) {
-            margin-right: 1rem;
-        }
+        width: 600px;
+        justify-content: space-between;
 
         input {
             cursor: text;
+            width: 400px;
+            height: 30px;
+            border-width: 0 0 1px;
         }
     }
 

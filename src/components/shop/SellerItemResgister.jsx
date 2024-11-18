@@ -25,6 +25,10 @@ const SellerItemResigter = () => {
     const [options, setOptions] = useState([]);
     const [newOption, setNewOption] = useState({name: '', price: ''});
 
+    // 글자수
+    const [nameCount, setNameCount] = useState(0);
+
+
     // 상세 이미지 추가
     const handleSaveDetailImages = () => {
         const file = detailRef.current.files[0];
@@ -79,13 +83,33 @@ const SellerItemResigter = () => {
         setOptions(options.filter((v, i) => i !== id));
       }
 
+      // 글자수 제한
+      const handleLengthLimit = (e) => {
+        const inputValue = e.target.value;
+        // 한글이 포함되어 있으면, 조합형을 완성형으로 변환하여 글자수 계산
+        const normalizedValue = inputValue.normalize("NFC");
+        // 계산된 글자수 업데이트
+        setNameCount(normalizedValue.length);
+      }
+
     return (
         <div className='itemRegContainer'>
             <h1>상품 등록</h1>
 
+            <div className='RegNameContainer'>
+                <div className='RegInputContainer'>
+                    <h3>상품명</h3>
+                    <input placeholder="상품명" 
+                    onChange={(e) => {
+                        setItemName(e.target.value)
+                        handleLengthLimit(e)
+                    }} 
+                    maxLength="40"/>
+                </div>
+                <p>{nameCount >= 40 ? 40 : nameCount} / 40</p>
+            </div>
+
             <div className='RegInputContainer'>
-                <h3>상품명</h3>
-                <input placeholder="상품명" onChange={(e) => {setItemName(e.target.value)}}/>
                 <h3>재고</h3>
                 <input type="number" placeholder="재고" onChange={(e) => {setItemStock(e.target.value)}}/>
             </div>
