@@ -1,6 +1,53 @@
 import "../../assets/styles/shop/deliverInfo.scss"
+import {useDaumPostcodePopup} from "react-daum-postcode";
+import {postcodeScriptUrl} from "react-daum-postcode/lib/loadPostcode";
+import {useState} from "react";
 
 const DeliverInfo = (props) => {
+    const [zoneCode, setZoneCode] = useState()
+
+    const [address, setAddress] = useState()
+
+        //클릭 시 수행될 팝업 생성 함수
+    const open = useDaumPostcodePopup(postcodeScriptUrl);
+
+    const handleComplete = (data) => {
+        let fullAddress = data.address;
+        let extraAddress = ''; //추가될 주소
+        let localAddress = data.sido + ' ' + data.sigungu; //지역주소(시, 도 + 시, 군, 구)
+        let townAddress = '';
+        if (data.addressType === 'R' ) { //주소타입이 도로명주소일 경우
+            if (data.bname !== ''  && /[동|로|가]$/g.test(data.bname)) {
+                extraAddress += data.bname; //법정동, 법정리
+            }
+            if (data.buildingName !== '') { //건물명
+                extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
+            }
+            //지역주소 제외 전체주소 치환
+            fullAddress = fullAddress.replace(localAddress, '');
+
+            townAddress = fullAddress += (extraAddress !== '' ? `(${extraAddress})` : '')
+
+
+            console.log("extraAddress"+extraAddress);
+            setAddress(localAddress + + extraAddress + townAddress +"");
+            setAddress(`${localAddress} ${extraAddress} ${townAddress}`);
+            setZoneCode(data.zonecode)
+
+
+
+
+        }
+    }
+        //클릭 시 발생할 이벤트
+
+
+    const handleClick = (e) => {
+            e.preventDefault()
+        //주소검색이 완료되고, 결과 주소를 클릭 시 해당 함수 수행
+        open({onComplete: handleComplete});
+    }
+
   return(<div>
       <div>
           <span>left</span>
@@ -20,14 +67,14 @@ const DeliverInfo = (props) => {
                   <label htmlFor="address">배송지</label>
 
                   <div className="input-post-number">
-                      <input id="address1" type="text"/>
-                      <button>
+                      <input id="address1" type="text" value={zoneCode}/>
+                      <button onClick={handleClick}>
                           주소검색
                       </button>
                   </div>
 
 
-                  <input id="address2" type="text"/>
+                  <input id="address2" type="text" value={address}/>
                   <input id="address3" type="text"/>
               </div>
 

@@ -211,13 +211,13 @@ const SellerRegister = (props) => {
                 {isInvalidBln && <span className="warning">{message}</span>}
                 {blnInfo && <span>[{blnInfo["bzmnNm"]}] {blnInfo["rprsvNm"]} 대표님</span>}
 
-                {isInvalidRequest&&<span className="warning">값을 확인해주세요</span>}
-                {isAlreadySeller&&<span className="warning">이미 권한을 신청한 판매자 입니다.</span>}
+                {isInvalidRequest && <span className="warning">값을 확인해주세요</span>}
+                {isAlreadySeller && <span className="warning">이미 권한을 신청한 판매자 입니다.</span>}
 
 
                 <button onClick={registerHandler} className="register">권한 신청</button>
                 <span className="placeholder">관리자 권한 승인후 판매자로 등록됩니다.</span>
-
+                <hr/>
 
             </form>
 
