@@ -10,13 +10,15 @@
 }
 
 .products{
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 16px;
 
-.product{
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  place-items: center;
+  justify-content: center;
+
+
+  .product{
   width: 250px;
   img{width: 100%;}
 

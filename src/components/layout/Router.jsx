@@ -20,6 +20,7 @@ import DeliverInfo from "../../pages/shop/DeliverInfo";
 import Admin from "../../pages/shop/admin/Admin";
 import SellerRegister from "../../pages/shop/SellerRegister";
 import Information from "./Information";
+import AllProduct from "../../pages/shop/AllProduct";
 
 const Router = (props) => {
     return (
@@ -44,6 +45,8 @@ const Router = (props) => {
                         <Route path="/search" element={<Search/>}/>
                         <Route path="/product/detail" element={<ProductDetail/>}/>
                         <Route path="/shop" element={<ShopMain/>}/>
+                        <Route path="/shop/:category" element={<AllProduct/>}/>
+
                         <Route path="/cart" element={<Cart/>}/>
 
                         <Route path="/seller/item/new" element={<SellerItemResigter/>}/>
