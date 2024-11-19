@@ -59,10 +59,10 @@ const Header = (props) => {
                             <Link to="/"><h1 className="logo" onMouseEnter={leaveHeader}>ANIMALPING</h1></Link>
 
                             <ul className="headerCatecoryContainer">
-                                <Link onMouseEnter={leaveHeader} to="/best">
+                                <Link onMouseEnter={leaveHeader} to="/shop">
                                     <li>스토어</li>
                                 </Link>
-                                <Link onMouseEnter={leaveHeader} to="/new">
+                                <Link onMouseEnter={leaveHeader} to="/">
                                     <li>커뮤니티</li>
                                 </Link>
                                 <Link onMouseEnter={hoverCategory} className="category">

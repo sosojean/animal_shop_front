@@ -2,22 +2,28 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import SellerInfoItem from "./SellerInfoItem";
 import instance from "../../../utils/axios";
+import Pagination from "../../board/Pagination";
 
 const SellerManagement = (props) => {
     const [data, setData] = useState()
+    const [page, setPage] = useState(1)
+    const [totalSeller, setTotalSeller] = useState()
+
 
     useEffect(() => {
         instance({
-            url:"/admin/request-list?page=1",
+            url:`/admin/request-list?page=${page}`,
             method:"get"
         }).then((response) => {
             setData(response.data.sellerDTOS);
+            setTotalSeller(response.data.totalCount)
+
             console.log(response);
 
         }).catch(error => {
             console.log(error)
         })
-    },[])
+    },[page])
 
     const header = {
         username: "이름",
@@ -36,6 +42,7 @@ const SellerManagement = (props) => {
                 )
             }):null
         }
+        <Pagination currentPage={page} handlePageChange={setPage} totalPost={totalSeller}/>
     </>)
 }
 export default SellerManagement;
