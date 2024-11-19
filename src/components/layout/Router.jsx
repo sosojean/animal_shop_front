@@ -42,7 +42,7 @@ const Router = (props) => {
                         <Route path="/product/detail" element={<ProductDetail/>}/>
                         <Route path="/shop" element={<ShopMain/>}/>
                         <Route path="/cart" element={<Cart/>}/>
-                        <Route path="/seller/item/register" element={<SellerItemResigter/>}/>
+                        <Route path="/seller/item/new" element={<SellerItemResigter/>}/>
                     </Routes>
                 </div>
 
