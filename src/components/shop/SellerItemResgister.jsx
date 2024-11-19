@@ -6,23 +6,24 @@ import { useState, useRef } from 'react';
 import '../../assets/styles/shop/sellerItemRegister.scss'
 import instance from '../../utils/axios'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SellerItemResigter = () => {
+    const navigate = useNavigate();
+
     const [itemName, setItemName] = useState("");
-    const [itemStock, setItemStock] = useState("");
-    const [sellStatus, setSellStatus] = useState("");
-    const [itemSpecies, setItemSpecies] = useState("");
-    const [itemType, setItemType] = useState("");
+    const [itemStock, setItemStock] = useState();
+    const [sellStatus, setSellStatus] = useState("판매");
+    const [itemSpecies, setItemSpecies] = useState("강아지");
+    const [itemType, setItemType] = useState("간식");
 
     const editorRef = useRef(null);
 
     // 이미지
     const [detailImage, setDetailImage] = useState(null);
     const [detailImageUrl, setDetailImageUrl] = useState("");
-    const [url, setUrl] = useState("");
     const detailRef = useRef();
 
-    const [thumnails, setThumnails] = useState([]); // 이미지 미리보기에 사용하는 state
     const [thumnailsUrls, setThumnailsUrls] = useState([]);
     
     // 옵션
@@ -76,26 +77,7 @@ const SellerItemResigter = () => {
 
     }
 
-    const handleSaveThumnailImages = (e) => {
-        
-          const imageLists = e.target.files;
-          let imageUrlLists = [...thumnails];
-  
-          for (let i = 0; i < imageLists.length; i++){
-              // 파일의 상대경로 반환
-              const currentImageUrl = URL.createObjectURL(imageLists[i]);
-              imageUrlLists.push(currentImageUrl);
-          }
-  
-          // 최대 첨부 가능 이미지 파일 수 조정
-          if (imageUrlLists.length > 10) {
-              imageLists = imageUrlLists.slice(0, 10);
-          }
-  
-          setThumnails(imageUrlLists);
-    };
-
-    const handleUploadThumnailImage = async (e) => {
+     const handleUploadThumnailImage = async (e) => {
         const file = e.target.files[0];  // 사용자가 업로드한 파일
         console.log(file.name);
     
@@ -118,8 +100,6 @@ const SellerItemResigter = () => {
             ...prevUrls,
             `http://localhost:8080/file/image-print?filename=${fileName}`
           ]);
-    
-          alert('업로드 성공!');
         } catch (error) {
           console.error('이미지 업로드 실패:', error);
           alert('업로드 실패!');
@@ -127,8 +107,7 @@ const SellerItemResigter = () => {
       };
   
       const handleDeleteThumnailImages = (id) => {
-          setThumnails(thumnails.filter((v, i) => i !== id));
-          setThumnailsUrls(thumnails.filter((v, i) => i !== id));
+          setThumnailsUrls(thumnailsUrls.filter((v, i) => i !== id));
       }
 
       const handleAddOption = () => {
@@ -154,46 +133,40 @@ const SellerItemResigter = () => {
         setNameCount(normalizedValue.length);
       }
 
-      const handleItemRegister = () => {
-            const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
-            console.log(markdown);
-            console.log(detailRef);
-            console.log(thumnails);
-            
-            // instance({
-            //     url: `/seller/item/new`,
-            //     method: "post",
-            //     data:
-            //     {
-            //         "option": options,
-            //         "name": itemName,
-            //         "item_detail": markdown,
-            //         "stock_number": itemStock,
-            //         "sell_status": sellStatus, 
-            //         "species": itemSpecies,
-            //         "category": itemType,
-            //         "thumbnailUrls": thumnails,
-            //         "imageUrl": detailImage
-            //     }
-                
-            // })
-      }
+      const handleItemRegister = async () => {
+        const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
+    
+        try {
+            const response = await instance({
+                url: "/seller/item/new",
+                method: "post",
+                data: {
+                    "option": options,
+                    "name": itemName,
+                    "item_detail": markdown,
+                    "stock_number": itemStock,
+                    "sell_status": "SELL", 
+                    "species": itemSpecies,
+                    "category": itemType,
+                    "thumbnailUrls": thumnailsUrls,
+                    "imageUrl": detailImageUrl
+                }
+            });
+    
+            // 성공적으로 데이터가 저장된 경우
+            console.log('등록 성공:', response.data);
+
+            navigate('/');
+    
+        } catch (error) {
+            // 에러가 발생한 경우
+            console.log('에러 발생:', error);
+        }
+    }
 
     return (
         <div className='itemRegContainer'>
             <h1>상품 등록</h1>
-
-            {/* 썸네일 이미지 미리보기 리스트 */}
-            <div>
-                <h1>test</h1>
-                {thumnailsUrls.map((url, index) => (
-                    <div key={index}>
-                        <img src={url} alt={`Thumbnail ${index}`} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />
-                    </div>
-                ))}
-            </div>
-
-
 
             <div className='RegNameContainer'>
                 <div className='RegInputContainer'>
@@ -215,10 +188,12 @@ const SellerItemResigter = () => {
             
             <div className='RegSelectContainer'>
                 <h3>판매상태</h3>
-                <select onChange={(e) => {setSellStatus(e.target.value)}}>
+                <select onChange={(e) => {
+                    let selectedStatus = e.target.value === "판매" ? "SELL" : "SOLD_OUT";
+                    setSellStatus(selectedStatus);
+                }}>
                     <option>판매</option>
                     <option>품절</option>
-                    <option>일시품절</option>
                 </select>
             </div>
 
@@ -317,21 +292,18 @@ const SellerItemResigter = () => {
             </div>
 
             <div className='RegThumnailContainer'>
-                <h3>대표 이미지</h3> <h3 style={{color: "blue"}}>{thumnails.length}/10</h3>
+                <h3>대표 이미지</h3> <h3 style={{color: "blue"}}>{thumnailsUrls.length}/10</h3>
                 <div className="addPicture">
                     <label htmlFor="thumail-file" className="addButton">
-                        { thumnails.length >= 10 && <p>사진 등록 할 수 없습니다</p> }
+                        { thumnailsUrls.length >= 10 && <p>사진 등록 할 수 없습니다</p> }
                         <input 
                             type="file" 
                             id="thumail-file" 
                             multiple 
                             className="addButton" 
                             accept="image/*"
-                            onChange={(e) => {
-                                handleSaveThumnailImages(e);
-                                handleUploadThumnailImage(e);
-                            }}
-                            disabled={thumnails.length >= 10} // 파일 선택 비활성화
+                            onChange={(e) => {handleUploadThumnailImage(e);}}
+                            disabled={thumnailsUrls.length >= 10} // 파일 선택 비활성화
                             style={{ display: "none" }} // 스타일 수정
                         />
                         <p style={{ cursor: "pointer" }}>사진추가</p>
@@ -339,7 +311,7 @@ const SellerItemResigter = () => {
 
                     {/* 저장해둔 이미지들을 순회하면서 화면에 이미지 출력 */}
                     <div className='ThumnailList'>
-                        {thumnails.map((image, id) => (
+                        {thumnailsUrls.map((image, id) => (
                             <div key={id}>
                                 <img src={image} alt={`${image}-${id}`} style={{ width: '200px', height: '200px', objectFit: 'cover' }}/>
                                 <button onClick={() => handleDeleteThumnailImages(id)}>삭제</button>
