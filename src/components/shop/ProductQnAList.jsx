@@ -6,10 +6,7 @@ const ProductQnAList = () => {
     return(
         <>
             <ProductQnA/>
-            <ProductQnA/>
-            <ProductQnA/>
-            <ProductQnA/>
-            <ProductQnA/>
+
         </>
     )
 

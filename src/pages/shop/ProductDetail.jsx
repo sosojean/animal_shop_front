@@ -11,7 +11,7 @@ const ProductDetail = () => {
         <>
             <MainDetail/>
             <ProductDetailNav/>
-            {/* <ProductDetailContent/> */}
+            <ProductDetailContent/>
             {/* <ProductReviewList/> */}
             <ProductQnAList/>
             <Products/>

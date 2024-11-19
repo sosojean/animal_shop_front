@@ -44,7 +44,7 @@ const Product = (props) => {
 
     return(
 
-        <Link to={`http://localhost:8080/item/detail/${props.data?.id}`}>
+        <Link to={`http://localhost:3000/shop/detail/${props.data?.id}`}>
             {console.log(props)}
           <div className={props.position}>
 

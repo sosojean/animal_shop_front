@@ -4,7 +4,7 @@ const ProductDetailContent = () => {
 
     return (
         <>
-            <p>ProductDetailContent</p>
+            <img src="https://placehold.co/500"/>
         </>
     )
 }
