@@ -8,19 +8,7 @@ const Cart = (props) => {
     const [data, setData] = useState()
     const [loading, setLoading] = useState(true)
 
-    // useEffect(() => {
-    //     axios({
-    //         url:"https://jsonplaceholder.typicode.com/users/1/todos",
-    //         method:"GET",
-    //
-    //     }).then((response) => {
-    //         setData(response.data)
-    //         console.log(data)
-    //         setLoading(false)
-    //     })
-    //         .catch(error => console.log(error));
-    //
-    // },[loading])
+
 
     useEffect(() => {
         let cart = localStorage.getItem("cart")
