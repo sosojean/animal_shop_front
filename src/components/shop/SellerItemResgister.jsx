@@ -4,6 +4,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleXmark} from "@fortawesome/free-regular-svg-icons";
 import { useState, useRef } from 'react';
 import '../../assets/styles/shop/sellerItemRegister.scss'
+import instance from '../../utils/axios'
+import axios from 'axios';
 
 const SellerItemResigter = () => {
     const [itemName, setItemName] = useState("");
@@ -13,13 +15,14 @@ const SellerItemResigter = () => {
     const [itemType, setItemType] = useState("");
 
     const editorRef = useRef(null);
-    // const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
 
     // 이미지
     const [detailImage, setDetailImage] = useState(null);
+    const [detailImageUrl, setDetailImageUrl] = useState("");
+    const [url, setUrl] = useState("");
     const detailRef = useRef();
 
-    const [thumnails, setThumnails] = useState([]);
+    const [thumnails, setThumnails] = useState([]); // 이미지 미리보기에 사용하는 state
     
     // 옵션
     const [options, setOptions] = useState([]);
@@ -44,6 +47,32 @@ const SellerItemResigter = () => {
 
         }
       };
+
+    // 서버에 상세 이미지 업로드 > state에 저장
+    const handleUploadDetailImage = async () => {
+        const file = detailRef.current.files[0];
+        console.log(file.name);
+
+        const formData = new FormData();
+        formData.append("image", file);
+
+        try {
+            const response = await axios.post('http://localhost:8080/file/item-image-upload', formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            });
+      
+            // 업로드 후 서버에서 받은 파일명 출력
+            console.log('Uploaded File:', response.data);
+            setDetailImageUrl(response.data);
+            alert('업로드 성공!');
+          } catch (error) {
+            console.error('이미지 업로드 실패:', error);
+            alert('업로드 실패!');
+          }
+
+    }
 
       const handleSaveThumnailImages = (e) => {
         
@@ -92,9 +121,36 @@ const SellerItemResigter = () => {
         setNameCount(normalizedValue.length);
       }
 
+      const handleItemRegister = () => {
+            const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
+            console.log(markdown);
+            console.log(detailRef);
+            console.log(thumnails);
+            
+            // instance({
+            //     url: `/seller/item/new`,
+            //     method: "post",
+            //     data:
+            //     {
+            //         "option": options,
+            //         "name": itemName,
+            //         "item_detail": markdown,
+            //         "stock_number": itemStock,
+            //         "sell_status": sellStatus, 
+            //         "species": itemSpecies,
+            //         "category": itemType,
+            //         "thumbnailUrls": thumnails,
+            //         "imageUrl": detailImage
+            //     }
+                
+            // })
+      }
+
     return (
         <div className='itemRegContainer'>
             <h1>상품 등록</h1>
+
+
 
             <div className='RegNameContainer'>
                 <div className='RegInputContainer'>
@@ -206,7 +262,10 @@ const SellerItemResigter = () => {
                         type="file"
                         id="detail-file"
                         accept="image/*"
-                        onChange={handleSaveDetailImages}
+                        onChange={() => {
+                            handleSaveDetailImages();
+                            handleUploadDetailImage();
+                        }}
                         style={{ display: "none" }}
                         ref={detailRef}
                     />
@@ -224,6 +283,7 @@ const SellerItemResigter = () => {
                             id="thumail-file" 
                             multiple 
                             className="addButton" 
+                            accept="image/*"
                             onChange={handleSaveThumnailImages}
                             disabled={thumnails.length >= 5} // 파일 선택 비활성화
                             style={{ display: "none" }} // 스타일 수정
@@ -244,7 +304,7 @@ const SellerItemResigter = () => {
             </div>
 
             <div className='ItemRegButton'>
-                <button>등록</button>
+                <button onClick={handleItemRegister}>등록</button>
             </div>
         </div>
     )
