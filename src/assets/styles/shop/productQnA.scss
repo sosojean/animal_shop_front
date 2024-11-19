@@ -1,0 +1,16 @@
+.qnaContainer{
+    border-bottom: 1px solid lightgray;
+    
+    .qnaInfoContainer {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 0.8rem;
+        margin-top: 2rem;
+
+        font-size: 1.2rem;
+    }
+
+    .qnaContent {
+        margin-bottom: 2rem;
+    }
+}

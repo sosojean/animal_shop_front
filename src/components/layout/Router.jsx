@@ -15,6 +15,7 @@ import Products from "../shop/Products";
 import ShopMain from "../../pages/ShopMain";
 import Cart from "../../pages/shop/Cart";
 import ProductDetail from "../../pages/shop/ProductDetail";
+import SellerItemResigter from "../shop/SellerItemResgister";
 import DeliverInfo from "../../pages/shop/DeliverInfo";
 import Admin from "../../pages/shop/admin/Admin";
 import SellerRegister from "../../pages/shop/SellerRegister";
@@ -44,6 +45,9 @@ const Router = (props) => {
                         <Route path="/product/detail" element={<ProductDetail/>}/>
                         <Route path="/shop" element={<ShopMain/>}/>
                         <Route path="/cart" element={<Cart/>}/>
+
+                        <Route path="/seller/item/new" element={<SellerItemResigter/>}/>
+
                         <Route path="/deliver" element={<DeliverInfo/>}/>
                         <Route path="/admin/:menu" element={<Admin/>}/>
                         <Route path="/seller/register" element={<SellerRegister/>}/>
