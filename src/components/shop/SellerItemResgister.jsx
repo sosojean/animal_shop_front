@@ -145,7 +145,7 @@ const SellerItemResigter = () => {
                     "name": itemName,
                     "item_detail": markdown,
                     "stock_number": itemStock,
-                    "sell_status": "SELL", 
+                    "sell_status": sellStatus, 
                     "species": itemSpecies,
                     "category": itemType,
                     "thumbnailUrls": thumnailsUrls,
