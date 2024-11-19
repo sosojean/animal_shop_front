@@ -23,6 +23,7 @@ const SellerItemResigter = () => {
     const detailRef = useRef();
 
     const [thumnails, setThumnails] = useState([]); // 이미지 미리보기에 사용하는 state
+    const [thumnailsUrls, setThumnailsUrls] = useState([]);
     
     // 옵션
     const [options, setOptions] = useState([]);
@@ -65,7 +66,8 @@ const SellerItemResigter = () => {
       
             // 업로드 후 서버에서 받은 파일명 출력
             console.log('Uploaded File:', response.data);
-            setDetailImageUrl(response.data);
+            const fileName = response.data;
+            setDetailImageUrl(`http://localhost:8080/file/image-print?filename=${fileName}`);
             alert('업로드 성공!');
           } catch (error) {
             console.error('이미지 업로드 실패:', error);
@@ -74,7 +76,7 @@ const SellerItemResigter = () => {
 
     }
 
-      const handleSaveThumnailImages = (e) => {
+    const handleSaveThumnailImages = (e) => {
         
           const imageLists = e.target.files;
           let imageUrlLists = [...thumnails];
@@ -91,11 +93,42 @@ const SellerItemResigter = () => {
           }
   
           setThumnails(imageUrlLists);
+    };
+
+    const handleUploadThumnailImage = async (e) => {
+        const file = e.target.files[0];  // 사용자가 업로드한 파일
+        console.log(file.name);
+    
+        const formData = new FormData();
+        formData.append("image", file);  // 'image' 필드로 파일을 추가
+    
+        try {
+          const response = await axios.post('http://localhost:8080/file/item-image-upload', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+    
+          // 업로드 후 서버에서 받은 파일명
+          console.log('Uploaded File:', response.data);
+          const fileName = response.data;
+    
+          // 서버에서 받은 파일명으로 이미지 URL을 생성하여 상태에 추가
+          setThumnailsUrls(prevUrls => [
+            ...prevUrls,
+            `http://localhost:8080/file/image-print?filename=${fileName}`
+          ]);
+    
+          alert('업로드 성공!');
+        } catch (error) {
+          console.error('이미지 업로드 실패:', error);
+          alert('업로드 실패!');
+        }
       };
-  
   
       const handleDeleteThumnailImages = (id) => {
           setThumnails(thumnails.filter((v, i) => i !== id));
+          setThumnailsUrls(thumnails.filter((v, i) => i !== id));
       }
 
       const handleAddOption = () => {
@@ -149,6 +182,16 @@ const SellerItemResigter = () => {
     return (
         <div className='itemRegContainer'>
             <h1>상품 등록</h1>
+
+            {/* 썸네일 이미지 미리보기 리스트 */}
+            <div>
+                <h1>test</h1>
+                {thumnailsUrls.map((url, index) => (
+                    <div key={index}>
+                        <img src={url} alt={`Thumbnail ${index}`} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />
+                    </div>
+                ))}
+            </div>
 
 
 
@@ -284,8 +327,11 @@ const SellerItemResigter = () => {
                             multiple 
                             className="addButton" 
                             accept="image/*"
-                            onChange={handleSaveThumnailImages}
-                            disabled={thumnails.length >= 5} // 파일 선택 비활성화
+                            onChange={(e) => {
+                                handleSaveThumnailImages(e);
+                                handleUploadThumnailImage(e);
+                            }}
+                            disabled={thumnails.length >= 10} // 파일 선택 비활성화
                             style={{ display: "none" }} // 스타일 수정
                         />
                         <p style={{ cursor: "pointer" }}>사진추가</p>
