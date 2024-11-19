@@ -1,0 +1,19 @@
+.seller-info-item {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 30px;
+
+  *{width: 150px}
+  .user-name{}
+  .email{}
+  .phone{}
+  .info{}
+  .auth-buttons{
+    display: flex;
+    flex-direction: row;
+
+  }
+
+}

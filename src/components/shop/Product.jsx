@@ -55,7 +55,8 @@ const Product = (props) => {
                       <span className="count">{props.data?.count}</span>
                   </div>
                   <span className="star"><FontAwesomeIcon icon={faStar}/>4.5</span>
-                  <button onClick={addCart} className="cart-button">장바구니</button>
+                  {props.position==="product"?
+                      <button onClick={addCart} className="cart-button">장바구니</button>:null}
               </div>
 
           </div>

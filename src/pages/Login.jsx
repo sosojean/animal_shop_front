@@ -1,6 +1,6 @@
 import "../assets/styles/layout/login.scss";
 import {Link, useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 
 const Login = (props) => {
@@ -11,6 +11,13 @@ const Login = (props) => {
 
     const [isInvalid, setIsInvalid] = useState(false);
     const [isError, setIsError] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("accessToken")
+        if (token) {
+            navigate(`/`);
+        }
+    }, []);
 
     const handleLogin = async (event) => {
         event.preventDefault();

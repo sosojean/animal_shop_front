@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import "../assets/styles/layout/mypage.scss"
 import {useEffect, useState} from "react";
 import instance from "../utils/axios";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
 
@@ -12,6 +12,9 @@ function MyPage(props) {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
+
+    const [role, setRole] = useState("");
+
 
     const [inputEmail, setInputEmail] = useState("");
     const [inputName, setInputName] = useState("");
@@ -42,6 +45,10 @@ function MyPage(props) {
 
                 setEmail(response.data.mail);
                 setInputEmail(response.data.mail);
+
+                setRole(response.data.role);
+
+                console.log(response.data)
             }
         }
         fetchData()
@@ -176,15 +183,7 @@ function MyPage(props) {
 
     const imageUploadHandler = (e) =>  {
         const file = e.target.files[0];
-
-        // const reader = new FileReader();
-        // reader.readAsDataURL(file);
-        // reader.onloadend = ()=> {
-            // setImgUrl(reader.result)
-            // console.log(reader.result)
-
         const formData = new FormData();
-
         if (file != null) {
             formData.append('image', new Blob([file], {type: 'multipart/form-data'}), file.name);
         }
@@ -198,7 +197,6 @@ function MyPage(props) {
         }).catch((error) => {
             console.log(error)
         })
-        // }
     }
 
     return (
@@ -252,6 +250,12 @@ function MyPage(props) {
 
                     <button onClick={confirmUser} className="warning-btn">회원탈퇴</button>
 
+                    {(role&&role!="SELLER")?
+                        <Link className="seller-register-link" to={"/seller/register"} >
+                            판매자이신가요? 권한신청하러가기>
+                        </Link>:
+                        <span>판매자 센터로 가기 -> </span>
+                    }
                 </form>
             </div>
 

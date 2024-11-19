@@ -1,0 +1,41 @@
+
+.information {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .main-content {
+    .icon {
+      position: relative;
+      font-size: 7rem;
+      color: var(--alpha-3);
+      bottom: 50px;
+      left: 50px;
+    }
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 2rem;
+    color: var(--alpha-50);
+    p{
+      margin-right: 50px;
+    }
+  }
+
+  .buttons{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+
+      *{
+        text-align: center;
+      margin-top: 40px;
+      width: 10rem;
+    }
+  }
+}

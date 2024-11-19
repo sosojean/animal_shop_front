@@ -33,7 +33,7 @@ const Products = (props) => {
         <ProductsLabel/>
           <div className="products">
               {data&&data?.slice(1, 5).map(data=>{
-                  return ( <Product data = {data} position="product" />)
+                  return ( <Product data = {data} position="product"/>)
 
               })}
 

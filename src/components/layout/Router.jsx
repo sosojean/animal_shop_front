@@ -16,6 +16,10 @@ import ShopMain from "../../pages/ShopMain";
 import Cart from "../../pages/shop/Cart";
 import ProductDetail from "../../pages/shop/ProductDetail";
 import SellerItemResigter from "../shop/SellerItemResgister";
+import DeliverInfo from "../../pages/shop/DeliverInfo";
+import Admin from "../../pages/shop/admin/Admin";
+import SellerRegister from "../../pages/shop/SellerRegister";
+import Information from "./Information";
 
 const Router = (props) => {
     return (
@@ -34,15 +38,25 @@ const Router = (props) => {
                         <Route path="/join" element={<Join/>}/>
                         <Route path="/login" element={<Login reload={props.reload} setReload={props.setReload}/>}/>
                         <Route path="/post/write" element={<PostWrite/>}/>
-                        <Route path="/join/success" element={<JoinSuccess/>}/>
-                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/join/success" element={<Information case ="join" />}/>
                         <Route path="/mypage" element={<MyPage/>}/>
                         <Route path="/:category/:post_id" element={<ContentsViewer/>}/>
                         <Route path="/search" element={<Search/>}/>
                         <Route path="/product/detail" element={<ProductDetail/>}/>
                         <Route path="/shop" element={<ShopMain/>}/>
                         <Route path="/cart" element={<Cart/>}/>
+
                         <Route path="/seller/item/new" element={<SellerItemResigter/>}/>
+
+                        <Route path="/deliver" element={<DeliverInfo/>}/>
+                        <Route path="/admin/:menu" element={<Admin/>}/>
+                        <Route path="/seller/register" element={<SellerRegister/>}/>
+                        <Route path="/seller/register/success" element={<Information case ="seller" />}/>
+
+
+
+
+
                     </Routes>
                 </div>
 
