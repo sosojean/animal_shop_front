@@ -7,8 +7,8 @@ const Product = (props) => {
 
     const addCart = () => {
         const item = {
-            title: props.data.title,
-            count: props.data.id };
+            title: props.data?.name,
+            count: 1 };
 
         let storageCart = localStorage.getItem("cart");
 
@@ -44,17 +44,17 @@ const Product = (props) => {
     return(
           <div className={props.position}>
 
-              <img src="https://placehold.co/100" alt=""/>
+              <img src={props?.data["thumbnail_url"]} alt=""/>
               <div className="product-info">
-                  <span className="brand">{props.data?.id}</span>
-                  <span className="title">{props.data?.title}</span>
-                  <span className="price">12,800원</span>
+                  <span className="brand">{props.data?.nickname}</span>
+                  <span className="title">{props.data?.name}</span>
+                  <span className="price">{props.data?.price}원</span>
                   <div className="option">
                       <span className="option">참치맛</span>
                       <hr className="vertical"/>
                       <span className="count">{props.data?.count}</span>
                   </div>
-                  <span className="star"><FontAwesomeIcon icon={faStar}/>4.5</span>
+                  <span className="star"><FontAwesomeIcon icon={faStar}/>{props.data?.rating}</span>
                   {props.position==="product"?
                       <button onClick={addCart} className="cart-button">장바구니</button>:null}
               </div>
