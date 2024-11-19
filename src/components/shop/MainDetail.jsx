@@ -35,7 +35,6 @@ const MainDetail = () => {
             if (index !== "default") {
                 console.log( event.target)
                 setOption([...option, index]);
-                console.log(data.options)
                 setStocks([...stocks, {index :index, count:1}])
             }
         }
@@ -95,8 +94,6 @@ const MainDetail = () => {
                     <option value='placeholder' disabled hidden selected>옵션 선택</option>
 
                     {data?.options.map((option,index) => {
-                        {console.log(option)}
-
                         return (
                             <option key={index}
                                     value={index}>
@@ -108,17 +105,17 @@ const MainDetail = () => {
 
                 </select>
                 <div className="optionListContainer">
-                    {option.map((item, index) => {
-
-                        return (<Option item={data.options[item].name}
+                    {option.map((itemIndex, index) => {
+                        
+                        return (<Option item={data.options[itemIndex].name}
                                         index={index}
-                                        price={data?.options[index].price}
+                                        price={data.options[itemIndex].price}
                                         handleStockChange={handleStockChange}
                         />)
                     })}
                 </div>
 
-                {stocks[0] && <span className="price">{priceCalculator()}</span>}
+                {stocks[0] && <span className="price">총 상품 금액 {priceCalculator()} 원</span>}
                 <div className="purchaseLinkContainer">
                     <p>장바구니</p>
                     <p>바로구매</p>
