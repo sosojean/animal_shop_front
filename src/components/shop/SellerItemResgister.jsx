@@ -52,16 +52,14 @@ const SellerItemResigter = () => {
             setItemStock(item.stock_number);
             setDetailImageUrl(item.image_url);
             setThumnailsUrls(item.thumbnail_url);
-
             setOptions(item.options);
-            // // 에디터에 기존 상품 설명 로드
+            // 에디터에 기존 상품 설명 로드
             editorRef.current.getInstance().setMarkdown("test");
         } catch (error) {
             console.error('상품 정보 로드 실패:', error);
             alert('상품 정보 로드 실패');
         }
     }
-
 
     // 상세 이미지 추가
     const handleSaveDetailImages = () => {
@@ -162,7 +160,8 @@ const SellerItemResigter = () => {
         setNameCount(normalizedValue.length);
       }
 
-      const handleItemRegister = async () => {
+    // 데이터 등록 & 수정 & 삭제
+    const handleItemRegister = async () => {
         const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
         console.log("handleItemRegister");
         console.log(markdown);
@@ -192,6 +191,68 @@ const SellerItemResigter = () => {
         } catch (error) {
             // 에러가 발생한 경우
             console.log('에러 발생:', error);
+        }
+    }
+
+    const handlePatchItemData = () => {
+        const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
+        console.log("handlePatchItemData");
+        console.log(markdown);
+    
+        try {
+            const response = instance({
+                url: "/seller/item/update",
+                method: "patch",
+                data: {
+                    "id": itemId,
+                    "option": options,
+                    "name": itemName,
+                    "item_detail": markdown,
+                    "stock_number": itemStock,
+                    "sell_status": sellStatus, 
+                    "species": itemSpecies,
+                    "category": itemType,
+                    "thumbnailUrls": thumnailsUrls,
+                    "imageUrl": detailImageUrl
+                }
+            });
+    
+            // 성공적으로 데이터가 저장된 경우
+            console.log('등록 성공:', response.data);
+
+            navigate('/');
+    
+        } catch (error) {
+            // 에러가 발생한 경우
+            console.log('에러 발생:', error);
+        }
+    }
+
+    const handleDeleteItemData = async () => {
+        try {
+            const response = await instance({
+                url: `/seller/item/delete/${itemId}`, // URL이 제대로 설정되었는지 확인
+                method: "delete",
+            });
+    
+            // 성공적으로 데이터가 삭제된 경우
+            console.log('삭제 성공:', response.data);
+            alert('상품이 삭제되었습니다.');
+            navigate('/'); // 삭제 후 홈으로 이동
+    
+        } catch (error) {
+            // 에러가 발생한 경우
+            console.error('삭제 에러 발생:', error);
+            alert('상품 삭제에 실패했습니다.');
+        }
+    };
+
+    const handleTransferData = (itemId) => {
+        if (itemId) {
+            handlePatchItemData();
+        }
+        else {
+            handleItemRegister();
         }
     }
 
@@ -362,7 +423,10 @@ const SellerItemResigter = () => {
             </div>
 
             <div className='ItemRegButton'>
-                <button onClick={handleItemRegister}>{itemId ? '수정' : '등록'}</button>
+                <button onClick={(itemId) => {
+                    handleTransferData(itemId);
+                }}>{itemId ? '수정' : '등록'}</button>
+                {itemId && <button onClick={handleDeleteItemData}>삭제</button>}
             </div>
         </div>
     )
