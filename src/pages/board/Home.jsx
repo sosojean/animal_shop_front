@@ -1,4 +1,4 @@
-import BoardList from "../components/board/BoardList";
+import BoardList from "../../components/board/BoardList";
 
 const Home = (props) => {
     return (<BoardList isAuth={props.isAuth}></BoardList>)

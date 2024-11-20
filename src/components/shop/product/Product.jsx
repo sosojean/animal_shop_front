@@ -1,5 +1,6 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
+import {Link} from "react-router-dom";
 
 const Product = (props) => {
 
@@ -42,6 +43,9 @@ const Product = (props) => {
     }
 
     return(
+
+        <Link to={`http://localhost:3000/shop/detail/${props.data?.id}`}>
+            {console.log(props)}
           <div className={props.position}>
 
               <img src={props?.data["thumbnail_url"]} alt=""/>
@@ -60,6 +64,7 @@ const Product = (props) => {
               </div>
 
           </div>
+        </Link>
       )
 }
 export default Product

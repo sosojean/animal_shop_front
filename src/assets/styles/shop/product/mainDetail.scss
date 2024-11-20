@@ -1,0 +1,123 @@
+
+.detail-img{
+    width: 100%;
+}
+.detailContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 3rem;
+    .thumbnail-area-container{
+        width: 40%;
+        .thumbnail-container{
+            justify-self: center;
+            width: 100%;
+            display: grid;
+            grid-template:  1fr 1fr 1fr 1fr 1fr/1fr 1fr 1fr 1fr ;
+
+            img{
+                width: 100%;
+            }
+            .main-img {
+                grid-area: span 5 / span 5;
+            }
+        }
+    }
+
+
+
+
+    .detailTextContainer {
+        width: 60%;
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+
+        h2 {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+    
+        h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 3rem;
+        }
+    
+        select {
+            margin-bottom: 1rem;
+            padding: 10px;
+        }
+
+        .optionContainer:last-child {
+            border-bottom: 1px solid #000;
+        }
+        .optionContainer{
+            border-top: 1px solid #000;
+
+            .option-name{
+                height: 40px;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                padding: 0.5rem 1rem;
+                 flex-direction: row;
+                justify-content: space-between;
+            }
+
+
+            .stock-price-container {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.5rem 1rem;
+                height: 48px;
+
+
+                .stock-controller {
+                    border: 1px solid var(--alpha-30);
+                    display: flex;
+                    width: 120px;
+                    //justify-content: center;
+                    align-items: center;
+
+                    *{
+                        height: 36px;
+                        width: 33.3%;
+                    }
+                    button{
+                        font-size: 1.2rem;
+
+                        border: none;
+                        background: var(--alpha-20);
+
+                    }
+
+                    span{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                    }
+                }
+
+                .price{
+                    font-size: 1.2rem;
+                }
+
+            }
+        }
+    
+
+        .purchaseLinkContainer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            font-size: 1.5rem;
+    
+            margin-top: auto;
+        }
+    }
+}

@@ -1,25 +1,26 @@
 import Header from "./Header";
 import Footer from "./Footer";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Home from "../../pages/Home";
-import Join from "../../pages/Join";
-import Login from "../../pages/Login";
-import PostWrite from "../../pages/PostWrite";
-import JoinSuccess from "../../pages/JoinSuccess";
+import Home from "../../pages/board/Home";
+import Join from "../../pages/board/Join";
+import Login from "../../pages/board/Login";
+import PostWrite from "../../pages/board/PostWrite";
+import JoinSuccess from "../../pages/board/JoinSuccess";
 import "../../assets/styles/layout/router.scss";
-import MyPage from "../../pages/MyPage";
+import MyPage from "../../pages/board/MyPage";
 import ContentsViewer from "../board/ContentsViewer";
-import Search from "../../pages/Search";
-import Product from "../shop/Product";
-import Products from "../shop/Products";
-import ShopMain from "../../pages/ShopMain";
-import Cart from "../../pages/shop/Cart";
-import ProductDetail from "../../pages/shop/ProductDetail";
-import SellerItemResigter from "../shop/SellerItemResgister";
-import DeliverInfo from "../../pages/shop/DeliverInfo";
+import Search from "../../pages/board/Search";
+import Product from "../shop/product/Product";
+import Products from "../shop/product/Products";
+import ShopMain from "../../pages/shop/ShopMain";
+import Cart from "../../pages/shop/order/Cart";
+import ProductDetail from "../../pages/shop/product/ProductDetail";
+import SellerItemResigter from "../shop/seller/SellerItemResgister";
+import DeliverInfo from "../../pages/shop/order/DeliverInfo";
 import Admin from "../../pages/shop/admin/Admin";
-import SellerRegister from "../../pages/shop/SellerRegister";
+import SellerRegister from "../../pages/shop/admin/SellerRegister";
 import Information from "./Information";
+import AllProduct from "../../pages/shop/product/AllProduct";
 
 const Router = (props) => {
     return (
@@ -44,6 +45,9 @@ const Router = (props) => {
                         <Route path="/search" element={<Search/>}/>
                         <Route path="/product/detail" element={<ProductDetail/>}/>
                         <Route path="/shop" element={<ShopMain/>}/>
+                        <Route path="/shop/:category" element={<AllProduct/>}/>
+                        <Route path="/shop/detail/:itemId" element={<ProductDetail/>}/>
+
                         <Route path="/cart" element={<Cart/>}/>
 
                         {/* 상품 등록, 수정 */}

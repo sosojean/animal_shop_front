@@ -1,4 +1,4 @@
-import '../../assets/styles/shop/productQnA.scss'
+import '../../../assets/styles/shop/product/productQnA.scss'
 
 const ProductQnA = () => {
 

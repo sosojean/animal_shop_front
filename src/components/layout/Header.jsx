@@ -1,7 +1,7 @@
 import "../../assets/styles/layout/header.scss";
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import Category from "../../pages/Category";
+import Category from "../../pages/board/Category";
 import {
     faArrowRightFromBracket,
     faArrowRightToBracket,

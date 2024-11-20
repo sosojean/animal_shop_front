@@ -1,5 +1,5 @@
 import {useSearchParams} from "react-router-dom";
-import BoardList from "../components/board/BoardList";
+import BoardList from "../../components/board/BoardList";
 
 const Search = (props) => {
     const [searchParams, setSearchParams] = useSearchParams();

@@ -1,11 +1,12 @@
-import '../../assets/styles/shop/products.scss';
+import '../../../assets/styles/shop/product/products.scss';
 import Product from "./Product";
 import ProductsLabel from "./ProductsLabel";
 
 const Products = (props) => {
     return(
         <>
-        <ProductsLabel name={props.name} />
+            {props?.name&&<ProductsLabel name={props.name} url={props.url}/>}
+
           <div className="products">
               {props.data&&props.data?.map(data=>{
                   return ( <Product data = {data} position="product"/>)
