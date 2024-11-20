@@ -1,10 +1,10 @@
 
 
-const ProductDetailContent = () => {
+const ProductDetailContent = ({url}) => {
 
     return (
         <>
-            <img src="https://placehold.co/500"/>
+            <img className={"detail-img"} src="https://placehold.co/500"/>
         </>
     )
 }

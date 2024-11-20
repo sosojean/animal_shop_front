@@ -3,37 +3,22 @@ import '../../assets/styles/shop/mainDetail.scss'
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import Option from "./Option";
+import ThumbnailContainer from "./ThumbnailContainer";
 
-const MainDetail = () => {
+const MainDetail = ({data}) => {
 
     const [option, setOption] = useState([]);
-    const [data, setData] = useState()
-    const [defaultPrice, setDefaultPrice] = useState()
-    const {itemId} =  useParams();
     const [stocks, setStocks] = useState([])
+    const defaultPrice = data?.options[0].price;
 
-    useEffect(() => {
-        axios({
-            url:`http://localhost:8080/item/detail/${itemId}`,
-            method: "get",
-
-        }).then(
-            res => {
-                setData(res.data);
-                setDefaultPrice(res.data.options[0].price);
-            }
-        )
-    },[])
 
 
     const handleSelectChange = (event) => {
         const index = event.target.value;
-        console.log(index);
         const isExistedValue = option.includes(index)
 
         if (!isExistedValue){
             if (index !== "default") {
-                console.log( event.target)
                 setOption([...option, index]);
                 setStocks([...stocks, {index :index, count:1}])
             }
@@ -60,62 +45,81 @@ const MainDetail = () => {
         setStocks(newStocks);
     }
 
+    const handleOptionDelete = (index) => {
+        const newOption = [...option];
+        newOption.splice(index, 1);
+        setOption(newOption);
+
+        const newStocks = [...stocks];
+        newStocks.splice(index, 1);
+        setStocks(newStocks);
+
+        console.log(stocks);
+    }
+
     const priceCalculator = () => {
         let totalPrice = 0;
         const options = data?.options
         const newStock = [...stocks]
         newStock?.map((stock) => {
-            console.log(stock);
 
             totalPrice+= options[stock.index].price*stock.count
         })
 
-        return totalPrice
+        return totalPrice.toLocaleString()
     }
 
 
     return (
 
     <>
-        <button onClick={()=>{
-            console.log(stocks)
-        }}></button>
+
         {data&& (
         <div className="detailContainer">
-        <div>
-            <img src={"https://placehold.co/500"}/>
-        </div>
+            <div className="thumbnail-area-container">
+            <ThumbnailContainer thumbnails={data["thumbnail_url"]}/>
+            </div>
             <div className="detailTextContainer">
+                <div className="detail-category-container">
+                    <span>{data.species}</span>
+                    <span> > </span>
+                    <span>{data.category}</span>
+
+                </div>
+
+
                 <h2>{data.seller}</h2>
                 <h1>{data.name}</h1>
-                <h1>{data.options[0].price} 원</h1>
+                <h1>{defaultPrice.toLocaleString()} 원</h1>
 
-                <select onChange={handleSelectChange}>
-                    <option value='placeholder' disabled hidden selected>옵션 선택</option>
-
-                    {data?.options.map((option,index) => {
-                        return (
-                            <option key={index}
-                                    value={index}>
-                                {option.name + " " + priceTrimmer(option.price)}
-                            </option>
-                        )
-                        }
+                <select onChange={handleSelectChange} defaultValue="placeholder">
+                    <option value='placeholder' disabled hidden>옵션 선택</option>
+                    {data?.options.map((option, index) => {
+                            return (
+                                <option key={index}
+                                        value={index}>
+                                    {option.name + " " + priceTrimmer(option.price)}
+                                </option>
+                            )}
                     )}
 
                 </select>
+
                 <div className="optionListContainer">
                     {option.map((itemIndex, index) => {
-                        
-                        return (<Option item={data.options[itemIndex].name}
+
+                        return (<Option key={data.options[itemIndex].name}
+                                        item={data.options[itemIndex].name}
                                         index={index}
                                         price={data.options[itemIndex].price}
                                         handleStockChange={handleStockChange}
+                                        handleOptionDelete={handleOptionDelete}
                         />)
                     })}
                 </div>
 
                 {stocks[0] && <span className="price">총 상품 금액 {priceCalculator()} 원</span>}
+
                 <div className="purchaseLinkContainer">
                     <p>장바구니</p>
                     <p>바로구매</p>
