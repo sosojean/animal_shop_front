@@ -6,7 +6,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import ItemDelButton from "./itemDelButton";
 
 
-const SellerItemList = () => {
+const SellerItemList = ({navigateUrl}) => {
 
     const [itemList, setItemList] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
@@ -16,7 +16,6 @@ const SellerItemList = () => {
 
     const queryParams = new URLSearchParams(location.search);
     const currentPage = parseInt(queryParams.get("page")) || 1;
-    const navigateUrl = `/seller/item/list?page=${currentPage}`
 
     const getItemList = async (page) => {
         try {

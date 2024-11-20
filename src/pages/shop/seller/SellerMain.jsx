@@ -5,6 +5,8 @@ import SellerItemList from "../../../components/shop/seller/SellerItemList";
 
 const SellerMain = () => {
 
+    const navigateUrl = "/seller"; // 삭제 후 리다이렉트할 URL 설정
+
     return (
         <div>
             <h1>판매자 센터</h1>
@@ -12,7 +14,7 @@ const SellerMain = () => {
             <Link to="/seller/item/list">
                 <div>상품 등록 목록 더보기</div>
             </Link>
-            <SellerItemList/>
+            <SellerItemList navigateUrl={navigateUrl}/>
         </div>
     )
 }

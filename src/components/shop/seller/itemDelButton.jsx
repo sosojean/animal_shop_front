@@ -1,6 +1,9 @@
 import instance from "../../../utils/axios";
 import { useNavigate } from "react-router-dom";
 
+// delete api url에 사용할 itemId
+// navigate에 사용할 url
+// 페이지 정보를 다시 불러올 get api 함수
 const ItemDelButton = ({itemId, url, getItemList}) => {
 
     const navigate = useNavigate();
