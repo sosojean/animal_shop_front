@@ -50,7 +50,9 @@ const Router = (props) => {
 
                         <Route path="/cart" element={<Cart/>}/>
 
+                        {/* 상품 등록, 수정 */}
                         <Route path="/seller/item/new" element={<SellerItemResigter/>}/>
+                        <Route path="/seller/item/edit/:itemId" element={<SellerItemResigter/>}/>
 
                         <Route path="/deliver" element={<DeliverInfo/>}/>
                         <Route path="/admin/:menu" element={<Admin/>}/>
