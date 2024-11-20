@@ -3,6 +3,7 @@ import instance from "../../../utils/axios";
 import '../../../assets/styles/shop/sellerItemList.scss'
 import Pagination from "../../board/Pagination";
 import { useLocation, useNavigate, Link } from "react-router-dom";
+import ItemDelButton from "./itemDelButton";
 
 
 const SellerItemList = () => {
@@ -15,6 +16,7 @@ const SellerItemList = () => {
 
     const queryParams = new URLSearchParams(location.search);
     const currentPage = parseInt(queryParams.get("page")) || 1;
+    const navigateUrl = `/seller/item/list?page=${currentPage}`
 
     const getItemList = async (page) => {
         try {
@@ -40,27 +42,6 @@ const SellerItemList = () => {
         navigate(`/seller/item/list?page=${newPage}`);
     };
 
-    const handleDeleteItemData = async (itemId) => {
-        try {
-            const response = await instance({
-                url: `/seller/item/delete/${itemId}`,
-                method: "delete",
-            });
-    
-            // 성공적으로 데이터가 삭제된 경우
-            console.log('삭제 성공:', response.data);
-            alert('상품이 삭제되었습니다.');
-            
-            getItemList(currentPage);
-            navigate(`/seller/item/list?page=${currentPage}`);
-    
-        } catch (error) {
-            // 에러가 발생한 경우
-            console.error('삭제 에러 발생:', error);
-            alert('상품 삭제에 실패했습니다.');
-        }
-    };
-
     return(
         <div>
             <h2>상품 등록 목록</h2>
@@ -79,11 +60,7 @@ const SellerItemList = () => {
                                 <button>수정</button>
                             </div>
                         </Link>
-                        <div onClick={() => {
-                            handleDeleteItemData(item.id);
-                        }}>
-                            <button>삭제</button>
-                        </div>
+                        <ItemDelButton itemId={item.id} url={navigateUrl} getItemList={() => getItemList(currentPage)}/>
                     </div>
                 )
             )}
