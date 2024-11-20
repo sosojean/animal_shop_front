@@ -54,7 +54,7 @@ const SellerItemResigter = () => {
             setThumnailsUrls(item.thumbnail_url);
             setOptions(item.options);
             // 에디터에 기존 상품 설명 로드
-            editorRef.current.getInstance().setMarkdown("test");
+            editorRef.current.getInstance().setMarkdown(item.item_detail);
         } catch (error) {
             console.error('상품 정보 로드 실패:', error);
             alert('상품 정보 로드 실패');
@@ -165,22 +165,26 @@ const SellerItemResigter = () => {
         const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
         console.log("handleItemRegister");
         console.log(markdown);
+
+        const data = {
+            "option": options,
+            "name": itemName,
+            "item_detail": markdown,
+            "stock_number": itemStock,
+            "sell_status": sellStatus, 
+            "species": itemSpecies,
+            "category": itemType,
+            "thumbnailUrls": thumnailsUrls,
+            "imageUrl": detailImageUrl
+        }
+
+        console.log(data)
     
         try {
             const response = await instance({
                 url: "/seller/item/new",
                 method: "post",
-                data: {
-                    "option": options,
-                    "name": itemName,
-                    "item_detail": markdown,
-                    "stock_number": itemStock,
-                    "sell_status": sellStatus, 
-                    "species": itemSpecies,
-                    "category": itemType,
-                    "thumbnailUrls": thumnailsUrls,
-                    "imageUrl": detailImageUrl
-                }
+                data: data
             });
     
             // 성공적으로 데이터가 저장된 경우
@@ -198,27 +202,31 @@ const SellerItemResigter = () => {
         const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
         console.log("handlePatchItemData");
         console.log(markdown);
+
+        const data = {
+            "id": itemId,
+            "option": options,
+            "name": itemName,
+            "item_detail": markdown,
+            "stock_number": itemStock,
+            "sell_status": sellStatus, 
+            "species": itemSpecies,
+            "category": itemType,
+            "thumbnailUrls": thumnailsUrls,
+            "imageUrl": detailImageUrl
+        }
+
+        console.log(data)
     
         try {
             const response = instance({
                 url: "/seller/item/update",
                 method: "patch",
-                data: {
-                    "id": itemId,
-                    "option": options,
-                    "name": itemName,
-                    "item_detail": markdown,
-                    "stock_number": itemStock,
-                    "sell_status": sellStatus, 
-                    "species": itemSpecies,
-                    "category": itemType,
-                    "thumbnailUrls": thumnailsUrls,
-                    "imageUrl": detailImageUrl
-                }
+                data: data
             });
     
             // 성공적으로 데이터가 저장된 경우
-            console.log('등록 성공:', response.data);
+            console.log('수정 성공:', response.data);
 
             navigate('/');
     
@@ -231,7 +239,7 @@ const SellerItemResigter = () => {
     const handleDeleteItemData = async () => {
         try {
             const response = await instance({
-                url: `/seller/item/delete/${itemId}`, // URL이 제대로 설정되었는지 확인
+                url: `/seller/item/delete/${itemId}`,
                 method: "delete",
             });
     
@@ -246,15 +254,6 @@ const SellerItemResigter = () => {
             alert('상품 삭제에 실패했습니다.');
         }
     };
-
-    const handleTransferData = (itemId) => {
-        if (itemId) {
-            handlePatchItemData();
-        }
-        else {
-            handleItemRegister();
-        }
-    }
 
     return (
         <div className='itemRegContainer'>
@@ -423,10 +422,13 @@ const SellerItemResigter = () => {
             </div>
 
             <div className='ItemRegButton'>
-                <button onClick={(itemId) => {
-                    handleTransferData(itemId);
-                }}>{itemId ? '수정' : '등록'}</button>
-                {itemId && <button onClick={handleDeleteItemData}>삭제</button>}
+                {itemId ? 
+                <>
+                    <button onClick={handlePatchItemData}>수정</button>
+                    <button onClick={handleDeleteItemData}>삭제</button>
+                </>
+                : <button onClick={handleItemRegister}>등록</button>
+                }
             </div>
         </div>
     )
