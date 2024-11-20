@@ -1,4 +1,4 @@
-import "../../assets/styles/shop/deliverInfo.scss"
+import "../../../assets/styles/shop/order/deliverInfo.scss"
 import {useDaumPostcodePopup} from "react-daum-postcode";
 import {postcodeScriptUrl} from "react-daum-postcode/lib/loadPostcode";
 import {useState} from "react";
@@ -99,15 +99,10 @@ const DeliverInfo = (props) => {
                   <option value="a">파손위험상품입니다. 배송시 주의해주세요.</option>
                   <option value="a">배송전에 연락주세요.</option>
                   <option value="a">직접입력</option>
-
-
               </select>
-
-
           </form>
 
       </div>
-
 
       <div>
           <span>right</span>

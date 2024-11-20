@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
-import Products from "../../components/shop/Products";
+import Products from "../../../components/shop/product/Products";
 
 const AllProduct = (props) => {
 

@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import '../../assets/styles/shop/mainDetail.scss'
+import '../../../assets/styles/shop/product/mainDetail.scss'
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import Option from "./Option";
@@ -12,7 +12,7 @@ const MainDetail = ({data}) => {
     const defaultPrice = data?.options[0].price;
 
 
-
+    //선택옵션 추가핸들러
     const handleSelectChange = (event) => {
         const index = event.target.value;
         const isExistedValue = option.includes(index)
@@ -25,7 +25,7 @@ const MainDetail = ({data}) => {
         }
     };
 
-
+    //기존가격에 대한 상대 가격으로 표시
     const priceTrimmer = (optionPrice)=> {
         if (defaultPrice !== optionPrice) {
             const trimmedPrice = optionPrice-defaultPrice;
@@ -39,12 +39,15 @@ const MainDetail = ({data}) => {
         }
     }
 
+    //수량 변경 핸들러
     const handleStockChange = (index, value) => {
         const newStocks = [...stocks];
         newStocks[index].count += value;
         setStocks(newStocks);
     }
 
+
+    //선택옵션 삭제핸들러
     const handleOptionDelete = (index) => {
         const newOption = [...option];
         newOption.splice(index, 1);
@@ -57,6 +60,7 @@ const MainDetail = ({data}) => {
         console.log(stocks);
     }
 
+    //전체 총합 계산
     const priceCalculator = () => {
         let totalPrice = 0;
         const options = data?.options

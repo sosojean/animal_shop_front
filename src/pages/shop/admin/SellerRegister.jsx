@@ -1,6 +1,6 @@
-import "../../assets/styles/shop/sellerRegister.scss";
+import "../../../assets/styles/shop/admin/sellerRegister.scss";
 import {useState} from "react";
-import instance from "../../utils/axios";
+import instance from "../../../utils/axios";
 import axios, {get} from "axios";
 import {useNavigate} from "react-router-dom";
 

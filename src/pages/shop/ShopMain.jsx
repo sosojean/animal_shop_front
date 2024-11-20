@@ -1,5 +1,5 @@
-import Products from "../components/shop/Products";
-import Banner from "../components/shop/Banner";
+import Products from "../../components/shop/product/Products";
+import Banner from "../../components/shop/Banner";
 import {useEffect, useState} from "react";
 import axios from "axios";
 

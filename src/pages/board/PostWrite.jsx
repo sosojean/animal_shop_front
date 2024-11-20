@@ -1,8 +1,8 @@
 import {useCallback, useEffect, useRef, useState} from "react"
-import WriteEditor from "../components/board/WriteEditor"
-import '../assets/styles/board/postWrite.scss'
+import WriteEditor from "../../components/board/WriteEditor"
+import '../../assets/styles/board/postWrite.scss'
 import {useLocation, useNavigate} from "react-router-dom";
-import instance from "../utils/axios";
+import instance from "../../utils/axios";
 
 
 export default function PostWrite(props) {

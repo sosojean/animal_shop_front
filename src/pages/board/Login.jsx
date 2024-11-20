@@ -1,4 +1,4 @@
-import "../assets/styles/layout/login.scss";
+import "../../assets/styles/layout/login.scss";
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
@@ -76,7 +76,7 @@ const Login = (props) => {
 
                     <button className={"main-button"} onClick={handleLogin}>로그인</button>
 
-                    <Link to="/join">
+                    <Link to="/src/pages/board/Join">
                         <button>회원가입</button>
                     </Link>
 

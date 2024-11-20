@@ -1,4 +1,4 @@
-import "../assets/styles/layout/category.scss";
+import "../../assets/styles/layout/category.scss";
 import {Link} from "react-router-dom";
 
 const Category = (props) => {

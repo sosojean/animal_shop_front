@@ -1,4 +1,4 @@
-import "../../assets/styles/shop/productReview.scss"
+import "../../../assets/styles/shop/product/productReview.scss"
 
 const ProductReview = () => {
 

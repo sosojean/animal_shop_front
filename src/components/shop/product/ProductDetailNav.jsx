@@ -1,4 +1,4 @@
-import '../../assets/styles/shop/productDetailNav.scss'
+import '../../../assets/styles/shop/product/productDetailNav.scss'
 
 const ProductDetailNav = () => {
 

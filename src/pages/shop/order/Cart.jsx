@@ -1,6 +1,6 @@
-import Product from "../../components/shop/Product";
-import "../../assets/styles/shop/cart.scss"
-import CartItem from "../../components/shop/CartItem";
+import Product from "../../../components/shop/product/Product";
+import "../../../assets/styles/shop/order/cart.scss"
+import CartItem from "../../../components/shop/product/CartItem";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
