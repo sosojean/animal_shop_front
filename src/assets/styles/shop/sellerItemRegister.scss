@@ -1,3 +1,12 @@
+@mixin selector ($w: 50px, $t: 6px, $l: 10px) {
+    font-weight: bold;
+    background-color: rgb(224, 223, 223);
+    width: $w;
+    border-radius: 20px;
+    padding-top: $t;
+    padding-left: $l;
+}
+
 .itemRegContainer {
     h1 {
         margin: 2rem 0 2rem 0;
@@ -29,19 +38,45 @@
         }
     }
 
+    .StockContainer {
+        margin-bottom: 2rem;
+    }
+
     .RegSelectContainer {
         display: flex;
+        width: 700px;
+        gap: 8rem;
         margin-bottom: 1rem;
 
+        .sellStatusContents {
+            display: flex;
+            justify-content: space-between;
+            width: 270px;
+
+            p {
+                @include selector;
+            }
+        }
+
+        .SelectContents {
+            display: flex;
+
+            div {
+
+                display: flex;
+
+                p {
+                    @include selector;
+                }
+            }
+        }
+
+        select {
+            width: 200px;
+            height: 30px;
+        }
+
         h3 {
-            margin-right: 5px;
-        }
-
-        h5 {
-            margin-right: 5px;
-        }
-
-        :nth-child(3) {
             margin-right: 5px;
         }
     }

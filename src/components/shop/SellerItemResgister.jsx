@@ -2,28 +2,27 @@ import {Editor} from '@toast-ui/react-editor';
 import '@toast-ui/editor/toastui-editor.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleXmark} from "@fortawesome/free-regular-svg-icons";
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import '../../assets/styles/shop/sellerItemRegister.scss'
 import instance from '../../utils/axios'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const SellerItemResigter = () => {
     const navigate = useNavigate();
+    const { itemId } = useParams();
+    const editorRef = useRef(null);
+    const detailRef = useRef();
 
     const [itemName, setItemName] = useState("");
     const [itemStock, setItemStock] = useState();
-    const [sellStatus, setSellStatus] = useState("판매");
+    const [sellStatus, setSellStatus] = useState("SELL");
     const [itemSpecies, setItemSpecies] = useState("강아지");
     const [itemType, setItemType] = useState("간식");
 
-    const editorRef = useRef(null);
-
     // 이미지
-    const [detailImage, setDetailImage] = useState(null);
+    const [detailImage, setDetailImage] = useState(null); // 로직 확인 후 삭제
     const [detailImageUrl, setDetailImageUrl] = useState("");
-    const detailRef = useRef();
-
     const [thumnailsUrls, setThumnailsUrls] = useState([]);
     
     // 옵션
@@ -32,6 +31,36 @@ const SellerItemResigter = () => {
 
     // 글자수
     const [nameCount, setNameCount] = useState(0);
+
+    // 수정할 상품의 정보를 가져오기
+    useEffect(() => {
+        if (itemId) {
+            getItemData();
+        }
+    }, [itemId]);
+
+    const getItemData = async () => {
+        try {
+            const response = await instance.get(`/seller/item/select/${itemId}`);
+            const item = response.data;
+            console.log(item);
+
+            setItemName(item.name);
+            setItemSpecies(item.species);
+            setItemType(item.category);
+            setSellStatus(item.sell_status);
+            setItemStock(item.stock_number);
+            setDetailImageUrl(item.image_url);
+            setThumnailsUrls(item.thumbnail_url);
+
+            setOptions(item.options);
+            // // 에디터에 기존 상품 설명 로드
+            editorRef.current.getInstance().setMarkdown("test");
+        } catch (error) {
+            console.error('상품 정보 로드 실패:', error);
+            alert('상품 정보 로드 실패');
+        }
+    }
 
 
     // 상세 이미지 추가
@@ -135,6 +164,8 @@ const SellerItemResigter = () => {
 
       const handleItemRegister = async () => {
         const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
+        console.log("handleItemRegister");
+        console.log(markdown);
     
         try {
             const response = await instance({
@@ -166,12 +197,14 @@ const SellerItemResigter = () => {
 
     return (
         <div className='itemRegContainer'>
-            <h1>상품 등록</h1>
+            <h1>{itemId ? '상품 수정' : '상품 등록'}</h1>
 
             <div className='RegNameContainer'>
                 <div className='RegInputContainer'>
                     <h3>상품명</h3>
-                    <input placeholder="상품명" 
+                    <input
+                    placeholder="상품명" 
+                    value={itemName}
                     onChange={(e) => {
                         setItemName(e.target.value)
                         handleLengthLimit(e)
@@ -181,42 +214,49 @@ const SellerItemResigter = () => {
                 <p>{nameCount >= 40 ? 40 : nameCount} / 40</p>
             </div>
 
-            <div className='RegInputContainer'>
+            <div className='RegInputContainer StockContainer'>
                 <h3>재고</h3>
-                <input type="number" placeholder="재고" onChange={(e) => {setItemStock(e.target.value)}}/>
+                <input type="number" placeholder="재고" value={itemStock} onChange={(e) => {setItemStock(e.target.value)}}/>
             </div>
             
             <div className='RegSelectContainer'>
                 <h3>판매상태</h3>
-                <select onChange={(e) => {
-                    let selectedStatus = e.target.value === "판매" ? "SELL" : "SOLD_OUT";
-                    setSellStatus(selectedStatus);
-                }}>
-                    <option>판매</option>
-                    <option>품절</option>
-                </select>
+                <div className='sellStatusContents'>
+                    <select value={sellStatus} onChange={(e) => {
+                        setSellStatus(e.target.value);
+                    }}>
+                        <option value="SELL">판매</option>
+                        <option value="SOLD_OUT">품절</option>
+                    </select>
+                    <p>{sellStatus === "SELL" ? "판매" : "품절"}</p>
+                </div>
             </div>
 
-            <div className='RegSelectContainer'>
+            <div className='RegSelectContainer CategoryContainer'>
                 <h3>카테고리</h3>
-
-                <h5>동물</h5>
-                <select onChange={(e) => {setItemSpecies(e.target.value)}}>
-                    <option>강아지</option>
-                    <option>고양이</option>
-                </select>
                 
-                <h5>상품 종류</h5>
-                <select onChange={(e) => {setItemType(e.target.value)}}>
-                    <option>간식</option>
-                    <option>사료</option>
-                    <option>식기</option>
-                    <option>영양제</option>
-                    <option>위생용품</option>
-                    <option>이동장</option>
-                    <option>장난감</option>
-                    <option>하네스/줄</option>
-                </select>
+                <div className='SelectContents'>
+                    <div>
+                        <select value={itemSpecies} onChange={(e) => {setItemSpecies(e.target.value)}}>
+                            <option value="강아지">강아지</option>
+                            <option value="고양이">고양이</option>
+                        </select>
+                        <p>{itemSpecies}</p>
+                    </div>
+                    <div>
+                        <select value={itemType} onChange={(e) => {setItemType(e.target.value)}}>
+                            <option>간식</option>
+                            <option>사료</option>
+                            <option>식기</option>
+                            <option>영양제</option>
+                            <option>위생용품</option>
+                            <option>이동장</option>
+                            <option>장난감</option>
+                            <option>하네스</option>
+                        </select>
+                        <p>{itemType}</p>
+                    </div>
+                </div>
             </div>
 
             <div className='RegOptContainer'>
@@ -238,7 +278,7 @@ const SellerItemResigter = () => {
                 </div>
                 
                 <ul>
-                        {options.map((option, index) => (
+                        {options?.map((option, index) => (
                         <li key={index} className='OptList'>
                             <div> <b>{option.name}</b> </div>
                             <div> {option.price} 원 </div>
@@ -269,9 +309,9 @@ const SellerItemResigter = () => {
 
             <div className='RegDetailImageContainer'>
                 <h3>상세 이미지</h3>
-                {detailImage &&
+                {detailImageUrl &&
                 <img
-                    src={detailImage}
+                    src={detailImageUrl}
                     alt="상품 이미지 미리보기"
                     style={{ width: '200px', height: '200px', objectFit: 'cover' }}
                 />}
@@ -292,10 +332,10 @@ const SellerItemResigter = () => {
             </div>
 
             <div className='RegThumnailContainer'>
-                <h3>대표 이미지</h3> <h3 style={{color: "blue"}}>{thumnailsUrls.length}/10</h3>
+                <h3>대표 이미지</h3> <h3 style={{color: "blue"}}>{thumnailsUrls?.length}/10</h3>
                 <div className="addPicture">
                     <label htmlFor="thumail-file" className="addButton">
-                        { thumnailsUrls.length >= 10 && <p>사진 등록 할 수 없습니다</p> }
+                        { thumnailsUrls?.length >= 10 && <p>사진 등록 할 수 없습니다</p> }
                         <input 
                             type="file" 
                             id="thumail-file" 
@@ -303,7 +343,7 @@ const SellerItemResigter = () => {
                             className="addButton" 
                             accept="image/*"
                             onChange={(e) => {handleUploadThumnailImage(e);}}
-                            disabled={thumnailsUrls.length >= 10} // 파일 선택 비활성화
+                            disabled={thumnailsUrls?.length >= 10} // 파일 선택 비활성화
                             style={{ display: "none" }} // 스타일 수정
                         />
                         <p style={{ cursor: "pointer" }}>사진추가</p>
@@ -311,7 +351,7 @@ const SellerItemResigter = () => {
 
                     {/* 저장해둔 이미지들을 순회하면서 화면에 이미지 출력 */}
                     <div className='ThumnailList'>
-                        {thumnailsUrls.map((image, id) => (
+                        {thumnailsUrls?.map((image, id) => (
                             <div key={id}>
                                 <img src={image} alt={`${image}-${id}`} style={{ width: '200px', height: '200px', objectFit: 'cover' }}/>
                                 <button onClick={() => handleDeleteThumnailImages(id)}>삭제</button>
@@ -322,7 +362,7 @@ const SellerItemResigter = () => {
             </div>
 
             <div className='ItemRegButton'>
-                <button onClick={handleItemRegister}>등록</button>
+                <button onClick={handleItemRegister}>{itemId ? '수정' : '등록'}</button>
             </div>
         </div>
     )
