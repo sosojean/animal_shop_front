@@ -3,8 +3,8 @@ import '@toast-ui/editor/toastui-editor.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleXmark} from "@fortawesome/free-regular-svg-icons";
 import { useState, useRef, useEffect } from 'react';
-import '../../assets/styles/shop/sellerItemRegister.scss'
-import instance from '../../utils/axios'
+import '../../../assets/styles/shop/sellerItemRegister.scss'
+import instance from '../../../utils/axios'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 

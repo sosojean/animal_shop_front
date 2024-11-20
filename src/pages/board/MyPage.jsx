@@ -252,9 +252,11 @@ function MyPage(props) {
 
                     {(role&&role!="SELLER")?
                         <Link className="seller-register-link" to={"/seller/register"} >
-                            판매자이신가요? 권한신청하러가기>
+                            판매자이신가요? 권한신청하러가기{">"}
                         </Link>:
-                        <span>판매자 센터로 가기 -> </span>
+                        <Link to={"/seller"}>
+                            <span>판매자 센터로 가기 -{">"} </span>
+                        </Link>
                     }
                 </form>
             </div>
