@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-const ThumbnailContainer = ({thumbnails}) => {
+const Thumbnails = ({thumbnails}) => {
 
     const [index, setIndex] = useState(0)
 
@@ -28,4 +28,4 @@ const ThumbnailContainer = ({thumbnails}) => {
     </>)
 
 }
-export default ThumbnailContainer
+export default Thumbnails

@@ -3,9 +3,9 @@ import '../../../assets/styles/shop/product/mainDetail.scss'
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import Option from "./Option";
-import ThumbnailContainer from "./ThumbnailContainer";
+import Thumbnails from "./Thumbnails";
 
-const MainDetail = ({data}) => {
+const ProductDetailHeader = ({data}) => {
 
     const [option, setOption] = useState([]);
     const [stocks, setStocks] = useState([])
@@ -66,7 +66,6 @@ const MainDetail = ({data}) => {
         const options = data?.options
         const newStock = [...stocks]
         newStock?.map((stock) => {
-
             totalPrice+= options[stock.index].price*stock.count
         })
 
@@ -75,13 +74,11 @@ const MainDetail = ({data}) => {
 
 
     return (
-
     <>
-
         {data&& (
         <div className="detailContainer">
             <div className="thumbnail-area-container">
-            <ThumbnailContainer thumbnails={data["thumbnail_url"]}/>
+            <Thumbnails thumbnails={data["thumbnail_url"]}/>
             </div>
             <div className="detailTextContainer">
                 <div className="detail-category-container">
@@ -90,7 +87,6 @@ const MainDetail = ({data}) => {
                     <span>{data.category}</span>
 
                 </div>
-
 
                 <h2>{data.seller}</h2>
                 <h1>{data.name}</h1>
@@ -136,4 +132,4 @@ const MainDetail = ({data}) => {
     )
 }
 
-export default MainDetail;
+export default ProductDetailHeader;

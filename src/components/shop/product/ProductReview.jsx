@@ -1,6 +1,18 @@
 import "../../../assets/styles/shop/product/productReview.scss"
+import instance from "../../../utils/axios";
 
-const ProductReview = () => {
+const ProductReview = ({item}) => {
+
+    //
+    //
+    // console.log(item)
+    //
+    // function deleteHandler() {
+    //     instance({
+    //         url:`http://localhost:8080/item_comment/delete/${item.id}`,
+    //         method:'delete',
+    //     })
+    // }
 
     return (
         <div className="productReviewContainer">
@@ -9,19 +21,21 @@ const ProductReview = () => {
                 <div className="reviewerInfoDetail">
                     <div className="reviewerStars">
                         <div>
+                            {/*todo 별 숫자 -> 갯수로 바꾸기*/}
                             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                         </div>
                         <p>5</p>
                     </div>
                     <div className="reviewerName">
-                        <p>다섯살 초코 (닉네임)</p>
-                        <p>2024. 02. 12</p>
+                        <p>{item?.nickname}</p>
+                        <p>{item?.createdDate}</p>
                     </div>
                 </div>
             </div>
             <div className="productReview">
-                <p>체험단 상품<br/>진짜 생닭가슴살 모양 그대로~~<br/>우리 애기도 넘 좋아하고~~ 사람도 먹어도되나 싶을정도로<br/>상품이 좋아보였습니다👍👍👍</p>
+                {item.contents}
             </div>
+            <button onClick={deleteHandler}> x </button>
         </div>
     )
 }

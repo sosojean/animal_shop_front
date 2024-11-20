@@ -3,8 +3,8 @@ import '@toast-ui/editor/toastui-editor.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleXmark} from "@fortawesome/free-regular-svg-icons";
 import { useState, useRef, useEffect } from 'react';
-import '../../assets/styles/shop/sellerItemRegister.scss'
-import instance from '../../utils/axios'
+import '../../../assets/styles/shop/seller/sellerItemRegister.scss'
+import instance from '../../../utils/axios'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -106,7 +106,7 @@ const SellerItemResigter = () => {
 
      const handleUploadThumnailImage = async (e) => {
         const file = e.target.files[0];  // 사용자가 업로드한 파일
-        console.log(file.name);
+        console.log(file);
     
         const formData = new FormData();
         formData.append("image", file);  // 'image' 필드로 파일을 추가
@@ -228,7 +228,7 @@ const SellerItemResigter = () => {
             // 성공적으로 데이터가 저장된 경우
             console.log('수정 성공:', response.data);
 
-            navigate('/');
+            // navigate('/');
     
         } catch (error) {
             // 에러가 발생한 경우
