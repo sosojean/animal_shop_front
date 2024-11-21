@@ -1,0 +1,36 @@
+.modal-container{
+  background: var(--alpha-50);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+
+
+
+    .modal-content{
+
+      width: 480px;
+      height: 480px;
+      background: #FFFFFF;
+
+    form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      flex-direction: column;
+      *{
+        width: calc(100% - 48px);
+
+
+      }
+
+          }
+        }
+}

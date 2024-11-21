@@ -1,18 +1,84 @@
 import "../../../assets/styles/shop/product/productReview.scss"
 import instance from "../../../utils/axios";
+import {useEffect, useState} from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faHeart, faHeartBroken} from "@fortawesome/free-solid-svg-icons";
 
-const ProductReview = ({item}) => {
+const ProductReview = ({item, setIsModified, isModified, setIsEdit, isEdit}) => {
 
-    //
-    //
-    // console.log(item)
-    //
-    // function deleteHandler() {
-    //     instance({
-    //         url:`http://localhost:8080/item_comment/delete/${item.id}`,
-    //         method:'delete',
-    //     })
-    // }
+    const [isAuthor, setIsAuthor] = useState()
+    const [isLiked, setIsLiked] = useState(item.heart)
+    const [newComment, setNewComment] = useState(item.contents)
+
+    useEffect(() => {
+        instance({
+            url: `/item_comment/update/${item.id}`,
+            method:'GET'
+
+        }).then((res) => {
+            // console.log("res", res);
+            setIsAuthor(res.data)
+        }).catch((error) => {console.log(error)})
+
+    }, []);
+
+
+
+    const deleteHandler = () => {
+        instance({
+            url:`/item_comment/delete/${item.id}`,
+            method:'delete',
+        }).then(res=>{
+            setIsModified(!isModified)
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
+
+
+    const editConfirmHandler = () => {
+        instance({
+            url:`/item_comment/update/${item.id}`,
+            method:'patch',
+            data:{
+                contents:newComment
+            }
+        }).then(res=>{
+             setIsEdit(!isEdit)
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
+
+    const commentLikeHandler = () => {
+        instance({
+            url:`/item_comment_like/add/${item.id}`,
+            method:'GET',
+
+        }).then(res=>{
+          console.log("res", res)
+            setIsLiked(true)
+
+            setIsModified(!isModified)
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
+
+    const commentUnLikeHandler = () => {
+        instance({
+            url:`/item_comment_like/delete/${item.id}`,
+            method:'GET',
+
+        }).then(res=>{
+            console.log("res", res)
+            setIsLiked(false)
+            setIsModified(!isModified)
+
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
 
     return (
         <div className="productReviewContainer">
@@ -26,16 +92,35 @@ const ProductReview = ({item}) => {
                         </div>
                         <p>5</p>
                     </div>
-                    <div className="reviewerName">
-                        <p>{item?.nickname}</p>
-                        <p>{item?.createdDate}</p>
+                    <div className="review-header">
+                        <div className="reviewerName">
+                            <p>{item?.nickname}</p>
+                            <p>{item?.createdDate}</p>
+
+                        </div>
+                        <div className="review-control-buttons">
+                            {isLiked ?
+
+                                <button onClick={commentUnLikeHandler}><FontAwesomeIcon icon={faHeartBroken}/></button>
+                                : <button onClick={commentLikeHandler}><FontAwesomeIcon icon={faHeart}/></button>
+                            }
+                            {isAuthor && <>
+                                {isEdit ?
+                                    <button onClick={editConfirmHandler}>완료</button> :
+                                    <button onClick={() => setIsEdit(true)}> 수정 </button>}
+                                    <button onClick={deleteHandler}> 삭제</button></>}
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="productReview">
-                {item.contents}
-            </div>
-            <button onClick={deleteHandler}> x </button>
+
+            {isEdit ?
+                <textarea value={newComment}
+                          onChange={e=>{setNewComment(e.target.value)}}
+                          className="edit-review" cols="30" rows="10"/> :
+                <div className="productReview">{item.contents}</div>
+            }
+
         </div>
     )
 }

@@ -13,6 +13,7 @@
         }
 
         .reviewerInfoDetail {
+            width: 100%;
             padding-top: 10px;
 
             .reviewerStars {
@@ -21,9 +22,19 @@
                 margin-bottom: 0.8rem;
             }
 
-            .reviewerName {
+            .review-header{
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+
+                .reviewerName {
                 display: flex;
                 gap: 0.5rem;
+                }
+
+                .review-control-buttons{
+                    display: flex;
+                }
             }
         }
     }
@@ -31,6 +42,9 @@
     .productReview {
         padding: 0 2rem 0 2rem;
         margin-bottom: 1rem;
+    }
+    .edit-review{
+        width: 100%;
     }
 
 }

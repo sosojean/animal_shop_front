@@ -5,8 +5,6 @@ import {useState} from "react";
 const Option = (props) => {
     const [stock, setStock] = useState(1)
 
-    console.log(props)
-
     const handleStock = (value) =>{
           props.handleStockChange(props.index, value)
     }
