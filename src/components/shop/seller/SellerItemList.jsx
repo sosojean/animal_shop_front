@@ -44,7 +44,6 @@ const SellerItemList = ({navigateUrl}) => {
 
     return(
         <div>
-            <h2>상품 등록 목록</h2>
 
             <SellerItemListHeader/>
             
