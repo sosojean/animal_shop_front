@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import Option from "./Option";
 import Thumbnails from "./Thumbnails";
+import OptionSelector from "./OptionSelector";
 
 const ProductDetailHeader = ({data}) => {
 
@@ -31,7 +32,7 @@ const ProductDetailHeader = ({data}) => {
             const trimmedPrice = optionPrice-defaultPrice;
             const result =
                 (trimmedPrice < 0) ?
-                    `(-${trimmedPrice}원)` : `(+${trimmedPrice}원)`;
+                    `(-${trimmedPrice.toLocaleString()}원)` : `(+${trimmedPrice.toLocaleString()}원)`;
             return result;
         }
         else{
@@ -72,6 +73,32 @@ const ProductDetailHeader = ({data}) => {
         return totalPrice.toLocaleString()
     }
 
+    const dataBuilder = () => {
+        const options = data.options;
+
+        let option_items = [];
+        let option_item =  {count: "",option_name:"",option_price:""}
+
+        stocks.map((stock) => {
+            option_item.count = stock.count;
+            option_item.option_name = options[stock.index].name;
+            option_item.option_price = options[stock.index].price;
+            option_items.push(option_item);
+
+        })
+
+        // let purchase = {itemId : data.id, option_items : option_items}; // 실 데이터
+
+        let purchase = {itemId : data.id, ...option_item};
+        return purchase;
+    }
+
+    const purchaseHandler = () => {
+        const purchaseData = dataBuilder();
+
+        // ins
+
+    }
 
     return (
     <>
@@ -92,23 +119,18 @@ const ProductDetailHeader = ({data}) => {
                 <h1>{data.name}</h1>
                 <h1>{defaultPrice.toLocaleString()} 원</h1>
 
-                <select onChange={handleSelectChange} defaultValue="placeholder">
-                    <option value='placeholder' disabled hidden>옵션 선택</option>
-                    {data?.options.map((option, index) => {
-                            return (
-                                <option key={index}
-                                        value={index}>
-                                    {option.name + " " + priceTrimmer(option.price)}
-                                </option>
-                            )}
-                    )}
+                <OptionSelector
+                    handleSelectChange={handleSelectChange}
+                    optionItem={data?.options}
+                    priceTrimmer={priceTrimmer}/>
 
-                </select>
 
                 <div className="optionListContainer">
                     {option.map((itemIndex, index) => {
 
                         return (<Option key={data.options[itemIndex].name}
+
+
                                         item={data.options[itemIndex].name}
                                         index={index}
                                         price={data.options[itemIndex].price}
@@ -121,8 +143,8 @@ const ProductDetailHeader = ({data}) => {
                 {stocks[0] && <span className="price">총 상품 금액 {priceCalculator()} 원</span>}
 
                 <div className="purchaseLinkContainer">
-                    <p>장바구니</p>
-                    <p>바로구매</p>
+                    <button>장바구니</button>
+                    <button onClick={purchaseHandler}>구매하기</button>
                 </div>
             </div>
         </div>
