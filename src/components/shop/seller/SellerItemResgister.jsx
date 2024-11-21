@@ -393,45 +393,47 @@ const SellerItemResigter = () => {
             </div>
 
             <div className="RegThumnailContainer">
-                <h3>대표 이미지</h3>
-                <h3 style={{ color: "gray" }}>{thumnailsUrls.length}/10</h3>
+                <div className="pictureHeader">
+                    <h3>대표 이미지</h3>
+                    <h3 style={{ color: "gray" }}>({thumnailsUrls.length}/10)</h3>
+                </div>
 
                 <div className="addPicture">
                     {/* 썸네일 이미지 리스트 */}
                     <div className="ThumnailList">
-                    {thumnailsUrls.map((image, id) => (
-                        <div key={id} style={{ position: "relative" }}>
-                            {/* 업로드된 이미지 클릭 시 수정 */}
-                            <img
-                                src={image}
-                                alt={`썸네일 ${id}`}
-                                onClick={() => thumbnailRefs.current[id]?.click()} // 수정 시 파일 input 클릭
-                            />
-                            {/* 삭제 버튼 */}
-                            <button onClick={() => handleDeleteThumnailImages(id)}>
-                                X
-                            </button>
+                        {thumnailsUrls.map((image, id) => (
+                            <div key={id} style={{ position: "relative" }}>
+                                {/* 업로드된 이미지 클릭 시 수정 */}
+                                <img
+                                    src={image}
+                                    alt={`썸네일 ${id}`}
+                                    onClick={() => thumbnailRefs.current[id]?.click()} // 수정 시 파일 input 클릭
+                                />
+                                {/* 삭제 버튼 */}
+                                <button onClick={() => handleDeleteThumnailImages(id)}>
+                                    X
+                                </button>
 
-                            {/* 수정 시 기존 이미지를 교체할 수 있도록 input 추가 */}
-                            <input
-                                type="file"
-                                style={{ display: "none" }}
-                                accept="image/*"
-                                onChange={(e) => handleUploadThumnailImage(e, id)} // 수정 시 기존 이미지 교체
-                                ref={(el) => (thumbnailRefs.current[id] = el)} // 각 input에 대한 ref 설정
-                            />
+                                {/* 수정 시 기존 이미지를 교체할 수 있도록 input 추가 */}
+                                <input
+                                    type="file"
+                                    style={{ display: "none" }}
+                                    accept="image/*"
+                                    onChange={(e) => handleUploadThumnailImage(e, id)} // 수정 시 기존 이미지 교체
+                                    ref={(el) => (thumbnailRefs.current[id] = el)} // 각 input에 대한 ref 설정
+                                />
+                            </div>
+                        ))}
+
+                        {/* 10개 미만일 경우 사진 추가 버튼 표시 */}
+                        {thumnailsUrls.length < 10 && (
+                        <div
+                            className="imageContainer"
+                            onClick={() => thumbnailRefs.current[thumnailsUrls.length]?.click()} // 새 이미지 추가
+                        >
+                            <p>사진을 추가해주세요</p>
                         </div>
-                    ))}
-
-                    {/* 10개 미만일 경우 사진 추가 버튼 표시 */}
-                    {thumnailsUrls.length < 10 && (
-                    <div
-                        className="imageContainer"
-                        onClick={() => thumbnailRefs.current[thumnailsUrls.length]?.click()} // 새 이미지 추가
-                    >
-                        <p>사진을 추가해주세요</p>
-                    </div>
-                    )}
+                        )}
                     </div>
 
                     {/* 실제 파일 input (이미지 추가) */}
@@ -468,10 +470,10 @@ const SellerItemResigter = () => {
 
             <div className='ItemRegButton'>
                 {itemId ?
-                    <>
+                    <div>
                         <button onClick={handlePatchItemData}>수정</button>
                         <button onClick={handleDeleteItemData}>삭제</button>
-                    </>
+                    </div>
                     : <button onClick={handleItemRegister}>등록</button>
                 }
             </div>
