@@ -4,6 +4,7 @@ import '../../../assets/styles/shop/sellerItemList.scss'
 import Pagination from "../../board/Pagination";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import ItemDelButton from "./itemDelButton";
+import SellerItemListHeader from "./SellerItemListHeader";
 
 
 const SellerItemList = ({navigateUrl}) => {
@@ -44,16 +45,18 @@ const SellerItemList = ({navigateUrl}) => {
     return(
         <div>
             <h2>상품 등록 목록</h2>
+
+            <SellerItemListHeader/>
             
             <ul>
                 {itemList.map((item) => (
                     <div className="sellerItemContainer" key={item.id}>
-                        <div>상품 번호 {item.id}</div>
-                        <img src={item.thumbnail_url[0]} style={{width: '60px', height: '60px', objectFit: 'cover' }}/>
-                        <div>상품명 {item.name}</div>
-                        <div>가격 {item.options[0].price}</div>
-                        <div>동물 {item.species}</div>
-                        <div>상품 {item.category}</div>
+                        <div className="SellerItemId">{item.id}</div>
+                        <img className="SellerItemImage" src={item.thumbnail_url[0]} style={{width: '60px', height: '60px', objectFit: 'cover' }}/>
+                        <div>{item.name}</div>
+                        <div>{item.options[0].price} 원</div>
+                        <div>{item.species}</div>
+                        <div>{item.category}</div>
                         <Link to={`/seller/item/edit/${item.id}`}>
                             <div>
                                 <button>수정</button>
