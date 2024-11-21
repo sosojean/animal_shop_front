@@ -21,6 +21,8 @@ import Admin from "../../pages/shop/admin/Admin";
 import SellerRegister from "../../pages/shop/admin/SellerRegister";
 import Information from "./Information";
 import AllProduct from "../../pages/shop/product/AllProduct";
+import SellerMain from "../../pages/shop/seller/SellerMain"
+import SellerItemList from "../shop/seller/SellerItemList";
 
 const Router = (props) => {
     return (
@@ -53,15 +55,14 @@ const Router = (props) => {
                         {/* 상품 등록, 수정 */}
                         <Route path="/seller/item/new" element={<SellerItemResigter/>}/>
                         <Route path="/seller/item/edit/:itemId" element={<SellerItemResigter/>}/>
+                        <Route path="/seller" element={<SellerMain/>}/>
+                        {/* 테스트 */}
+                        <Route path="/seller/item/list" element={<SellerItemList/>}/>
 
                         <Route path="/deliver" element={<DeliverInfo/>}/>
                         <Route path="/admin/:menu" element={<Admin/>}/>
                         <Route path="/seller/register" element={<SellerRegister/>}/>
                         <Route path="/seller/register/success" element={<Information case ="seller" />}/>
-
-
-
-
 
                     </Routes>
                 </div>

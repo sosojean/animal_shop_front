@@ -1,0 +1,16 @@
+.SellerItemListHeaderContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid black;
+    // border: 1px solid black;
+
+    .SellerItemId {
+        width: 60px;
+        border: 1px solid black
+    }
+
+    .SellerItemImage {
+        width: 80px;
+    }
+}
