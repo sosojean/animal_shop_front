@@ -1,10 +1,10 @@
-const OptionSelector = ({optionItem, handleSelectChange, priceTrimmer}) => {
+const OptionSelector = ({ selectedValue ,optionItem, handleSelectChange, priceTrimmer}) => {
 
 
 
 
     return (
-        <select onChange={handleSelectChange} defaultValue="placeholder">
+        <select value={selectedValue} onChange={handleSelectChange}  defaultValue="placeholder">
             <option value='placeholder' disabled hidden>옵션 선택</option>
             {optionItem.map((option, index) => {
                     return (
