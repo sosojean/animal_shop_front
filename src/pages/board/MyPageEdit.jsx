@@ -1,13 +1,13 @@
 import {faImage, faPen, faUserPen} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import "../../assets/styles/layout/mypage.scss"
+import "../../assets/styles/layout/mypageEdit.scss"
 import {useEffect, useState} from "react";
 import instance from "../../utils/axios";
 import {Link, useNavigate} from "react-router-dom";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
 
-function MyPage(props) {
+const MyPageEdit = (props) => {
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -265,4 +265,4 @@ function MyPage(props) {
     )
 }
 
-export default MyPage;
+export default MyPageEdit;
