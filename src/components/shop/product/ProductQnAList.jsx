@@ -5,7 +5,22 @@ const ProductQnAList = () => {
 
     return(
         <>
+            <div id="qna-target">
+
+
             <ProductQnA/>
+                <ProductQnA/>
+                <ProductQnA/>
+                <ProductQnA/>
+                <ProductQnA/>
+                <ProductQnA/>
+                <ProductQnA/>
+                <ProductQnA/>
+                <ProductQnA/>
+                <ProductQnA/>
+                <ProductQnA/>
+
+            </div>
 
         </>
     )

@@ -3,7 +3,11 @@ import '@toast-ui/editor/toastui-editor.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 import { useState, useRef, useEffect } from 'react';
+<<<<<<< HEAD
 import '../../../assets/styles/shop/sellerItemRegister.scss'
+=======
+import '../../../assets/styles/shop/seller/sellerItemRegister.scss'
+>>>>>>> 33ccb7e3f58555a720c0bd4d4cba5b963c85bf2b
 import instance from '../../../utils/axios'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -103,9 +107,15 @@ const SellerItemResigter = () => {
 
     }
 
+<<<<<<< HEAD
     const handleUploadThumnailImage = async (e, id) => {
         const file = e.target.files[0];  // 파일을 가져옴
         if (!file) return;
+=======
+     const handleUploadThumnailImage = async (e) => {
+        const file = e.target.files[0];  // 사용자가 업로드한 파일
+        console.log(file);
+>>>>>>> 33ccb7e3f58555a720c0bd4d4cba5b963c85bf2b
     
         const formData = new FormData();
         formData.append("image", file);
@@ -230,8 +240,13 @@ const SellerItemResigter = () => {
             // 성공적으로 데이터가 저장된 경우
             console.log('수정 성공:', response.data);
 
+<<<<<<< HEAD
             navigate('/');
 
+=======
+            // navigate('/');
+    
+>>>>>>> 33ccb7e3f58555a720c0bd4d4cba5b963c85bf2b
         } catch (error) {
             // 에러가 발생한 경우
             console.log('에러 발생:', error);
