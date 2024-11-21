@@ -29,10 +29,10 @@ const ProductDetailHeader = ({data}) => {
     //기존가격에 대한 상대 가격으로 표시
     const priceTrimmer = (optionPrice)=> {
         if (defaultPrice !== optionPrice) {
-            const trimmedPrice = optionPrice-defaultPrice;
+            const trimmedPrice = optionPrice-defaultPrice ;
             const result =
                 (trimmedPrice < 0) ?
-                    `(-${trimmedPrice.toLocaleString()}원)` : `(+${trimmedPrice.toLocaleString()}원)`;
+                    `(-${Math.abs(trimmedPrice).toLocaleString()}원)` : `(+${Math.abs(trimmedPrice).toLocaleString()}원)`;
             return result;
         }
         else{

@@ -18,9 +18,14 @@
 
             img{
                 width: 100%;
+                height: 100%;
+
             }
             .main-img {
+
                 grid-area: span 5 / span 5;
+                width: 100%;
+                height: 100%;
             }
         }
     }
