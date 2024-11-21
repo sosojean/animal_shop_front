@@ -56,7 +56,10 @@ const ProductDetail = () => {
     }
 
     useEffect(() => {
-        window.addEventListener('scroll', getScroll);
+        const navbarPos = document.getElementById("navbar-hr");
+        if (navbarPos) {
+            window.addEventListener('scroll', getScroll);
+        }
         return () => window.removeEventListener('scroll', getScroll);
     }, []);
 
@@ -73,7 +76,7 @@ const ProductDetail = () => {
                 <ProductReviewList itemId = {itemId}/>
                 <hr id="qna-hr"/>
 
-                <ProductQnAList itemId = {itemId}/>
+                <ProductQnAList data = {data} itemId = {itemId}/>
                 <hr id="info-hr"/>
 
                 <Products/></>}
