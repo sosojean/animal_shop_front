@@ -4,3 +4,9 @@
   margin :  0 5px 0 5px;
   width: 1px;
 }
+
+.inner-container{
+    height: auto;
+    min-height: 100vh;
+  padding-bottom: 80px;
+}

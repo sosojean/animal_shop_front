@@ -45,7 +45,6 @@ const Product = (props) => {
     return(
 
         <Link to={`http://localhost:3000/shop/detail/${props.data?.id}`}>
-            {console.log(props)}
           <div className={props.position}>
 
               <img src={props?.data["thumbnail_url"]} alt=""/>

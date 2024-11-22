@@ -1,14 +1,17 @@
 import ItemRegButton from "../../../components/shop/seller/ItemRegButton";
 import { Link } from "react-router-dom";
 import SellerItemList from "../../../components/shop/seller/SellerItemList";
+import SellerMenu from "../../../components/shop/seller/SellerMenu";
 
 
 const SellerMain = () => {
 
     const navigateUrl = "/seller"; // 삭제 후 리다이렉트할 URL 설정
 
-    return (
+    return (<>
+        <SellerMenu/>
         <div>
+
             <h1>판매자 센터</h1>
             <ItemRegButton/>
             <Link to="/seller/item/list">
@@ -16,6 +19,7 @@ const SellerMain = () => {
             </Link>
             <SellerItemList navigateUrl={navigateUrl}/>
         </div>
+        </>
     )
 }
 

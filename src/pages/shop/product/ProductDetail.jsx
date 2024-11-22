@@ -4,7 +4,7 @@ import Products from "../../../components/shop/product/Products";
 import ProductDetailContent from "../../../components/shop/product/ProductDetailContent"
 import ProductReviewList from "../../../components/shop/product/ProductReviewList";
 import ProductQnAList from "../../../components/shop/product/ProductQnAList";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
 
@@ -14,6 +14,7 @@ const ProductDetail = () => {
     const [content, setContent] = useState("detail")
     const [isFixed, setIsFixed] = useState(false)
 
+    const targetRef = useRef(null);
 
     useEffect(() => {
         axios({
@@ -23,16 +24,19 @@ const ProductDetail = () => {
         }).then(
             res => {
                 setData(res.data);
-                console.log(res.data);
             }
         )
     },[])
 
-    function getScroll() {
+    function handleScroll() {
         const scroll = document.documentElement.scrollTop;
+        let navAbsolutePos
 
         const navbarPos = document.getElementById("navbar-hr");
-        const navAbsolutePos = window.scrollY + navbarPos.getBoundingClientRect().top;
+        if (navbarPos) {
+            navAbsolutePos = navbarPos.offsetTop; // getBoundingClientRect 대신 offsetTop 사용
+            setIsFixed(scroll >= navAbsolutePos);
+        }
 
         const reviewPos = document.getElementById("review-hr");
         const reviewAbsolutePos = window.scrollY + reviewPos.getBoundingClientRect().top;
@@ -42,26 +46,30 @@ const ProductDetail = () => {
         // const infoAbsolutePos = window.scrollY + infoPos.getBoundingClientRect().top; //todo 인포 추가 후 처리 해줘야함
 
 
-        console.log(navAbsolutePos);
-        navAbsolutePos < scroll? setIsFixed(true):setIsFixed(false);
-
-        if ( qnaAbsolutePos < scroll){
-            setContent("qna")
-        }
-        else if (  reviewAbsolutePos < scroll){
-            setContent("review")
-        }else if ( navAbsolutePos < scroll){
-            setContent("detail")
+        if (qnaPos && qnaPos.offsetTop <= scroll) {
+            setContent("qna");
+        } else if (reviewPos && reviewPos.offsetTop <= scroll) {
+            setContent("review");
+        } else if (navbarPos && navAbsolutePos <= scroll) {
+            setContent("detail");
         }
     }
 
     useEffect(() => {
-        const navbarPos = document.getElementById("navbar-hr");
-        if (navbarPos) {
-            window.addEventListener('scroll', getScroll);
+        const targetElement = targetRef.current;
+
+        if (targetElement) {
+            window.addEventListener('scroll', handleScroll);
         }
-        return () => window.removeEventListener('scroll', getScroll);
-    }, []);
+
+        return () => {
+            if (targetElement) {
+                window.removeEventListener("scroll", handleScroll);
+
+            }
+
+        };
+    }, [data]);
 
     return(
         <>
@@ -77,7 +85,7 @@ const ProductDetail = () => {
                 <hr id="qna-hr"/>
 
                 <ProductQnAList data = {data} itemId = {itemId}/>
-                <hr id="info-hr"/>
+                <hr id="info-hr" ref={targetRef}/>
 
                 <Products/></>}
         </>

@@ -1,7 +1,7 @@
 .my-page{
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  //height: 100vh;
   width: 100%;
   .user-info{
     width: 100%;
@@ -19,11 +19,7 @@
   }}
   .shop{
     width: 100%;
+    border: solid 1px var(--alpha-50);
 
-    height: 200px;
-
-    height: calc(100vh - 140px) ;
-
-    background: rebeccapurple;
   }
 }

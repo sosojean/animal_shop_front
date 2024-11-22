@@ -3,7 +3,7 @@ import OptionSelector from "./OptionSelector";
 import instance from "../../../utils/axios";
 import {useParams} from "react-router-dom";
 
-const QnAModal = ({data,modalOpen, setModalOpen}) => {
+const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
 
     const [option, setOption] = useState();
     const [userQuestionInput, setUserQuestionInput] = useState({
@@ -23,7 +23,11 @@ const QnAModal = ({data,modalOpen, setModalOpen}) => {
 
         }).then((res) => {
             console.log(userQuestionInput)
+
             console.log(res.data)
+
+            setIsEdited(!isEdited);
+            modalClose()
         }).catch((err) => {
             console.log(err)
         })

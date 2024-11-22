@@ -36,11 +36,11 @@ const SellerManagement = (props) => {
 
     return (<>
         <SellerInfoItem isHeader = {true} item={header}/>
-        {data? data.map((item) =>{
+        {data&&data.map((item) =>{
                 return(
-                    <SellerInfoItem key={item.id} item={item}/>
+                    <SellerInfoItem key={item.bln} item={item}/>
                 )
-            }):null
+            })
         }
         <Pagination currentPage={page} handlePageChange={setPage} totalPost={totalSeller}/>
     </>)

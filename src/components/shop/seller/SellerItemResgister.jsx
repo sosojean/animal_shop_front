@@ -7,6 +7,7 @@ import '../../../assets/styles/shop/seller/sellerItemRegister.scss'
 import instance from '../../../utils/axios'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import SellerMenu from "./SellerMenu";
 
 const SellerItemResigter = () => {
     const navigate = useNavigate();
@@ -260,6 +261,8 @@ const SellerItemResigter = () => {
 
     return (
         <div className='itemRegContainer'>
+            <SellerMenu/>
+
             <h1>{itemId ? '상품 수정' : '상품 등록'}</h1>
 
             <div className='RegNameContainer'>

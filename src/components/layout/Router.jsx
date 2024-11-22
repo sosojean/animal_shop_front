@@ -24,10 +24,13 @@ import AllProduct from "../../pages/shop/product/AllProduct";
 import SellerMain from "../../pages/shop/seller/SellerMain"
 import SellerItemList from "../shop/seller/SellerItemList";
 import MyPage from "../common/MyPage";
+import SellerQnA from "../shop/seller/SellerQnA";
+import ScrollToTop from "../../utils/ScrollToTop";
 
 const Router = (props) => {
     return (
         <BrowserRouter>
+            <ScrollToTop/>
             <div className="outer-container">
                 <Header reload={props.reload} setReload={props.setReload}/>
                 <div className="inner-container">
@@ -59,6 +62,9 @@ const Router = (props) => {
                         <Route path="/seller/item/new" element={<SellerItemResigter/>}/>
                         <Route path="/seller/item/edit/:itemId" element={<SellerItemResigter/>}/>
                         <Route path="/seller" element={<SellerMain/>}/>
+                        <Route path="/seller/qna" element={<SellerQnA/>}/>
+
+
                         {/* 테스트 */}
                         <Route path="/seller/item/list" element={<SellerItemList/>}/>
 
