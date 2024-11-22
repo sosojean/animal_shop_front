@@ -1,0 +1,33 @@
+
+.sellerMainContainer {
+    h1 {
+        margin: 1rem 0 1rem 0;
+    }
+
+    .sellerListHeader {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+
+        h2 {
+            padding-top: 1.5rem;
+        }
+
+        .sellerListHeaderLink {
+        
+            :first-child {
+                margin-bottom: -15px;
+            }
+
+            .linkContainer {
+                padding: 5px;
+
+                :hover {
+                    background-color: rgb(226, 225, 225);
+                    border-radius: 10px;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
