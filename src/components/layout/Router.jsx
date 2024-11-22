@@ -56,7 +56,6 @@ const Router = (props) => {
                         <Route path="/seller/item/new" element={<SellerItemResigter/>}/>
                         <Route path="/seller/item/edit/:itemId" element={<SellerItemResigter/>}/>
                         <Route path="/seller" element={<SellerMain/>}/>
-                        {/* 테스트 */}
                         <Route path="/seller/item/list" element={<SellerItemList/>}/>
 
                         <Route path="/deliver" element={<DeliverInfo/>}/>

@@ -61,7 +61,9 @@ const SellerItemList = ({navigateUrl}) => {
                         <div className="SellerItemImage">
                             <img src={item.thumbnail_url[0]}/>
                         </div>
-                        <div className='SellerItemName'>{item.name}</div>
+                        <div className='SellerItemName'>
+                            <Link to={`/shop/detail/${item.id}`}>{item.name}</Link>
+                        </div>
                         <div className='SellerItemPrice'>{item.options[0].price} 원</div>
                         <div className='SellerItemSpecies'>{item.species}</div>
                         <div className='SellerItemCategory'>{item.category}</div>
