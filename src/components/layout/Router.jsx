@@ -65,7 +65,7 @@ const Router = (props) => {
                         <Route path="/seller/qna" element={<SellerQnA/>}/>
 
 
-                        {/* 테스트 */}
+
                         <Route path="/seller/item/list" element={<SellerItemList/>}/>
 
                         <Route path="/deliver" element={<DeliverInfo/>}/>
