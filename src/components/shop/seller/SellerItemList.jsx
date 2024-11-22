@@ -4,7 +4,6 @@ import '../../../assets/styles/shop/sellerItemList.scss'
 import Pagination from "../../board/Pagination";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import ItemDelButton from "./itemDelButton";
-import SellerItemListHeader from "./SellerItemListHeader";
 
 
 const SellerItemList = ({navigateUrl}) => {
@@ -43,26 +42,36 @@ const SellerItemList = ({navigateUrl}) => {
     };
 
     return(
-        <div>
-
-            <SellerItemListHeader/>
+        <div className="sellerItemListContainer">
+            <div className='SellerItemListHeaderContainer'>
+                <div className='SellerItemId'>상품번호</div>
+                <div className='SellerItemImage'>대표 이미지</div>
+                <div className='SellerItemName'>상품명</div>
+                <div className='SellerItemPrice'>가격</div>
+                <div className='SellerItemSpecies'>동물</div>
+                <div className='SellerItemCategory'>상품</div>
+                <div className='SellerItemUpdate'>수정</div>
+                <div className='SellerItemDelete'>삭제</div>
+            </div>
             
             <ul>
                 {itemList.map((item) => (
-                    <div className="sellerItemContainer" key={item.id}>
+                    <li className="sellerItemContainer" key={item.id}>
                         <div className="SellerItemId">{item.id}</div>
-                        <img className="SellerItemImage" src={item.thumbnail_url[0]} style={{width: '60px', height: '60px', objectFit: 'cover' }}/>
-                        <div>{item.name}</div>
-                        <div>{item.options[0].price} 원</div>
-                        <div>{item.species}</div>
-                        <div>{item.category}</div>
+                        <div className="SellerItemImage">
+                            <img src={item.thumbnail_url[0]}/>
+                        </div>
+                        <div className='SellerItemName'>{item.name}</div>
+                        <div className='SellerItemPrice'>{item.options[0].price} 원</div>
+                        <div className='SellerItemSpecies'>{item.species}</div>
+                        <div className='SellerItemCategory'>{item.category}</div>
                         <Link to={`/seller/item/edit/${item.id}`}>
-                            <div>
-                                <button>수정</button>
+                            <div className="SellerItemDelete">
+                                <button style={{marginRight:'10px'}}>수정</button>
                             </div>
                         </Link>
                         <ItemDelButton itemId={item.id} url={navigateUrl} getItemList={() => getItemList(currentPage)}/>
-                    </div>
+                    </li>
                 )
             )}
             </ul>
