@@ -57,9 +57,13 @@ instance.interceptors.response.use(
                 isInvalidToken = true;
 
                 try {
-                    const response = await axios.post('/auth/token', {
-                        refreshToken: localStorage.getItem('refreshToken')
-                    });
+                    const response = await instance(
+                       {
+                           url: '/auth/token',
+                           method: "POST",
+                           refreshToken: localStorage.getItem('refreshToken')
+                    }
+                    );
                     const newAccessToken = response.data.accessToken;
                     localStorage.setItem("accessToken", newAccessToken);
                     isInvalidToken = false;

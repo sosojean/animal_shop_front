@@ -1,15 +1,17 @@
 import {useEffect, useState} from "react";
 import '../../../assets/styles/shop/product/mainDetail.scss'
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import Option from "./Option";
 import Thumbnails from "./Thumbnails";
 import OptionSelector from "./OptionSelector";
+import instance from "../../../utils/axios";
 
 const ProductDetailHeader = ({data}) => {
 
     const [option, setOption] = useState([]);
-    const [stocks, setStocks] = useState([])
+    const [stocks, setStocks] = useState([]);
+    const [selectedValue, setSelectedValue] = useState("placeholder")
     const defaultPrice = data?.options[0].price;
 
 
@@ -17,11 +19,14 @@ const ProductDetailHeader = ({data}) => {
     const handleSelectChange = (event) => {
         const index = event.target.value;
         const isExistedValue = option.includes(index)
+        console.log(index)
 
-        if (!isExistedValue){
+        console.log("option",option)
+        console.log(stocks);
+        if (!isExistedValue) {
             if (index !== "default") {
-                setOption([...option, index]);
-                setStocks([...stocks, {index :index, count:1}])
+                setOption((prevOption) => [...prevOption, index]);
+                setStocks((prevStocks) => [...prevStocks, { index: index, count: 1 }]);
             }
         }
     };
@@ -50,15 +55,17 @@ const ProductDetailHeader = ({data}) => {
 
     //선택옵션 삭제핸들러
     const handleOptionDelete = (index) => {
-        const newOption = [...option];
-        newOption.splice(index, 1);
-        setOption(newOption);
+        setOption((prevOption) => {
+            const newOption = [...prevOption];
+            newOption.splice(index, 1); // 삭제
+            return newOption;
+        });
 
-        const newStocks = [...stocks];
-        newStocks.splice(index, 1);
-        setStocks(newStocks);
-
-        console.log(stocks);
+        setStocks((prevStocks) => {
+            const newStocks = [...prevStocks];
+            newStocks.splice(index, 1); // 삭제
+            return newStocks;
+        });
     }
 
     //전체 총합 계산
@@ -78,30 +85,47 @@ const ProductDetailHeader = ({data}) => {
 
         let option_items = [];
         let option_item =  {count: "",option_name:"",option_price:""}
+        let purchase;
 
         stocks.map((stock) => {
-            option_item.count = stock.count;
-            option_item.option_name = options[stock.index].name;
-            option_item.option_price = options[stock.index].price;
+
+            let option_item = {
+                count: stock.count,
+                option_name: options[stock.index].name,
+                option_price: options[stock.index].price
+            };
+            console.log("option_item",option_item)
             option_items.push(option_item);
+             purchase = {itemId : data.id, ...option_item};
 
         })
 
         // let purchase = {itemId : data.id, option_items : option_items}; // 실 데이터
 
-        let purchase = {itemId : data.id, ...option_item};
+
+        console.log(purchase)
         return purchase;
     }
 
     const purchaseHandler = () => {
         const purchaseData = dataBuilder();
 
-        // ins
+        instance({
+            url:`/shop/order`,
+            method:'post',
+            data:purchaseData
+        }).then(res=>{
+            console.log(purchaseData)
+            // console.log(res)
+        }).catch(err=>{
+            console.log(err)
+        })
 
     }
 
     return (
     <>
+        <Link to={"/"} > link</Link>
         {data&& (
         <div className="detailContainer">
             <div className="thumbnail-area-container">
@@ -120,6 +144,7 @@ const ProductDetailHeader = ({data}) => {
                 <h1>{defaultPrice.toLocaleString()} 원</h1>
 
                 <OptionSelector
+                    selectedValue={selectedValue}
                     handleSelectChange={handleSelectChange}
                     optionItem={data?.options}
                     priceTrimmer={priceTrimmer}/>
@@ -129,8 +154,6 @@ const ProductDetailHeader = ({data}) => {
                     {option.map((itemIndex, index) => {
 
                         return (<Option key={data.options[itemIndex].name}
-
-
                                         item={data.options[itemIndex].name}
                                         index={index}
                                         price={data.options[itemIndex].price}

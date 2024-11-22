@@ -7,7 +7,7 @@ import Login from "../../pages/board/Login";
 import PostWrite from "../../pages/board/PostWrite";
 import JoinSuccess from "../../pages/board/JoinSuccess";
 import "../../assets/styles/layout/router.scss";
-import MyPage from "../../pages/board/MyPage";
+import MyPageEdit from "../../pages/board/MyPageEdit";
 import ContentsViewer from "../board/ContentsViewer";
 import Search from "../../pages/board/Search";
 import Product from "../shop/product/Product";
@@ -23,6 +23,7 @@ import Information from "./Information";
 import AllProduct from "../../pages/shop/product/AllProduct";
 import SellerMain from "../../pages/shop/seller/SellerMain"
 import SellerItemList from "../shop/seller/SellerItemList";
+import MyPage from "../common/MyPage";
 
 const Router = (props) => {
     return (
@@ -43,6 +44,8 @@ const Router = (props) => {
                         <Route path="/post/write" element={<PostWrite/>}/>
                         <Route path="/join/success" element={<Information case ="join" />}/>
                         <Route path="/mypage" element={<MyPage/>}/>
+
+                        <Route path="/mypage/edit" element={<MyPageEdit/>}/>
                         <Route path="/:category/:post_id" element={<ContentsViewer/>}/>
                         <Route path="/search" element={<Search/>}/>
 

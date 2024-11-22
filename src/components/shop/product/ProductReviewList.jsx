@@ -9,6 +9,7 @@ const ProductReviewList = ({itemId}) => {
     const [data, setData] = useState()
     const [isModified, setIsModified] = useState(true);
     const [isEdit, setIsEdit] = useState(false)
+    const isLoggedIn = localStorage.getItem("accessToken")?true:false
 
     useEffect(() => {
         let getFunc
@@ -50,6 +51,7 @@ const ProductReviewList = ({itemId}) => {
                         setIsModified = {setIsModified}
                         isEdit = {isEdit}
                         setIsEdit = {setIsEdit}
+                        isLoggedIn = {isLoggedIn}
 
                     />)
 

@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart, faHeartBroken} from "@fortawesome/free-solid-svg-icons";
 
-const ProductReview = ({item, setIsModified, isModified, setIsEdit, isEdit}) => {
+const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit, isEdit}) => {
 
     const [isAuthor, setIsAuthor] = useState()
     const [isLiked, setIsLiked] = useState(item.heart)
@@ -99,16 +99,17 @@ const ProductReview = ({item, setIsModified, isModified, setIsEdit, isEdit}) => 
 
                         </div>
                         <div className="review-control-buttons">
+                            {isLoggedIn &&<>
                             {isLiked ?
 
                                 <button onClick={commentUnLikeHandler}><FontAwesomeIcon icon={faHeartBroken}/></button>
                                 : <button onClick={commentLikeHandler}><FontAwesomeIcon icon={faHeart}/></button>
                             }
                             {isAuthor && <>
-                                {isEdit ?
+                                {isEdit?
                                     <button onClick={editConfirmHandler}>완료</button> :
                                     <button onClick={() => setIsEdit(true)}> 수정 </button>}
-                                    <button onClick={deleteHandler}> 삭제</button></>}
+                                    <button onClick={deleteHandler}> 삭제</button></>}</>}
                         </div>
                     </div>
                 </div>
