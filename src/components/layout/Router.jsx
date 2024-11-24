@@ -26,6 +26,7 @@ import SellerItemList from "../shop/seller/SellerItemList";
 import MyPage from "../common/MyPage";
 import SellerQnA from "../shop/seller/SellerQnA";
 import ScrollToTop from "../../utils/ScrollToTop";
+import SellerItemEditor from "../../pages/shop/seller/SellerItemEditor"
 
 const Router = (props) => {
     return (
@@ -63,6 +64,8 @@ const Router = (props) => {
                         <Route path="/seller/item/edit/:itemId" element={<SellerItemResigter/>}/>
                         <Route path="/seller" element={<SellerMain/>}/>
                         <Route path="/seller/qna" element={<SellerQnA/>}/>
+                        {/* 상품 등록 테스트 */}
+                        <Route path="/seller/test" element={<SellerItemEditor/>}/>
 
 
 

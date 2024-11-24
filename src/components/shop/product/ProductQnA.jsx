@@ -25,9 +25,9 @@ const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
     }
 
 
-    const answerHandler = () => {
+    // const answerHandler = () => {
 
-    }
+    // }
 
     return (
         <div className="qnaContainer">
@@ -49,7 +49,7 @@ const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
                             setReply(e.target.value)
                         }}
                         className="edit-review" cols="30" rows="10"/>
-                        <button onClick={() => {answerHandler(e)}}>확인</button>
+                        {/* <button onClick={(e) => {answerHandler(e)}}>확인</button> */}
                         <button onClick={()=>{setIsEdit(false)}}>취소</button>
                     </> :
                     <button onClick={ ()=> setIsEdit(true)}> 답변하기</button>
