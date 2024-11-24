@@ -25,8 +25,8 @@ const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
     }
 
 
-    const answerHandler = () => {
-
+    // const answerHandler = () => {
+     // }
         console.log(reply)
 
         instance({
@@ -65,6 +65,7 @@ const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
             {position != "seller" ?
                 <button onClick={deleteHandler}>삭제</button> :
                 isEdit ? <>
+
                     <textarea class="reply"
                               onChange={e => {
                                   setReply(e.target.value)
