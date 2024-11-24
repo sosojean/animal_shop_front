@@ -13,4 +13,17 @@
     .qnaContent {
         margin-bottom: 2rem;
     }
+
+    textArea {
+        padding: 20px;
+        border-radius: 10px/10px;
+        font-size: 1rem;
+        background: var(--sercondary-background-color);
+        border: 0px solid var(--sercondary-color);
+        resize: none;
+        width: 100%;
+        min-height: 100px;
+
+    }
+
 }

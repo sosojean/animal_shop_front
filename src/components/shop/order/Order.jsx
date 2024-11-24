@@ -13,7 +13,7 @@ const Order = ({item}) => {
             url: `/shop/order/cancel/${item.orderId}`,
             method: "Patch",
 
-        }).then(({data}) => {
+        }).then((data) => {
             console.log(data);
         }).catch((error) => {
             console.log(error)
