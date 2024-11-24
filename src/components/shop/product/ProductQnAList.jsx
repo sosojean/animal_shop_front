@@ -10,7 +10,7 @@ const ProductQnAList = ({data}) => {
     const [QnA, setQnA] = useState()
     const [isEdited, setIsEdited] = useState(false)
 
-    useEffect(() => {
+     useEffect(() => { //todo : 문의 get instance -> axios , 에러 여부 확인
         instance({
             url:`/item/query/list/${data.id}`,
             method: "get",

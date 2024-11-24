@@ -65,8 +65,8 @@ const SellerRegister = (props) => {
 
         const canRegister =
             category!=""
-            &isCheckedBln
-            &!isInvalidBln
+            // &isCheckedBln
+            // &!isInvalidBln
             &isPhoneNumber
             &data["phone_number"].length>10;
 
