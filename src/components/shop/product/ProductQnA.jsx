@@ -24,9 +24,7 @@ const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
         })
     }
 
-
-    // const answerHandler = () => {
-     // }
+    const answerHandler = () => {
         console.log(reply)
 
         instance({
