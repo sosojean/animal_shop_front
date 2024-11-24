@@ -66,6 +66,7 @@ const Router = (props) => {
                         <Route path="/seller/qna" element={<SellerQnA/>}/>
                         {/* 상품 등록 테스트 */}
                         <Route path="/seller/test" element={<SellerItemEditor/>}/>
+                        <Route path="/seller/test/:itemId" element={<SellerItemEditor/>}/>
 
 
 

@@ -38,9 +38,9 @@ const SellerItemEditor = () => {
     // SellerThumbnails
     const [thumnailsUrls, setThumnailsUrls] = useState([]); // 썸네일 이미지
 
+    // SellerDescription
     const editorRef = useRef(null);
 
-    const navigate = useNavigate();
     const { itemId } = useParams();
 
     const getRegisterData = () => {
@@ -48,20 +48,24 @@ const SellerItemEditor = () => {
         console.log("getRegisterData");
         console.log(markdown);
 
-        const data = {
-            "option": options,
-            "name": itemName,
-            "item_detail": markdown,
-            "stock_number": itemStock,
-            "sell_status": sellStatus,
-            "species": itemSpecies,
-            "category": itemType,
-            "thumbnailUrls": thumnailsUrls,
-            "imageUrl": detailImageUrl
-        }
 
-        return data;
+        // 공통 데이터 정의
+        const data = {
+            option: options,
+            name: itemName,
+            item_detail: markdown,
+            stock_number: itemStock,
+            sell_status: sellStatus,
+            species: itemSpecies,
+            category: itemType,
+            thumbnailUrls: thumnailsUrls,
+            imageUrl: detailImageUrl
+        };
+
+        // `itemId`가 있는 경우 `id` 속성 추가
+        return itemId ? { ...data, id: itemId } : data;
     }
+
 
     // 수정할 상품의 정보를 가져오기
     useEffect(() => {
@@ -106,7 +110,7 @@ const SellerItemEditor = () => {
             <SellerDetailImage detailImageUrl={detailImageUrl} setDetailImageUrl={setDetailImageUrl}/>
             <SellerThumbnails thumnailsUrls={thumnailsUrls} setThumnailsUrls={setThumnailsUrls}/>
             <SellerDescription ref={editorRef}/>
-            <ItemRegButton getRegisterData={getRegisterData}/>
+            <ItemRegButton getRegisterData={getRegisterData} itemId={itemId}/>
 
         </div>
     )
