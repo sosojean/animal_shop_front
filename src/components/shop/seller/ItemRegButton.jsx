@@ -5,6 +5,7 @@ const ItemRegButton = ({getRegisterData, itemId}) => {
 
     const navigate = useNavigate();
 
+    // 상품 등록, 수정, 삭제
     const handleItemRegister = async () => {
         console.log("handleItemRegister");
 

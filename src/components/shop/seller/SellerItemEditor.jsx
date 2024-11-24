@@ -2,17 +2,20 @@ import '../../../assets/styles/shop/seller/sellerItemRegister.scss'
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import instance from '../../../utils/axios';
-import SellerNameRegister from '../../../components/shop/seller/SellerNameRegister';
-import SellerItemStock from '../../../components/shop/seller/SellerItemStock';
-import SellerItemStatus from '../../../components/shop/seller/SellerItemStatus'
-import SellerItemCategory from '../../../components/shop/seller/SellerItemCategory';
-import SellerItemOption from '../../../components/shop/seller/SellerItemOption';
-import SellerDetailImage from '../../../components/shop/seller/SellerDetailImage';
-import SellerThumbnails from '../../../components/shop/seller/SellerThumbnails';
-import SellerDescription from '../../../components/shop/seller/SellerDescription';
-import ItemRegButton from '../../../components/shop/seller/ItemRegButton';
+import SellerNameRegister from './SellerNameRegister';
+import SellerItemStock from './SellerItemStock';
+import SellerItemStatus from './SellerItemStatus'
+import SellerItemCategory from './SellerItemCategory';
+import SellerItemOption from './SellerItemOption';
+import SellerDetailImage from './SellerDetailImage';
+import SellerThumbnails from './SellerThumbnails';
+import SellerDescription from './SellerDescription';
+import ItemRegButton from './ItemRegButton';
 
 const SellerItemEditor = () => {
+
+    // 수정할 데이터 받아오기 위해 필요
+    const { itemId } = useParams();
 
     // SellerNameRegister
     const [itemName, setItemName] = useState(""); // 상품명
@@ -41,8 +44,7 @@ const SellerItemEditor = () => {
     // SellerDescription
     const editorRef = useRef(null);
 
-    const { itemId } = useParams();
-
+    // 서버에 송신할 데이터
     const getRegisterData = () => {
         const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
         console.log("getRegisterData");
@@ -65,7 +67,6 @@ const SellerItemEditor = () => {
         // `itemId`가 있는 경우 `id` 속성 추가
         return itemId ? { ...data, id: itemId } : data;
     }
-
 
     // 수정할 상품의 정보를 가져오기
     useEffect(() => {
@@ -98,8 +99,7 @@ const SellerItemEditor = () => {
 
     return (
         <div className='itemRegContainer'>
-            <h1>SellerItemRegister 모듈화 테스트 페이지</h1>
-
+            
             <h1>{itemId ? '상품 수정' : '상품 등록'}</h1>
 
             <SellerNameRegister itemName={itemName} setItemName={setItemName} nameCount={nameCount} setNameCount={setNameCount}/>
@@ -110,8 +110,8 @@ const SellerItemEditor = () => {
             <SellerDetailImage detailImageUrl={detailImageUrl} setDetailImageUrl={setDetailImageUrl}/>
             <SellerThumbnails thumnailsUrls={thumnailsUrls} setThumnailsUrls={setThumnailsUrls}/>
             <SellerDescription ref={editorRef}/>
-            <ItemRegButton getRegisterData={getRegisterData} itemId={itemId}/>
 
+            <ItemRegButton getRegisterData={getRegisterData} itemId={itemId}/>
         </div>
     )
 }
