@@ -18,7 +18,7 @@ const SellerManagement = (props) => {
             setData(response.data.sellerDTOS);
             setTotalSeller(response.data.totalCount)
 
-            console.log(response);
+            // console.log(response);
 
         }).catch(error => {
             console.log(error)

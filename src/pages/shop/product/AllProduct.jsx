@@ -12,7 +12,7 @@ const AllProduct = (props) => {
 
     useEffect(() => {
 
-        let url = `http://localhost:8080/shop/product-category/${category}/Toy?page=1`
+        let url = `http://localhost:8080/shop/product-category?species=${category}&page=1`
         if (category === "all") {
             url = `http://localhost:8080/shop/best?page=1`
         }
@@ -20,7 +20,7 @@ const AllProduct = (props) => {
             url:url ,
             method:"get"
         }).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             setData(res.data["best_goods"]);
         })
     },[])
@@ -29,9 +29,6 @@ const AllProduct = (props) => {
 
     return (<>
         {data&& <Products name ={category}  data={data}/>}
-
-
-
     </>)
   
 }

@@ -19,12 +19,12 @@ const ProductDetailHeader = ({data}) => {
     const handleSelectChange = (event) => {
         const index = event.target.value;
         const isExistedValue = option.includes(index)
-        console.log(stocks)
+        // console.log(stocks)
 
         if (!isExistedValue) {
             if (index !== "default") {
                 setOption((prevOption) => [...prevOption, index]);
-                console.log(data);
+                // console.log(data);
                 setStocks((prevStocks) => [...prevStocks, { index: index, optionId:data.options[index].optionId,  count: 1 }]);
             }
         }
@@ -93,7 +93,7 @@ const ProductDetailHeader = ({data}) => {
                 option_name: options[stock.index].name,
                 option_price: options[stock.index].price
             };
-            console.log("option_item",option_item)
+            // console.log("option_item",option_item)
             option_items.push(option_item);
              // purchase = {itemId : data.id, ...option_item};
             purchase = {itemId : data.id, option_items : option_items};
@@ -103,7 +103,7 @@ const ProductDetailHeader = ({data}) => {
         // let purchase = {itemId : data.id, option_items : option_items}; // 실 데이터
 
 
-        console.log(purchase)
+        // console.log(purchase)
         return purchase;
     }
 
@@ -115,7 +115,7 @@ const ProductDetailHeader = ({data}) => {
             method:'post',
             data:purchaseData
         }).then(res=>{
-            console.log(purchaseData)
+            // console.log(purchaseData)
             // console.log(res)
         }).catch(err=>{
             console.log(err)
@@ -127,7 +127,6 @@ const ProductDetailHeader = ({data}) => {
     <>
         {data&& (
         <div className="detailContainer">
-            {console.log("stocks",stocks)}
             <div className="thumbnail-area-container">
             <Thumbnails thumbnails={data["thumbnail_url"]}/>
             </div>

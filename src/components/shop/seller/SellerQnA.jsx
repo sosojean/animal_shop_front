@@ -17,7 +17,7 @@ const SellerQnA = (props) => {
         }).then((res) => {
 
             setData(res.data['responseItemQueryDTOList'])
-            console.log(res.data);
+            // console.log(res.data);
             setTotalPost(res.data['total_count']);
         }).catch(error => {
             console.log(error)

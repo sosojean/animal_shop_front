@@ -14,7 +14,7 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
     })
 
     const handleSubmit = () => {
-        console.log(userQuestionInput)
+        // console.log(userQuestionInput)
 
         instance({
             url:"http://localhost:8080/item/query/new",
@@ -22,9 +22,9 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
             data:userQuestionInput
 
         }).then((res) => {
-            console.log(userQuestionInput)
+            // console.log(userQuestionInput)
 
-            console.log(res.data)
+            // console.log(res.data)
 
             setIsEdited(!isEdited);
             modalClose()

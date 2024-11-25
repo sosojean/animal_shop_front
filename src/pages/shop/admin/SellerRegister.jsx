@@ -78,7 +78,7 @@ const SellerRegister = (props) => {
                 data:data
 
             }).then(response => {
-                console.log(response)
+                // console.log(response)
                 navigate('success')
 
             })
@@ -106,7 +106,7 @@ const SellerRegister = (props) => {
             method:"post",
             data:{b_no:[bln]}
         }).then(response=>{
-            console.log(response)
+            // console.log(response)
             blnResponseManager(response.data.data[0])
 
 
@@ -152,8 +152,8 @@ const SellerRegister = (props) => {
             method:"get"
 
         }).then(response => {
-            console.log("detail")
-            console.log(response.data.items[0])
+            // console.log("detail")
+            // console.log(response.data.items[0])
             setBlnInfo(response.data.items[0])
         }).catch(error => {
             console.log(error)

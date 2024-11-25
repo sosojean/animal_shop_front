@@ -45,7 +45,7 @@ const SellerItemResigter = () => {
         try {
             const response = await instance.get(`/seller/item/select/${itemId}`);
             const item = response.data;
-            console.log(item);
+            // console.log(item);
 
             setItemName(item.name);
             setItemSpecies(item.species);
@@ -82,7 +82,7 @@ const SellerItemResigter = () => {
     // 서버에 상세 이미지 업로드 > state에 저장
     const handleUploadDetailImage = async () => {
         const file = detailRef.current.files[0];
-        console.log(file.name);
+        // console.log(file.name);
 
         const formData = new FormData();
         formData.append("image", file);
@@ -95,7 +95,7 @@ const SellerItemResigter = () => {
             });
 
             // 업로드 후 서버에서 받은 파일명 출력
-            console.log('업로드 성공:', response.data);
+            // console.log('업로드 성공:', response.data);
             const fileName = response.data;
             setDetailImageUrl(`http://localhost:8080/file/image-print?filename=${fileName}`);
         } catch (error) {
@@ -167,8 +167,8 @@ const SellerItemResigter = () => {
     // 데이터 등록 & 수정 & 삭제
     const handleItemRegister = async () => {
         const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
-        console.log("handleItemRegister");
-        console.log(markdown);
+        // console.log("handleItemRegister");
+        // console.log(markdown);
 
         const data = {
             "option": options,
@@ -182,7 +182,7 @@ const SellerItemResigter = () => {
             "imageUrl": detailImageUrl
         }
 
-        console.log(data)
+        // console.log(data)
 
         try {
             const response = await instance({
@@ -192,7 +192,7 @@ const SellerItemResigter = () => {
             });
 
             // 성공적으로 데이터가 저장된 경우
-            console.log('등록 성공:', response.data);
+            // console.log('등록 성공:', response.data);
 
             navigate('/seller');
 
@@ -204,8 +204,8 @@ const SellerItemResigter = () => {
 
     const handlePatchItemData = () => {
         const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
-        console.log("handlePatchItemData");
-        console.log(markdown);
+        // console.log("handlePatchItemData");
+        // console.log(markdown);
 
         const data = {
             "id": itemId,
@@ -220,7 +220,7 @@ const SellerItemResigter = () => {
             "imageUrl": detailImageUrl
         }
 
-        console.log(data)
+        // console.log(data)
 
         try {
             const response = instance({
@@ -230,13 +230,13 @@ const SellerItemResigter = () => {
             });
 
             // 성공적으로 데이터가 저장된 경우
-            console.log('수정 성공:', response.data);
+            // console.log('수정 성공:', response.data);
 
             navigate('/');
 
         } catch (error) {
             // 에러가 발생한 경우
-            console.log('에러 발생:', error);
+            // console.log('에러 발생:', error);
         }
     }
 

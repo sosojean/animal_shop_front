@@ -56,7 +56,7 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit,
             method:'GET',
 
         }).then(res=>{
-          console.log("res", res)
+          // console.log("res", res)
             setIsLiked(true)
 
             setIsModified(!isModified)
@@ -71,7 +71,7 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit,
             method:'GET',
 
         }).then(res=>{
-            console.log("res", res)
+            // console.log("res", res)
             setIsLiked(false)
             setIsModified(!isModified)
 

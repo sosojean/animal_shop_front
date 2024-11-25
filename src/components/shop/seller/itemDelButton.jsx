@@ -16,7 +16,7 @@ const ItemDelButton = ({itemId, url, getItemList}) => {
             });
     
             // 성공적으로 데이터가 삭제된 경우
-            console.log('삭제 성공:', response.data);
+            // console.log('삭제 성공:', response.data);
             alert('상품이 삭제되었습니다.');
             
             getItemList();
