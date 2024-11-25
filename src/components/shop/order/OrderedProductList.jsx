@@ -13,7 +13,7 @@ const OrderedProductList = () => {
             url:`/shop/orders`,
             method:'GET',
         }).then(res=>{
-            console.log("res", res)
+            // console.log("res", res)
             setData(res.data)
 
         }).catch(err=>{
@@ -24,15 +24,9 @@ const OrderedProductList = () => {
 
 
     return(<div className={"orders"}>
-
         {data && data["orderHistDTOList"].map(item=>{
-            return(<Order item = {item}/>)
+            return(<Order key={item["orderId"]} item = {item}/>)
         })}</div>)
-
-
-
-
-
 
 
 }

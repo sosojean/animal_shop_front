@@ -1,4 +1,43 @@
+.star-rating{
+  border: none;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+
+  justify-content: start;
+  .rating-comment{
+    font-size: 1.5rem;
+    text-align: center;
+
+
+  }
+  .selected{
+    border: none;
+    background: none;
+    color: #ffcd03;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  button {
+    border: none;
+    background: none;
+    color: #d3d3d3;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .input-comment {
+
+
   //margin: 20px;
   
   background: var(--sercondary-background-color);
@@ -9,6 +48,10 @@
   border-radius: 10px/10px;
   min-height: 100px;
   margin-bottom: 1rem;
+
+
+
+
 
   textArea {
     padding: 20px;

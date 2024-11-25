@@ -29,7 +29,7 @@ const DeliverInfo = (props) => {
             townAddress = fullAddress += (extraAddress !== '' ? `(${extraAddress})` : '')
 
 
-            console.log("extraAddress"+extraAddress);
+            // console.log("extraAddress"+extraAddress);
             setAddress(localAddress + + extraAddress + townAddress +"");
             setAddress(`${localAddress} ${extraAddress} ${townAddress}`);
             setZoneCode(data.zonecode)

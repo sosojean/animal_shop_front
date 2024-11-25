@@ -33,7 +33,7 @@ const Header = (props) => {
 
     const searchHandler = (e) => {
         e.preventDefault()
-        console.log("search");
+        // console.log("search");
         // props.setReload(!(props.reload));
         navigate("/search?keyword=" + keyword)
         props.setReload(!(props.reload));

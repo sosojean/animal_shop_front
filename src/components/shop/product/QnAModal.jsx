@@ -14,7 +14,7 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
     })
 
     const handleSubmit = () => {
-        console.log(userQuestionInput)
+        // console.log(userQuestionInput)
 
         instance({
             url:"http://localhost:8080/item/query/new",
@@ -22,9 +22,9 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
             data:userQuestionInput
 
         }).then((res) => {
-            console.log(userQuestionInput)
+            // console.log(userQuestionInput)
 
-            console.log(res.data)
+            // console.log(res.data)
 
             setIsEdited(!isEdited);
             modalClose()
@@ -73,16 +73,14 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
 
 
     return (
-        <>
-            {modalOpen &&
+        <>{modalOpen &&
                 <div className={'modal-container'}>
                     <div className={'modal-content'}>
                         <form action="">
                             <OptionSelector optionItem={data.options} handleSelectChange={handleSelectChange} priceTrimmer={priceTrimmer}/>
                             <textarea cols="30" rows="10"
                                       onChange={e => handleInputChange({contents: e.target.value})}>
-
-                        </textarea>
+                            </textarea>
                         </form>
                     </div>
                     <button onClick={handleSubmit}>
@@ -92,9 +90,7 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
                     <button onClick={modalClose}>
                         x
                     </button>
-                </div>
-            }
-        </>
+                </div>}</>
     );
 };
 

@@ -19,8 +19,8 @@ export default function PostWrite(props) {
 
     useEffect(() => {
         if (state) {
-            console.log("수정");
-            console.log(state);
+            // console.log("수정");
+            // console.log(state);
             setIsEdit(true);
             setTitle(state.title);
             setCategory(state.category);

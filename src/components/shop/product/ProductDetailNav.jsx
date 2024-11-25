@@ -5,7 +5,7 @@ import {useState} from "react";
 const ProductDetailNav = ({content , setContent, isFixed}) => {
 
     const scrollCallBack = (e) =>{
-        console.log(e)
+        // console.log(e)
         document.getElementById(e.target.id+"-target").scrollIntoView();
         setContent(e.target.id );
     }

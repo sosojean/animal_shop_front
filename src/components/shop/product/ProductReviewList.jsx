@@ -19,7 +19,7 @@ const ProductReviewList = ({itemId}) => {
                 method:'get'
             }).then((res) => {
                 setData(res.data.comments);
-                console.log(res.data)
+                // console.log(res.data)
             })
 
         }else{
@@ -28,7 +28,7 @@ const ProductReviewList = ({itemId}) => {
                 method:'get'
             }).then((res) => {
                 setData(res.data.comments);
-                console.log(res.data)
+                // console.log(res.data)
             })
 
         }

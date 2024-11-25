@@ -48,7 +48,7 @@ const MyPageEdit = (props) => {
 
                 setRole(response.data.role);
 
-                console.log(response.data)
+                // console.log(response.data)
             }
         }
         fetchData()

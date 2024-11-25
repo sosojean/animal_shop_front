@@ -9,20 +9,21 @@ const SellerQnA = (props) => {
     const [data, setData] = useState()
     const [page, setPage] = useState(1)
     const [totalPost, setTotalPost] = useState(0)
+    const [isEdited, setIsEdited] = useState()
 
     useEffect(() => {
         instance({
-            url: `/seller/query/list`,
+            url: `/seller/query/list?page=${page}`,
             method: "get",
         }).then((res) => {
 
             setData(res.data['responseItemQueryDTOList'])
-            console.log(res.data);
+            // console.log(res.data);
             setTotalPost(res.data['total_count']);
         }).catch(error => {
             console.log(error)
         })
-    },[])
+    },[isEdited,page])
 
 
 
@@ -32,10 +33,10 @@ const SellerQnA = (props) => {
         <div>qna
 
             {data&&data.map((item)=>{
-               return <ProductQnA item={item} position={"seller"}/>
+               return <ProductQnA isEdited={isEdited} setIsEdited={setIsEdited} item={item} position={"seller"}/>
             })}
 
-            <Pagination currentPage={page} handlePageChange={setPage} totalPost={totalPost}/>
+            <Pagination  currentPage={page} handlePageChange={setPage} totalPost={totalPost}/>
 
 
 

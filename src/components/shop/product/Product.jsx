@@ -59,8 +59,8 @@ const Product = (props) => {
                 }
             )
             if (!isExist){
-                console.log(isExist);
-                console.log("isNotExist!");
+                // console.log(isExist);
+                // console.log("isNotExist!");
                 storageCart.push(item);
             }
 
