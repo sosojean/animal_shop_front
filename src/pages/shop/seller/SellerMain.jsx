@@ -11,7 +11,7 @@ const SellerMain = () => {
     return (
 
         <div className="sellerMainContainer">
-
+<SellerMenu/>
             <h1>판매자 센터</h1>
             <div className="sellerListHeader">
                 <h2>상품 등록 목록</h2>

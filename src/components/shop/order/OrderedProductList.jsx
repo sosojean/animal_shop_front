@@ -24,15 +24,9 @@ const OrderedProductList = () => {
 
 
     return(<div className={"orders"}>
-
         {data && data["orderHistDTOList"].map(item=>{
-            return(<Order item = {item}/>)
+            return(<Order key={item["orderId"]} item = {item}/>)
         })}</div>)
-
-
-
-
-
 
 
 }

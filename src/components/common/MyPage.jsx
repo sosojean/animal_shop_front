@@ -17,7 +17,8 @@ const MyPage = () => {
 
             </div>
             <div className="shop">
-            <OrderedProductList></OrderedProductList>
+                <h2>주문 내역</h2>
+                <OrderedProductList></OrderedProductList>
 
 
 

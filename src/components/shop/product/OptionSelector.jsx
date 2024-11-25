@@ -1,8 +1,5 @@
 const OptionSelector = ({ selectedValue ,optionItem, handleSelectChange, priceTrimmer}) => {
 
-
-
-
     return (
         <select value={selectedValue} onChange={handleSelectChange}  defaultValue="placeholder">
             <option value='placeholder' disabled hidden>옵션 선택</option>

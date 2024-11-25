@@ -18,35 +18,52 @@ const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
         }).then((data) => {
             setIsEdited(!isEdited)
 
-            console.log(data);
+            // console.log(data);
+        }).catch((error) => {
+            // console.log(error)
+        })
+    }
+
+    const answerDeleteHandler = () => {
+        instance({
+            url:`/seller/query/reply/${item['item_query_id']}`,
+            method:"PATCH",
+
+        }).then((data) => {
+            setIsEdited(!isEdited)
+
+            // console.log(data);
         }).catch((error) => {
             console.log(error)
         })
     }
 
     const answerHandler = () => {
-        console.log(reply)
+        // console.log(reply)
 
         instance({
-            url:`/seller/query/comment`,
-            method:"post",
+            url:`/seller/query/comment/${item['item_query_id']}`,
+            method:"patch",
             data:{
-                item_id:item['item_query_id'],
+
                 option_name:item['option_name'],
                 option_price:item['option_price'],
-
                 reply:reply
-            } // todo reply 여부에 따라 출력 변경 돼야함
+            }
         }).then(res=>{
-            console.log(res)
+            setIsEdit(!isEdit)
+
+            // console.log(res)
+            setIsEdited(!isEdited)
         }).catch(err=>{
             console.log(err)
         })
     }
 
+
+
     return (
         <div className="qnaContainer">
-            {console.log(item)}
             <div className="qnaInfoContainer">
                 <p><b>{item.customer}</b></p>
                 <p>{date}</p>
@@ -56,12 +73,10 @@ const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
             <p className="qnaContent">
                 {item.contents}
             </p>
-            <p className="qnaContent">
-                {console.log(item)} // todo item get 할때 reply 안넘어옴
-            </p>
-
+            {item.reply&&<p className="answer">{item.reply}</p>}
             {position != "seller" ?
                 <button onClick={deleteHandler}>삭제</button> :
+
                 isEdit ? <>
 
                     <textarea class="reply"
@@ -75,8 +90,10 @@ const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
                         }}>취소
                         </button>
                     </> :
-                    <button onClick={() => setIsEdit(true)}> 답변하기</button>
-
+                    <>
+                        <button onClick={answerDeleteHandler}>삭제</button>
+                        <button onClick={() => setIsEdit(true)}> 답변하기</button>
+                    </>
             }
 
 
