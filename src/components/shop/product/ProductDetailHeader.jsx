@@ -19,14 +19,13 @@ const ProductDetailHeader = ({data}) => {
     const handleSelectChange = (event) => {
         const index = event.target.value;
         const isExistedValue = option.includes(index)
-        console.log(index)
+        console.log(stocks)
 
-        console.log("option",option)
-        console.log(stocks);
         if (!isExistedValue) {
             if (index !== "default") {
                 setOption((prevOption) => [...prevOption, index]);
-                setStocks((prevStocks) => [...prevStocks, { index: index, count: 1 }]);
+                console.log(data);
+                setStocks((prevStocks) => [...prevStocks, { index: index, optionId:data.options[index].optionId,  count: 1 }]);
             }
         }
     };
@@ -128,6 +127,7 @@ const ProductDetailHeader = ({data}) => {
     <>
         {data&& (
         <div className="detailContainer">
+            {console.log("stocks",stocks)}
             <div className="thumbnail-area-container">
             <Thumbnails thumbnails={data["thumbnail_url"]}/>
             </div>
