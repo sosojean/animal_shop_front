@@ -19,13 +19,13 @@ const ProductDetailHeader = ({data}) => {
     const handleSelectChange = (event) => {
         const index = event.target.value;
         const isExistedValue = option.includes(index)
-        // console.log(stocks)
 
         if (!isExistedValue) {
             if (index !== "default") {
                 setOption((prevOption) => [...prevOption, index]);
                 // console.log(data);
-                setStocks((prevStocks) => [...prevStocks, { index: index, optionId:data.options[index].optionId,  count: 1 }]);
+                // itemId가 들어오도록 변경
+                setStocks((prevStocks) => [...prevStocks, { itemId: data.id, optionId:data.options[index].optionId,  count: 1 }]);
             }
         }
     };
@@ -73,7 +73,7 @@ const ProductDetailHeader = ({data}) => {
         const options = data?.options
         const newStock = [...stocks]
         newStock?.map((stock) => {
-            totalPrice+= options[stock.index].price*stock.count
+            totalPrice+= options[stock.itemId].price*stock.count
         })
 
         return totalPrice.toLocaleString()
@@ -123,6 +123,24 @@ const ProductDetailHeader = ({data}) => {
 
     }
 
+    const handlePostCart = () => {
+        const data = stocks;
+        // console.log("data", data);
+
+        data.map((v, i) => {
+            instance({
+                url: "/cart/add",
+                method: "post",
+                data: v
+            }).then(res=>{
+                // console.log("성공했습니다 ",i)
+            }).catch(err=>{
+                console.log(err)
+            })
+        })
+
+    }
+
     return (
     <>
         {data&& (
@@ -166,7 +184,7 @@ const ProductDetailHeader = ({data}) => {
                 {stocks[0] && <span className="price">총 상품 금액 {priceCalculator()} 원</span>}
 
                 <div className="purchaseLinkContainer">
-                    <button>장바구니</button>
+                    <button onClick={handlePostCart}>장바구니</button>
                     <button onClick={purchaseHandler}>구매하기</button>
                 </div>
             </div>
