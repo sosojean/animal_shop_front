@@ -68,6 +68,14 @@ const Header = (props) => {
                                 <Link onMouseEnter={hoverCategory} className="category">
                                     <li>유틸리티 <FontAwesomeIcon icon={faChevronDown}/></li>
                                 </Link>
+                                <Link onMouseEnter={leaveHeader} to="/admin/seller">
+                                    <li>관리자</li>
+                                </Link>
+                                <Link onMouseEnter={leaveHeader} to="/seller">
+                                    <li>판매자</li>
+                                </Link>
+
+
                             </ul>
                         </div>
 

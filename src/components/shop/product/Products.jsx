@@ -4,12 +4,11 @@ import ProductsLabel from "./ProductsLabel";
 
 const Products = (props) => {
     return(
-        <>
-            {props?.name&&<ProductsLabel name={props.name} url={props.url}/>}
+        <>{props?.name&&<ProductsLabel name={props.name} url={props.url}/>}
 
           <div className="products">
               {props.data&&props.data?.map(data=>{
-                  return ( <Product data = {data} position="product"/>)
+                  return ( <Product key={data.id} data = {data} position="product"/>)
 
               })}
 

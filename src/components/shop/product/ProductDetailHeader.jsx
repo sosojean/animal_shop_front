@@ -96,7 +96,8 @@ const ProductDetailHeader = ({data}) => {
             };
             console.log("option_item",option_item)
             option_items.push(option_item);
-             purchase = {itemId : data.id, ...option_item};
+             // purchase = {itemId : data.id, ...option_item};
+            purchase = {itemId : data.id, option_items : option_items};
 
         })
 
@@ -125,7 +126,6 @@ const ProductDetailHeader = ({data}) => {
 
     return (
     <>
-        <Link to={"/"} > link</Link>
         {data&& (
         <div className="detailContainer">
             <div className="thumbnail-area-container">
@@ -147,13 +147,14 @@ const ProductDetailHeader = ({data}) => {
                     selectedValue={selectedValue}
                     handleSelectChange={handleSelectChange}
                     optionItem={data?.options}
-                    priceTrimmer={priceTrimmer}/>
+                    priceTrimmer={priceTrimmer}
+                />
 
 
                 <div className="optionListContainer">
                     {option.map((itemIndex, index) => {
 
-                        return (<Option key={data.options[itemIndex].name}
+                        return (<Option key={data.options[itemIndex].id}
                                         item={data.options[itemIndex].name}
                                         index={index}
                                         price={data.options[itemIndex].price}

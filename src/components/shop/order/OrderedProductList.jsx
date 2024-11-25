@@ -2,6 +2,8 @@ import Product from "../product/Product";
 import Products from "../product/Products";
 import instance from "../../../utils/axios";
 import {useEffect, useState} from "react";
+import Order from "./Order";
+import "../../../assets/styles/shop/order/order.scss"
 
 const OrderedProductList = () => {
     const [data, setData] = useState()
@@ -11,8 +13,9 @@ const OrderedProductList = () => {
             url:`/shop/orders`,
             method:'GET',
         }).then(res=>{
-            console.log(res)
+            console.log("res", res)
             setData(res.data)
+
         }).catch(err=>{
             console.log(err)
         })
@@ -20,11 +23,17 @@ const OrderedProductList = () => {
 
 
 
+    return(<div className={"orders"}>
 
-    return(<>
+        {data && data["orderHistDTOList"].map(item=>{
+            return(<Order item = {item}/>)
+        })}</div>)
 
-        {/*{data && }*/}
 
-  </>)
+
+
+
+
+
 }
 export default OrderedProductList
