@@ -38,8 +38,9 @@ const SellerInfoItem = (props) => {
 
             {props.isHeader ? <span>권한 승인</span> :
                 <div className="auth-buttons">
-                    <button onClick={registerSeller}> 등록</button>
-                    <button onClick={revokeSeller}> 철회</button>
+                    {item.state ?
+                        <button onClick={revokeSeller}> 철회</button>:
+                        <button onClick={registerSeller}> 등록</button>}
                     <button onClick={deleteSeller}> 삭제</button>
 
                 </div>
