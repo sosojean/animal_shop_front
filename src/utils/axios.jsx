@@ -70,8 +70,9 @@ instance.interceptors.response.use(
                     isTokenRefreshing = false;
                     onTokenRefreshed(newAccessToken);
                 } catch (err) {
-                    console.log("토큰 재발급 실패");
+                    console.log("토큰 재발급 실패, 리프레시 토큰 만료");
                     isTokenRefreshing = false;
+                    localStorage.setItem("accessToken", "" );
                     window.location.href = "/login";
 
                     return Promise.reject(error);
