@@ -349,7 +349,7 @@ const SellerItemResigter = () => {
                         {options?.map((option, index) => (
                             <li key={index} className='OptList'>
                                 <div> <b>{option.name}</b> </div>
-                                <div> {option.price} 원 </div>
+                                <div> {option.price.toLocaleString()} 원 </div>
                                 <FontAwesomeIcon icon={faCircleXmark} className='circleXmark' onClick={() => { handleDeleteOption(index) }} />
                             </li>
                         ))}

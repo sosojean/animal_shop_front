@@ -22,7 +22,7 @@ const ItemRegButton = ({getRegisterData, itemId}) => {
             // 성공적으로 데이터가 저장된 경우
             console.log('등록 성공:', response.data);
 
-            // navigate('/seller');
+            navigate('/seller');
 
         } catch (error) {
             // 에러가 발생한 경우
