@@ -71,6 +71,7 @@ const Product = (props) => {
     return(
 
           <div className={props.position}>
+              <Link to={`http://localhost:3000/shop/detail/${props.data?.id}`}>
 
               <img src={props?.data["thumbnail_url"]} alt=""/>
               <div className="product-info">
@@ -85,23 +86,21 @@ const Product = (props) => {
                   </div>
 
                   <span className="star"><FontAwesomeIcon icon={faStar}/>{props.data?.rating}</span>
-                  {props.position==="product" && (
-                    <div>
-                        {optionCount > 1 ?
-                            (<Link to={`http://localhost:3000/shop/detail/${props.data?.id}`}>
-                                <button className="cart-button">옵션선택</button>
-                            </Link>) : 
-                            ( <button 
-                                onClick={() => {
-                                    addCart();
-                                }} 
-                                className="cart-button">
-                                    장바구니
-                              </button> )
-                        }                        
-                    </div>
-                  )}
               </div>
+              </Link>
+              {props.position==="product" && (
+                  <div>
+                      {optionCount > 1 ?
+                          <Link to={`http://localhost:3000/shop/detail/${props.data?.id}`}>
+                              <button className="cart-button">옵션선택</button>
+                          </Link> :
+                          ( <button
+                              onClick={addCart}
+                              className="cart-button">
+                              장바구니
+                          </button> )}
+                  </div>
+              )}
 
           </div>
       )

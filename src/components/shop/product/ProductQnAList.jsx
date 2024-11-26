@@ -35,7 +35,7 @@ const ProductQnAList = ({data}) => {
 
 
                 {QnA?.map(item=>{
-                    return(<ProductQnA item = {item} setIsEdited = {setIsEdited} isEdited = {isEdited}/>)
+                    return(<ProductQnA key = {item['item_query_id']} item = {item} setIsEdited = {setIsEdited} isEdited = {isEdited}/>)
                 })}
 
 

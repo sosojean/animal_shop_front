@@ -46,12 +46,12 @@ const ProductDetailHeader = ({data}) => {
     const handleSelectChange = (event) => {
         const index = event.target.value;
         const isExistedValue = option.includes(index)
+        // console.log(stocks)
 
         if (!isExistedValue) {
             if (index !== "default") {
                 setOption((prevOption) => [...prevOption, index]);
                 // console.log(data);
-                // itemId가 들어오도록 변경
                 setStocks((prevStocks) => [...prevStocks, { itemId: data.id, optionId:data.options[index].optionId,  count: 1, index: index }]);
             }
         }
