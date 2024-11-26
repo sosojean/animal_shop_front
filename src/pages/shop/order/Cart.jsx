@@ -8,8 +8,10 @@ import instance from "../../../utils/axios";
 const Cart = (props) => {
     const [dataList, setDataList] = useState([]);
     const [dataCount, setDataCount] = useState(0);
-    const [cartItemIdList, setCartItemIdList] = useState([]);
+    const [selectedItems, setSelectedItems] = useState({}); 
+    console.log("selectedItems", selectedItems)
     const [dataUpdate, setDataUpdate] = useState(false); // 페이지 업데이트 상태관리
+    // const [select, setSelect] = useState(false);
 
     // 페이지 네이션
     const location = useLocation();
@@ -27,8 +29,8 @@ const Cart = (props) => {
         }).then(res=>{
             setDataList(res.data.cartDetailDTOList);
             setDataCount(res.data.total_count);
-            setCartItemIdList(res.data.cartDetailDTOList.map((data) => 
-                data.cartItemId));
+            // setCartItemIdList(res.data.cartDetailDTOList.map((data) => 
+            //     data.cartItemId));
         }).catch(err=>{
             console.log("handleGetCartList 실패 ", err);
         })
@@ -44,24 +46,36 @@ const Cart = (props) => {
         handleGetCartList(currentPage);
     };
 
+    // 장바구니 아이템 선택 삭제
+    const handleDeleteSelectedItem = () => {
+        
+        // true인 것만 fileter
+        const idsToDelete = Object.keys(selectedItems).filter(
+            (key) => selectedItems[key]
+        );
+
+        idsToDelete.forEach((id) => {
+            try {
+                instance({
+                    url: `/cart/delete/${id}`,
+                    method: "delete",
+                }).then(() => {
+                    setDataUpdate(true);
+                    selectedItems[id] = false; 
+                    // 삭제한 상품 id는 false로 만들어 filter 되도록 함
+                });
+            } catch (error) {
+                console.error("삭제 에러 발생:", error);
+                alert("상품 삭제에 실패했습니다.");
+            }
+        });
+
+        alert("선택한 상품이 삭제되었습니다.");
+
+    }
+
     // 장바구니 아이템 전체 삭제
-    const handleDeleteItemData = () => {
-
-        // cartItemIdList.map((v) => {
-        //     try {
-        //         const response = instance({
-        //             url: `/cart/delete/${v}`, // cartItemId로 API 호출
-        //             method: "delete",
-        //         });
-
-        //         setDataUpdate(true); // 페이지 업데이트
-            
-        //     } catch (error) {
-        //         // 삭제 실패 시
-        //         console.error('삭제 에러 발생:', error);
-        //         alert('상품 삭제에 실패했습니다.');
-        //     }
-        // })
+    const handleDeleteAllItem = () => {
 
         dataList.map((data) => {
             try {
@@ -99,16 +113,18 @@ const Cart = (props) => {
       <>
           <div className="cart-item-container">
               <div>
-                <button onClick={() => handleDeleteItemData()}>
+                <button onClick={() => handleDeleteAllItem()}>
                     전체삭제
                 </button>
-                <button>선택 삭제</button>
+                <button onClick={() => handleDeleteSelectedItem()}>선택 삭제</button>
               </div>
-              {dataList && dataList?.map(data=>{
+              {dataList && dataList?.map((data, index)=>{
                   return ( 
                   <CartItem 
-                    data = {data} key = {data.cartItemId} 
+                    data = {data} key = {index} 
                     refreshCartList={refreshCartList}
+                    selectedItems={selectedItems}
+                    setSelectedItems={setSelectedItems}
                   />)
               })}
               <div>

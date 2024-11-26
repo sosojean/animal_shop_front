@@ -1,7 +1,6 @@
 import Product from "../product/Product";
 import "../../../assets/styles/shop/order/cartItem.scss"
 import instance from "../../../utils/axios";
-import { useNavigate } from "react-router-dom";
 
 const cartItem  = (props) => {
 
@@ -27,11 +26,40 @@ const cartItem  = (props) => {
         }
     };
 
+    // 장바구니 아이템 리스트 추가
+    // const handleSelectCartItem = () => {
+
+    //     if (props.select) {
+    //         props.setCartItemIdList((prevList) => 
+    //             [...prevList, props.data.cartItemId]); 
+    //         console.log("선택");
+    //     } else {
+    //         props.cartItemIdList?.filter((id) => (
+    //             id !== props.data.cartItemId))
+    //         console.log("선택 해제");
+    //     }
+
+    //     // 상태 변경
+    //     props.setSelect((prevSelect) => !prevSelect);
+
+    // }
+
+    const handleSelectCartItem = () => {
+        props.setSelectedItems((prev) => ({
+            ...prev,
+            [props.data.cartItemId]: !prev[props.data.cartItemId],
+        }));
+    };
+
     return (
         <div className="cart-item-outer">
             <button onClick={handleDeleteItemData}>X</button>
             <div className="cart-item-inner">
-                <input type="checkbox"/>
+                <input 
+                    type="checkbox"
+                    checked={!!props.selectedItems[props.data.cartItemId]} // 선택 여부 반영
+                    onChange={handleSelectCartItem} // 클릭 시 선택 상태 토글
+                />
                 {/* <Product data = {props.data} position="cart"/> */}
                 <div className="cart-item-info">
                     <div>
@@ -51,4 +79,4 @@ const cartItem  = (props) => {
         </div>
     )
 }
-export default cartItem
+export default cartItem;
