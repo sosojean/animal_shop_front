@@ -14,7 +14,6 @@ const ProductDetailHeader = ({data}) => {
     const [selectedValue, setSelectedValue] = useState("placeholder")
     const defaultPrice = data?.options[0].price;
 
-
     //선택옵션 추가핸들러
     const handleSelectChange = (event) => {
         const index = event.target.value;
@@ -25,7 +24,7 @@ const ProductDetailHeader = ({data}) => {
                 setOption((prevOption) => [...prevOption, index]);
                 // console.log(data);
                 // itemId가 들어오도록 변경
-                setStocks((prevStocks) => [...prevStocks, { itemId: data.id, optionId:data.options[index].optionId,  count: 1 }]);
+                setStocks((prevStocks) => [...prevStocks, { itemId: data.id, optionId:data.options[index].optionId,  count: 1, index: index }]);
             }
         }
     };
@@ -73,7 +72,7 @@ const ProductDetailHeader = ({data}) => {
         const options = data?.options
         const newStock = [...stocks]
         newStock?.map((stock) => {
-            totalPrice+= options[stock.itemId].price*stock.count
+            totalPrice+= options[stock.index].price*stock.count
         })
 
         return totalPrice.toLocaleString()
@@ -138,7 +137,6 @@ const ProductDetailHeader = ({data}) => {
                 console.log(err)
             })
         })
-
     }
 
     return (
@@ -184,7 +182,9 @@ const ProductDetailHeader = ({data}) => {
                 {stocks[0] && <span className="price">총 상품 금액 {priceCalculator()} 원</span>}
 
                 <div className="purchaseLinkContainer">
-                    <button onClick={handlePostCart}>장바구니</button>
+                    <button>
+                        장바구니
+                    </button>
                     <button onClick={purchaseHandler}>구매하기</button>
                 </div>
             </div>
