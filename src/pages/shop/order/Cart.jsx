@@ -8,7 +8,8 @@ import instance from "../../../utils/axios";
 const Cart = (props) => {
     const [dataList, setDataList] = useState([]);
     const [dataCount, setDataCount] = useState(0);
-    const [loading, setLoading] = useState(true);
+    const [cartItemIdList, setCartItemIdList] = useState([]);
+    const [dataUpdate, setDataUpdate] = useState(false); // 페이지 업데이트 상태관리
 
     // 페이지 네이션
     const location = useLocation();
@@ -17,7 +18,7 @@ const Cart = (props) => {
     const currentPage = parseInt(queryParams.get("page")) || 1; // 현재 페이지 확인
 
 
-    // Get 통신 테스트
+    // Get 통신
     const handleGetCartList = (page) => {
 
         instance({
@@ -26,6 +27,8 @@ const Cart = (props) => {
         }).then(res=>{
             setDataList(res.data.cartDetailDTOList);
             setDataCount(res.data.total_count);
+            setCartItemIdList(res.data.cartDetailDTOList.map((data) => 
+                data.cartItemId));
         }).catch(err=>{
             console.log("handleGetCartList 실패 ", err);
         })
@@ -41,20 +44,48 @@ const Cart = (props) => {
         handleGetCartList(currentPage);
     };
 
+    // 장바구니 아이템 삭제
+    const handleDeleteItemData = () => {
+
+        cartItemIdList.map((v) => {
+            try {
+                const response = instance({
+                    url: `/cart/delete/${v}`, // cartItemId로 API 호출
+                    method: "delete",
+                });
+
+                setDataUpdate(true); // 페이지 업데이트
+            
+            } catch (error) {
+                // 삭제 실패 시
+                console.error('삭제 에러 발생:', error);
+                alert('상품 삭제에 실패했습니다.');
+            }
+        })
+
+        alert("전체 삭제 했습니다");
+    };
+
+    
+
     useEffect(() => {
         // 로컬스토레지에서 받아오는 데이터
         // let cart = localStorage.getItem("cart")
         // cart = JSON.parse(cart)
 
         // console.log("Cart state test ", dataList);
+
         handleGetCartList(currentPage);
-    },[currentPage])
+        setDataUpdate(false);
+    },[currentPage, dataUpdate])
 
     return (
       <>
           <div className="cart-item-container">
               <div>
-                <button>전체삭제</button>
+                <button onClick={() => handleDeleteItemData()}>
+                    전체삭제
+                </button>
                 <button>선택 삭제</button>
               </div>
               {dataList && dataList?.map(data=>{
@@ -64,6 +95,9 @@ const Cart = (props) => {
                     refreshCartList={refreshCartList}
                   />)
               })}
+              <div>
+                <p>총 결제 금액</p>
+              </div>
           </div>
 
           <Pagination
