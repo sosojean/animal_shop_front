@@ -1,5 +1,5 @@
 import {useRef, useState} from "react";
-import OptionSelector from "../option/OptionSelector";
+import Selector from "../../../common/Selector";
 import instance from "../../../../utils/axios";
 import {useParams} from "react-router-dom";
 import Modal from "../../../common/Modal";
@@ -58,17 +58,24 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
     const modalClose = (e)=>{
             setModalOpen(false);
     }
-    const priceTrimmer = (optionPrice)=> {
-        const trimmedPrice = optionPrice.toLocaleString() + "원";
-        return trimmedPrice;
+    // const priceTrimmer = (optionPrice)=> {
+    //     const trimmedPrice = optionPrice.toLocaleString() + "원";
+    //     return trimmedPrice;
+    // }
+
+    const trimOptionText = (option, priceTrimmer)=>{
+        return  `${option.name} ${option.price}`;
+
     }
 
     return (
         <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
             <form action="">
-                <OptionSelector optionItem={data.options}
-                                handleSelectChange={handleSelectChange}
-                                priceTrimmer={priceTrimmer}/>
+                <Selector optionItems={data.options}
+                          handleSelectChange={handleSelectChange}
+                          trimOptionText={trimOptionText}
+                />
+
                 <textarea cols="30" rows="10"
                           onChange={e => handleInputChange({contents: e.target.value})}>
                 </textarea>

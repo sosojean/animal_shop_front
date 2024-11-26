@@ -27,6 +27,7 @@ import ScrollToTop from "../../utils/ScrollToTop";
 import SellerItemEditor from "../shop/seller/itemRegister/SellerItemEditor"
 import SellerItemRegister from "../../pages/shop/seller/SellerItemRegister";
 import SellerItemList from "../shop/seller/itemList/SellerItemList";
+import PetRegister from "../../pages/member/PetRegister";
 
 const Router = (props) => {
     return (
@@ -47,6 +48,9 @@ const Router = (props) => {
                         <Route path="/login" element={<Login reload={props.reload} setReload={props.setReload}/>}/>
                         <Route path="/post/write" element={<PostWrite/>}/>
                         <Route path="/join/success" element={<Information case ="join" />}/>
+                        <Route path="/join/pet/register" element={<PetRegister />}/>
+
+
                         <Route path="/mypage" element={<MyPage/>}/>
 
                         <Route path="/mypage/edit" element={<MyPageEdit/>}/>
@@ -76,6 +80,8 @@ const Router = (props) => {
                         <Route path="/admin/:menu" element={<Admin/>}/>
                         <Route path="/seller/register" element={<SellerRegister/>}/>
                         <Route path="/seller/register/success" element={<Information case ="seller" />}/>
+
+
 
                     </Routes>
                 </div>
