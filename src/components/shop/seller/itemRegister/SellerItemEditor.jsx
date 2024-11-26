@@ -1,7 +1,7 @@
-import '../../../assets/styles/shop/seller/sellerItemRegister.scss'
+import '../../../../assets/styles/shop/seller/sellerItemRegister.scss'
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
-import instance from '../../../utils/axios';
+import instance from '../../../../utils/axios';
 import SellerNameRegister from './SellerNameRegister';
 import SellerItemStock from './SellerItemStock';
 import SellerItemStatus from './SellerItemStatus'

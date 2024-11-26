@@ -3,7 +3,7 @@ import instance from "../../../../utils/axios";
 import '../../../../assets/styles/shop/sellerItemList.scss'
 import Pagination from "../../../board/Pagination";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-import ItemDelButton from "../itemDelButton";
+import ItemDelButton from "./itemDelButton";
 import SellerItem from "./SellerItem";
 
 

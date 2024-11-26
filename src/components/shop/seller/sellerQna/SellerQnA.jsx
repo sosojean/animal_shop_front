@@ -1,9 +1,9 @@
-import SellerMenu from "./SellerMenu";
+import SellerMenu from "../SellerMenu";
 import axios from "axios";
-import instance from "../../../utils/axios";
+import instance from "../../../../utils/axios";
 import {useEffect, useState} from "react";
-import ProductQnA from "../product/ProductQnA";
-import Pagination from "../../board/Pagination";
+import ProductQnA from "../../product/QnA/ProductQnA";
+import Pagination from "../../../board/Pagination";
 
 const SellerQnA = (props) => {
     const [data, setData] = useState()

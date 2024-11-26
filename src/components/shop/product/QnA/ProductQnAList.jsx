@@ -3,7 +3,7 @@ import {useEffect, useRef, useState} from "react";
 import QnAModal from "./QnAModal";
 
 import axios from "axios";
-import instance from "../../../utils/axios";
+import instance from "../../../../utils/axios";
 
 const ProductQnAList = ({data}) => {
     const [modalOpen, setModalOpen] = useState(false);

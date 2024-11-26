@@ -1,9 +1,9 @@
-import ProductDetailHeader from "../../../components/shop/product/ProductDetailHeader";
-import ProductDetailNav from "../../../components/shop/product/ProductDetailNav";
+import ProductDetailHeader from "../../../components/shop/product/detail/ProductDetailHeader";
+import ProductDetailNav from "../../../components/shop/product/detail/ProductDetailNav";
 import Products from "../../../components/shop/product/Products";
-import ProductDetailContent from "../../../components/shop/product/ProductDetailContent"
-import ProductReviewList from "../../../components/shop/product/ProductReviewList";
-import ProductQnAList from "../../../components/shop/product/ProductQnAList";
+import ProductDetailContent from "../../../components/shop/product/detail/ProductDetailContent"
+import ProductReviewList from "../../../components/shop/product/review/ProductReviewList";
+import ProductQnAList from "../../../components/shop/product/QnA/ProductQnAList";
 import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";

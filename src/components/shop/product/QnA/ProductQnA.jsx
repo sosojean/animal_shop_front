@@ -1,8 +1,8 @@
-import '../../../assets/styles/shop/product/productQnA.scss'
+import '../../../../assets/styles/shop/product/productQnA.scss'
 import {useEffect, useState} from "react";
 import axios from "axios";
-import instance from "../../../utils/axios";
-import {useModifyTime} from "../../../utils/useModifyTime";
+import instance from "../../../../utils/axios";
+import {useModifyTime} from "../../../../utils/useModifyTime";
 
 const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
 

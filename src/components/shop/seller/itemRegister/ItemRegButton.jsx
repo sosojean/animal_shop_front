@@ -1,4 +1,4 @@
-import instance from "../../../utils/axios";
+import instance from "../../../../utils/axios";
 import { useNavigate } from "react-router-dom";
 
 const ItemRegButton = ({getRegisterData, itemId}) => {

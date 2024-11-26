@@ -2,12 +2,12 @@ import Header from "./Header";
 import Footer from "./Footer";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "../../pages/board/Home";
-import Join from "../../pages/board/Join";
-import Login from "../../pages/board/Login";
+import Join from "../../pages/member/Join";
+import Login from "../../pages/member/Login";
 import PostWrite from "../../pages/board/PostWrite";
-import JoinSuccess from "../../pages/board/JoinSuccess";
+import JoinSuccess from "../../pages/member/JoinSuccess";
 import "../../assets/styles/layout/router.scss";
-import MyPageEdit from "../../pages/board/MyPageEdit";
+import MyPageEdit from "../../pages/member/MyPageEdit";
 import ContentsViewer from "../board/ContentsViewer";
 import Search from "../../pages/board/Search";
 import Product from "../shop/product/Product";
@@ -21,12 +21,12 @@ import SellerRegister from "../../pages/shop/admin/SellerRegister";
 import Information from "./Information";
 import AllProduct from "../../pages/shop/product/AllProduct";
 import SellerMain from "../../pages/shop/seller/SellerMain"
-import SellerItemList from "../shop/seller/SellerItemList";
-import MyPage from "../common/MyPage";
-import SellerQnA from "../shop/seller/SellerQnA";
+import MyPage from "../member/MyPage";
+import SellerQnA from "../shop/seller/sellerQna/SellerQnA";
 import ScrollToTop from "../../utils/ScrollToTop";
-import SellerItemEditor from "../shop/seller/SellerItemEditor"
+import SellerItemEditor from "../shop/seller/itemRegister/SellerItemEditor"
 import SellerItemRegister from "../../pages/shop/seller/SellerItemRegister";
+import SellerItemList from "../shop/seller/itemList/SellerItemList";
 
 const Router = (props) => {
     return (

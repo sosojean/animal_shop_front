@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import ItemDelButton from "../itemDelButton";
+import ItemDelButton from "./itemDelButton";
 
 const SellerItem = ({item ,navigateUrl,getItemList, currentPage }) => {
     return(

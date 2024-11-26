@@ -1,4 +1,4 @@
-import '../../../assets/styles/shop/product/productDetailNav.scss'
+import '../../../../assets/styles/shop/product/productDetailNav.scss'
 import {Link} from "react-router-dom";
 import {useState} from "react";
 

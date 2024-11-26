@@ -1,5 +1,5 @@
-import "../../../assets/styles/shop/product/productReview.scss"
-import instance from "../../../utils/axios";
+import "../../../../assets/styles/shop/product/productReview.scss"
+import instance from "../../../../utils/axios";
 import {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart, faHeartBroken} from "@fortawesome/free-solid-svg-icons";

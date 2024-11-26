@@ -192,7 +192,7 @@ const Join = ({props}) => {
 
                     <button className={"main-button"} onClick={handleJoin}>회원가입</button>
 
-                    <Link to="/src/pages/board/Login">
+                    <Link to="/src/pages/member/Login">
                         <button>로그인</button>
                     </Link>
 

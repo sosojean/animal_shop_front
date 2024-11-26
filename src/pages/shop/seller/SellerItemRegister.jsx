@@ -1,4 +1,4 @@
-import SellerItemEditor from "../../../components/shop/seller/SellerItemEditor"
+import SellerItemEditor from "../../../components/shop/seller/itemRegister/SellerItemEditor"
 import SellerMenu from "../../../components/shop/seller/SellerMenu";
 
 

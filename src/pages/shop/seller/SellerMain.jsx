@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import SellerItemList from "../../../components/shop/seller/SellerItemList";
+
 import '../../../assets/styles/shop/seller/sellerMain.scss';
 import SellerMenu from "../../../components/shop/seller/SellerMenu";
+import SellerItemList from "../../../components/shop/seller/itemList/SellerItemList";
 
 
 const SellerMain = () => {

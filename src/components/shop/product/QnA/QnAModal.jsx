@@ -1,8 +1,8 @@
 import {useRef, useState} from "react";
-import OptionSelector from "./OptionSelector";
-import instance from "../../../utils/axios";
+import OptionSelector from "../option/OptionSelector";
+import instance from "../../../../utils/axios";
 import {useParams} from "react-router-dom";
-import Modal from "../../common/Modal";
+import Modal from "../../../common/Modal";
 
 const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
 

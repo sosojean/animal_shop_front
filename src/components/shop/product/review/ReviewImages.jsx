@@ -1,5 +1,5 @@
 import {useState} from "react";
-import Modal from "../../common/Modal";
+import Modal from "../../../common/Modal";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleLeft, faAngleRight, faArrowLeft, faArrowRight} from "@fortawesome/free-solid-svg-icons";
 

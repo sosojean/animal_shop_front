@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
-import '../../../assets/styles/shop/product/mainDetail.scss'
+import '../../../../assets/styles/shop/product/mainDetail.scss'
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
-import Option from "./Option";
+import Option from "../option/Option";
 import Thumbnails from "./Thumbnails";
-import OptionSelector from "./OptionSelector";
-import instance from "../../../utils/axios";
+import OptionSelector from "../option/OptionSelector";
+import instance from "../../../../utils/axios";
 
 const ProductDetailHeader = ({data}) => {
 

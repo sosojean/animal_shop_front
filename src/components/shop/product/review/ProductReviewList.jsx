@@ -1,7 +1,7 @@
 import ProductReview from "./ProductReview";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import instance from "../../../utils/axios";
+import instance from "../../../../utils/axios";
 
 
 const ProductReviewList = ({itemId}) => {
