@@ -9,7 +9,7 @@ let isInvalidToken = false;
 // 요청 인터셉터
 instance.interceptors.request.use(function (config) {
 
-    console.log(isInvalidToken);
+    // console.log(isInvalidToken);
     // 스토리지에서 토큰을 가져온다.
     const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
@@ -25,8 +25,8 @@ instance.interceptors.request.use(function (config) {
         }
     }
 
-    console.log("엑시오스 세팅값");
-    console.log(config);
+    // console.log("엑시오스 세팅값");
+    console.log("엑시오스 요청",config.baseURL,config.url);
     return config;
 }, function (error) {
     console.log("--요청 실패--");

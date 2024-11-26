@@ -47,4 +47,48 @@
         width: 100%;
     }
 
+    .review-images{
+
+        button{
+            padding: 0;
+            background: none;
+            border: none;
+        }
+        gap: 8px;
+        display: flex;
+        padding: 16px;
+        .review-image{
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+
+        }
+
+        .dark {
+            filter: brightness(30%);
+        }
+
+        .last-image{
+            //padding: 0;
+            //background: none;
+            //border: none;
+            display: inline-block;
+            position: relative;
+            width: 100px;
+            height: 100px;
+            .count-text{
+                font-weight: 700;
+                font-size: 1.5rem;
+                z-index: 10;
+                color: white;
+                text-align: center;
+                position: absolute;
+                top: 50%;
+                left: 48%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+    }
+
 }

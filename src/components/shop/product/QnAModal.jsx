@@ -2,6 +2,7 @@ import {useRef, useState} from "react";
 import OptionSelector from "./OptionSelector";
 import instance from "../../../utils/axios";
 import {useParams} from "react-router-dom";
+import Modal from "../../common/Modal";
 
 const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
 
@@ -22,10 +23,6 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
             data:userQuestionInput
 
         }).then((res) => {
-            // console.log(userQuestionInput)
-
-            // console.log(res.data)
-
             setIsEdited(!isEdited);
             modalClose()
         }).catch((err) => {
@@ -48,9 +45,6 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
             option_name: optionName,
             option_price: optionPrice,
         });
-
-
-
     };
 
 
@@ -65,32 +59,26 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
             setModalOpen(false);
     }
     const priceTrimmer = (optionPrice)=> {
-
-            const trimmedPrice = optionPrice.toLocaleString() + "원";
-           return trimmedPrice;
+        const trimmedPrice = optionPrice.toLocaleString() + "원";
+        return trimmedPrice;
     }
 
-
-
     return (
-        <>{modalOpen &&
-                <div className={'modal-container'}>
-                    <div className={'modal-content'}>
-                        <form action="">
-                            <OptionSelector optionItem={data.options} handleSelectChange={handleSelectChange} priceTrimmer={priceTrimmer}/>
-                            <textarea cols="30" rows="10"
-                                      onChange={e => handleInputChange({contents: e.target.value})}>
-                            </textarea>
-                        </form>
-                    </div>
-                    <button onClick={handleSubmit}>
-                        등록
-                    </button>
+        <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
+            <form action="">
+                <OptionSelector optionItem={data.options}
+                                handleSelectChange={handleSelectChange}
+                                priceTrimmer={priceTrimmer}/>
+                <textarea cols="30" rows="10"
+                          onChange={e => handleInputChange({contents: e.target.value})}>
+                </textarea>
+            </form>
 
-                    <button onClick={modalClose}>
-                        x
-                    </button>
-                </div>}</>
+            <button onClick={handleSubmit}>
+                등록
+            </button>
+        </Modal>
+
     );
 };
 

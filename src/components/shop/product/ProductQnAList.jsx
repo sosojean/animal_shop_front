@@ -1,7 +1,7 @@
 import ProductQnA from "./ProductQnA";
 import {useEffect, useRef, useState} from "react";
 import QnAModal from "./QnAModal";
-import "../../../assets/styles/shop/product/qnaModal.scss"
+
 import axios from "axios";
 import instance from "../../../utils/axios";
 

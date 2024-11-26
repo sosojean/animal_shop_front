@@ -3,6 +3,7 @@ import instance from "../../../utils/axios";
 import {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart, faHeartBroken} from "@fortawesome/free-solid-svg-icons";
+import ReviewImages from "./ReviewImages";
 
 const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit, isEdit}) => {
 
@@ -12,11 +13,10 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit,
 
     useEffect(() => {
         instance({
-            url: `/item_comment/update/${item.id}`,
+            url: `/item_comment/update/${item.id}`, // 좋아요 여부 요청
             method:'GET'
 
         }).then((res) => {
-            // console.log("res", res);
             setIsAuthor(res.data)
         }).catch((error) => {console.log(error)})
 
@@ -122,6 +122,7 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit,
                 <div className="productReview">{item.contents}</div>
             }
 
+            {item.thumbnailUrl.length!=0 && <ReviewImages images ={item.thumbnailUrl}/>  }
         </div>
     )
 }
