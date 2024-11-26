@@ -44,13 +44,29 @@ const Cart = (props) => {
         handleGetCartList(currentPage);
     };
 
-    // 장바구니 아이템 삭제
+    // 장바구니 아이템 전체 삭제
     const handleDeleteItemData = () => {
 
-        cartItemIdList.map((v) => {
+        // cartItemIdList.map((v) => {
+        //     try {
+        //         const response = instance({
+        //             url: `/cart/delete/${v}`, // cartItemId로 API 호출
+        //             method: "delete",
+        //         });
+
+        //         setDataUpdate(true); // 페이지 업데이트
+            
+        //     } catch (error) {
+        //         // 삭제 실패 시
+        //         console.error('삭제 에러 발생:', error);
+        //         alert('상품 삭제에 실패했습니다.');
+        //     }
+        // })
+
+        dataList.map((data) => {
             try {
                 const response = instance({
-                    url: `/cart/delete/${v}`, // cartItemId로 API 호출
+                    url: `/cart/delete/${data.cartItemId}`, // cartItemId로 API 호출
                     method: "delete",
                 });
 
@@ -96,6 +112,7 @@ const Cart = (props) => {
                   />)
               })}
               <div>
+                {/* TODO 장바구니 총 결제 금액 계산 */}
                 <p>총 결제 금액</p>
               </div>
           </div>
