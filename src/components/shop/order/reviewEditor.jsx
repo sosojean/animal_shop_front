@@ -5,13 +5,14 @@ import {faImage, faStar} from "@fortawesome/free-solid-svg-icons";
 
 
 import instance from "../../../utils/axios";
+import axios from "axios";
 
 
-const ReviewEditor = ({item}) => {
+const ReviewEditor = ({item, setReviewWriting}) => {
     const [newComment, setNewComment] = useState("")
     const [rating, setRating] = useState(0)
-
-
+    const [images, setImages] = useState([]);
+    const imageUrl = "http://localhost:8080/file/image-print?filename=";
     useEffect(() => {
 
     }, [])
@@ -19,27 +20,43 @@ const ReviewEditor = ({item}) => {
 
 
     const onSubmitHandler = (e) => {
+        e.preventDefault();
         instance({
             url: `/item_comment/create/${item.itemId}`,
             method: "Post",
             data: {
-                rating:10,
-                contents: newComment
+                contents: newComment,
+                rating: rating,
+                thumbnailUrls:images
             }
         }).then((data) => {
             console.log(data);
+            setReviewWriting(false)
+
         })
     }
 
     const ImgUploadHandler = async (e) => {
+        const file = e.target.files[0];
+        const formData = new FormData();
+        if (file != null) {
+            formData.append('image', new Blob([file], {type: 'multipart/form-data'}), file.name);
 
+            axios({
+                url: `http://localhost:8080/file/item-comment-image-upload`,
+                method: 'POST',
+                data: formData,
+            }).then((response) => {
+                console.log(response.data);
+                setImages([...images,response.data]);
+
+
+            }).catch((error) => {
+                console.log(error)
+            })
+        }
     }
 
-    const clearInput = () => {
-
-
-
-    }
 
     const ratingComment = () => {
         let comment = "별점을 남겨주세요."
@@ -52,6 +69,14 @@ const ReviewEditor = ({item}) => {
             default: return comment = "별점을 남겨주세요"
         }
     }
+
+    const deleteImage = (e,i) => {
+        e.preventDefault();
+        const newImages = [...images];
+        newImages.splice(i, 1);
+        setImages(newImages)
+    }
+
     return (<>
 
             <div className="star-rating">
@@ -71,8 +96,17 @@ const ReviewEditor = ({item}) => {
 
                     <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
                     <div className="btn-section">
-                        <label className="input-file-button" htmlFor="input-file"><FontAwesomeIcon
-                            icon={faImage}/></label>
+                        <div className="img-section">
+                            <label className="input-file-button" htmlFor="input-file"><FontAwesomeIcon
+                                icon={faImage}/></label>
+                            <div className="images" >
+                            {images&&images.map((filename, i) => {
+                                return(<><img className="review-image" src={imageUrl+filename} alt=""/>
+                                    <button className="delete-image" onClick={(e)=>deleteImage(e,i)}>x</button>
+                                </>)
+                            })}
+                            </div>
+                        </div>
                         <input id="input-file" onChange={(e) => ImgUploadHandler(e)} type="file"
                                accept="image/*"/>
                         <button className="submit-button">등록</button>

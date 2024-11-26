@@ -72,6 +72,31 @@
     justify-content: space-between;
 
 
+    .img-section{
+      display: flex;
+
+      .images{
+        display: flex;
+        flex-direction: row;
+        .review-image{
+          width: 50px;
+          height: 50px;
+          object-fit: cover;
+
+
+        }
+        .delete-image{
+          border: none;
+          position: relative;
+          left: -20px;
+          width: 20px;
+          height: 20px;
+
+        }
+
+      }
+    }
+
     .input-file-button {
       font-size: 1.5rem;
       display: flex;
@@ -87,6 +112,9 @@
 
 
     }
+
+
+
 
     #input-file {
       display: none;
