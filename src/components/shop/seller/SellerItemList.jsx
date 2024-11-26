@@ -8,14 +8,14 @@ import ItemDelButton from "./itemDelButton";
 
 const SellerItemList = ({navigateUrl}) => {
 
-    const [itemList, setItemList] = useState([]);
-    const [totalCount, setTotalCount] = useState(0);
+    const [itemList, setItemList] = useState([]); // 아이템 리스트
+    const [totalCount, setTotalCount] = useState(0); // 아이템 개수
 
     const location = useLocation();
     const navigate = useNavigate();
 
     const queryParams = new URLSearchParams(location.search);
-    const currentPage = parseInt(queryParams.get("page")) || 1;
+    const currentPage = parseInt(queryParams.get("page")) || 1; // 현재 페이지 확인
 
     const getItemList = async (page) => {
         try {
@@ -38,7 +38,7 @@ const SellerItemList = ({navigateUrl}) => {
     }, [currentPage]);
 
     const handlePageChange = (newPage) => {
-        navigate(`/seller/item/list?page=${newPage}`);
+        navigate(`/seller/item/list?page=${newPage}`); // 페이지 변화
     };
 
     return(
