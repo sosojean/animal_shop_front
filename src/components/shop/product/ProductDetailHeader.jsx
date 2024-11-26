@@ -14,6 +14,7 @@ const ProductDetailHeader = ({data}) => {
     const [selectedValue, setSelectedValue] = useState("placeholder")
     const defaultPrice = data?.options[0].price;
 
+    // 장바구니 담기
     const addCart = () => {
         const itemList = stocks; // 추가하려는 상품 리스트
     
@@ -41,6 +42,23 @@ const ProductDetailHeader = ({data}) => {
         localStorage.setItem("cart", JSON.stringify(storageCart));
         alert("장바구니에 담았습니다!");
     };
+
+    // post 통신
+    const handlePostCart = () => {
+        const data = stocks;
+
+        data.map((v, i) => {
+            instance({
+                url: "/cart/add",
+                method: "post",
+                data: v
+            }).then(res=>{
+                // console.log("성공했습니다 ",i)
+            }).catch(err=>{
+                console.log(err)
+            })
+        })
+    }
 
     //선택옵션 추가핸들러
     const handleSelectChange = (event) => {
@@ -150,23 +168,6 @@ const ProductDetailHeader = ({data}) => {
 
     }
 
-    const handlePostCart = () => {
-        const data = stocks;
-        // console.log("data", data);
-
-        data.map((v, i) => {
-            instance({
-                url: "/cart/add",
-                method: "post",
-                data: v
-            }).then(res=>{
-                // console.log("성공했습니다 ",i)
-            }).catch(err=>{
-                console.log(err)
-            })
-        })
-    }
-
     return (
     <>
         {data&& (
@@ -210,7 +211,10 @@ const ProductDetailHeader = ({data}) => {
                 {stocks[0] && <span className="price">총 상품 금액 {priceCalculator()} 원</span>}
 
                 <div className="purchaseLinkContainer">
-                    <button onClick={addCart}>
+                    <button onClick={() => {
+                        addCart();
+                        handlePostCart();
+                    }}>
                         장바구니
                     </button>
                     <button onClick={purchaseHandler}>구매하기</button>

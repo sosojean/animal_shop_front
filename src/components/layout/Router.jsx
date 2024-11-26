@@ -15,7 +15,6 @@ import Products from "../shop/product/Products";
 import ShopMain from "../../pages/shop/ShopMain";
 import Cart from "../../pages/shop/order/Cart";
 import ProductDetail from "../../pages/shop/product/ProductDetail";
-import SellerItemResigter from "../shop/seller/SellerItemResgister";
 import DeliverInfo from "../../pages/shop/order/DeliverInfo";
 import Admin from "../../pages/shop/admin/Admin";
 import SellerRegister from "../../pages/shop/admin/SellerRegister";
