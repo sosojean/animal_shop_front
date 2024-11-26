@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import instance from "../../../utils/axios";
-import '../../../assets/styles/shop/sellerItemList.scss'
-import Pagination from "../../board/Pagination";
+import instance from "../../../../utils/axios";
+import '../../../../assets/styles/shop/sellerItemList.scss'
+import Pagination from "../../../board/Pagination";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-import ItemDelButton from "./itemDelButton";
+import ItemDelButton from "../itemDelButton";
+import SellerItem from "./SellerItem";
 
 
 const SellerItemList = ({navigateUrl}) => {
@@ -56,24 +57,14 @@ const SellerItemList = ({navigateUrl}) => {
             
             <ul>
                 {itemList.map((item) => (
-                    <li className="sellerItemContainer" key={item.id}>
-                        <div className="SellerItemId">{item.id}</div>
-                        <div className="SellerItemImage">
-                            <img src={item.thumbnail_url[0]}/>
-                        </div>
-                        <div className='SellerItemName'>
-                            <Link to={`/shop/detail/${item.id}`}>{item.name}</Link>
-                        </div>
-                        <div className='SellerItemPrice'>{item.options[0].price} 원</div>
-                        <div className='SellerItemSpecies'>{item.species}</div>
-                        <div className='SellerItemCategory'>{item.category}</div>
-                        <Link to={`/seller/item/edit/${item.id}`}>
-                            <div className="SellerItemDelete">
-                                <button style={{marginRight:'10px'}}>수정</button>
-                            </div>
-                        </Link>
-                        <ItemDelButton itemId={item.id} url={navigateUrl} getItemList={() => getItemList(currentPage)}/>
-                    </li>
+                    <SellerItem
+                        key={item.id}
+                        item={item}
+                        navigateUrl={navigateUrl}
+                        getItemList={getItemList}
+                        currentPage={currentPage}
+
+                    />
                 )
             )}
             </ul>
