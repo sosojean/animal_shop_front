@@ -14,6 +14,34 @@ const ProductDetailHeader = ({data}) => {
     const [selectedValue, setSelectedValue] = useState("placeholder")
     const defaultPrice = data?.options[0].price;
 
+    const addCart = () => {
+        const itemList = stocks; // 추가하려는 상품 리스트
+    
+        // localStorage에서 cart 데이터를 가져오기
+        let storageCart = localStorage.getItem("cart");
+        storageCart = storageCart ? JSON.parse(storageCart) : []; // JSON 파싱 또는 빈 배열로 초기화
+    
+        // itemList를 순회하여 storageCart에 추가 또는 업데이트
+        itemList.forEach((item) => {
+            const existingItemIndex = storageCart.findIndex(
+                (cartItem) =>
+                    cartItem.itemId === item.itemId && cartItem.optionId === item.optionId
+            );
+    
+            if (existingItemIndex !== -1) {
+                // 동일한 itemId와 optionId가 있을 경우 count 업데이트
+                storageCart[existingItemIndex].count += item.count;
+            } else {
+                // 새로운 항목일 경우 추가
+                storageCart.push(item);
+            }
+        });
+    
+        // 업데이트된 storageCart를 다시 localStorage에 저장
+        localStorage.setItem("cart", JSON.stringify(storageCart));
+        alert("장바구니에 담았습니다!");
+    };
+
     //선택옵션 추가핸들러
     const handleSelectChange = (event) => {
         const index = event.target.value;
@@ -182,7 +210,7 @@ const ProductDetailHeader = ({data}) => {
                 {stocks[0] && <span className="price">총 상품 금액 {priceCalculator()} 원</span>}
 
                 <div className="purchaseLinkContainer">
-                    <button>
+                    <button onClick={addCart}>
                         장바구니
                     </button>
                     <button onClick={purchaseHandler}>구매하기</button>

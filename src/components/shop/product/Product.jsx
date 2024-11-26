@@ -10,19 +10,13 @@ const Product = (props) => {
     let storageCart = localStorage.getItem("cart");
 
 
-    const handlePostCart = async () => {
-
-        let baseData = localStorage.getItem("cart"); // 장바구니 데이터
-        baseData = JSON.parse(storageCart);
-        console.log("handlePostCart baseData: ", baseData);
-        const data = baseData[0];
-        console.log(data);
+    const handlePostCart = async (item) => {
 
         try {
             const response = await instance({
                 url: "/cart/add",
                 method: "post",
-                data: data
+                data: item
             });
 
             // 성공적으로 데이터가 저장된 경우
@@ -33,7 +27,6 @@ const Product = (props) => {
             console.log('장바구니 데이터 에러 발생:', error);
         }
     }
-
 
     const addCart = () => {
         const item = {
@@ -70,6 +63,9 @@ const Product = (props) => {
             cart.push(item);
             localStorage.setItem("cart", JSON.stringify(cart));
         }
+
+        handlePostCart(item);
+        alert("장바구니에 담았습니다!");
     }
 
     return(
@@ -98,8 +94,7 @@ const Product = (props) => {
                             ( <button 
                                 onClick={() => {
                                     addCart();
-                                    handlePostCart();}
-                                } 
+                                }} 
                                 className="cart-button">
                                     장바구니
                               </button> )
