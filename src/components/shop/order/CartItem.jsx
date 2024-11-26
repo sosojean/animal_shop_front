@@ -1,6 +1,7 @@
 import Product from "../product/Product";
 import "../../../assets/styles/shop/order/cartItem.scss"
 import instance from "../../../utils/axios";
+import { useNavigate } from "react-router-dom";
 
 const cartItem  = (props) => {
 
@@ -16,11 +17,9 @@ const cartItem  = (props) => {
             // 삭제 성공 시
             alert('상품이 삭제되었습니다.', response.data);
 
-            // 삭제 후, 상품 목록 갱신
-            // getItemList();
-
-            // 삭제 후 리다이렉트
-            // navigate(navigateToUrl); // 리다이렉트할 URL
+            // 삭제 후 부모 상태 새로고침
+            props.refreshCartList();
+        
         } catch (error) {
             // 삭제 실패 시
             console.error('삭제 에러 발생:', error);

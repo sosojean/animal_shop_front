@@ -36,6 +36,11 @@ const Cart = (props) => {
         navigate(`/cart?page=${newPage}`); // 페이지 변화
     };
 
+    // 삭제 후 데이터 새로고침 핸들러
+    const refreshCartList = () => {
+        handleGetCartList(currentPage);
+    };
+
     useEffect(() => {
         // 로컬스토레지에서 받아오는 데이터
         // let cart = localStorage.getItem("cart")
@@ -43,7 +48,7 @@ const Cart = (props) => {
 
         // console.log("Cart state test ", dataList);
         handleGetCartList(currentPage);
-    },[dataList, currentPage])
+    },[currentPage])
 
     return (
       <>
@@ -53,7 +58,11 @@ const Cart = (props) => {
                 <button>선택 삭제</button>
               </div>
               {dataList && dataList?.map(data=>{
-                  return ( <CartItem data = {data} key = {data.cartItemId} />)
+                  return ( 
+                  <CartItem 
+                    data = {data} key = {data.cartItemId} 
+                    refreshCartList={refreshCartList}
+                  />)
               })}
           </div>
 
