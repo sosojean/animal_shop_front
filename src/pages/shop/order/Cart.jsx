@@ -1,7 +1,9 @@
 import "../../../assets/styles/shop/order/cart.scss"
 import CartItem from "../../../components/shop/order/CartItem";
 import Pagination from "../../../components/board/Pagination";
-import {useEffect, useState} from "react";
+import Modal from "../../../components/common/Modal";
+import CartModal from "../../../components/shop/order/CartModal";
+import {Children, useEffect, useState} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import instance from "../../../utils/axios";
 
@@ -9,9 +11,8 @@ const Cart = (props) => {
     const [dataList, setDataList] = useState([]);
     const [dataCount, setDataCount] = useState(0);
     const [selectedItems, setSelectedItems] = useState({}); 
-    console.log("selectedItems", selectedItems)
+    const [modalOpen, setModalOpen] = useState(false);
     const [dataUpdate, setDataUpdate] = useState(false); // 페이지 업데이트 상태관리
-    // const [select, setSelect] = useState(false);
 
     // 페이지 네이션
     const location = useLocation();
@@ -29,8 +30,6 @@ const Cart = (props) => {
         }).then(res=>{
             setDataList(res.data.cartDetailDTOList);
             setDataCount(res.data.total_count);
-            // setCartItemIdList(res.data.cartDetailDTOList.map((data) => 
-            //     data.cartItemId));
         }).catch(err=>{
             console.log("handleGetCartList 실패 ", err);
         })
@@ -96,7 +95,10 @@ const Cart = (props) => {
         alert("전체 삭제 했습니다");
     };
 
-    
+    // 모달 열기 핸들러
+    const handleModalOpen = () => {
+        setModalOpen((prev) => !prev); // 이전 상태를 반전
+    };
 
     useEffect(() => {
         // 로컬스토레지에서 받아오는 데이터
@@ -125,6 +127,9 @@ const Cart = (props) => {
                     refreshCartList={refreshCartList}
                     selectedItems={selectedItems}
                     setSelectedItems={setSelectedItems}
+                    modalOpen={modalOpen}
+                    setModalOpen={setModalOpen}
+                    handleModalOpen={handleModalOpen}
                   />)
               })}
               <div>

@@ -1,6 +1,8 @@
 import Product from "../product/Product";
 import "../../../assets/styles/shop/order/cartItem.scss"
 import instance from "../../../utils/axios";
+import Modal from "../../common/Modal";
+import CartModal from "./CartModal";
 
 const cartItem  = (props) => {
 
@@ -26,24 +28,7 @@ const cartItem  = (props) => {
         }
     };
 
-    // 장바구니 아이템 리스트 추가
-    // const handleSelectCartItem = () => {
-
-    //     if (props.select) {
-    //         props.setCartItemIdList((prevList) => 
-    //             [...prevList, props.data.cartItemId]); 
-    //         console.log("선택");
-    //     } else {
-    //         props.cartItemIdList?.filter((id) => (
-    //             id !== props.data.cartItemId))
-    //         console.log("선택 해제");
-    //     }
-
-    //     // 상태 변경
-    //     props.setSelect((prevSelect) => !prevSelect);
-
-    // }
-
+    // 선택 아이템 아이디: boolean 형태로 리스트에 넣음
     const handleSelectCartItem = () => {
         props.setSelectedItems((prev) => ({
             ...prev,
@@ -51,32 +36,49 @@ const cartItem  = (props) => {
         }));
     };
 
+    // const handleModalOpen = () => {
+    //     props.setModalOpen((prev) => !prev); // 이전 상태를 반전
+    // };
+
     return (
-        <div className="cart-item-outer">
-            <button onClick={handleDeleteItemData}>X</button>
-            <div className="cart-item-inner">
-                <input 
-                    type="checkbox"
-                    checked={!!props.selectedItems[props.data.cartItemId]} // 선택 여부 반영
-                    onChange={handleSelectCartItem} // 클릭 시 선택 상태 토글
-                />
-                {/* <Product data = {props.data} position="cart"/> */}
-                <div className="cart-item-info">
-                    <div>
-                        <img src={props.data.imgUrl}
-                        style={{width: "100px", height: "100px"}}/>
-                    </div>
-                    <div>
-                        <div className="cart-item-name">{props.data.itemNm}</div>
+        <>
+            <div className="cart-item-outer">
+                <button onClick={handleDeleteItemData}>X</button>
+                <div className="cart-item-inner">
+                    <input 
+                        type="checkbox"
+                        checked={!!props.selectedItems[props.data.cartItemId]} // 선택 여부 반영
+                        onChange={handleSelectCartItem} // 클릭 시 선택 상태 토글
+                    />
+                    {/* <Product data = {props.data} position="cart"/> */}
+                    <div className="cart-item-info">
                         <div>
-                            옵션: {props.data.option_name} / {props.data.count}개 / {props.data.option_price}원
+                            <img src={props.data.imgUrl}
+                            style={{width: "100px", height: "100px"}}/>
                         </div>
-                        <button>주문수정</button>
+                        <div>
+                            <div className="cart-item-name">{props.data.itemNm}</div>
+                            <div>
+                                옵션: {props.data.option_name} / {props.data.count}개 / {props.data.option_price}원
+                            </div>
+                            <button onClick={props.handleModalOpen}>
+                                주문수정
+                            </button>
+                        </div>
+                        <div>
+                            <p>{props.data.option_price * props.data.count}원</p>
+                            <button>주문하기</button>
+                        </div>
                     </div>
                 </div>
-                <div>{props.data.option_price * props.data.count}원</div>
+                <Modal
+                modalOpen={props.modalOpen}
+                setModalOpen={props.setModalOpen}
+                >
+                    <CartModal/>
+                </Modal>
             </div>
-        </div>
+        </>
     )
 }
 export default cartItem;
