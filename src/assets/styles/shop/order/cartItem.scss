@@ -1,0 +1,16 @@
+.cart-item-inner {
+
+    .cart-item-info {
+        display: flex;
+        gap: 1rem;
+        margin-left: 1rem;
+
+        div {
+            .cart-item-name {
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+        }
+    }
+
+}
