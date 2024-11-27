@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import '../../../assets/styles/shop/order/cartModal.scss'
-import OptionSelector from '../product/option/OptionSelector';
-import Option from '../product/option/Option';
 import CartOption from './CartOption';
 import instance from '../../../utils/axios';
 
