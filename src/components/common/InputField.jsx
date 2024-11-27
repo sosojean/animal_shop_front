@@ -1,4 +1,4 @@
-import "../../assets/styles/common/inputField.scss"
+// import "../../assets/styles/common/inputField.scss"
 
 const InputField = (props) => {
     const {

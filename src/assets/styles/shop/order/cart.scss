@@ -3,7 +3,19 @@
   margin: 24px;
   border: 1px solid #000000;
 
+  .cart-delete-button {
+    display: flex;
+  }
+
+  .cart-price-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 1rem 0 1rem 0;
+    // border-top: 1px solid black;
+  }
+
   .cart-item-outer{
+    
     justify-self: center;
     width: 70%;
     padding: 16px;
