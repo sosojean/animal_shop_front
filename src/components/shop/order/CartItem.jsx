@@ -52,6 +52,10 @@ const cartItem = (props) => {
       ...prev,
       [props.data.cartItemId]: !prev[props.data.cartItemId],
     }));
+
+    // // props.setOrderIndex((prev) => ([...prev, props.key]));
+    // // props.data state에 담기
+    // props.setOrderItems((prev) => ([...prev, props.data]))
   };
 
   return (
