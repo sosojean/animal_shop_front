@@ -1,10 +1,6 @@
 import "../../../assets/styles/shop/order/cart.scss"
 import CartItem from "../../../components/shop/order/CartItem";
-import Pagination from "../../../components/board/Pagination";
-import Modal from "../../../components/common/Modal";
-import CartModal from "../../../components/shop/order/CartModal";
-import {Children, useEffect, useState} from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import {useEffect, useState} from "react";
 import instance from "../../../utils/axios";
 
 const Cart = (props) => {
@@ -12,16 +8,26 @@ const Cart = (props) => {
     const [dataCount, setDataCount] = useState(0);
     const [selectedItems, setSelectedItems] = useState({}); 
     const [orderItems, setOrderItems] = useState([]);
-    // console.log("orderItems", orderItems);
+
     const [modalOpen, setModalOpen] = useState(false);
     const [modalData, setModalData] = useState();
-    // console.log("modalData", modalData);
-    const [dataUpdate, setDataUpdate] = useState(false); // 페이지 업데이트 상태관리
 
-    // 수정, 전체 구매
-    const postData = {
-        cartDetailDTOList: dataList
-    };
+    const [dataUpdate, setDataUpdate] = useState(false); // 페이지 업데이트 상태관리
+    const postData = { cartDetailDTOList: dataList }; // 수정, 전체 구매 데이터
+
+    const totalPrice = dataList.reduce((price, data) => 
+        (price + (data.count * data.option_price)), 0);
+
+    const selectPrice = Object.keys(selectedItems)
+        .filter(key => selectedItems[key])
+        .reduce((totalPrice, key) => {
+            const id = Number(key);
+            const data = dataList.find(data => data.cartItemId === id);
+            if (data) {
+                totalPrice += data.count * data.option_price;
+            }
+            return totalPrice;
+        }, 0);
 
     // Get 통신
     const handleGetCartList = () => {
@@ -49,11 +55,8 @@ const Cart = (props) => {
         const idsToOrder = Object.keys(selectedItems).filter(key => selectedItems[key])
                                                     .map(value => Number(value));
 
-        // console.log("dataToOrder", idsToOrder);
-
         // idsToOrder 값으로 cartItmId 비교해서 데이터 받아오기
         const dataToOrder = idsToOrder.map(id => dataList.find(data => data.cartItemId === id));
-        // console.log(dataToOrder);
 
         const postData = {
             cartDetailDTOList: dataToOrder
@@ -144,7 +147,6 @@ const Cart = (props) => {
         alert("전체 삭제 했습니다");
     };
 
-    // TODO 모달 오픈 핸들러 정리
     // 모달 열기 핸들러
     const handleModalOpen = () => {
         setModalOpen((prev) => !prev); // 이전 상태를 반전
@@ -164,20 +166,12 @@ const Cart = (props) => {
     return (
       <>
           <div className="cart-item-container">
-              <div className="cart-item-button">
-                <div>
-                    <button onClick={handleOrderAllItem}>
-                        전체주문
-                    </button>
-                    <button onClick={handleOrderSelectedItem}>
-                        선택주문
-                    </button>
-                </div>
+              <div className="cart-delete-button">
                 <div>
                     <button onClick={() => handleDeleteAllItem()}>
                             전체삭제
                     </button>
-                    <button onClick={() => handleDeleteSelectedItem()}>선택 삭제</button>
+                    <button onClick={() => handleDeleteSelectedItem()}>선택삭제</button>
                 </div>
               </div>
               {dataList && dataList?.map((data, index)=>{
@@ -192,12 +186,21 @@ const Cart = (props) => {
                     modalData={modalData} setModalData={setModalData}
                   />)
               })}
-              <div>
-                {/* TODO 장바구니 선택 결제 금액 */}
-                <p>총 결제 금액</p>
+              <div className="cart-price-container">
+                <div>
+                    <p>선택 상품 금액 {selectPrice.toLocaleString()}원</p>
+                    <p>전체 상품 금액 {totalPrice.toLocaleString()}원</p>
+                </div>
+                <div>
+                    <button onClick={handleOrderSelectedItem}>
+                        선택주문
+                    </button>
+                    <button onClick={handleOrderAllItem}>
+                        전체주문
+                    </button>
+                </div>
               </div>
           </div>
-
       </>
   )
 }
