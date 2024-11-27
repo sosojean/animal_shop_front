@@ -1,9 +1,16 @@
 import {useEffect, useState} from "react";
 import PetInfoInput from "../../components/member/pet/PetInfoInput";
-import InputField from "../../components/common/InputField";
-import InputImage from "../../components/common/InputImage";
-import Selector from "../../components/common/Selector";
 import "../../assets/styles/member/PetRegister.scss"
+import NameAndSpecies from "../../components/member/pet/register/NameAndSpecies";
+import {
+    Description,
+    GenderAndWeight,
+    ImageBreedAge,
+    SelectMethod
+} from "../../components/member/pet/register/PetRegisterComps";
+
+import {weightOptions,catBreedOptions,dogBreedOptions,ageOptions} from "../../utils/petOptions";
+
 
 const PetRegister = () => {
 
@@ -26,17 +33,26 @@ const PetRegister = () => {
         profileImageUrl : "",
         registrationCode : "",
     }
-    const weightOptions = [1,2,3,4,5,6,7,9,11,14,17,20,24,28,32,37,42,47];
-    const ageOptions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-
-    const catBreedOptions = ["고양이","고양이","고양이","고양이","고양이","고양이","고양이"];
-    const dogBreedOptions = ["강아지","강아지","강아지","강아지","강아지","강아지","강아지"];
-
 
     const [currentStep, setCurrentStep] = useState(step.SelectMethod)
     const [petInfo, setPetInfo] = useState(pet)
     const [isFirstPage, setIsFirstPage] = useState(true)
     const [isLastPage, setIsLastPage] = useState(false)
+    const [completeForm, setCompleteForm] = useState(false)
+
+    const applyPetInfo = (name,value) => {
+        setPetInfo((prev)=>(
+            {
+                ...prev,
+                [name]:value
+            }))
+    }
+
+    useEffect(() => {
+        setCompleteForm(isComplete())
+        console.log(petInfo)
+
+    }, [currentStep,petInfo]);
 
 
     const setNext = () => {
@@ -59,77 +75,48 @@ const PetRegister = () => {
         }
     };
 
-
-    const selectMethod = (<>
-            <div className={"two-buttons"}>
-                <button>반려동물 등록번호 입력하고 정보 쉽게 입력하기</button>
-            </div>
-    </>)
-    const nameSpecies = (
-        <>
-            <div className={"two-buttons"}>
-                <button>강아지</button>
-                <button>고양이</button>
-            </div>
-            <InputField name={"name"}
-                        title={"이름을 입력해주세요."}
-                        placeholder={"이름"}/>
-        </>
-    )
-
-    const imageBreedAge = (
-        <>
-
-        <InputImage imagePath={"a"}/>
-            <Selector optionItems={ageOptions}/>
-            <Selector optionItems={catBreedOptions}/>
-
-        </>
-    )
-
-    const genderWeight = (
-        <>
-        <div className={"two-buttons"}>
-
-            <button>남아</button>
-            <button>여아</button>
-        </div>
-        <Selector optionItems={weightOptions}/>
-        </>
-    )
-
-    const descriptionRegCode = (
-        <InputField name={"regCode"}
-                    title = {"더 알려주고 싶은 정보를 입력해주세요."}
-                    placeholder={"참치를 좋아해요"}/>
-    )//todo 상태메시지와 등록 코드
-
+    const isComplete = () => {
+        switch (currentStep)
+        {
+            case step.NameSpecies:
+                console.log(petInfo)
+                return petInfo.species!==""
+                break;
+            default: return true;
+        }
+    }
     const inputSelector = () => {
         switch (currentStep)
         {
-            case step.SelectMethod:
-                return selectMethod
-                break;
-            case step.NameSpecies:
-                return nameSpecies
-                break;
-            case step.ImageBreedAge:
-                return imageBreedAge
-                break;
-            case step.GenderWeight:
-                return genderWeight
-                break;
-            case step.DescriptionRegCode:
-                return descriptionRegCode
-                break;
+            case step.SelectMethod: return <SelectMethod/>
+
+            case step.NameSpecies: return <NameAndSpecies onClickDog={() => applyPetInfo("species", "DOG")} petInfo={petInfo}
+                                                          onClickCat={() => applyPetInfo("species", "CAT")} input={applyPetInfo}/>
+
+
+            case step.ImageBreedAge: return <ImageBreedAge applyPetInfo={applyPetInfo}
+                                                           petInfo={petInfo}
+                                                           optionItems={ageOptions}
+                                                           strings={catBreedOptions}
+                                                           strings1={dogBreedOptions}/>
+            case step.GenderWeight: return <GenderAndWeight onClick={() => applyPetInfo("gender", "MALE")} petInfo={petInfo}
+                                                            onClick1={() => applyPetInfo("gender", "FEMALE")}
+                                                            onChange={(e) => applyPetInfo("isNeutered", e.target.checked)}
+                                                            key={`${currentStep}-${JSON.stringify(petInfo)}`}
+                                                            optionItems={weightOptions}
+                                                            handleSelectChange={applyPetInfo}/>
+
+            case step.DescriptionRegCode: return <Description input={applyPetInfo} petInfo={petInfo}/>
         }
     }
 
     return (
         <div className={"pet-register"}>
-            <PetInfoInput setNext = {setNext} setPrev = {setPrev}
-                          isFirstPage={isFirstPage} isLastPage={isLastPage}>
-            {inputSelector()}
+            <PetInfoInput setNext = {setNext} setPrev = {setPrev} isComplete = {completeForm}
+                          isFirstPage={isFirstPage} isLastPage={isLastPage} petInfo={petInfo}>
+                <div className="pet-register-form">
+                {inputSelector()}
+                </div>
             </PetInfoInput>
         </div>
     )

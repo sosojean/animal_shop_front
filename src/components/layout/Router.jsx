@@ -28,6 +28,8 @@ import SellerItemEditor from "../shop/seller/itemRegister/SellerItemEditor"
 import SellerItemRegister from "../../pages/shop/seller/SellerItemRegister";
 import SellerItemList from "../shop/seller/itemList/SellerItemList";
 import PetRegister from "../../pages/member/PetRegister";
+import PetInfoList from "../member/pet/PetInfoList";
+import PetInfoEdit from "../member/pet/PetInfoEdit";
 
 const Router = (props) => {
     return (
@@ -48,7 +50,10 @@ const Router = (props) => {
                         <Route path="/login" element={<Login reload={props.reload} setReload={props.setReload}/>}/>
                         <Route path="/post/write" element={<PostWrite/>}/>
                         <Route path="/join/success" element={<Information case ="join" />}/>
-                        <Route path="/join/pet/register" element={<PetRegister />}/>
+                        <Route path="/pet/register" element={<PetRegister />}/>
+
+                        <Route path="/pet/info" element={<PetInfoList />}/>
+                        <Route path="/pet/edit/:petId" element={<PetInfoEdit />}/>
 
 
                         <Route path="/mypage" element={<MyPage/>}/>

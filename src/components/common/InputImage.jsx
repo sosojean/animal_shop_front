@@ -20,6 +20,7 @@ const InputImage = ({imageUploadPath, setImage,image,objName}) =>{
                 data: formData,
             }).then((response) => {
                 console.log(response.data);
+                console.log(objName,response)
                 setImage(objName,response.data);
 
 

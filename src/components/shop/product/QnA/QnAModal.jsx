@@ -59,10 +59,7 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
     const modalClose = (e)=>{
             setModalOpen(false);
     }
-    // const priceTrimmer = (optionPrice)=> {
-    //     const trimmedPrice = optionPrice.toLocaleString() + "원";
-    //     return trimmedPrice;
-    // }
+
 
     const trimOptionText = (option, priceTrimmer)=>{
         return  `${option.name} ${option.price}`;
@@ -75,7 +72,12 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
                 <Selector optionItems={data.options}
                           handleSelectChange={handleSelectChange}
                           trimOptionText={trimOptionText}
+                          value={data.option_name}
+                          name={data.option_name}
+                          // selectedValue =
                 />
+
+
 
                 <textarea cols="30" rows="10"
                           onChange={e => handleInputChange({contents: e.target.value})}>
