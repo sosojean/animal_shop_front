@@ -1,0 +1,22 @@
+.optionContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+
+    .option-name {
+
+    }
+
+    .stock-price-container {
+        display: flex;
+        gap: 1rem;
+
+        .stock-controller {
+            display: flex;
+        }
+
+        .price {
+
+        }
+    }
+}

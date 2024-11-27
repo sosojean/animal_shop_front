@@ -1,0 +1,47 @@
+@mixin element-gap ($t: 1rem, $b: 1rem, $c: black ) {
+    padding: $t 0 $b 0;
+    border-bottom: 1px solid $c;
+}
+
+
+.cart-modal-container {
+    padding: 1rem;
+    height: 400px; width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    // font-size: 1.5rem;
+    
+    background-color: white;
+
+    .header-container {
+        .header {
+            display: flex;
+            @include element-gap (0);
+
+            img {
+                width: 100px;
+                height: 100px;
+                margin-right: 1rem;
+            }
+        }
+    
+        .option {
+            @include element-gap($c: transparent);
+        }
+    }
+
+    .footer-container {
+        .total-price {
+            @include element-gap;
+        }
+    
+        .buttons {
+            @include element-gap($c:transparent);
+
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+}

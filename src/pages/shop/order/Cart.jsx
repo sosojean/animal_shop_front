@@ -12,20 +12,19 @@ const Cart = (props) => {
     const [dataCount, setDataCount] = useState(0);
     const [selectedItems, setSelectedItems] = useState({}); 
     const [modalOpen, setModalOpen] = useState(false);
+    const [modalData, setModalData] = useState();
+    // console.log("modalData", modalData);
     const [dataUpdate, setDataUpdate] = useState(false); // 페이지 업데이트 상태관리
 
-    // 페이지 네이션
-    const location = useLocation();
-    const navigate = useNavigate();
-    const queryParams = new URLSearchParams(location.search);
-    const currentPage = parseInt(queryParams.get("page")) || 1; // 현재 페이지 확인
-
+    const postData = {
+        cartDetailDTOList: dataList,
+    };
 
     // Get 통신
-    const handleGetCartList = (page) => {
+    const handleGetCartList = () => {
 
         instance({
-            url: `/cart/list?page=${page}`,
+            url: `/cart/list`,
             method: "get"
         }).then(res=>{
             setDataList(res.data.cartDetailDTOList);
@@ -35,14 +34,9 @@ const Cart = (props) => {
         })
     }
 
-    // 페이지 네이션용 핸들러
-    const handlePageChange = (newPage) => {
-        navigate(`/cart?page=${newPage}`); // 페이지 변화
-    };
-
     // 삭제 후 데이터 새로고침 핸들러
     const refreshCartList = () => {
-        handleGetCartList(currentPage);
+        handleGetCartList();
     };
 
     // 장바구니 아이템 선택 삭제
@@ -95,6 +89,7 @@ const Cart = (props) => {
         alert("전체 삭제 했습니다");
     };
 
+    // TODO 모달 오픈 핸들러 정리
     // 모달 열기 핸들러
     const handleModalOpen = () => {
         setModalOpen((prev) => !prev); // 이전 상태를 반전
@@ -107,9 +102,9 @@ const Cart = (props) => {
 
         // console.log("Cart state test ", dataList);
 
-        handleGetCartList(currentPage);
+        handleGetCartList();
         setDataUpdate(false);
-    },[currentPage, dataUpdate])
+    },[dataUpdate])
 
     return (
       <>
@@ -130,6 +125,9 @@ const Cart = (props) => {
                     modalOpen={modalOpen}
                     setModalOpen={setModalOpen}
                     handleModalOpen={handleModalOpen}
+                    postData={postData}
+                    modalData={modalData}
+                    setModalData={setModalData}
                   />)
               })}
               <div>
@@ -138,11 +136,6 @@ const Cart = (props) => {
               </div>
           </div>
 
-          <Pagination
-                currentPage={currentPage}
-                totalPost={dataCount}
-                handlePageChange={handlePageChange}
-          />
       </>
   )
 }
