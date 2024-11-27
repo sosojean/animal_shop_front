@@ -18,13 +18,10 @@ const Cart = (props) => {
     // console.log("modalData", modalData);
     const [dataUpdate, setDataUpdate] = useState(false); // 페이지 업데이트 상태관리
 
-    // 수정
+    // 수정, 전체 구매
     const postData = {
-        cartDetailDTOList: dataList,
+        cartDetailDTOList: dataList
     };
-
-    // 구매
-
 
     // Get 통신
     const handleGetCartList = () => {
@@ -45,7 +42,7 @@ const Cart = (props) => {
         handleGetCartList();
     };
 
-    // 선택한 상품 주문
+    // 장바구니 아이템 선택 주문
     const handleOrderSelectedItem = () => {
         
         // true인 것만 fileter + 숫자로 변환
@@ -77,6 +74,24 @@ const Cart = (props) => {
             alert("상품 주문에 실패했습니다.");
         }
 
+    }
+
+    // 장바구니 아이템 전체 주문
+    const handleOrderAllItem = () => {
+        try {
+            instance({
+                url: "/cart/orders",
+                method: "post",
+                data: postData
+            }).then((res) => {
+                console.log(res.data);
+                alert("상품 주문에 성공했습니다.");
+                setDataUpdate(true);
+            });
+        } catch (error) {
+            console.error("주문 에러 발생:", error);
+            alert("상품 주문에 실패했습니다.");
+        }
     }
 
     // 장바구니 아이템 선택 삭제
@@ -151,7 +166,7 @@ const Cart = (props) => {
           <div className="cart-item-container">
               <div className="cart-item-button">
                 <div>
-                    <button>
+                    <button onClick={handleOrderAllItem}>
                         전체주문
                     </button>
                     <button onClick={handleOrderSelectedItem}>
