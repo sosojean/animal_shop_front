@@ -4,10 +4,12 @@ const Selector = (props) => {
         selectedValue ,
         optionItems,
         handleSelectChange,
-        priceTrimmer
+        priceTrimmer,
+        name,
     } = props;
+
     return (
-        <select value={selectedValue} onChange={handleSelectChange}  defaultValue="placeholder">
+        <select value={selectedValue} onChange={e=>handleSelectChange(name,e.target.value)}  defaultValue="placeholder">
             <option value='placeholder' disabled hidden>옵션 선택</option>
             {optionItems.map((option, index) => {
                     return (

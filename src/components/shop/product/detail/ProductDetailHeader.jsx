@@ -61,8 +61,8 @@ const ProductDetailHeader = ({data}) => {
     }
 
     //선택옵션 추가핸들러
-    const handleSelectChange = (event) => {
-        const index = event.target.value;
+    const handleSelectChange = (_,val) => {
+        const index = val;
         const isExistedValue = option.includes(index)
         // console.log(stocks)
 

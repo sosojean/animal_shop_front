@@ -20,7 +20,6 @@ const AllProduct = (props) => {
             url:url ,
             method:"get"
         }).then(res => {
-            // console.log(res.data);
             setData(res.data["best_goods"]);
         })
     },[])

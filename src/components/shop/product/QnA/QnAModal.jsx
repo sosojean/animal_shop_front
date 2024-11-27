@@ -31,9 +31,10 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
     }
 
     //선택옵션 추가핸들러
-    const handleSelectChange = (event) => {
+    const handleSelectChange = (_,val) => {
         // console.log(event.target.value)
-        let index = event.target.value;
+        console.log(val);
+        let index = val;
         console.log(index);
 
 

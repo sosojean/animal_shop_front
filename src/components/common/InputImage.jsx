@@ -3,24 +3,24 @@ import {faImage} from "@fortawesome/free-solid-svg-icons";
 import {useState} from "react";
 import axios from "axios";
 
-const InputImage = ({imagePath}) =>{
+const InputImage = ({imageUploadPath, setImage,image,objName}) =>{
 
-    const [image, setImage] = useState("")
     const imageUrl = "http://localhost:8080/file/image-print?filename=";
 
     const ImgUploadHandler = async (e) => {
+        console.log("img upload")
         const file = e.target.files[0];
         const formData = new FormData();
         if (file != null) {
             formData.append('image', new Blob([file], {type: 'multipart/form-data'}), file.name);
 
             axios({
-                url: `http://localhost:8080/file/${imagePath}`,
+                url: `http://localhost:8080/file/${imageUploadPath}`,
                 method: 'POST',
                 data: formData,
             }).then((response) => {
                 console.log(response.data);
-                setImage(response.data);
+                setImage(objName,response.data);
 
 
             }).catch((error) => {
@@ -32,7 +32,7 @@ const InputImage = ({imagePath}) =>{
 
     const deleteImage = (e) => {
         e.preventDefault();
-        setImage("");
+        setImage(objName,"");
     }
 
 

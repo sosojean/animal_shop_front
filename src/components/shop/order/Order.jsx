@@ -3,6 +3,7 @@ import instance from "../../../utils/axios";
 import {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowDown, faArrowUp, faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
+import Card from "../../common/Card";
 
 
 const Order = ({item}) => {
@@ -29,7 +30,7 @@ const Order = ({item}) => {
         })
     }
     return(
-        <div className={"order"}>
+        <Card className={"order"}>
             <span>{item.orderId}</span>
             <span>{item.orderDate}</span>
             <span>{item.orderStatus}</span>
@@ -49,5 +50,5 @@ const Order = ({item}) => {
                     {isOpened ?open:close}
                 </button>}
             <button className="cancel-order order-list-btn" onClick={orderCancelHandler}>주문 취소</button>
-        </div>)}
+        </Card>)}
 export default Order;
