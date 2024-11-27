@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import '../../../../assets/styles/shop/product/mainDetail.scss'
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import Option from "../option/Option";
 import Thumbnails from "./Thumbnails";
@@ -12,6 +12,8 @@ const ProductDetailHeader = ({data}) => {
     const [option, setOption] = useState([]);
     const [stocks, setStocks] = useState([]);
     const [selectedValue, setSelectedValue] = useState("placeholder")
+    const navigate = useNavigate();
+
     const defaultPrice = data?.options[0].price;
 
     // 장바구니 담기
@@ -132,7 +134,6 @@ const ProductDetailHeader = ({data}) => {
         let purchase;
 
         stocks.map((stock) => {
-
             let option_item = {
                 count: stock.count,
                 option_name: options[stock.index].name,
@@ -142,13 +143,7 @@ const ProductDetailHeader = ({data}) => {
             option_items.push(option_item);
              // purchase = {itemId : data.id, ...option_item};
             purchase = {itemId : data.id, option_items : option_items};
-
         })
-
-        // let purchase = {itemId : data.id, option_items : option_items}; // 실 데이터
-
-
-        // console.log(purchase)
         return purchase;
     }
 
@@ -160,6 +155,7 @@ const ProductDetailHeader = ({data}) => {
             method:'post',
             data:purchaseData
         }).then(res=>{
+            navigate("/deliver", {state : purchaseData})
             // console.log(purchaseData)
             // console.log(res)
         }).catch(err=>{

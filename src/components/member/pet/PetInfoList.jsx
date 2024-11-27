@@ -27,11 +27,7 @@ const PetInfoList = () => {
             {data && data.map((item, index) => {
                     return <PetInfo item={item} setIsEdited={setIsEdited} isEdited={isEdited}/>
                 }
-            )}
-
-
-        </>
-
+            )}</>
     );
 };
 
