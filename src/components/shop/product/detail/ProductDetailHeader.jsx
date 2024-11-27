@@ -4,7 +4,7 @@ import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import Option from "../option/Option";
 import Thumbnails from "./Thumbnails";
-import OptionSelector from "../option/OptionSelector";
+import Selector from "../../../common/Selector";
 import instance from "../../../../utils/axios";
 
 const ProductDetailHeader = ({data}) => {
@@ -168,6 +168,13 @@ const ProductDetailHeader = ({data}) => {
 
     }
 
+    const trimOptionText = (option, priceTrimmer)=>{
+        return  `${option.name} ${priceTrimmer(option.price)}`;
+
+    }
+
+
+
     return (
     <>
         {data&& (
@@ -187,11 +194,12 @@ const ProductDetailHeader = ({data}) => {
                 <h1>{data.name}</h1>
                 <h1>{defaultPrice.toLocaleString()} 원</h1>
 
-                <OptionSelector
+                <Selector
                     selectedValue={selectedValue}
                     handleSelectChange={handleSelectChange}
-                    optionItem={data?.options}
+                    optionItems={data?.options}
                     priceTrimmer={priceTrimmer}
+                    trimOptionText={trimOptionText}
                 />
 
 
