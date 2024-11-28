@@ -104,8 +104,19 @@
         width: 1000px;
     }
 
+    .reg-price-container {
+        display: flex;
+        margin: 2rem 0 0 0;
+        width: 620px;
+        justify-content: space-between;
+
+        input {
+            @include borderInput($w: 420px);
+        }
+    }
+
     .RegOptContainer {
-        margin: 2rem 0 1rem 0;
+        margin: 1rem 0 1rem 0;
         display: flex;
         justify-content: space-between;
         width: 700px;

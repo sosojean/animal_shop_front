@@ -32,7 +32,10 @@ const SellerItemEditor = () => {
     const [itemType, setItemType] = useState("간식"); // 상품종류
 
     // SellerItemOption
-    const [options, setOptions] = useState([]); // 옵션
+    const [options, setOptions] = useState([{ name: 'default', price: '' }]); // 옵션
+    const [defaultPrice, setDefaultPrice] = useState();
+    console.log("options", options);
+    console.log(defaultPrice);    
     const [newOption, setNewOption] = useState({ name: '', price: '' }); // 옵션 추가용 state
 
     // SellerDetailImage
@@ -106,7 +109,8 @@ const SellerItemEditor = () => {
             <SellerItemStock itemStock={itemStock} setItemStock={setItemStock}/>
             <SellerItemStatus sellStatus={sellStatus} setSellStatus={setSellStatus}/>
             <SellerItemCategory itemSpecies={itemSpecies} setItemSpecies={setItemSpecies} itemType={itemType} setItemType={setItemType} />
-            <SellerItemOption options={options} setOptions={setOptions} newOption={newOption} setNewOption={setNewOption}/>
+            <SellerItemOption options={options} setOptions={setOptions} newOption={newOption} setNewOption={setNewOption}
+                defaultPrice={defaultPrice} setDefaultPrice={setDefaultPrice} />
             <SellerDetailImage detailImageUrl={detailImageUrl} setDetailImageUrl={setDetailImageUrl}/>
             <SellerThumbnails thumnailsUrls={thumnailsUrls} setThumnailsUrls={setThumnailsUrls}/>
             <SellerDescription ref={editorRef}/>
