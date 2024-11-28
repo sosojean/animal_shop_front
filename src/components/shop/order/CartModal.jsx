@@ -60,9 +60,6 @@ const CartModal = ({modalData, refreshCartList}) => {
                             )
                         })}
                     </select>
-                    {/* {selectedIndex &&
-                        optionItem[selectedIndex].name
-                    } */}
                     {selectedIndex &&
                         <CartOption
                             name = {optionItem[selectedIndex].name}
@@ -78,7 +75,7 @@ const CartModal = ({modalData, refreshCartList}) => {
                     
                 </div>
                 <div className='buttons'>
-                    <button onClick={handleUpdateCart}>확인</button>
+                    <button onClick={handleUpdateCart}>수정</button>
                 </div>
             </div>
         </div>

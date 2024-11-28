@@ -5,10 +5,11 @@ import instance from "../../../utils/axios";
 
 const Product = (props) => {
 
+    console.log("props.data", props.data);
+
     let cart = [];
     const optionCount = props.data?.option_count;
     let storageCart = localStorage.getItem("cart");
-
 
     const handlePostCart = async (item) => {
 
@@ -29,6 +30,7 @@ const Product = (props) => {
     }
 
     const addCart = () => {
+        // 서버 통신용 데이터
         const item = {
             itemId: props.data?.id,
             count: 1,
@@ -36,12 +38,23 @@ const Product = (props) => {
 
         let storageCart = localStorage.getItem("cart");
 
+        // 세션 저장용 데이터
+        const sessionItem = {
+            cartItemId: props.data?.id + "default",
+            itemNm: props.data?.name,
+            count: 1,
+            option_name: "default",
+            option_price: props.data?.price,
+            imgUrl: props.data?.thumbnail_url,
+            itemId: props.data?.id
+        }
+
         if (storageCart){
             let isExist = false;
 
             storageCart = JSON.parse(storageCart);
             storageCart.every(cartItem=>{
-                     if (cartItem.itemId === item.itemId) {
+                     if (cartItem.cartItemId === sessionItem.cartItemId) {
                         cartItem.count = cartItem.count+1;
                          isExist = true;
                         return false;
@@ -54,13 +67,13 @@ const Product = (props) => {
             if (!isExist){
                 // console.log(isExist);
                 // console.log("isNotExist!");
-                storageCart.push(item);
+                storageCart.push(sessionItem);
             }
 
             localStorage.setItem("cart", JSON.stringify(storageCart));
 
         }else {
-            cart.push(item);
+            cart.push(sessionItem);
             localStorage.setItem("cart", JSON.stringify(cart));
         }
 

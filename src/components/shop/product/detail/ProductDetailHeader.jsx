@@ -11,14 +11,19 @@ const ProductDetailHeader = ({data}) => {
 
     const [option, setOption] = useState([]);
     const [stocks, setStocks] = useState([]);
+    const [session, setSession] = useState([]);
     const [selectedValue, setSelectedValue] = useState("placeholder")
     const navigate = useNavigate();
 
     const defaultPrice = data?.options[0].price;
+    // const optionLength = data?.options.length;
+    console.log("session", session);
+    console.log("data", data);
+
 
     // 장바구니 담기
     const addCart = () => {
-        const itemList = stocks; // 추가하려는 상품 리스트
+        const itemList = session; // 추가하려는 상품 리스트
     
         // localStorage에서 cart 데이터를 가져오기
         let storageCart = localStorage.getItem("cart");
@@ -28,7 +33,7 @@ const ProductDetailHeader = ({data}) => {
         itemList.forEach((item) => {
             const existingItemIndex = storageCart.findIndex(
                 (cartItem) =>
-                    cartItem.itemId === item.itemId && cartItem.optionId === item.optionId
+                    cartItem.cartItemId === item.cartItemId && cartItem.option_name === item.option_name
             );
     
             if (existingItemIndex !== -1) {
@@ -66,13 +71,24 @@ const ProductDetailHeader = ({data}) => {
     const handleSelectChange = (_,val) => {
         const index = val;
         const isExistedValue = option.includes(index)
-        // console.log(stocks)
+
+        let sessionItem = {
+            cartItemId: data?.options.length === 1 ? data?.id + "default" : 
+            data?.id + data?.options[index].name + data?.options[index].optionId,
+            itemNm: data?.name,
+            count: 1,
+            option_name: data?.options[index].name,
+            option_price: data?.options[index].price,
+            imgUrl: data?.thumbnail_url[0],
+            itemId: data?.id
+        }
 
         if (!isExistedValue) {
             if (index !== "default") {
                 setOption((prevOption) => [...prevOption, index]);
                 // console.log(data);
                 setStocks((prevStocks) => [...prevStocks, { itemId: data.id, optionId:data.options[index].optionId,  count: 1, index: index }]);
+                setSession((prevSession) => [...prevSession, sessionItem])
             }
         }
     };
@@ -96,6 +112,10 @@ const ProductDetailHeader = ({data}) => {
         const newStocks = [...stocks];
         newStocks[index].count += value;
         setStocks(newStocks);
+
+        const newSession = [...session];
+        newSession[index].count += value;
+        setSession(newSession);
     }
 
 
@@ -111,6 +131,12 @@ const ProductDetailHeader = ({data}) => {
             const newStocks = [...prevStocks];
             newStocks.splice(index, 1); // 삭제
             return newStocks;
+        });
+
+        setSession((prevSession) => {
+            const newSession = [...prevSession];
+            newSession.splice(index, 1); // 삭제
+            return newSession;
         });
     }
 
@@ -150,6 +176,7 @@ const ProductDetailHeader = ({data}) => {
                 itemName:data["name"],
                 option_items : option_items};
         })
+
         return purchase;
     }
 
@@ -163,8 +190,6 @@ const ProductDetailHeader = ({data}) => {
         return  `${option.name} ${priceTrimmer(option.price)}`;
 
     }
-
-
 
     return (
     <>

@@ -1,9 +1,10 @@
 import instance from "../../../../utils/axios";
 import { useNavigate } from "react-router-dom";
 
-const ItemRegButton = ({getRegisterData, itemId}) => {
+const ItemRegButton = ({getRegisterData, itemId, options}) => {
 
     const navigate = useNavigate();
+    const defaultPrice = options[0].price;
 
     // 상품 등록, 수정, 삭제
     const handleItemRegister = async () => {
@@ -57,19 +58,19 @@ const ItemRegButton = ({getRegisterData, itemId}) => {
     const handleDeleteItemData = async () => {
         try {
             const response = await instance({
-                url: `/seller/item/delete/${itemId}`,
-                method: "delete",
+                url: `/seller/item/discontinue/${itemId}`,
+                method: "PATCH",
             });
 
             // 성공적으로 데이터가 삭제된 경우
             console.log('삭제 성공:', response.data);
-            alert('상품이 삭제되었습니다.');
+            alert('상품이 판매종료 되었습니다.');
             navigate('/seller'); // 삭제 후 홈으로 이동
 
         } catch (error) {
             // 에러가 발생한 경우
             console.error('삭제 에러 발생:', error);
-            alert('상품 삭제에 실패했습니다.');
+            alert('상품 판매종료에 실패했습니다.');
         }
     };
 
@@ -77,10 +78,24 @@ const ItemRegButton = ({getRegisterData, itemId}) => {
         <div className='ItemRegButton'>
             {itemId ?
                 <div>
-                    <button onClick={handlePatchItemData}>수정</button>
-                    <button onClick={handleDeleteItemData}>삭제</button>
+                    <button onClick={() => {
+                        if (defaultPrice !== '' && defaultPrice !== '0') {
+                            handlePatchItemData();
+                        } else {
+                            alert("가격을 작성해주세요!")
+                        }}}>
+                            수정
+                    </button>
+                    <button onClick={handleDeleteItemData}>판매종료</button>
                 </div>
-                : <button onClick={handleItemRegister}>등록</button>
+                : <button onClick={() => {
+                    if (defaultPrice !== '' && defaultPrice !== '0') {
+                        handleItemRegister();
+                    } else {
+                        alert("가격을 작성해주세요!")
+                    }}}>
+                        등록
+                  </button>
             }
         </div>
     )

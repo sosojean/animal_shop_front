@@ -6,32 +6,45 @@ import CartModal from "./CartModal";
 
 const cartItem = (props) => {
 
+  console.log("cartItem", props.data);
+
   // 장바구니 아이템 삭제
-  const handleDeleteItemData = async () => {
-    try {
-      const response = await instance({
-        url: `/cart/delete/${props.data.cartItemId}`, // cartItemId로 API 호출
-        method: "delete",
-      });
+  const handleDeleteItemData = () => {
+    
+      try {
+        if (!props.isSession) {
+          const response = instance({
+            url: `/cart/delete/${props.data.cartItemId}`, // cartItemId로 API 호출
+            method: "delete",
+          });
+        } else {
+          let storageCart = localStorage.getItem("cart");
+          storageCart = JSON.parse(storageCart);
+  
+          storageCart = storageCart.filter((item) => item.cartItemId !== props.data.cartItemId);
+          localStorage.setItem("cart", JSON.stringify(storageCart));
+        }
 
-      // 삭제 성공 시
-      alert("상품이 삭제되었습니다.", response.data);
+        alert("상품이 삭제되었습니다.");
 
-      // 삭제 후 부모 상태 새로고침
-      props.refreshCartList();
-    } catch (error) {
-      // 삭제 실패 시
-      console.error("삭제 에러 발생:", error);
-      alert("상품 삭제에 실패했습니다.");
-    }
+        // 삭제 후 부모 상태 새로고침
+        props.refreshCartList();
+
+      } catch (error) {
+        // 삭제 실패 시
+        console.error("삭제 에러 발생:", error);
+        alert("상품 삭제에 실패했습니다.");
+      }
+
   };
 
-  // Post 통신
+  // 장바구니 수정
   const handlePostCartList = () => {
 
     // console.log("postData", postData);
     console.log("props.cartItemId", props.data.cartItemId);
 
+    // 서버 수정
     instance({
       url: `/cart/detail/${props.data.cartItemId}`,
       method: "post",
@@ -44,7 +57,38 @@ const cartItem = (props) => {
       .catch((err) => {
         console.log("handlePostCartList 실패 ", err);
       });
+
+      // 세션 수정
+      // filter를 통해 모달 데이터 받아오기
+
+      // 모달 데이터 기본형태
+      let sessionData = {
+        cartItemImg: props.data.imgUrl,
+        cartItemName: props.data.itemNm,
+        options: [
+          {
+            name: props.data.option_name,
+            price: props.data.option_price,
+            count: props.data.option_count
+          }
+        ]
+      }
   };
+
+  // 세션 수정 모달 데이터 불러오기
+  const getSessonModalData = () => {
+    let sessionData = props.postData["cartDetailDTOList"].filter((data) => (
+        data.itemId === props.data.itemId
+    ))
+
+    console.log("getSessonModalData", sessionData);
+
+    // sessionData.map((data) => {
+    //   data = {
+    //     cartItemImg:
+    //   }
+    // })
+  }
 
   // 선택 아이템 아이디: boolean 형태로 리스트에 넣음
   const handleSelectCartItem = () => {
@@ -93,7 +137,7 @@ const cartItem = (props) => {
 
             <div>
               <p>{props.data.option_price * props.data.count}원</p>
-              <button>주문하기</button>
+              <button onClick={getSessonModalData}>주문하기</button>
             </div>
 
           </div>

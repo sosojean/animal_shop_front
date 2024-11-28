@@ -32,7 +32,9 @@ const SellerItemEditor = () => {
     const [itemType, setItemType] = useState("간식"); // 상품종류
 
     // SellerItemOption
-    const [options, setOptions] = useState([]); // 옵션
+    const [options, setOptions] = useState([{ name: 'default', price: '' }]); // 옵션
+    const [defaultPrice, setDefaultPrice] = useState();
+    console.log("options", options); 
     const [newOption, setNewOption] = useState({ name: '', price: '' }); // 옵션 추가용 state
 
     // SellerDetailImage
@@ -89,6 +91,7 @@ const SellerItemEditor = () => {
             setDetailImageUrl(item.image_url);
             setThumnailsUrls(item.thumbnail_url);
             setOptions(item.options);
+            setDefaultPrice(item.options[0].price);
             // 에디터에 기존 상품 설명 로드
             editorRef.current.getInstance().setMarkdown(item.item_detail);
         } catch (error) {
@@ -106,12 +109,13 @@ const SellerItemEditor = () => {
             <SellerItemStock itemStock={itemStock} setItemStock={setItemStock}/>
             <SellerItemStatus sellStatus={sellStatus} setSellStatus={setSellStatus}/>
             <SellerItemCategory itemSpecies={itemSpecies} setItemSpecies={setItemSpecies} itemType={itemType} setItemType={setItemType} />
-            <SellerItemOption options={options} setOptions={setOptions} newOption={newOption} setNewOption={setNewOption}/>
+            <SellerItemOption options={options} setOptions={setOptions} newOption={newOption} setNewOption={setNewOption}
+                defaultPrice={defaultPrice} setDefaultPrice={setDefaultPrice}/>
             <SellerDetailImage detailImageUrl={detailImageUrl} setDetailImageUrl={setDetailImageUrl}/>
             <SellerThumbnails thumnailsUrls={thumnailsUrls} setThumnailsUrls={setThumnailsUrls}/>
             <SellerDescription ref={editorRef}/>
 
-            <ItemRegButton getRegisterData={getRegisterData} itemId={itemId}/>
+            <ItemRegButton getRegisterData={getRegisterData} itemId={itemId} options={options}/>
         </div>
     )
 }
