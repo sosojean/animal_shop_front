@@ -6,24 +6,36 @@ import CartModal from "./CartModal";
 
 const cartItem = (props) => {
 
+  console.log("cartItem", props.data);
+
   // 장바구니 아이템 삭제
-  const handleDeleteItemData = async () => {
-    try {
-      const response = await instance({
-        url: `/cart/delete/${props.data.cartItemId}`, // cartItemId로 API 호출
-        method: "delete",
-      });
+  const handleDeleteItemData = () => {
+    
+      try {
+        if (!props.isSession) {
+          const response = instance({
+            url: `/cart/delete/${props.data.cartItemId}`, // cartItemId로 API 호출
+            method: "delete",
+          });
+        } else {
+          let storageCart = localStorage.getItem("cart");
+          storageCart = JSON.parse(storageCart);
+  
+          storageCart = storageCart.filter((item) => item.cartItemId !== props.data.cartItemId);
+          localStorage.setItem("cart", JSON.stringify(storageCart));
+        }
 
-      // 삭제 성공 시
-      alert("상품이 삭제되었습니다.", response.data);
+        alert("상품이 삭제되었습니다.");
 
-      // 삭제 후 부모 상태 새로고침
-      props.refreshCartList();
-    } catch (error) {
-      // 삭제 실패 시
-      console.error("삭제 에러 발생:", error);
-      alert("상품 삭제에 실패했습니다.");
-    }
+        // 삭제 후 부모 상태 새로고침
+        props.refreshCartList();
+
+      } catch (error) {
+        // 삭제 실패 시
+        console.error("삭제 에러 발생:", error);
+        alert("상품 삭제에 실패했습니다.");
+      }
+
   };
 
   // Post 통신

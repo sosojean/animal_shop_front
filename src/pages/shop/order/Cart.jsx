@@ -5,7 +5,7 @@ import instance from "../../../utils/axios";
 
 const Cart = (props) => {
     const [dataList, setDataList] = useState([]);
-    console.log("DataList", dataList);
+    const [isSession, setIsSession] = useState(false);
     const [selectedItems, setSelectedItems] = useState({}); 
     const [orderItems, setOrderItems] = useState([]);
 
@@ -15,19 +15,20 @@ const Cart = (props) => {
     const [dataUpdate, setDataUpdate] = useState(false); // 페이지 업데이트 상태관리
     const postData = { cartDetailDTOList: dataList }; // 수정, 전체 구매 데이터
 
-    const totalPrice = dataList.reduce((price, data) => 
-        (price + (data.count * data.option_price)), 0);
+    const totalPrice = dataList ? dataList.reduce((price, data) => 
+        (price + (data.count * data.option_price)), 0) : 0;
 
-    const selectPrice = Object.keys(selectedItems)
+    const selectPrice = selectedItems ? 
+        Object.keys(selectedItems)
         .filter(key => selectedItems[key])
         .reduce((totalPrice, key) => {
-            const id = Number(key);
-            const data = dataList.find(data => data.cartItemId === id);
+            // const id = Number(key);
+            const data = dataList.find(data => String(data.cartItemId) === key);
             if (data) {
                 totalPrice += data.count * data.option_price;
             }
             return totalPrice;
-        }, 0);
+        }, 0) : 0;
 
     // Get 통신
     const handleGetCartList = () => {
@@ -43,8 +44,7 @@ const Cart = (props) => {
             let cart = localStorage.getItem("cart")
             cart = JSON.parse(cart)
             setDataList(cart);
-
-            console.log("cart", cart);
+            setIsSession(true);
         })
     }
 
@@ -186,6 +186,7 @@ const Cart = (props) => {
                     modalOpen={modalOpen} setModalOpen={setModalOpen} handleModalOpen={handleModalOpen}
                     postData={postData}
                     modalData={modalData} setModalData={setModalData}
+                    isSession = {isSession}
                   />)
               })}
               <div className="cart-price-container">
