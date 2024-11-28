@@ -2,8 +2,9 @@ import "../../assets/styles/layout/information.scss";
 import {faFolderOpen, faUser} from "@fortawesome/free-regular-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Link} from "react-router-dom";
-import {faRegistered} from "@fortawesome/free-solid-svg-icons";
+import {faMoneyBill, faRegistered} from "@fortawesome/free-solid-svg-icons";
 import {useEffect, useState} from "react";
+import instance from "../../utils/axios";
 
 const Information = (props) => {
     const [isLogin, setIsLogin] = useState(false)
@@ -33,7 +34,20 @@ const Information = (props) => {
             message = "회원가입이 완료 되었습니다." ;
             icon = faUser;
             break;
+
+        case 'orderSuccess':
+
+            message = "결제가 완료 되었습니다." ;
+            icon = faMoneyBill;
+            break;
     }
+
+
+    // instance({
+    //     url: `/shop/order` ,
+    //     method : '',
+    //
+    // })
 
     return (
         <div className="information">

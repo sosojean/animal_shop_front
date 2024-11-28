@@ -26,7 +26,9 @@ instance.interceptors.request.use(function (config) {
     }
 
     // console.log("엑시오스 세팅값");
-    console.log("엑시오스 요청",config.baseURL,config.url);
+    // console.log("엑시오스 요청",config.baseURL,config.url);
+    console.log("엑시오스 요청",config);
+
     return config;
 }, function (error) {
     console.log("--요청 실패--");

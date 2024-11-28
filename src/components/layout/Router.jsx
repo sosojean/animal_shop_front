@@ -15,7 +15,7 @@ import Products from "../shop/product/Products";
 import ShopMain from "../../pages/shop/ShopMain";
 import Cart from "../../pages/shop/order/Cart";
 import ProductDetail from "../../pages/shop/product/ProductDetail";
-import DeliverInfo from "../../pages/shop/order/DeliverInfo";
+import DeliveryInfo from "../../pages/shop/order/DeliveryInfo";
 import Admin from "../../pages/shop/admin/Admin";
 import SellerRegister from "../../pages/shop/admin/SellerRegister";
 import Information from "./Information";
@@ -30,6 +30,8 @@ import SellerItemList from "../shop/seller/itemList/SellerItemList";
 import PetRegister from "../../pages/member/PetRegister";
 import PetInfoList from "../member/pet/PetInfoList";
 import PetInfoEdit from "../member/pet/PetInfoEdit";
+import PetInfoPage from "../../pages/member/PetInfoPage";
+import SellerOrderAccept from "../../pages/shop/seller/sellerOrderAccept";
 
 const Router = (props) => {
     return (
@@ -52,7 +54,7 @@ const Router = (props) => {
                         <Route path="/join/success" element={<Information case ="join" />}/>
                         <Route path="/pet/register" element={<PetRegister />}/>
 
-                        <Route path="/pet/info" element={<PetInfoList />}/>
+                        <Route path="/pet/info" element={<PetInfoPage />}/>
                         <Route path="/pet/edit/:petId" element={<PetInfoEdit />}/>
 
 
@@ -65,6 +67,7 @@ const Router = (props) => {
                         <Route path="/shop" element={<ShopMain/>}/>
                         <Route path="/shop/:category" element={<AllProduct/>}/>
                         <Route path="/shop/detail/:itemId" element={<ProductDetail/>}/>
+                        <Route path="/order/pay/success" element={<Information case ="orderSuccess" />}/>
 
                         <Route path="/cart" element={<Cart/>}/>
 
@@ -73,6 +76,8 @@ const Router = (props) => {
                         <Route path="/seller/item/edit/:itemId" element={<SellerItemRegister/>}/>
                         <Route path="/seller" element={<SellerMain/>}/>
                         <Route path="/seller/qna" element={<SellerQnA/>}/>
+                        <Route path="/seller/orders" element={<SellerOrderAccept/>}/>
+
                         {/* 상품 등록 테스트 */}
                         {/* <Route path="/seller/test" element={<SellerItemEditor/>}/>
                         <Route path="/seller/test/:itemId" element={<SellerItemEditor/>}/> */}
@@ -81,7 +86,7 @@ const Router = (props) => {
 
                         <Route path="/seller/item/list" element={<SellerItemList/>}/>
 
-                        <Route path="/deliver" element={<DeliverInfo/>}/>
+                        <Route path="/order/delivery" element={<DeliveryInfo/>}/>
                         <Route path="/admin/:menu" element={<Admin/>}/>
                         <Route path="/seller/register" element={<SellerRegister/>}/>
                         <Route path="/seller/register/success" element={<Information case ="seller" />}/>

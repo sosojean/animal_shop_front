@@ -13,7 +13,9 @@ const SellerMenu = (props) => {
                 <li className="menu-item">문의 답변</li>
                 </Link>
 
-                <li className="menu-item">-</li>
+                <Link to="/seller/orders">
+                <li className="menu-item">주문/배송</li>
+                </Link>
                 <li className="menu-item">-</li>
                 <li className="menu-item">-</li>
                 <li className="menu-item">-</li>

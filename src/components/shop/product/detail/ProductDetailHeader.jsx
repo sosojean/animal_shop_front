@@ -127,6 +127,8 @@ const ProductDetailHeader = ({data}) => {
     }
 
     const dataBuilder = () => {
+
+        console.log(data)
         const options = data.options;
 
         let option_items = [];
@@ -142,25 +144,18 @@ const ProductDetailHeader = ({data}) => {
             // console.log("option_item",option_item)
             option_items.push(option_item);
              // purchase = {itemId : data.id, ...option_item};
-            purchase = {itemId : data.id, option_items : option_items};
+            purchase = {
+                itemId : data.id,
+                itemImage:data["image_url"],
+                itemName:data["name"],
+                option_items : option_items};
         })
         return purchase;
     }
 
     const purchaseHandler = () => {
         const purchaseData = dataBuilder();
-
-        instance({
-            url:`/shop/order`,
-            method:'post',
-            data:purchaseData
-        }).then(res=>{
-            navigate("/deliver", {state : purchaseData})
-            // console.log(purchaseData)
-            // console.log(res)
-        }).catch(err=>{
-            console.log(err)
-        })
+        navigate("/order/delivery", {state : purchaseData})
 
     }
 
@@ -205,7 +200,7 @@ const ProductDetailHeader = ({data}) => {
                         return (<Option key={data.options[itemIndex].id}
                                         item={data.options[itemIndex].name}
                                         index={index}
-                                        price={data.options[itemIndex].price}
+                           de             price={data.options[itemIndex].price}
                                         handleStockChange={handleStockChange}
                                         handleOptionDelete={handleOptionDelete}
                         />)

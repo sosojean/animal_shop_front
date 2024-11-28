@@ -1,7 +1,7 @@
 import {useDaumPostcodePopup} from "react-daum-postcode";
 import {postcodeScriptUrl} from "react-daum-postcode/lib/loadPostcode";
 
-const AddressInput = ({deliverInfo, applyDeliverInfo}) => {
+const AddressInput = ({deliveryInfo, applyDeliverInfo}) => {
 
     const open = useDaumPostcodePopup(postcodeScriptUrl);
 
@@ -40,15 +40,14 @@ const AddressInput = ({deliverInfo, applyDeliverInfo}) => {
             <label htmlFor="address">배송지</label>
 
             <div className="input-post-number">
-                <input id="address1" type="text" value={deliverInfo.zoneCode}/>
+                <input id="address1" type="text" value={deliveryInfo.zoneCode}/>
                 <button onClick={handleClick}>
                     주소검색
                 </button>
             </div>
 
 
-            <input id="address2" type="text" value={deliverInfo.address}/>
-            <input id="address3" type="text"/>
+            <input id="address2" type="text" value={deliveryInfo.address}/>
         </div>
     );
 };
