@@ -14,6 +14,7 @@ const ProductDetailHeader = ({data}) => {
     const [session, setSession] = useState([]);
     const [selectedValue, setSelectedValue] = useState("placeholder")
     const defaultPrice = data?.options[0].price;
+    // const optionLength = data?.options.length;
     console.log("session", session);
     console.log("data", data);
 
@@ -68,9 +69,10 @@ const ProductDetailHeader = ({data}) => {
     const handleSelectChange = (_,val) => {
         const index = val;
         const isExistedValue = option.includes(index)
-        // console.log(stocks)
+
         let sessionItem = {
-            cartItemId: data?.id + data?.options[index].name + data?.options[index].optionId,
+            cartItemId: data?.options.length === 1 ? data?.id + "default" : 
+            data?.id + data?.options[index].name + data?.options[index].optionId,
             itemNm: data?.name,
             count: 1,
             option_name: data?.options[index].name,
@@ -168,10 +170,6 @@ const ProductDetailHeader = ({data}) => {
 
         })
 
-        // let purchase = {itemId : data.id, option_items : option_items}; // 실 데이터
-
-
-        // console.log(purchase)
         return purchase;
     }
 
@@ -195,8 +193,6 @@ const ProductDetailHeader = ({data}) => {
         return  `${option.name} ${priceTrimmer(option.price)}`;
 
     }
-
-
 
     return (
     <>
