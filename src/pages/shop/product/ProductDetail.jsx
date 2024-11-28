@@ -24,6 +24,7 @@ const ProductDetail = () => {
         }).then(
             res => {
                 setData(res.data);
+                console.log("ProductDetail", res.data);
             }
         )
     },[])

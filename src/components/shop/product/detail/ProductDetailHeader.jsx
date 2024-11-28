@@ -11,12 +11,16 @@ const ProductDetailHeader = ({data}) => {
 
     const [option, setOption] = useState([]);
     const [stocks, setStocks] = useState([]);
+    const [session, setSession] = useState([]);
     const [selectedValue, setSelectedValue] = useState("placeholder")
     const defaultPrice = data?.options[0].price;
+    console.log("session", session);
+    console.log("data", data);
+
 
     // 장바구니 담기
     const addCart = () => {
-        const itemList = stocks; // 추가하려는 상품 리스트
+        const itemList = session; // 추가하려는 상품 리스트
     
         // localStorage에서 cart 데이터를 가져오기
         let storageCart = localStorage.getItem("cart");
@@ -26,7 +30,7 @@ const ProductDetailHeader = ({data}) => {
         itemList.forEach((item) => {
             const existingItemIndex = storageCart.findIndex(
                 (cartItem) =>
-                    cartItem.itemId === item.itemId && cartItem.optionId === item.optionId
+                    cartItem.cartItemId === item.cartItemId && cartItem.option_name === item.option_name
             );
     
             if (existingItemIndex !== -1) {
@@ -65,12 +69,21 @@ const ProductDetailHeader = ({data}) => {
         const index = val;
         const isExistedValue = option.includes(index)
         // console.log(stocks)
+        let sessionItem = {
+            cartItemId: data?.id + data?.options[index].name + data?.options[index].optionId,
+            itemNm: data?.name,
+            count: 1,
+            option_name: data?.options[index].name,
+            option_price: data?.options[index].price,
+            imgUrl: data?.thumbnail_url[0]
+        }
 
         if (!isExistedValue) {
             if (index !== "default") {
                 setOption((prevOption) => [...prevOption, index]);
                 // console.log(data);
                 setStocks((prevStocks) => [...prevStocks, { itemId: data.id, optionId:data.options[index].optionId,  count: 1, index: index }]);
+                setSession((prevSession) => [...prevSession, sessionItem])
             }
         }
     };
@@ -94,6 +107,10 @@ const ProductDetailHeader = ({data}) => {
         const newStocks = [...stocks];
         newStocks[index].count += value;
         setStocks(newStocks);
+
+        const newSession = [...session];
+        newSession[index].count += value;
+        setSession(newSession);
     }
 
 
@@ -109,6 +126,12 @@ const ProductDetailHeader = ({data}) => {
             const newStocks = [...prevStocks];
             newStocks.splice(index, 1); // 삭제
             return newStocks;
+        });
+
+        setSession((prevSession) => {
+            const newSession = [...prevSession];
+            newSession.splice(index, 1); // 삭제
+            return newSession;
         });
     }
 

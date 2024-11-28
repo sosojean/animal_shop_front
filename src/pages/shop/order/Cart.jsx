@@ -5,7 +5,7 @@ import instance from "../../../utils/axios";
 
 const Cart = (props) => {
     const [dataList, setDataList] = useState([]);
-    const [dataCount, setDataCount] = useState(0);
+    console.log("DataList", dataList);
     const [selectedItems, setSelectedItems] = useState({}); 
     const [orderItems, setOrderItems] = useState([]);
 
@@ -37,9 +37,14 @@ const Cart = (props) => {
             method: "get"
         }).then(res=>{
             setDataList(res.data.cartDetailDTOList);
-            setDataCount(res.data.total_count);
         }).catch(err=>{
             console.log("handleGetCartList 실패 ", err);
+
+            let cart = localStorage.getItem("cart")
+            cart = JSON.parse(cart)
+            setDataList(cart);
+
+            console.log("cart", cart);
         })
     }
 
@@ -154,12 +159,9 @@ const Cart = (props) => {
 
     useEffect(() => {
         // 로컬스토레지에서 받아오는 데이터
-        // let cart = localStorage.getItem("cart")
-        // cart = JSON.parse(cart)
-
-        // console.log("Cart state test ", dataList);
 
         handleGetCartList();
+
         setDataUpdate(false);
     },[dataUpdate])
 
