@@ -77,7 +77,8 @@ const ProductDetailHeader = ({data}) => {
             count: 1,
             option_name: data?.options[index].name,
             option_price: data?.options[index].price,
-            imgUrl: data?.thumbnail_url[0]
+            imgUrl: data?.thumbnail_url[0],
+            itemId: data?.id
         }
 
         if (!isExistedValue) {

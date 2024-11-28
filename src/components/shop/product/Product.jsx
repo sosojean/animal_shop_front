@@ -45,7 +45,8 @@ const Product = (props) => {
             count: 1,
             option_name: "default",
             option_price: props.data?.price,
-            imgUrl: props.data?.thumbnail_url
+            imgUrl: props.data?.thumbnail_url,
+            itemId: props.data?.id
         }
 
         if (storageCart){

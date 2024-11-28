@@ -110,46 +110,73 @@ const Cart = (props) => {
             (key) => selectedItems[key]
         );
 
-        idsToDelete.forEach((id) => {
-            try {
-                instance({
-                    url: `/cart/delete/${id}`,
-                    method: "delete",
-                }).then(() => {
-                    setDataUpdate(true);
-                    selectedItems[id] = false; 
-                    // 삭제한 상품 id는 false로 만들어 filter 되도록 함
-                });
-            } catch (error) {
-                console.error("삭제 에러 발생:", error);
-                alert("상품 삭제에 실패했습니다.");
-            }
-        });
+        if (isSession) {
+          // 삭제
+          let storageCart = localStorage.getItem("cart");
+          storageCart = JSON.parse(storageCart);
 
-        alert("선택한 상품이 주문되었습니다.");
+          idsToDelete.forEach((id) => {
+            storageCart = storageCart.filter((item) => item.cartItemId !== id);
+          })
+  
+          localStorage.setItem("cart", JSON.stringify(storageCart));
+          setDataUpdate(true);
+        } else {
+            idsToDelete.forEach((id) => {
+                try {
+                    instance({
+                        url: `/cart/delete/${id}`,
+                        method: "delete",
+                    }).then(() => {
+                        setDataUpdate(true);
+                        selectedItems[id] = false; 
+                        // 삭제한 상품 id는 false로 만들어 filter 되도록 함
+                    });
+                } catch (error) {
+                    console.error("삭제 에러 발생:", error);
+                    alert("상품 삭제에 실패했습니다.");
+                }
+            });
+        }
+
+        alert("선택한 상품이 삭제되었습니다.");
 
     }
 
     // 장바구니 아이템 전체 삭제
     const handleDeleteAllItem = () => {
 
-        dataList.map((data) => {
-            try {
-                const response = instance({
-                    url: `/cart/delete/${data.cartItemId}`, // cartItemId로 API 호출
-                    method: "delete",
-                });
+        if(!isSession){
+            dataList.map((data) => {
+                try {
+                    const response = instance({
+                        url: `/cart/delete/${data.cartItemId}`, // cartItemId로 API 호출
+                        method: "delete",
+                    });
+    
+                    setDataUpdate(true); // 페이지 업데이트
+                
+                } catch (error) {
+                    // 삭제 실패 시
+                    console.error('삭제 에러 발생:', error);
+                    alert('상품 삭제에 실패했습니다.');
+                }
+            })
 
-                setDataUpdate(true); // 페이지 업데이트
-            
-            } catch (error) {
-                // 삭제 실패 시
-                console.error('삭제 에러 발생:', error);
-                alert('상품 삭제에 실패했습니다.');
-            }
-        })
+            alert("전체 삭제 했습니다");
+        } else{
+            dataList.map((data) => {
+                let storageCart = localStorage.getItem("cart");
+                storageCart = JSON.parse(storageCart);
+        
+                storageCart = storageCart.filter((item) => item.cartItemId !== data.cartItemId);
+                localStorage.setItem("cart", JSON.stringify(storageCart));
 
-        alert("전체 삭제 했습니다");
+                setDataUpdate(true);
+            })
+
+            alert("전체 삭제 했습니다");
+        }
     };
 
     // 모달 열기 핸들러
