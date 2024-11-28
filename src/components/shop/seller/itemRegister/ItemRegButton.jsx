@@ -1,9 +1,10 @@
 import instance from "../../../../utils/axios";
 import { useNavigate } from "react-router-dom";
 
-const ItemRegButton = ({getRegisterData, itemId}) => {
+const ItemRegButton = ({getRegisterData, itemId, options}) => {
 
     const navigate = useNavigate();
+    const defaultPrice = options[0].price;
 
     // 상품 등록, 수정, 삭제
     const handleItemRegister = async () => {
@@ -77,10 +78,24 @@ const ItemRegButton = ({getRegisterData, itemId}) => {
         <div className='ItemRegButton'>
             {itemId ?
                 <div>
-                    <button onClick={handlePatchItemData}>수정</button>
+                    <button onClick={() => {
+                        if (defaultPrice !== '' && defaultPrice !== '0') {
+                            handlePatchItemData();
+                        } else {
+                            alert("가격을 작성해주세요!")
+                        }}}>
+                            수정
+                    </button>
                     <button onClick={handleDeleteItemData}>삭제</button>
                 </div>
-                : <button onClick={handleItemRegister}>등록</button>
+                : <button onClick={() => {
+                    if (defaultPrice !== '' && defaultPrice !== '0') {
+                        handleItemRegister();
+                    } else {
+                        alert("가격을 작성해주세요!")
+                    }}}>
+                        등록
+                  </button>
             }
         </div>
     )

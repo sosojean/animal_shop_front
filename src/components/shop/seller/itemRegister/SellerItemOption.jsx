@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 
-const SellerItemOption = ({options, setOptions, newOption, setNewOption, defaultPrice, setDefaultPrice}) => {
+const SellerItemOption = ({options, setOptions, newOption, setNewOption, 
+    defaultPrice, setDefaultPrice}) => {
 
     // 옵션 추가
     const handleAddOption = () => {
@@ -24,7 +25,7 @@ const SellerItemOption = ({options, setOptions, newOption, setNewOption, default
             <div className="reg-price-container">
                 <h3>가격</h3>
                 <input type="number" placeholder="가격" 
-                    value={options[0].price}
+                    value={defaultPrice}
                     onChange={(e) => { 
                         setDefaultPrice(e.target.value);
                         const defaultOption = options.find(option => option.name === 'default');
