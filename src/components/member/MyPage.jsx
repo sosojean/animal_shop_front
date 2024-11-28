@@ -26,16 +26,12 @@ const MyPage = () => {
                     <Link to={"/pet/info"}><span> 내 펫 <FontAwesomeIcon icon={faArrowRight}/> </span></Link>
                 </div>
 
-
             </Card>
             </div>
             <div className="shop">
                 <h2>주문 내역</h2>
                 <OrderedProductList></OrderedProductList>
-
-
             </div>
-
         </div>
 
 

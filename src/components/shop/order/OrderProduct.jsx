@@ -3,11 +3,21 @@ import {useState} from "react";
 import reviewEditor from "./reviewEditor";
 import ReviewEditor from "./reviewEditor";
 import {Link} from "react-router-dom";
+import "../../../assets/styles/shop/order/orderItem.scss"
 
 
-const OrderProduct = ({item}) => {
+const OrderProduct = ({item, position}) => {
     const [reviewWriting, setReviewWriting] = useState(false);
     console.log(item)
+
+    const checkHandler = (e) => {
+        console.log(e)
+        if (e.target.checked) {
+            console.log(item.orderItemId)
+
+        }
+
+    }
     return(<>
         <div className={"order-item"}>
 
@@ -25,7 +35,11 @@ const OrderProduct = ({item}) => {
                 </div>
             </div>
             </Link>
-          <button className="order-list-btn" onClick={()=>{setReviewWriting(!reviewWriting)}}>리뷰 작성</button>   {/*/item-comment-image-upload*/}
+            {position=="order"?
+                <button onClick={() => {setReviewWriting(!reviewWriting)}}
+                        className="order-list-btn">리뷰 작성</button>:
+                <input onChange={(e)=>{ checkHandler(e)}} type={"checkbox"}></input>
+            }
 
         </div>
         {reviewWriting?<ReviewEditor item = {item} setReviewWriting={setReviewWriting}/>:null}

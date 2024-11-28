@@ -1,8 +1,8 @@
 import "../../assets/styles/common/card.scss"
 
-const Card = ({children, className}) => {
+const Card = ({children, className, onClick}) => {
     return (
-        <div className={`${className} card`}>
+        <div onClick={onClick} className={`${className} card`}>
             {children}
         </div>
     );

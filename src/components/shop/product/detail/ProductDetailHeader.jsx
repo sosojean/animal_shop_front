@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import '../../../../assets/styles/shop/product/mainDetail.scss'
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import Option from "../option/Option";
 import Thumbnails from "./Thumbnails";
@@ -13,6 +13,8 @@ const ProductDetailHeader = ({data}) => {
     const [stocks, setStocks] = useState([]);
     const [session, setSession] = useState([]);
     const [selectedValue, setSelectedValue] = useState("placeholder")
+    const navigate = useNavigate();
+
     const defaultPrice = data?.options[0].price;
     // const optionLength = data?.options.length;
     console.log("session", session);
@@ -151,6 +153,8 @@ const ProductDetailHeader = ({data}) => {
     }
 
     const dataBuilder = () => {
+
+        console.log(data)
         const options = data.options;
 
         let option_items = [];
@@ -158,7 +162,6 @@ const ProductDetailHeader = ({data}) => {
         let purchase;
 
         stocks.map((stock) => {
-
             let option_item = {
                 count: stock.count,
                 option_name: options[stock.index].name,
@@ -167,8 +170,11 @@ const ProductDetailHeader = ({data}) => {
             // console.log("option_item",option_item)
             option_items.push(option_item);
              // purchase = {itemId : data.id, ...option_item};
-            purchase = {itemId : data.id, option_items : option_items};
-
+            purchase = {
+                itemId : data.id,
+                itemImage:data["image_url"],
+                itemName:data["name"],
+                option_items : option_items};
         })
 
         return purchase;
@@ -176,17 +182,7 @@ const ProductDetailHeader = ({data}) => {
 
     const purchaseHandler = () => {
         const purchaseData = dataBuilder();
-
-        instance({
-            url:`/shop/order`,
-            method:'post',
-            data:purchaseData
-        }).then(res=>{
-            // console.log(purchaseData)
-            // console.log(res)
-        }).catch(err=>{
-            console.log(err)
-        })
+        navigate("/order/delivery", {state : purchaseData})
 
     }
 
@@ -229,7 +225,7 @@ const ProductDetailHeader = ({data}) => {
                         return (<Option key={data.options[itemIndex].id}
                                         item={data.options[itemIndex].name}
                                         index={index}
-                                        price={data.options[itemIndex].price}
+                           de             price={data.options[itemIndex].price}
                                         handleStockChange={handleStockChange}
                                         handleOptionDelete={handleOptionDelete}
                         />)

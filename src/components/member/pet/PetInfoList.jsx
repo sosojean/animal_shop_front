@@ -1,37 +1,38 @@
 import React, {useEffect, useState} from 'react';
 import instance from "../../../utils/axios";
 import PetInfo from "./PetInfo";
+import Card from "../../common/Card";
+import PetInfoDetail from "./PetInfoDetail";
+import {Link} from "react-router-dom";
 
-const PetInfoList = () => {
-    const [data, setData] = useState()
-    const [isEdited, setIsEdited] = useState(false)
-
-    useEffect(() => {
-        instance({
-            url:"/pet/list",
-            method:"get",
-
-        }).then((response) => {
-            console.log(response);
-            setData(response.data["petProfileList"]);
-        }).catch((error) => {
-            console.log(error);
-        })
+const PetInfoList = ({setSelectedPet, data ,isEdited, setIsEdited}) => {
+    const [leaderSelection, setLeaderSelection] = useState(false)
 
 
-    },[isEdited])
 
-
+    const changeLeaderHandler = ()=> {
+        setLeaderSelection(true)
+    }
 
     return (<>
-            {data && data.map((item, index) => {
-                    return <PetInfo item={item} setIsEdited={setIsEdited} isEdited={isEdited}/>
-                }
-            )}
+            {/*<button onClick={changeLeaderHandler}>대표 동물 변경하기</button>*/}
+                <div className={"pet-profile-container"}>
+                    {data && data.map((item, index) => {
+                        return <PetInfo leaderSelection={leaderSelection} setSelectedPet={setSelectedPet}
+                                        setLeaderSelection={setLeaderSelection} index ={index}
+                                        item={item} setIsEdited={setIsEdited} isEdited={isEdited}/>
+                        }
+                    )}
+                    <Card className={"pet-info"}>
+                        <Link to={"/pet/register"}>
+                        반려동물 추가하기 ->
+                        </Link>
+
+                    </Card>
+                </div>
 
 
         </>
-
     );
 };
 

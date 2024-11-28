@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleLeft, faAngleRight, faArrowLeft, faArrowRight} from "@fortawesome/free-solid-svg-icons";
 
 const ReviewImages = ({images})=>{
-    console.log(images);
+    // console.log(images);
     const url = "http://localhost:8080/file/image-print?filename=";
     const imageContainerLength = 10
     const [modal, setModal] = useState(false)
@@ -51,10 +51,10 @@ const ReviewImages = ({images})=>{
         {images.slice(0, imageContainerLength)
             .map((image, i) => {
                 const returnImage = (i != imageContainerLength-1)?
-                <button onClick={(e)=>{imgClickHandler(e)}}>
+                <button key={image} onClick={(e)=>{imgClickHandler(e)}}>
                     <img src={url + image} className="review-image" id={i} alt=""/>
                 </button> :
-                <button onClick={(e)=>{imgClickHandler(e)}} className="last-image">
+                <button key={image} onClick={(e)=>{imgClickHandler(e)}} className="last-image">
                     <span id={i} className={"count-text"}>{ `+${images.length-10}`}</span>
                     <img src={url + image} className="review-image dark" id={i} alt=""/>
                 </button>
