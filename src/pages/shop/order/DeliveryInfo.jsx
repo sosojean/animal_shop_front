@@ -7,8 +7,12 @@ import AddressInput from "../../../components/shop/order/delivery/AddressInput";
 import Selector from "../../../components/common/Selector";
 import {deliveryOptions} from "../../../utils/deliveryOption";
 import InputField from "../../../components/common/InputField";
+import instance from "../../../utils/axios";
 
 const DeliveryInfo = (props) => {
+    const [paymentData, setPaymentData] = useState()
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent)
+
    const delivery = {
        recipient:"",
        zoneCode:"",
@@ -26,6 +30,11 @@ const DeliveryInfo = (props) => {
     // const [address, setAddress] = useState()
     const {state} = useLocation();
     console.log(state);
+
+    useEffect(() => {
+        console.log(deliveryInfo);
+    },[deliveryInfo])
+
 
 
     const applyDeliveryInfo = (name,value) => {
@@ -50,11 +59,41 @@ const DeliveryInfo = (props) => {
 
     }
 
+
+    const popupPayment = () =>{
+        const url = isMobile? paymentData["next_redirect_mobile_url"]: paymentData["next_redirect_pc_url"]
+        window.location.href = url
+    }
+
     useEffect(() => {
-        console.log(deliveryInfo);
-    },[deliveryInfo])
+        paymentData&&popupPayment()
+    }, [paymentData]);
 
 
+    const purchaseProducts = (e)=> {
+        e.preventDefault()
+        instance({
+            url:`/shop/order`,
+            method:'post',
+            data: {
+                itemId : state.itemId,
+                deliveryInfoDTO : {
+                    recipient : deliveryInfo.recipient,
+                    phoneNumber : `${deliveryInfo.phone1}-${deliveryInfo.phone2}-${deliveryInfo.phone3}`,
+                    address : `${deliveryInfo.zoneCode} ${deliveryInfo.address} ${deliveryInfo.detailAddress}`,
+                    deliveryRequest : `${deliveryInfo.requirements}`
+                },option_items : state.purchaseData
+
+            }
+        }).then(res=>{
+            console.log(res)
+            setPaymentData(res.data)
+
+        }).catch(err=>{
+            console.log(err)
+        })
+
+    }
 
     return(
         <div>
@@ -107,7 +146,7 @@ const DeliveryInfo = (props) => {
                             handleSelectChange={applyDeliveryInfo}
                             name={"requirements"}/>
 
-                  <button>  구 매 하 기 </button>
+                  <button onClick={e =>purchaseProducts(e)}>  구 매 하 기 </button>
               </form>
 
           </div>

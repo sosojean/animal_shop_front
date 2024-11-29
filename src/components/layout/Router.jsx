@@ -32,6 +32,7 @@ import PetInfoList from "../member/pet/PetInfoList";
 import PetInfoEdit from "../member/pet/PetInfoEdit";
 import PetInfoPage from "../../pages/member/PetInfoPage";
 import SellerOrderAccept from "../../pages/shop/seller/sellerOrderAccept";
+import SellerOrderDetail from "../shop/seller/SellerOrderDetail";
 
 const Router = (props) => {
     return (
@@ -67,7 +68,7 @@ const Router = (props) => {
                         <Route path="/shop" element={<ShopMain/>}/>
                         <Route path="/shop/:category" element={<AllProduct/>}/>
                         <Route path="/shop/detail/:itemId" element={<ProductDetail/>}/>
-                        <Route path="/order/pay/success" element={<Information case ="orderSuccess" />}/>
+                        <Route path="/pay/success" element={<Information case ="orderSuccess" />}/>
 
                         <Route path="/cart" element={<Cart/>}/>
 
@@ -77,6 +78,7 @@ const Router = (props) => {
                         <Route path="/seller" element={<SellerMain/>}/>
                         <Route path="/seller/qna" element={<SellerQnA/>}/>
                         <Route path="/seller/orders" element={<SellerOrderAccept/>}/>
+                        <Route path="/seller/orders/detail/:orderId" element={<SellerOrderDetail/>}/>
 
                         {/* 상품 등록 테스트 */}
                         {/* <Route path="/seller/test" element={<SellerItemEditor/>}/>

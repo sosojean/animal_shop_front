@@ -167,22 +167,15 @@ const ProductDetailHeader = ({data}) => {
                 option_name: options[stock.index].name,
                 option_price: options[stock.index].price
             };
-            // console.log("option_item",option_item)
             option_items.push(option_item);
-             // purchase = {itemId : data.id, ...option_item};
-            purchase = {
-                itemId : data.id,
-                itemImage:data["image_url"],
-                itemName:data["name"],
-                option_items : option_items};
         })
 
-        return purchase;
+        return option_items;
     }
 
     const purchaseHandler = () => {
         const purchaseData = dataBuilder();
-        navigate("/order/delivery", {state : purchaseData})
+        navigate("/order/delivery", {state : {purchaseData : purchaseData , itemId:data.id}})
 
     }
 
@@ -225,7 +218,7 @@ const ProductDetailHeader = ({data}) => {
                         return (<Option key={data.options[itemIndex].id}
                                         item={data.options[itemIndex].name}
                                         index={index}
-                           de             price={data.options[itemIndex].price}
+                                        price={data.options[itemIndex].price}
                                         handleStockChange={handleStockChange}
                                         handleOptionDelete={handleOptionDelete}
                         />)
