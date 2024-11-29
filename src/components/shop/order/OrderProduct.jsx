@@ -6,15 +6,20 @@ import {Link} from "react-router-dom";
 import "../../../assets/styles/shop/order/orderItem.scss"
 
 
-const OrderProduct = ({item, position}) => {
+const OrderProduct = ({item, position, applyCheck, subCheck}) => {
     const [reviewWriting, setReviewWriting] = useState(false);
     console.log(item)
 
     const checkHandler = (e) => {
         console.log(e)
         if (e.target.checked) {
-            console.log(item.orderItemId)
+            console.log("checked",item.orderItemId)
+            applyCheck(item.orderItemId)
 
+
+        }else if (!e.target.checked){
+            console.log("unchecked",item.orderItemId)
+            subCheck(item.orderItemId)
         }
 
     }

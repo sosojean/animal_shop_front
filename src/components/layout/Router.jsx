@@ -33,6 +33,7 @@ import PetInfoEdit from "../member/pet/PetInfoEdit";
 import PetInfoPage from "../../pages/member/PetInfoPage";
 import SellerOrderAccept from "../../pages/shop/seller/sellerOrderAccept";
 import SellerOrderDetail from "../shop/seller/SellerOrderDetail";
+import CancelSuccess from "../../pages/shop/order/cancelSuccess";
 
 const Router = (props) => {
     return (
@@ -69,6 +70,7 @@ const Router = (props) => {
                         <Route path="/shop/:category" element={<AllProduct/>}/>
                         <Route path="/shop/detail/:itemId" element={<ProductDetail/>}/>
                         <Route path="/pay/success" element={<Information case ="orderSuccess" />}/>
+                        <Route path="/cancel/success" element={<CancelSuccess/>}/>
 
                         <Route path="/cart" element={<Cart/>}/>
 
