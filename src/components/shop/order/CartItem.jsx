@@ -126,7 +126,6 @@ const cartItem = (props) => {
           />
 
           {/* <Product data = {props.data} position="cart"/> */}
-
           <div className="cart-item-info">
             <div>
               <img
