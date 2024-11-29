@@ -67,7 +67,7 @@ const cartItem = (props) => {
         data.itemId === props.data.itemId && data.cartItemId !== props.data.cartItemId
     ))
 
-    console.log("filterData", filterData);
+    // console.log("filterData", filterData);
 
     let storageOptions = localStorage.getItem("options");
     storageOptions = JSON.parse(storageOptions);
@@ -76,30 +76,30 @@ const cartItem = (props) => {
     let allOptions = storageOptions.find((options) => 
       options.itemId === props.data.itemId)["options"];
 
-    console.log("allOptions", allOptions);
+    // console.log("allOptions", allOptions);
 
-    // TODO allOptions에서 filterData만 제외
+    // allOptions에서 filterData만 제외
     for (let i = 0; i < filterData.length; i++){
       allOptions = allOptions.filter((option) => {
         return option.name !== filterData[i].option_name; // 조건을 반드시 return으로 반환
       })
     }
 
-    console.log("allOptions2", allOptions);
+    // console.log("allOptions2", allOptions);
 
-    // TODO 제외된 allOptions를 modalData에 넣기
+    // 제외된 allOptions를 modalData에 넣기
     // storageOptions.map((option))
 
     let modalData = {
       cartItemId: props.data.cartItemId,
       cartItemImg: props.data.imgUrl,
       cartItemName: props.data.itemNm,
-      options: allOptions
+      options: allOptions,
+      itemId: props.data.itemId
     }
 
     props.setModalData(modalData);
-
-    console.log(modalData);
+    // console.log(modalData);
 
   }
 
@@ -160,6 +160,7 @@ const cartItem = (props) => {
           <CartModal
             modalData = {props.modalData}
             refreshCartList = {props.refreshCartList}
+            setModalOpen={props.setModalOpen}
           />
         </Modal>
 
