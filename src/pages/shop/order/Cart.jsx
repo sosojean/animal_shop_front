@@ -14,6 +14,7 @@ const Cart = (props) => {
 
     const [dataUpdate, setDataUpdate] = useState(false); // 페이지 업데이트 상태관리
     const postData = { cartDetailDTOList: dataList }; // 수정, 전체 구매 데이터
+    const accessToken = localStorage.getItem("accessToken"); // 없으면 null
 
     const totalPrice = dataList ? dataList.reduce((price, data) => 
         (price + (data.count * data.option_price)), 0) : 0;
@@ -197,10 +198,19 @@ const Cart = (props) => {
           <div className="cart-item-container">
               <div className="cart-delete-button">
                 <div>
-                    <button onClick={() => handleDeleteAllItem()}>
+                    <button onClick={() => {
+                        if (totalPrice) {
+                            handleDeleteAllItem()
+                        } else {alert("장바구니에 상품을 담아주세요")}}
+                    }>
                             전체삭제
                     </button>
-                    <button onClick={() => handleDeleteSelectedItem()}>선택삭제</button>
+                    <button onClick={() => {
+                        if(totalPrice) {handleDeleteSelectedItem();}
+                        else {alert("장바구니에 상품을 담아주세요")}
+                    }}>
+                        선택삭제
+                    </button>
                 </div>
               </div>
               {dataList && dataList?.map((data, index)=>{
@@ -222,12 +232,16 @@ const Cart = (props) => {
                     <p>전체 상품 금액 {totalPrice.toLocaleString()}원</p>
                 </div>
                 <div>
-                    <button onClick={handleOrderSelectedItem}>
-                        선택주문
-                    </button>
-                    <button onClick={handleOrderAllItem}>
-                        전체주문
-                    </button>
+                    {accessToken !== null ?
+                        <>
+                            <button onClick={handleOrderSelectedItem}>
+                                선택주문
+                            </button>
+                            <button onClick={handleOrderAllItem}>
+                                전체주문
+                            </button>
+                        </> : <p>주문은 로그인이 필요합니다</p>
+                    }
                 </div>
               </div>
           </div>

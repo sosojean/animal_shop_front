@@ -150,7 +150,6 @@ const cartItem = (props) => {
 
             <div>
               <p>{props.data.option_price * props.data.count}원</p>
-              <button onClick={getSessonModalData}>주문하기</button>
             </div>
 
           </div>
