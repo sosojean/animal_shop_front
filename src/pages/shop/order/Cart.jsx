@@ -1,6 +1,8 @@
 import "../../../assets/styles/shop/order/cart.scss"
 import CartItem from "../../../components/shop/order/CartItem";
 import {useEffect, useState} from "react";
+import Card from "../../../components/common/Card";
+import { Link, useNavigate } from "react-router-dom";
 import instance from "../../../utils/axios";
 
 const Cart = (props) => {
@@ -14,6 +16,8 @@ const Cart = (props) => {
 
     const [dataUpdate, setDataUpdate] = useState(false); // 페이지 업데이트 상태관리
     const postData = { cartDetailDTOList: dataList }; // 수정, 전체 구매 데이터
+    const accessToken = localStorage.getItem("accessToken"); // 없으면 null
+    const navigate = useNavigate();
 
     const totalPrice = dataList ? dataList.reduce((price, data) => 
         (price + (data.count * data.option_price)), 0) : 0;
@@ -73,7 +77,7 @@ const Cart = (props) => {
                 method: "post",
                 data: postData
             }).then((res) => {
-                console.log(res.data);
+                console.log("handleOrderSelectedItem", res.data);
                 alert("상품 주문에 성공했습니다.");
                 setDataUpdate(true);
             });
@@ -81,6 +85,25 @@ const Cart = (props) => {
             console.error("주문 에러 발생:", error);
             alert("상품 주문에 실패했습니다.");
         }
+
+    }
+
+    const purchaseHandler = () => {
+
+        const idsToOrder = Object.keys(selectedItems).filter(key => selectedItems[key])
+                                .map(value => Number(value));
+
+        const dataToOrder = idsToOrder.map(id => dataList.find(data => data.cartItemId === id));
+
+        const purchaseData = {
+            cartItemId: 2,
+            itemNm: "Classic T-shirt",
+            count: 3,
+            option_name: "Small",
+            option_price: 500,
+            imgUrl: "https://example.com/images/thumbnail1.jpg"
+        }
+        navigate("/order/delivery", {state : purchaseData})
 
     }
 
@@ -92,7 +115,7 @@ const Cart = (props) => {
                 method: "post",
                 data: postData
             }).then((res) => {
-                console.log(res.data);
+                console.log("주문 반환 데이터", res.data);
                 alert("상품 주문에 성공했습니다.");
                 setDataUpdate(true);
             });
@@ -165,15 +188,10 @@ const Cart = (props) => {
 
             alert("전체 삭제 했습니다");
         } else{
-            dataList.map((data) => {
-                let storageCart = localStorage.getItem("cart");
-                storageCart = JSON.parse(storageCart);
-        
-                storageCart = storageCart.filter((item) => item.cartItemId !== data.cartItemId);
-                localStorage.setItem("cart", JSON.stringify(storageCart));
+            let storageCart = [];
+            localStorage.setItem("cart", JSON.stringify(storageCart));
 
-                setDataUpdate(true);
-            })
+            setDataUpdate(true);
 
             alert("전체 삭제 했습니다");
         }
@@ -194,43 +212,56 @@ const Cart = (props) => {
 
     return (
       <>
-          <div className="cart-item-container">
+          <Card className="cart-item-container">
               <div className="cart-delete-button">
-                <div>
-                    <button onClick={() => handleDeleteAllItem()}>
+                    <button onClick={() => {
+                        if(totalPrice) {handleDeleteSelectedItem();}
+                        else {alert("장바구니에 상품을 담아주세요")}
+                    }}>
+                        선택삭제
+                    </button>
+                    <button onClick={() => {
+                        if (totalPrice) {
+                            handleDeleteAllItem()
+                        } else {alert("장바구니에 상품을 담아주세요")}}
+                    }>
                             전체삭제
                     </button>
-                    <button onClick={() => handleDeleteSelectedItem()}>선택삭제</button>
-                </div>
               </div>
-              {dataList && dataList?.map((data, index)=>{
-                  return ( 
-                  <CartItem 
-                    data = {data} key = {index}
-                    orderItems = {orderItems} setOrderItems = {setOrderItems}
-                    refreshCartList={refreshCartList}
-                    selectedItems={selectedItems} setSelectedItems={setSelectedItems}
-                    modalOpen={modalOpen} setModalOpen={setModalOpen} handleModalOpen={handleModalOpen}
-                    postData={postData}
-                    modalData={modalData} setModalData={setModalData}
-                    isSession = {isSession}
-                  />)
-              })}
+              <div className="cart-item-outer-container">
+                {dataList && dataList?.map((data, index)=>{
+                    return (
+                        <CartItem 
+                            data = {data} key = {index}
+                            orderItems = {orderItems} setOrderItems = {setOrderItems}
+                            refreshCartList={refreshCartList}
+                            selectedItems={selectedItems} setSelectedItems={setSelectedItems}
+                            modalOpen={modalOpen} setModalOpen={setModalOpen} handleModalOpen={handleModalOpen}
+                            postData={postData}
+                            modalData={modalData} setModalData={setModalData}
+                            isSession = {isSession}
+                        />)
+                })}                
+              </div>
               <div className="cart-price-container">
                 <div>
                     <p>선택 상품 금액 {selectPrice.toLocaleString()}원</p>
                     <p>전체 상품 금액 {totalPrice.toLocaleString()}원</p>
                 </div>
                 <div>
-                    <button onClick={handleOrderSelectedItem}>
-                        선택주문
-                    </button>
-                    <button onClick={handleOrderAllItem}>
-                        전체주문
-                    </button>
+                    {accessToken !== null ?
+                        <>
+                            <button onClick={handleOrderSelectedItem}>
+                                선택주문
+                            </button>
+                            <button onClick={handleOrderAllItem}>
+                                전체주문
+                            </button>
+                        </> : <p>주문은 로그인이 필요합니다</p>
+                    }
                 </div>
               </div>
-          </div>
+          </Card>
       </>
   )
 }

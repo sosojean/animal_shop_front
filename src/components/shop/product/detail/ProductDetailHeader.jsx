@@ -20,6 +20,27 @@ const ProductDetailHeader = ({data}) => {
     console.log("session", session);
     console.log("data", data);
 
+    // 옵션을 담는 세션
+    const addOptions = () => {
+
+        let sessionOptions = {
+            itemId: data?.id,
+            options: data?.options
+        }
+
+        console.log("sessionOptions", sessionOptions);
+
+        let storageOpitons = localStorage.getItem("options");
+        storageOpitons = storageOpitons ? JSON.parse(storageOpitons) : [];
+
+        let validItemId = storageOpitons.find(options => 
+            sessionOptions.itemId === options.itemId)
+        
+        if (!validItemId) {
+            storageOpitons.push(sessionOptions);
+            localStorage.setItem("options", JSON.stringify(storageOpitons));
+        } 
+    }
 
     // 장바구니 담기
     const addCart = () => {
@@ -230,6 +251,7 @@ const ProductDetailHeader = ({data}) => {
                 <div className="purchaseLinkContainer">
                     <button onClick={() => {
                         addCart();
+                        addOptions();
                         handlePostCart();
                     }}>
                         장바구니
