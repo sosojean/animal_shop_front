@@ -11,6 +11,8 @@ const PasswordFinder = () => {
     const [newPassword, setNewPassword] = useState("");
     const [checkPassword, setCheckPassword] = useState("");
 
+    const [authCheck, setAuthCheck] = useState(false);
+
     return (
         <div className="password-finder-container">
             <div className="title-container">
@@ -19,13 +21,14 @@ const PasswordFinder = () => {
             <div className="auth-container">
                 <AuthSender authEmail={authEmail} setAuthEmail={setAuthEmail}
                 authText={authText} setAuthText={setAuthText}
+                setAuthCheck={setAuthCheck}
                 />
             </div>
             <div className="password-container">
                 <NewPassword
                 authEmail={authEmail}
                 newPassword={newPassword} setNewPassword={setNewPassword}
-                checkPassword={checkPassword} setCheckPassword={setCheckPassword}/>
+                checkPassword={checkPassword} setCheckPassword={setCheckPassword} authCheck={authCheck}/>
             </div>
         </div>
     )

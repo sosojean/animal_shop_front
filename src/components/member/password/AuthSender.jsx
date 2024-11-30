@@ -10,20 +10,20 @@ const AuthSender = (props) => {
     const [response, setResponse] = useState({email: status[0], auth: status[0]});
 
     const {authEmail, setAuthEmail,
-        authText, setAuthText
+        authText, setAuthText, setAuthCheck
     } = props;
 
     const updateResponseStatus = (type, newStatus) => {
         
         if (type === "email")
             setResponse(prevState => ({
-                ...prevState,  // 기존 상태를 복사
-                email: newStatus // email만 새 값으로 업데이트
+                ...prevState,
+                email: newStatus
             }));
         else if (type === "auth")
             setResponse(prevState => ({
                 ...prevState,  // 기존 상태를 복사
-                auth: newStatus // email만 새 값으로 업데이트
+                auth: newStatus
             }));
     };
 
@@ -62,6 +62,7 @@ const AuthSender = (props) => {
         })
         .then(response => {
             updateResponseStatus("auth", status[2]);
+            setAuthCheck(true);
             console.log('Response:', response.data);
         })
         .catch(error => {
