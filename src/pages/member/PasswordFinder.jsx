@@ -1,4 +1,5 @@
 import { useState } from "react";
+import '../../assets/styles/member/passwordFinder.scss'
 import AuthSender from "../../components/member/password/AuthSender";
 import NewPassword from "../../components/member/password/NewPassword";
 
@@ -11,16 +12,16 @@ const PasswordFinder = () => {
     const [checkPassword, setCheckPassword] = useState("");
 
     return (
-        <div>
-            <div>
+        <div className="password-finder-container">
+            <div className="title-container">
                 <h1>비밀번호 찾기</h1>
             </div>
-            <div>
+            <div className="auth-container">
                 <AuthSender authEmail={authEmail} setAuthEmail={setAuthEmail}
                 authText={authText} setAuthText={setAuthText}
                 />
             </div>
-            <div>
+            <div className="password-container">
                 <NewPassword
                 authEmail={authEmail}
                 newPassword={newPassword} setNewPassword={setNewPassword}

@@ -1,6 +1,12 @@
 import axios from "axios";
+import { useState } from "react";
+import Card from "../../common/Card";
 
 const NewPassword = (props) => {
+
+    // 비밀번호 검증용 state
+    const [pwdInvalid, setPwdInvalid] = useState(false);
+    const [pwdDiff, setPwdDiff] = useState(false);
 
     const {
         newPassword, setNewPassword,
@@ -27,20 +33,46 @@ const NewPassword = (props) => {
         });
     }
 
+    const passwordValidChecker = (password) => {
+        let regPass = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,20}$/
+        if (regPass.test(password)) {
+            // console.log("비밀번호 유효");
+            setNewPassword(password);
+            setPwdInvalid(false);
+
+        } else {
+            // console.log("비밀번호 무효");
+            setPwdInvalid(true);
+        }
+    }
+
+    const passwordEqualChecker = (password2) => {
+        if (newPassword === password2) {
+            // console.log("비밀번호 일치");
+            setCheckPassword(newPassword);
+            setPwdDiff(false);
+        } else {
+            // console.log("비밀번호 불일치");
+            setPwdDiff(true);
+        }
+    }
+
     return (
-        <div>
+        <Card>
             <label htmlFor="newPassword">새 비밀번호</label>
-            <input value={newPassword} onChange={e=>{setNewPassword(e.target.value)}}
+            <input onChange={e=>{passwordValidChecker(e.target.value)}}
                 type="password" id="newPassword" placeholder="새 비밀번호" />
+            {pwdInvalid ? <span style={{color:"red"}}> 영문/숫자를 조합하여 8~20자 이내로 작성해주세요. </span> : ""}
 
             <label htmlFor="checkPassword">새 비밀번호 확인</label>
-            <input value={checkPassword} onChange={e=>{setCheckPassword(e.target.value)}}
+            <input onChange={e=>{passwordEqualChecker(e.target.value)}}
                 type="password" id="checkPassword" placeholder="비밀번호 확인" />
+            {pwdDiff ? <span style={{color:"red"}}> 패스워드가 일치 하지 않습니다</span> : ""}
 
             <button onClick={authChangePassword}>
                     변경
             </button>        
-        </div>
+        </Card>
     )
 }
 
