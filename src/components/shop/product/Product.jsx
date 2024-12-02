@@ -5,7 +5,7 @@ import instance from "../../../utils/axios";
 
 const Product = (props) => {
 
-    console.log("props.data", props.data);
+    // console.log("props.data", props.data);
 
     let cart = [];
     const optionCount = props.data?.option_count;

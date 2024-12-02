@@ -3,7 +3,7 @@ import '../../../assets/styles/shop/order/cartModal.scss'
 import CartOption from './CartOption';
 import instance from '../../../utils/axios';
 
-const CartModal = ({modalData, refreshCartList}) => {
+const CartModal = ({modalData, refreshCartList, setModalOpen}) => {
 
     console.log("CartModal", modalData);
 
@@ -32,10 +32,37 @@ const CartModal = ({modalData, refreshCartList}) => {
 
               // 부모 컴포넌트 데이터 갱신
               refreshCartList();
+              setModalOpen(false);
             })
             .catch((err) => {
               console.log("handleUpdateCart 실패 ", err);
+              handleUpdateSession();
+
+              alert("장바구니가 수정됐습니다");
+
+              // 부모 컴포넌트 데이터 갱신
+              refreshCartList();
+              setModalOpen(false);
             });
+    }
+
+    const handleUpdateSession = () => {
+
+        let storageCart = localStorage.getItem("cart");
+        storageCart = JSON.parse(storageCart);
+
+        let selectedCart = storageCart.filter(cart => (
+            cart.cartItemId === modalData.cartItemId
+        ))[0];
+
+        console.log("selectedCart", selectedCart);
+
+        selectedCart.cartItemId = String(modalData.itemId) + optionItem[selectedIndex].name + String(optionItem[selectedIndex].optionId);
+        selectedCart.option_name = optionItem[selectedIndex].name;
+        selectedCart.option_price = optionItem[selectedIndex].price;
+        selectedCart.count = stock;
+
+        localStorage.setItem("cart", JSON.stringify(storageCart));
     }
 
     return (
@@ -45,7 +72,7 @@ const CartModal = ({modalData, refreshCartList}) => {
                     <img src={modalData?.cartItemImg}/>
                     <div>
                         <h1>{modalData?.cartItemName}</h1>
-                        <h2>{modalData?.options[lastIndex].price} 원</h2>
+                        {/* <h2>{modalData?.options[lastIndex].price} 원</h2> */}
                     </div>
                 </div>
                 <div className='option'>
@@ -55,7 +82,8 @@ const CartModal = ({modalData, refreshCartList}) => {
                         {optionItem.map((option, index) => {
                             return (
                                 <option value={index}>
-                                    {option.name + " " + option.price + "원"}
+                                    {option.name === "default" ? "기본" : option.name}
+                                    {" " + option.price + "원"}
                                 </option>
                             )
                         })}

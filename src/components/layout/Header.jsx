@@ -6,7 +6,8 @@ import {
     faArrowRightFromBracket,
     faArrowRightToBracket,
     faChevronDown,
-    faUserPlus
+    faUserPlus,
+    faCartShopping
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
@@ -94,12 +95,19 @@ const Header = (props) => {
 
                         <div className="headerRegisterContainer" onMouseEnter={leaveHeader}>
                             {isAuth ? <>
-                                    <Link to="/mypage"><FontAwesomeIcon icon={faUser}/> </Link>
+                                    <Link to="/cart"><FontAwesomeIcon icon={faCartShopping}/> </Link>
+                                    <Link to="/mypage">
+                                        <FontAwesomeIcon icon={faUser} />
+                                    </Link>
                                     <button className={"logout"} onClick={handleLogout}>로그아웃
                                         <FontAwesomeIcon icon={faArrowRightFromBracket}/>
                                     </button>
                                 </>
-                                : <><Link to="/join" className={"logout"}>
+                                : <>
+                                    <Link to="/cart">
+                                        <FontAwesomeIcon icon={faCartShopping} />
+                                    </Link>
+                                    <Link to="/join" className={"logout"}>
                                     <FontAwesomeIcon icon={faUserPlus}/>회원가입</Link>
                                     <Link to="/login" className={"logout"}> <FontAwesomeIcon
                                         icon={faArrowRightToBracket}/> 로그인</Link></>}

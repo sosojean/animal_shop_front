@@ -56,38 +56,51 @@ const cartItem = (props) => {
       })
       .catch((err) => {
         console.log("handlePostCartList 실패 ", err);
+        getSessonModalData();
       });
-
-      // 세션 수정
-      // filter를 통해 모달 데이터 받아오기
-
-      // 모달 데이터 기본형태
-      let sessionData = {
-        cartItemImg: props.data.imgUrl,
-        cartItemName: props.data.itemNm,
-        options: [
-          {
-            name: props.data.option_name,
-            price: props.data.option_price,
-            count: props.data.option_count
-          }
-        ]
-      }
   };
 
   // 세션 수정 모달 데이터 불러오기
   const getSessonModalData = () => {
-    let sessionData = props.postData["cartDetailDTOList"].filter((data) => (
-        data.itemId === props.data.itemId
+    // modaldata의 options에 넣으면 안되는 option의 모든 데이터 (itemNm만 따로 분리 필요)
+    let filterData = props.postData["cartDetailDTOList"].filter((data) => (
+        data.itemId === props.data.itemId && data.cartItemId !== props.data.cartItemId
     ))
 
-    console.log("getSessonModalData", sessionData);
+    // console.log("filterData", filterData);
 
-    // sessionData.map((data) => {
-    //   data = {
-    //     cartItemImg:
-    //   }
-    // })
+    let storageOptions = localStorage.getItem("options");
+    storageOptions = JSON.parse(storageOptions);
+
+    // 현재 카트 아이템의 itemId와 같은 itemId를 가진 세션 options 데이터
+    let allOptions = storageOptions.find((options) => 
+      options.itemId === props.data.itemId)["options"];
+
+    // console.log("allOptions", allOptions);
+
+    // allOptions에서 filterData만 제외
+    for (let i = 0; i < filterData.length; i++){
+      allOptions = allOptions.filter((option) => {
+        return option.name !== filterData[i].option_name; // 조건을 반드시 return으로 반환
+      })
+    }
+
+    // console.log("allOptions2", allOptions);
+
+    // 제외된 allOptions를 modalData에 넣기
+    // storageOptions.map((option))
+
+    let modalData = {
+      cartItemId: props.data.cartItemId,
+      cartItemImg: props.data.imgUrl,
+      cartItemName: props.data.itemNm,
+      options: allOptions,
+      itemId: props.data.itemId
+    }
+
+    props.setModalData(modalData);
+    // console.log(modalData);
+
   }
 
   // 선택 아이템 아이디: boolean 형태로 리스트에 넣음
@@ -113,7 +126,6 @@ const cartItem = (props) => {
           />
 
           {/* <Product data = {props.data} position="cart"/> */}
-
           <div className="cart-item-info">
             <div>
               <img
@@ -137,7 +149,6 @@ const cartItem = (props) => {
 
             <div>
               <p>{props.data.option_price * props.data.count}원</p>
-              <button onClick={getSessonModalData}>주문하기</button>
             </div>
 
           </div>
@@ -147,6 +158,7 @@ const cartItem = (props) => {
           <CartModal
             modalData = {props.modalData}
             refreshCartList = {props.refreshCartList}
+            setModalOpen={props.setModalOpen}
           />
         </Modal>
 

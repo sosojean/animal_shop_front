@@ -29,7 +29,9 @@ const DeliveryInfo = (props) => {
     // const [zoneCode, setZoneCode] = useState()
     // const [address, setAddress] = useState()
     const {state} = useLocation();
-    console.log(state);
+    console.log("state", state);
+    console.log("state.cart.cartDetailDTOList", state.cart.items.cartDetailDTOList);
+    console.log("state.cart.isCart", state.isCart.items);
 
     useEffect(() => {
         console.log(deliveryInfo);
@@ -69,9 +71,9 @@ const DeliveryInfo = (props) => {
         paymentData&&popupPayment()
     }, [paymentData]);
 
-
+    // 비 장바구니 결제
     const purchaseProducts = (e)=> {
-        e.preventDefault()
+        // e.preventDefault()
         instance({
             url:`/shop/order`,
             method:'post',
@@ -93,6 +95,40 @@ const DeliveryInfo = (props) => {
             console.log(err)
         })
 
+    }
+
+    // 장바구니 결제
+    const purchaseCart = (e) => {
+        // e.preventDefault()
+        instance({
+            url:`/cart/orders`,
+            method:'post',
+            data: {
+                cartDetailDTOList : state.cart.items.cartDetailDTOList,
+                deliveryInfoDTO : {
+                    recipient : deliveryInfo.recipient,
+                    phoneNumber : `${deliveryInfo.phone1}-${deliveryInfo.phone2}-${deliveryInfo.phone3}`,
+                    address : `${deliveryInfo.zoneCode} ${deliveryInfo.address} ${deliveryInfo.detailAddress}`,
+                    deliveryRequest : `${deliveryInfo.requirements}`
+                }
+            }
+        }).then(res=>{
+            console.log(res)
+            setPaymentData(res.data)
+
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
+
+    const purchaseSelector = (e) => {
+        e.preventDefault();
+
+        if (state.isCart?.items) {
+            purchaseCart(e);
+        } else {
+            purchaseProducts(e);
+        }
     }
 
     return(
@@ -146,7 +182,9 @@ const DeliveryInfo = (props) => {
                             handleSelectChange={applyDeliveryInfo}
                             name={"requirements"}/>
 
-                  <button onClick={e =>purchaseProducts(e)}>  구 매 하 기 </button>
+                  {/* <button onClick={e =>purchaseProducts(e)}>  구 매 하 기 </button>
+                  <button onClick={e => purchaseCart(e)}>장바구니 구매</button> */}
+                  <button onClick={e => purchaseSelector(e)}>  구 매 하 기 </button>
               </form>
 
           </div>
