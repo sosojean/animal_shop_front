@@ -11,43 +11,51 @@ const OrderProduct = ({item, position, applyCheck, subCheck}) => {
     console.log(item)
 
     const checkHandler = (e) => {
+        const itemId  = position === "confirm"? item.itemId:item.orderItemId
+
         console.log(e)
         if (e.target.checked) {
-            console.log("checked",item.orderItemId)
-            applyCheck(item.orderItemId)
+            console.log(item)
+            console.log("checked",itemId)
+            applyCheck(itemId)
 
 
         }else if (!e.target.checked){
-            console.log("unchecked",item.orderItemId)
-            subCheck(item.orderItemId)
+            console.log("unchecked",itemId)
+            subCheck(itemId)
         }
 
     }
     return(<>
-        <div className={"order-item"}>
+            <div className={"order-item"}>
 
-            <Link to = {`/shop/detail/${item.itemId}`}>
-            <div className={"product-info"} >
-                <img src={item.imgUrl} className="order-image"/>
-                <div className="product-info-text">
-                    <span>{item.count}</span>
-                    <span>{item.itemNm}</span>
-                    <span>{item.orderName}</span>
+                <Link to={`/shop/detail/${item.itemId}`}>
+                    <div className={"product-info"}>
+                        <img src={item.imgUrl} className="order-image"/>
+                        <div className="product-info-text">
+                            <span>{item.count}</span>
+                            <span>{item.itemNm}</span>
+                            <span>{item.orderName}</span>
 
-                    {/*<span>{item.orderPrice.toLocaleString() + "원"}</span>*/}
+                            {/*<span>{item.orderPrice.toLocaleString() + "원"}</span>*/}
 
-                    <span>{(item.orderPrice * item.count).toLocaleString() + "원"}</span>
-                </div>
+                            <span>{(item.orderPrice * item.count).toLocaleString() + "원"}</span>
+                        </div>
+                    </div>
+                </Link>
+
+                {position == "order" ?
+                    <button onClick={() => {
+                        setReviewWriting(!reviewWriting)
+                    }}
+                            className="order-list-btn">리뷰 작성</button> :
+                    <input onChange={(e) => {
+                        checkHandler(e)
+                    }} type={"checkbox"}></input>
+                }
+
             </div>
-            </Link>
-            {position=="order"?
-                <button onClick={() => {setReviewWriting(!reviewWriting)}}
-                        className="order-list-btn">리뷰 작성</button>:
-                <input onChange={(e)=>{ checkHandler(e)}} type={"checkbox"}></input>
-            }
-
-        </div>
-        {reviewWriting?<ReviewEditor item = {item} setReviewWriting={setReviewWriting}/>:null}
+            {reviewWriting ? <ReviewEditor item={item} setReviewWriting={setReviewWriting}/>:null}
         </>
 
 )
