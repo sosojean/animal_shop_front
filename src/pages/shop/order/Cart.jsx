@@ -58,40 +58,8 @@ const Cart = (props) => {
         handleGetCartList();
     };
 
-    // 장바구니 아이템 선택 주문
-    const handleOrderSelectedItem = () => {
-        
-        // true인 것만 fileter + 숫자로 변환
-        // const idsToOrder = Object.keys(selectedItems).filter(key => selectedItems[key])
-        //                                             .map(value => Number(value));
-
-        // // idsToOrder 값으로 cartItmId 비교해서 데이터 받아오기
-        // const dataToOrder = idsToOrder.map(id => dataList.find(data => data.cartItemId === id));
-
-        // const postData = {
-        //     cartDetailDTOList: dataToOrder
-        // };
-
-        // try {
-        //     instance({
-        //         url: "/cart/orders",
-        //         method: "post",
-        //         data: postData
-        //     }).then((res) => {
-        //         console.log("handleOrderSelectedItem", res.data);
-        //         alert("상품 주문에 성공했습니다.");
-        //         setDataUpdate(true);
-        //     });
-        // } catch (error) {
-        //     console.error("주문 에러 발생:", error);
-        //     alert("상품 주문에 실패했습니다.");
-        // }
-
-    }
-
-    const purchaseHandler = () => {
-
-        // 전체주문 건
+    // 장바구니 전체 주문
+    const purchaseAllHandler = () => {
 
         const purchaseData = postData;
         const isCart = true;
@@ -103,22 +71,30 @@ const Cart = (props) => {
           });
     }
 
-    // 장바구니 아이템 전체 주문
-    const handleOrderAllItem = () => {
-        // try {
-        //     instance({
-        //         url: "/cart/orders",
-        //         method: "post",
-        //         data: postData
-        //     }).then((res) => {
-        //         console.log("주문 반환 데이터", res.data);
-        //         alert("상품 주문에 성공했습니다.");
-        //         setDataUpdate(true);
-        //     });
-        // } catch (error) {
-        //     console.error("주문 에러 발생:", error);
-        //     alert("상품 주문에 실패했습니다.");
-        // }
+    // 장바구니 선택 주문
+    const purchaseSelectedHandler = () => {
+        // true인 것만 fileter + 숫자로 변환
+        const idsToOrder = Object.keys(selectedItems).filter(key => selectedItems[key])
+                                                    .map(value => Number(value));
+        console.log("idsToOrder", idsToOrder);
+
+        // idsToOrder 값으로 cartItmId 비교해서 데이터 받아오기
+        const dataToOrder = idsToOrder.map(id => dataList.find(data => data.cartItemId === id));
+        console.log("dataToOrder", dataToOrder);
+
+        const postData = {
+            cartDetailDTOList: dataToOrder
+        };
+
+        const purchaseData = postData;
+        const isCart = true;
+        navigate("/order/delivery", {
+            state: {
+              cart: { type: 'cart', items: purchaseData },
+              isCart: { type: 'isCart', items: isCart }
+            }
+          });
+
     }
 
     // 장바구니 아이템 선택 삭제
@@ -247,10 +223,10 @@ const Cart = (props) => {
                 <div>
                     {accessToken !== null ?
                         <>
-                            <button onClick={handleOrderSelectedItem}>
+                            <button onClick={purchaseSelectedHandler}>
                                 선택주문
                             </button>
-                            <button onClick={purchaseHandler}>
+                            <button onClick={purchaseAllHandler}>
                                 전체주문
                             </button>
                         </> : <p>주문은 로그인이 필요합니다</p>
