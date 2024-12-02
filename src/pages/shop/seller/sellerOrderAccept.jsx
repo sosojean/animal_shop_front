@@ -23,7 +23,7 @@ const SellerOrderAccept = () => {
         <div>
             {data&&data.map(item =>{
                 return (
-                    <SellerAcceptItem isEdited={isEdited} setIsEdited={setIsEdited} item={item}/>
+                    <SellerAcceptItem key={item.orderId} isEdited={isEdited} setIsEdited={setIsEdited} item={item}/>
                 )}
             )}
         </div>

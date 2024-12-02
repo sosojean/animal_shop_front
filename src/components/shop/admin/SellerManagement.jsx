@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import SellerInfoItem from "./SellerInfoItem";
 import instance from "../../../utils/axios";
 import Pagination from "../../board/Pagination";
+import AdminMenu from "./AdminMenu";
 
 const SellerManagement = (props) => {
     const [data, setData] = useState()
@@ -35,6 +36,7 @@ const SellerManagement = (props) => {
 
 
     return (<>
+        <AdminMenu/>
         <SellerInfoItem isHeader = {true} item={header}/>
         {data&&data.map((item) =>{
                 return(
