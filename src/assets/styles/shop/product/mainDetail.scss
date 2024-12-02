@@ -29,8 +29,22 @@
             }
         }
     }
+    .zoom-img-container{
+        position: relative;
+        //width:648px;
+        //overflow:hidden;
 
-
+    .inner-img-container{
+        position: absolute;
+        width:648px;
+        height: 648px;
+        overflow: hidden;
+        top: 0px; left: 0;
+        .zoom-img{
+            width:1664px;
+        }
+    }
+}
 
 
     .detailTextContainer {

@@ -12,13 +12,24 @@ const ProductDetailHeader = ({data}) => {
     const [option, setOption] = useState([]);
     const [stocks, setStocks] = useState([]);
     const [session, setSession] = useState([]);
+    const [zoomImage, setZoomImage] = useState(false)
+    const [index, setIndex] = useState(0)
+
     const [selectedValue, setSelectedValue] = useState("placeholder")
     const navigate = useNavigate();
+    let position = {x: 0, y: 0};
+
+    const [xy, setXy] = useState({position})
+
 
     const defaultPrice = data?.options[0].price;
     // const optionLength = data?.options.length;
     console.log("session", session);
     console.log("data", data);
+
+    useEffect(() => {
+        console.log(xy)
+    },[xy])
 
 
     // 장바구니 담기
@@ -187,57 +198,73 @@ const ProductDetailHeader = ({data}) => {
     return (
     <>
         {data&& (
-        <div className="detailContainer">
-            <div className="thumbnail-area-container">
-            <Thumbnails thumbnails={data["thumbnail_url"]}/>
+            <div className="detailContainer">
+                <div className="thumbnail-area-container">
+                    <Thumbnails thumbnails={data["thumbnail_url"]}
+                                setZoomImage={setZoomImage}
+                                setIndex={setIndex}
+                                setXy={setXy}
+                                xy={xy}
+                                index={index}/>
+                </div>
+                <div className={"zoom-img-container"}>
+                    <div className="inner-img-container">
+                         {zoomImage &&
+                             <img className={"zoom-img"}
+                                  style={{transform:`translate(${-xy.x*4}px, ${-xy.y*4}px)`}}
+                                  src={data["thumbnail_url"][index]}/>}
+                    </div>
+                 </div>
+
+                <div className="detailTextContainer">
+
+
+                    <div className="detail-category-container">
+                        <span>{data.species}</span>
+                        <span> > </span>
+                        <span>{data.category}</span>
+
+                    </div>
+
+                    <h2>{data.seller}</h2>
+                    <h1>{data.name}</h1>
+                    <h1>{defaultPrice.toLocaleString()} 원</h1>
+
+                    <Selector
+                        selectedValue={selectedValue}
+                        handleSelectChange={handleSelectChange}
+                        optionItems={data?.options}
+                        priceTrimmer={priceTrimmer}
+                        trimOptionText={trimOptionText}
+                    />
+
+
+                    <div className="optionListContainer">
+                        {option.map((itemIndex, index) => {
+
+                            return (<Option key={data.options[itemIndex].id}
+                                            item={data.options[itemIndex].name}
+                                            index={index}
+                                            price={data.options[itemIndex].price}
+                                            handleStockChange={handleStockChange}
+                                            handleOptionDelete={handleOptionDelete}
+                            />)
+                        })}
+                    </div>
+
+                    {stocks[0] && <span className="price">총 상품 금액 {priceCalculator()} 원</span>}
+
+                    <div className="purchaseLinkContainer">
+                        <button onClick={() => {
+                            addCart();
+                            handlePostCart();
+                        }}>
+                            장바구니
+                        </button>
+                        <button onClick={purchaseHandler}>구매하기</button>
+                    </div>
+                </div>
             </div>
-            <div className="detailTextContainer">
-                <div className="detail-category-container">
-                    <span>{data.species}</span>
-                    <span> > </span>
-                    <span>{data.category}</span>
-
-                </div>
-
-                <h2>{data.seller}</h2>
-                <h1>{data.name}</h1>
-                <h1>{defaultPrice.toLocaleString()} 원</h1>
-
-                <Selector
-                    selectedValue={selectedValue}
-                    handleSelectChange={handleSelectChange}
-                    optionItems={data?.options}
-                    priceTrimmer={priceTrimmer}
-                    trimOptionText={trimOptionText}
-                />
-
-
-                <div className="optionListContainer">
-                    {option.map((itemIndex, index) => {
-
-                        return (<Option key={data.options[itemIndex].id}
-                                        item={data.options[itemIndex].name}
-                                        index={index}
-                                        price={data.options[itemIndex].price}
-                                        handleStockChange={handleStockChange}
-                                        handleOptionDelete={handleOptionDelete}
-                        />)
-                    })}
-                </div>
-
-                {stocks[0] && <span className="price">총 상품 금액 {priceCalculator()} 원</span>}
-
-                <div className="purchaseLinkContainer">
-                    <button onClick={() => {
-                        addCart();
-                        handlePostCart();
-                    }}>
-                        장바구니
-                    </button>
-                    <button onClick={purchaseHandler}>구매하기</button>
-                </div>
-            </div>
-        </div>
         )}
 
     </>
