@@ -34,6 +34,7 @@ import PetInfoPage from "../../pages/member/PetInfoPage";
 import SellerOrderAccept from "../../pages/shop/seller/sellerOrderAccept";
 import SellerOrderDetail from "../shop/seller/SellerOrderDetail";
 import CancelSuccess from "../../pages/shop/order/cancelSuccess";
+import PasswordFinder from "../../pages/member/PasswordFinder";
 
 const Router = (props) => {
     return (
@@ -52,6 +53,7 @@ const Router = (props) => {
                         {/*<Route path="/new" element={<New/>}/>*/}
                         <Route path="/join" element={<Join/>}/>
                         <Route path="/login" element={<Login reload={props.reload} setReload={props.setReload}/>}/>
+                        <Route path="/password" element={<PasswordFinder/>} />
                         <Route path="/post/write" element={<PostWrite/>}/>
                         <Route path="/join/success" element={<Information case ="join" />}/>
                         <Route path="/pet/register" element={<PetRegister />}/>
@@ -85,8 +87,6 @@ const Router = (props) => {
                         {/* 상품 등록 테스트 */}
                         {/* <Route path="/seller/test" element={<SellerItemEditor/>}/>
                         <Route path="/seller/test/:itemId" element={<SellerItemEditor/>}/> */}
-
-
 
                         <Route path="/seller/item/list" element={<SellerItemList/>}/>
 

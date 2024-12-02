@@ -16,6 +16,7 @@ const Cart = (props) => {
 
     const [dataUpdate, setDataUpdate] = useState(false); // 페이지 업데이트 상태관리
     const postData = { cartDetailDTOList: dataList }; // 수정, 전체 구매 데이터
+    console.log("postData", postData);
     const accessToken = localStorage.getItem("accessToken"); // 없으면 null
     const navigate = useNavigate();
 
@@ -57,72 +58,43 @@ const Cart = (props) => {
         handleGetCartList();
     };
 
-    // 장바구니 아이템 선택 주문
-    const handleOrderSelectedItem = () => {
-        
+    // 장바구니 전체 주문
+    const purchaseAllHandler = () => {
+
+        const purchaseData = postData;
+        const isCart = true;
+        navigate("/order/delivery", {
+            state: {
+              cart: { type: 'cart', items: purchaseData },
+              isCart: { type: 'isCart', items: isCart }
+            }
+          });
+    }
+
+    // 장바구니 선택 주문
+    const purchaseSelectedHandler = () => {
         // true인 것만 fileter + 숫자로 변환
         const idsToOrder = Object.keys(selectedItems).filter(key => selectedItems[key])
                                                     .map(value => Number(value));
+        console.log("idsToOrder", idsToOrder);
 
         // idsToOrder 값으로 cartItmId 비교해서 데이터 받아오기
         const dataToOrder = idsToOrder.map(id => dataList.find(data => data.cartItemId === id));
+        console.log("dataToOrder", dataToOrder);
 
         const postData = {
             cartDetailDTOList: dataToOrder
         };
 
-        try {
-            instance({
-                url: "/cart/orders",
-                method: "post",
-                data: postData
-            }).then((res) => {
-                console.log("handleOrderSelectedItem", res.data);
-                alert("상품 주문에 성공했습니다.");
-                setDataUpdate(true);
-            });
-        } catch (error) {
-            console.error("주문 에러 발생:", error);
-            alert("상품 주문에 실패했습니다.");
-        }
+        const purchaseData = postData;
+        const isCart = true;
+        navigate("/order/delivery", {
+            state: {
+              cart: { type: 'cart', items: purchaseData },
+              isCart: { type: 'isCart', items: isCart }
+            }
+          });
 
-    }
-
-    const purchaseHandler = () => {
-
-        const idsToOrder = Object.keys(selectedItems).filter(key => selectedItems[key])
-                                .map(value => Number(value));
-
-        const dataToOrder = idsToOrder.map(id => dataList.find(data => data.cartItemId === id));
-
-        const purchaseData = {
-            cartItemId: 2,
-            itemNm: "Classic T-shirt",
-            count: 3,
-            option_name: "Small",
-            option_price: 500,
-            imgUrl: "https://example.com/images/thumbnail1.jpg"
-        }
-        navigate("/order/delivery", {state : purchaseData})
-
-    }
-
-    // 장바구니 아이템 전체 주문
-    const handleOrderAllItem = () => {
-        try {
-            instance({
-                url: "/cart/orders",
-                method: "post",
-                data: postData
-            }).then((res) => {
-                console.log("주문 반환 데이터", res.data);
-                alert("상품 주문에 성공했습니다.");
-                setDataUpdate(true);
-            });
-        } catch (error) {
-            console.error("주문 에러 발생:", error);
-            alert("상품 주문에 실패했습니다.");
-        }
     }
 
     // 장바구니 아이템 선택 삭제
@@ -221,9 +193,8 @@ const Cart = (props) => {
                         선택삭제
                     </button>
                     <button onClick={() => {
-                        if (totalPrice) {
-                            handleDeleteAllItem()
-                        } else {alert("장바구니에 상품을 담아주세요")}}
+                        if (totalPrice) {handleDeleteAllItem()} 
+                        else {alert("장바구니에 상품을 담아주세요")}}
                     }>
                             전체삭제
                     </button>
@@ -251,10 +222,10 @@ const Cart = (props) => {
                 <div>
                     {accessToken !== null ?
                         <>
-                            <button onClick={handleOrderSelectedItem}>
+                            <button onClick={purchaseSelectedHandler}>
                                 선택주문
                             </button>
-                            <button onClick={handleOrderAllItem}>
+                            <button onClick={purchaseAllHandler}>
                                 전체주문
                             </button>
                         </> : <p>주문은 로그인이 필요합니다</p>

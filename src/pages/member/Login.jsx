@@ -80,6 +80,14 @@ const Login = (props) => {
                         <button>회원가입</button>
                     </Link>
 
+                    <Link to="/password">
+                        <div>
+                            <span>비밀번호 찾기</span>
+                        </div>           
+                    </Link>
+
+
+
 
                 </form>
             </div>
