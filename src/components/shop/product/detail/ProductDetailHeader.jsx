@@ -219,11 +219,30 @@ const ProductDetailHeader = ({data}) => {
     return (
     <>
         {data&& (
+
+
+
         <div className="detailContainer">
             <div className="thumbnail-area-container">
-            <Thumbnails thumbnails={data["thumbnail_url"]}/>
+            <Thumbnails thumbnails={data["thumbnail_url"]}
+                        setIndex={setIndex}
+                        setXy={setXy}
+                        setZoomImage={setZoomImage}
+                        xy={xy}
+                        index={index}
+            />
             </div>
+            <div className="zoom-img-container">
+                <div className="inner-img-container">
+                    {zoomImage&&<img className="zoom-img"
+                                     style={{transform: `translate(${-xy.x*4}px, ${-xy.y*4}px)`}}
+                                     src={data["thumbnail_url"][index]}/>}
+
+                </div>
+            </div>
+
             <div className="detailTextContainer">
+
                 <div className="detail-category-container">
                     <span>{data.species}</span>
                     <span> > </span>
