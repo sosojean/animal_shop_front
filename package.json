@@ -26,6 +26,7 @@
   "resolutions": {
     "@toast-ui/editor": "3.1.8"
   },
+  "proxy": "http://apis.data.go.kr",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -35,6 +35,8 @@ import SellerOrderAccept from "../../pages/shop/seller/sellerOrderAccept";
 import SellerOrderDetail from "../shop/seller/SellerOrderDetail";
 import CancelSuccess from "../../pages/shop/order/cancelSuccess";
 import PasswordFinder from "../../pages/member/PasswordFinder";
+import AdoptAnimal from "../../pages/additional/AdoptAnimal";
+import AdoptDetail from "../additional/AdoptDetail";
 
 const Router = (props) => {
     return (
@@ -87,7 +89,6 @@ const Router = (props) => {
                         {/* 상품 등록 테스트 */}
                         {/* <Route path="/seller/test" element={<SellerItemEditor/>}/>
                         <Route path="/seller/test/:itemId" element={<SellerItemEditor/>}/> */}
-
                         <Route path="/seller/item/list" element={<SellerItemList/>}/>
 
                         <Route path="/order/delivery" element={<DeliveryInfo/>}/>
@@ -95,7 +96,9 @@ const Router = (props) => {
                         <Route path="/seller/register" element={<SellerRegister/>}/>
                         <Route path="/seller/register/success" element={<Information case ="seller" />}/>
 
-
+                        {/* 입양 */}
+                        <Route path="/adoption" element={<AdoptAnimal/>}/>
+                        <Route path="/adoption/detail/:desertionNo" element={<AdoptDetail/>}/>
 
                     </Routes>
                 </div>

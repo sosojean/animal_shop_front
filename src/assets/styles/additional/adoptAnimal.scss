@@ -1,0 +1,41 @@
+.adopt-list-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px; /* 카드 사이의 간격 */
+    padding: 16px; /* 컨테이너 안쪽 여백 */
+}
+
+.adopt-item-Container {
+
+    width: 300px;
+
+    .img-container {
+        
+        img {
+            width: 250px;
+            height: 250px;
+            border-radius: 10px;
+        }
+
+    }
+
+    .info-container {
+        margin: 10px 0 10px 0;
+
+        .process-container {
+            background-color: #d9d9d9;
+            width: 70px;
+            color: rgb(0, 0, 0);
+            padding: 7px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .addr-container {
+        border-top: 1px solid rgb(182, 182, 182);
+        padding-top: 10px;
+    }
+
+}
