@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import Card from "../../common/Card";
 import React from "react";
 import instance from "../../../utils/axios";
+import DefaultButton from "../../common/DefaultButton";
 
 const OrderedProduct = ({item, index, setIsEdited, isEdited}) => {
 
@@ -48,8 +49,8 @@ const OrderedProduct = ({item, index, setIsEdited, isEdited}) => {
                     </div>
                 </Link>
 
-                <button onClick={deliverProduct}>배송</button>
-                <button onClick={rejectProduct}>거절</button>
+                <DefaultButton onClick={deliverProduct}>배송</DefaultButton>
+                <DefaultButton onClick={rejectProduct}>거절</DefaultButton>
             </Card>
 
     );
