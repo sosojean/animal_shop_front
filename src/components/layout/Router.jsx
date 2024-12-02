@@ -88,8 +88,6 @@ const Router = (props) => {
                         {/* <Route path="/seller/test" element={<SellerItemEditor/>}/>
                         <Route path="/seller/test/:itemId" element={<SellerItemEditor/>}/> */}
 
-
-
                         <Route path="/seller/item/list" element={<SellerItemList/>}/>
 
                         <Route path="/order/delivery" element={<DeliveryInfo/>}/>

@@ -193,9 +193,8 @@ const Cart = (props) => {
                         선택삭제
                     </button>
                     <button onClick={() => {
-                        if (totalPrice) {
-                            handleDeleteAllItem()
-                        } else {alert("장바구니에 상품을 담아주세요")}}
+                        if (totalPrice) {handleDeleteAllItem()} 
+                        else {alert("장바구니에 상품을 담아주세요")}}
                     }>
                             전체삭제
                     </button>

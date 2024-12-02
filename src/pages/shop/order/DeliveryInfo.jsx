@@ -124,7 +124,7 @@ const DeliveryInfo = (props) => {
     const purchaseSelector = (e) => {
         e.preventDefault();
 
-        if (state.isCart.items) {
+        if (state.isCart?.items) {
             purchaseCart(e);
         } else {
             purchaseProducts(e);
