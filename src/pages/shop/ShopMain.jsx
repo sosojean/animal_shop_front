@@ -12,6 +12,7 @@ const ShopMain = (props) => {
             method:"get"
         }).then(res => {
             setData(res.data);
+            console.log("ProductDetail", res.data);
 
         }).catch(error => {
             console.log(error);
@@ -22,9 +23,9 @@ const ShopMain = (props) => {
         <>
         <Banner/>
 
-            {data && <Products name={"🐈 인기 고양이 상품"} data={data["cat_hot"]} url = {"/shop/cat"}/>}
-            {data && <Products name={"🐕 인기 강아지 상품"}  data={data["dog_hot"]} url = {"/shop/dog"}/>}
-            {data && <Products name={"✨ 새로 입고된 상품"}  data={data["new_goods"]} url = {"/shop/all"}/>}
+            {data && <Products name={"✨ 새로 입고된 상품"} data={data["animal_new"]} url = {"/shop/new"}/>}
+            {data && <Products name={`🐕 인기 ${"강아지"} 상품`}  data={data["animal_hot"]} url = {"/shop/hot"}/>}
+            {data && <Products name={"✨ 맞춤"}  data={data["animal_custom"]} url = {"/shop/all"}/>}
 
 
     </>

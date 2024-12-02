@@ -1,0 +1,44 @@
+.detail-info{
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+
+
+
+  img{
+    width: 560px;
+    height: 560px;
+    border-radius: 24px/24px;
+    object-fit: cover;
+
+
+  }
+  .name-section{
+    .icon{
+      font-size: 24px;
+      color: #ffe003;
+    }
+
+    display: flex;
+    gap: 8px;
+  }
+
+  .detail-info-text{
+    display: flex;
+    width: 560px;
+    flex-direction: column;
+
+
+  }
+
+  .two-buttons{
+    display: flex;
+
+
+  }
+
+
+
+}

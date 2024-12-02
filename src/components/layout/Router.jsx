@@ -34,6 +34,8 @@ import PetInfoPage from "../../pages/member/PetInfoPage";
 import SellerOrderAccept from "../../pages/shop/seller/sellerOrderAccept";
 import SellerOrderDetail from "../shop/seller/SellerOrderDetail";
 import CancelSuccess from "../../pages/shop/order/cancelSuccess";
+import SellerManagement from "../shop/admin/SellerManagement";
+import ProductManagement from "../../pages/shop/admin/ProductManagement";
 import PasswordFinder from "../../pages/member/PasswordFinder";
 
 const Router = (props) => {
@@ -91,7 +93,9 @@ const Router = (props) => {
                         <Route path="/seller/item/list" element={<SellerItemList/>}/>
 
                         <Route path="/order/delivery" element={<DeliveryInfo/>}/>
-                        <Route path="/admin/:menu" element={<Admin/>}/>
+                        <Route path="/admin/seller" element={<SellerManagement/>}/>
+                        <Route path="/admin/product" element={<ProductManagement/>}/>
+
                         <Route path="/seller/register" element={<SellerRegister/>}/>
                         <Route path="/seller/register/success" element={<Information case ="seller" />}/>
 

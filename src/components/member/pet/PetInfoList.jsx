@@ -6,20 +6,14 @@ import PetInfoDetail from "./PetInfoDetail";
 import {Link} from "react-router-dom";
 
 const PetInfoList = ({setSelectedPet, data ,isEdited, setIsEdited}) => {
-    const [leaderSelection, setLeaderSelection] = useState(false)
 
-
-
-    const changeLeaderHandler = ()=> {
-        setLeaderSelection(true)
-    }
 
     return (<>
             {/*<button onClick={changeLeaderHandler}>대표 동물 변경하기</button>*/}
                 <div className={"pet-profile-container"}>
                     {data && data.map((item, index) => {
-                        return <PetInfo leaderSelection={leaderSelection} setSelectedPet={setSelectedPet}
-                                        setLeaderSelection={setLeaderSelection} index ={index}
+                        return <PetInfo setSelectedPet={setSelectedPet}
+                                        index ={index} key={item.id}
                                         item={item} setIsEdited={setIsEdited} isEdited={isEdited}/>
                         }
                     )}

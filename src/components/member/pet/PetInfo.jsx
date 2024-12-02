@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {weightOptions,catBreedOptions,dogBreedOptions,ageOptions} from "../../../utils/petOptions";
 import "../../../assets/styles/member/petInfo.scss"
 
-const PetInfo = ({item, index, setIsEdited, isEdited, leaderSelection, setLeaderSelection, setSelectedPet}) => {
+const PetInfo = ({item, index, setIsEdited, isEdited, setSelectedPet}) => {
 
     const navigate = useNavigate();
 
@@ -29,17 +29,7 @@ const PetInfo = ({item, index, setIsEdited, isEdited, leaderSelection, setLeader
         })
     }
 
-    const handleSetLeader = ()=> {
-        instance({
-            url : `/pet/leader/${item.id}`,
-            method:'PATCH',
-        }).then(res=>{
-            console.log(res)
-            setLeaderSelection(false)
-        }).catch((error) => {
-            console.log(error)
-        })
-    }
+
 
     const handleSelect = () =>{
         setSelectedPet(index)
@@ -58,15 +48,10 @@ const PetInfo = ({item, index, setIsEdited, isEdited, leaderSelection, setLeader
                 <span>{item["is_neutered"]}</span>
             </div>
             <div className={"button-section"}>
-                {
-                    leaderSelection ?
-                        <button className={"select-btn"} onClick={handleSetLeader}>대표로 설정</button> :
-                        <>
-                            <button className={"edit-btn"} onClick={handleEdit}>수정하기</button>
-                            <button className={"delete-btn"} onClick={handleDelete}>삭제하기</button>
-                        </>
 
-                }
+                <button className={"edit-btn"} onClick={handleEdit}>수정하기</button>
+                <button className={"delete-btn"} onClick={handleDelete}>삭제하기</button>
+
             </div>
 
         </Card>

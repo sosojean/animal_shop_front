@@ -31,7 +31,7 @@ const PetInfoPage = () => {
         <div className={"pet-info-container"}>
             {data && <>
                 <PetInfoList setSelectedPet={setSelectedPet} data={data} setIsEdited={setIsEdited} isEdited={isEdited}/>
-                <PetInfoDetail item={data[selectedPet]}/></>}
+                <PetInfoDetail item={data[selectedPet]}  setIsEdited={setIsEdited} isEdited={isEdited}/></>}
         </div>
     );
 };
