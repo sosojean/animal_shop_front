@@ -44,41 +44,43 @@ const AdoptDetail = () => {
                 <div className="img-container">
                     <img src={detailData.popfile}/>
                 </div>
-                <div>
-                    <div>
-                        <div>
+                <div className="info-container">
+                    <div className="basic-container">
+                        <span>
                             {detailData.upkind === 417000 ? "강아지" : 
                                 detailData.upkind === 422400 ? "고양이" : "기타"}
-                        </div>
-                        <div>{detailData.kindCd}</div>
-                        <div>{detailData.age}</div>
+                        </span>
+                        <span>{" / "}{detailData.kindCd}</span>
+                        <span>{" / "}{detailData.age}</span>
                     </div>
-                    <div>
+                    <div className="feature-container">
                         <div>
-                            <div>
+                            <span>
                                 {detailData.sexCd === 'F' ? "여아" : 
                                     detailData.sexCd === 'M' ? "남아" : "성별미상"}
-                            </div>
-                            <div>중성화 {detailData.neuterYn}</div>
-                            <div>색 {detailData.colorCd}</div>
-                            <div>무게 {detailData.weight}</div>
+                            </span>
+                            <span>{" / "}중성화 {detailData.neuterYn}</span>
+                            <span>{" / "}{detailData.colorCd}</span>
+                            <span>{" / "}무게 {detailData.weight}</span>
                         </div>
                         <div>
-                            특이사항 {detailData.specialMark}
+                            <p>특이사항 {detailData.specialMark}</p>
                         </div>
                     </div>
-                    <div>
-                        <div>상태 {detailData.specialMark}</div>
-                        <div>공고번호 {detailData.processState}</div>
-                        <div>공고기간 {detailData.noticeSdt} ~ {detailData.noticeEdt}</div>
-                        <div>발견장소 {detailData.happenPlace}</div>
+                    <div className="period-container">
+                        <p>상태 {detailData.processState}</p>
+                        <p>공고번호 {detailData.noticeNo}</p>
+                        <p>공고기간 {detailData.noticeSdt} ~ {detailData.noticeEdt}</p>
+                        <p>발견장소 {detailData.happenPlace}</p>
                     </div>
                     <div>
                         <div>
-                            <div>보호소 {detailData.careNm}</div>
-                            <div>보호소 연락처 {detailData.careTel}</div>
+                            <span>보호소 {detailData.careNm}</span>
+                            <span>{" / "}보호소 연락처 {detailData.careTel}</span>
                         </div>
-                        <div> 보호주소 {detailData.careAddr} </div>
+                        <div> 
+                            <p>보호주소 {detailData.careAddr} </p>
+                        </div>
                     </div>
                 </div>
             </Card>        

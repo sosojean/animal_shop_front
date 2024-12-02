@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../assets/styles/additional/adoptAnimal.scss"
 import AdoptList from "../../components/additional/AdoptList";
+import AdoptFilterMax from "../../components/additional/AdoptFilterMax";
 
 const AdoptAnimal = () => {
 
@@ -35,6 +36,7 @@ const AdoptAnimal = () => {
 
     return (
         <div>
+            <AdoptFilterMax/>
             {data &&
                 <AdoptList data={data}/>
             }
