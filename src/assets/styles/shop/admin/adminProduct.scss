@@ -1,0 +1,40 @@
+
+.admin-products{
+  .admin-product{
+    //margin-bottom: 8px;
+
+    width: 100%;
+  .product{
+    justify-content: space-between;
+
+    display: flex;
+    flex-direction: row;
+    img,button{
+
+      width: 50px;
+    }
+
+
+    .product-info{
+      align-items: center;
+      width: 940px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .title{
+        width:500px;
+      }
+      span{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        //text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+    }
+  }
+  .reason{
+    width: 100%;
+  }
+
+}}

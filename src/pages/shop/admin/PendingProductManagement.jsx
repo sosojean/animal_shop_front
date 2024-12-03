@@ -8,9 +8,10 @@ import Products from "../../../components/shop/product/Products";
 import SellerItem from "../../../components/shop/seller/itemList/SellerItem";
 import AdminProduct from "../../../components/shop/admin/AdminProduct";
 import Pagination from "../../../components/board/Pagination";
+import instance from "../../../utils/axios";
 import ProductSearchHeader from "../../../components/shop/admin/ProductSearchHeader";
 
-const ProductManagement = () => {
+const PendingProductManagement = () => {
     const [data, setData] = useState()
     const [page, setPage] = useState(1)
     const [isEdited, setIsEdited] = useState(false)
@@ -18,8 +19,8 @@ const ProductManagement = () => {
 
 
     useEffect(() => {
-        axios({
-            url:`http://localhost:8080/shop/best?page=${page}`,
+        instance({
+            url:`/admin/stop_list`,
             method: "get",
         }).then(res=>{
             console.log(res.data)
@@ -33,20 +34,30 @@ const ProductManagement = () => {
 
     return (
         <div>
-            <AdminMenu/>
 
-            <span>판매 상품 관리</span>
+            <AdminMenu/>
+            <span>중단 상품 관리</span>
+
+
             <ProductSearchHeader/>
+
+
             <div className="admin-product">
+
                 <div className="product">
+
+                    <span> 이미지 </span>
                     <div className="product-info">
-                        <span> 이미지 </span>
                         <span className="title">상품명</span>
                         <span className="brand">판매자</span>
                         <span className="price">가격</span>
-                        <span>판매중단</span>
+
                     </div>
+                    <span>판매중단</span>
+
                 </div>
+
+
             </div>
 
 
@@ -54,7 +65,8 @@ const ProductManagement = () => {
                 {data && data.map(
                     item => {
                         return <AdminProduct key={item.id} item={item}
-                                             isEdited={isEdited} setIsEdited={setIsEdited}/>}
+                                             isEdited={isEdited} setIsEdited={setIsEdited}/>
+                    }
                 )}
             </div>
             <Pagination itemPerPage={20} currentPage={page} handlePageChange={setPage} totalPost={totalPost}/>
@@ -62,4 +74,4 @@ const ProductManagement = () => {
     );
 };
 
-export default ProductManagement;
+export default PendingProductManagement;
