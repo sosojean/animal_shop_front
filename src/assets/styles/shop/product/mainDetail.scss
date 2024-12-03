@@ -17,8 +17,12 @@
             grid-template:  1fr 1fr 1fr 1fr 1fr/1fr 1fr 1fr 1fr ;
 
             img{
+
+                aspect-ratio: 1;
+                object-fit: cover;
                 width: 100%;
                 height: 100%;
+
 
             }
             .main-img {
@@ -35,17 +39,19 @@
         //overflow:hidden;
 
     .inner-img-container{
+        display:none;
         position: absolute;
         width:648px;
         height: 648px;
+
         overflow: hidden;
         top: 0px; left: 0;
-        .zoom-img{
+        .zoom-img
+        {
             width:1664px;
         }
     }
 }
-
 
     .detailTextContainer {
         width: 60%;

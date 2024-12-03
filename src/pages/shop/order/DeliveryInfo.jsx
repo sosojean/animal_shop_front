@@ -30,8 +30,8 @@ const DeliveryInfo = (props) => {
     // const [address, setAddress] = useState()
     const {state} = useLocation();
     console.log("state", state);
-    console.log("state.cart.cartDetailDTOList", state.cart.items.cartDetailDTOList);
-    console.log("state.cart.isCart", state.isCart.items);
+    // console.log("state.cart.cartDetailDTOList", state.cart.items.cartDetailDTOList);
+    // console.log("state.cart.isCart", state.isCart.items);
 
     useEffect(() => {
         console.log(deliveryInfo);
