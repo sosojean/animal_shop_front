@@ -38,6 +38,7 @@ const MyPageEdit = (props) => {
                 method: "GET"
             })
             if (response && response.data) {
+                setImgUrl(response.data.profile);
                 setUsername(response.data.username);
 
                 setName(response.data.nickname);
@@ -48,7 +49,7 @@ const MyPageEdit = (props) => {
 
                 setRole(response.data.role);
 
-                // console.log(response.data)
+                console.log(response.data)
             }
         }
         fetchData()
@@ -62,22 +63,31 @@ const MyPageEdit = (props) => {
         if (inputEmail != email && inputName != name) {
             data = {
                 mail: email,
-                nickname: name
+                nickname: name,
+                profile:imgUrl
+
             }
         } else if (inputName != name) {
             data = {
-                nickname: name
+                nickname: name,
+                profile:imgUrl
+
             }
 
         } else if (inputEmail != email) {
             data = {
-                mail: email
+                mail: email,
+                profile:imgUrl
+
             }
 
         } else {
-            return
+            data = {
+                profile:imgUrl
+            }
         }
 
+        console.log("data",data)
 
         if (emailInvalid) {
             setInvalidRequest(true)
@@ -90,8 +100,12 @@ const MyPageEdit = (props) => {
             }).then(response => {
                 setIsModified(true);
                 setSubmitted(!submitted);
+                console.log(response)
             })
-                .catch(error => errorHandler(error.response.data.error))
+                .catch(error => {
+                    console.log(error)
+                    errorHandler(error.response.data.error)
+                })
 
         }
     }
@@ -129,9 +143,7 @@ const MyPageEdit = (props) => {
 
         if (regName.test(name)) {
             setNameInvalid(false);
-            // console.log("닉네임 유효");
         } else {
-            // console.log("닉네임 무효");
             setNameInvalid(true);
         }
 
@@ -142,8 +154,6 @@ const MyPageEdit = (props) => {
         setIsModified(false);
         setNameAlreadyExist(false);
         setEmailAlreadyExist(false);
-
-
     }
 
 
@@ -171,7 +181,6 @@ const MyPageEdit = (props) => {
 
             if (resultAgain) {
                 // console.log("회원탈퇴")
-
                 deleteUser();
             } else {
                 // console.log("탈퇴안함")
@@ -193,7 +202,8 @@ const MyPageEdit = (props) => {
             method: 'POST',
             data: formData,
         }).then((response) => {
-            setImgUrl(`http://localhost:8080/file/image-print?filename=${response.data}`)
+            console.log(response.data)
+            setImgUrl(response.data)
         }).catch((error) => {
             console.log(error)
         })
@@ -204,7 +214,7 @@ const MyPageEdit = (props) => {
             <div className="box">
                 {/*<FontAwesomeIcon className={"icon"} icon={faUserPen}/>*/}
 
-                {imgUrl ? <img src={imgUrl} alt=""/>: <>
+                {imgUrl ? <img src={`http://localhost:8080/file/image-print?filename=${imgUrl}`} alt=""/>: <>
                     <label className="edit-profile-image" htmlFor="profile">
                         <FontAwesomeIcon className={"icon"} icon={faUser}/>
                         <FontAwesomeIcon icon={faPen}/>
@@ -215,12 +225,6 @@ const MyPageEdit = (props) => {
                 </>
 
                 }
-
-                {/*<label className="edit-profile-image" htmlFor="profile">*/}
-                {/*    <FontAwesomeIcon className={"icon"} icon={faUser}/>*/}
-                {/*    <FontAwesomeIcon icon={faPen}/>*/}
-                {/*</label>*/}
-                {/*<input onChange={imageUploadHandler} accept="image/*" id="profile" type="file" style={{display: "none"}}/>*/}
 
                 <form action="post">
                     <span>아이디</span>

@@ -38,6 +38,8 @@ import ProductManagement from "../../pages/shop/admin/ProductManagement";
 import PasswordFinder from "../../pages/member/PasswordFinder";
 import AdoptAnimal from "../../pages/additional/AdoptAnimal";
 import AdoptDetail from "../additional/AdoptDetail";
+import PendingProductManagement from "../../pages/shop/admin/PendingProductManagement";
+import AdminStatAnalysis from "../../pages/shop/admin/AdminStatAnalysis";
 
 const Router = (props) => {
     return (
@@ -50,54 +52,55 @@ const Router = (props) => {
                         <Route path="/" element={<Home isAuth={props.isAuth}/>}/>
                         <Route path="/:category" element={<Home isAuth={props.isAuth}/>}/>
 
-                        {/*<Route path="/item/:itemId" element={<ItemDetail/>}/>*/}
-                        {/*<Route path="/test" element={<Test/>}/> /!*라우터 사용 예시*!/*/}
-                        {/*<Route path="/best" element={<Best/>}/>*/}
-                        {/*<Route path="/new" element={<New/>}/>*/}
+                        {/*회원*/}
                         <Route path="/join" element={<Join/>}/>
                         <Route path="/login" element={<Login reload={props.reload} setReload={props.setReload}/>}/>
                         <Route path="/password" element={<PasswordFinder/>} />
                         <Route path="/post/write" element={<PostWrite/>}/>
                         <Route path="/join/success" element={<Information case ="join" />}/>
-                        <Route path="/pet/register" element={<PetRegister />}/>
+                        <Route path="/mypage" element={<MyPage/>}/>
+                        <Route path="/mypage/edit" element={<MyPageEdit/>}/>
 
+                        {/*회원-펫등록*/}
+                        <Route path="/pet/register" element={<PetRegister />}/>
                         <Route path="/pet/info" element={<PetInfoPage />}/>
                         <Route path="/pet/edit/:petId" element={<PetInfoEdit />}/>
 
 
-                        <Route path="/mypage" element={<MyPage/>}/>
-
-                        <Route path="/mypage/edit" element={<MyPageEdit/>}/>
+                        {/*게시판*/}
                         <Route path="/:category/:post_id" element={<ContentsViewer/>}/>
                         <Route path="/search" element={<Search/>}/>
 
+                        {/*스토어*/}
                         <Route path="/shop" element={<ShopMain/>}/>
                         <Route path="/shop/:category" element={<AllProduct/>}/>
                         <Route path="/shop/detail/:itemId" element={<ProductDetail/>}/>
                         <Route path="/pay/success" element={<Information case ="orderSuccess" />}/>
                         <Route path="/cancel/success" element={<CancelSuccess/>}/>
 
+                        {/*장바구니*/}
                         <Route path="/cart" element={<Cart/>}/>
 
-                        {/* 상품 등록, 수정 */}
-                        <Route path="/seller/item/new" element={<SellerItemRegister/>}/>
-                        <Route path="/seller/item/edit/:itemId" element={<SellerItemRegister/>}/>
+                        {/*판매자*/}
                         <Route path="/seller" element={<SellerMain/>}/>
+                        <Route path="/seller/item/new" element={<SellerItemRegister/>}/>
+                        <Route path="/seller/item/list" element={<SellerItemList/>}/>
+                        <Route path="/seller/item/edit/:itemId" element={<SellerItemRegister/>}/>
                         <Route path="/seller/qna" element={<SellerQnA/>}/>
                         <Route path="/seller/orders" element={<SellerOrderAccept/>}/>
                         <Route path="/seller/orders/detail/:orderId" element={<SellerOrderDetail/>}/>
-
-                        {/* 상품 등록 테스트 */}
-                        {/* <Route path="/seller/test" element={<SellerItemEditor/>}/>
-                        <Route path="/seller/test/:itemId" element={<SellerItemEditor/>}/> */}
-                        <Route path="/seller/item/list" element={<SellerItemList/>}/>
-
-                        <Route path="/order/delivery" element={<DeliveryInfo/>}/>
-                        <Route path="/admin/seller" element={<SellerManagement/>}/>
-                        <Route path="/admin/product" element={<ProductManagement/>}/>
-
                         <Route path="/seller/register" element={<SellerRegister/>}/>
                         <Route path="/seller/register/success" element={<Information case ="seller" />}/>
+
+                        {/*주문*/}
+                        <Route path="/order/delivery" element={<DeliveryInfo/>}/>
+
+                        {/*관리자*/}
+                        <Route path="/admin/seller" element={<SellerManagement/>}/>
+                        <Route path="/admin/product" element={<ProductManagement/>}/>
+                        <Route path="/admin/product/pending" element={<PendingProductManagement/>}/>
+                        <Route path="/admin/analysis" element={<AdminStatAnalysis/>}/>
+
 
                         {/* 입양 */}
                         <Route path="/adoption" element={<AdoptAnimal/>}/>
