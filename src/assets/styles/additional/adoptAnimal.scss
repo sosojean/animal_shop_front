@@ -31,7 +31,7 @@
             .filter-util-container {
                 
                 display: flex;
-                
+
                 .open-button {
 
                     border: none;
@@ -63,6 +63,23 @@
 
         @include selector-style;
     }
+}
+
+.filter-breed-container {
+
+    .filter-breed-list {
+
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px; /* 카드 사이의 간격 */
+        padding: 16px; /* 컨테이너 안쪽 여백 */
+
+        .filter-breed-item {
+            display: flex;
+        }        
+    }
+
+
 }
 
 .adopt-list-container {

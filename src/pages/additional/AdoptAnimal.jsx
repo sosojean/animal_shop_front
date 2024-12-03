@@ -6,7 +6,8 @@ import AdoptFilterMax from "../../components/additional/AdoptFilterMax";
 
 const AdoptAnimal = () => {
 
-    const [data, setData] = useState()
+    const [data, setData] = useState();
+    const [selectedItems, setSelectedItems] = useState([]);
 
     const URL = "http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic";
 
@@ -36,7 +37,10 @@ const AdoptAnimal = () => {
 
     return (
         <div>
-            <AdoptFilterMax/>
+            <AdoptFilterMax
+                selectedItems={selectedItems}
+                setSelectedItems={setSelectedItems}
+            />
             {data &&
                 <AdoptList data={data}/>
             }

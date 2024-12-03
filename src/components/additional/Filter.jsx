@@ -4,11 +4,11 @@ import { faList } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const Filter = (props) => {
-  const { className, placeholder, array, isClick } = props;
+  const { className, placeholder, array, isClick,
+    selectedItems, setSelectedItems
+  } = props;
 
-  // TODO selectedItems를 이용해 겟 요청 후 부모 컴포넌트로 data 전송
-  // (props로 부모 컴포넌트의 데이터 state를 받으면 됨)
-  const [selectedItems, setSelectedItems] = useState([]);
+  // const [selectedItems, setSelectedItems] = useState([]);
   // console.log("selectedItems", selectedItems);
   const [secondClick, setSecondClick] = useState(false);
   const [searchText, setSearchText] = useState(""); // 검색어 상태
@@ -22,7 +22,7 @@ const Filter = (props) => {
       )
     : filterArray;
 
-  const handleCheckboxChange = (key) => {
+  const handleCheckboxChange = (key, name) => {
     setSelectedItems((prevSelectedItems) => {
       // 존재하는지 확인
       const existingIndex = prevSelectedItems.findIndex(
@@ -37,7 +37,7 @@ const Filter = (props) => {
         return newSelectedItems;
       } else {
         // Add the item if it's not selected
-        return [...prevSelectedItems, { key, value: true }];
+        return [...prevSelectedItems, { key, value: true, name: name }];
       }
     });
   };
@@ -74,7 +74,7 @@ const Filter = (props) => {
                             <input
                             type="checkbox"
                             checked={isChecked}
-                            onChange={() => handleCheckboxChange(key)}
+                            onChange={() => handleCheckboxChange(key, value)}
                             />
                         </div>
                         );
