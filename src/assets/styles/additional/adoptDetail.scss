@@ -1,0 +1,37 @@
+@mixin container-gap {
+    margin: 1rem 0 1rem 0;
+}
+
+.adopt-detail-container{
+    display: flex;
+    margin-top: 5rem;
+    font-size: 1.5rem;
+    // @include container-gap;
+
+    .img-container {
+        
+        margin-right: 5rem;
+
+        img {
+            width: 400px;
+            height: 400px;
+        }
+    
+    }
+    
+    .info-container {
+
+        .basic-container {
+            margin: 0 0 1rem 0;
+        }
+
+        .feature-container {
+            margin: 1rem 0 1rem 0;
+        }
+
+        .period-container {
+            margin: 1rem 0 1rem 0;
+        }
+        
+    }
+}

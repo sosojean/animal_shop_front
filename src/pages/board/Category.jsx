@@ -14,7 +14,7 @@ const Category = (props) => {
                         <Link to="/free">
                             <li>🐶 보험</li>
                         </Link>
-                        <Link to="/question">
+                        <Link to="/adoption">
                             <li>🐱 입양</li>
                         </Link>
                         <Link to="/ootd">
