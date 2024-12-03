@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "../../assets/styles/additional/adoptAnimal.scss"
 import AdoptList from "../../components/additional/AdoptList";
 import AdoptFilterMax from "../../components/additional/AdoptFilterMax";
+import AdoptFilterMini from "../../components/additional/AdoptFilterMini";
 
 const AdoptAnimal = () => {
 
@@ -10,6 +11,7 @@ const AdoptAnimal = () => {
     const [selectedItems, setSelectedItems] = useState([]);
 
     const URL = "http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic";
+    const URLTEST = "http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic/sido";
 
     const getApiData = () => {
         axios({
@@ -40,6 +42,8 @@ const AdoptAnimal = () => {
             <AdoptFilterMax
                 selectedItems={selectedItems}
                 setSelectedItems={setSelectedItems}
+            />
+            <AdoptFilterMini
             />
             {data &&
                 <AdoptList data={data}/>
