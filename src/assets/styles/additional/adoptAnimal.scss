@@ -28,11 +28,33 @@
 
         .breed-filter {
 
-            .select-container{
+            .filter-util-container {
                 
-                .select-item {
-                    display: flex;
+                display: flex;
+                
+                .open-button {
+
+                    border: none;
+                    background-color: transparent;
+    
                 }
+            }
+
+            .select-container{
+
+                // height: 200px;
+
+                .select-list {
+
+                    height: 200px;
+                    overflow-y: auto;
+
+                    .select-item {
+                        display: flex;
+                    }                    
+                }
+                
+
             }
         }
     }

@@ -1,37 +1,92 @@
 import { useState } from "react";
-import { catBreedSelector, dogBreedSelector } from "../../utils/petOptions";
-
+import Card from "../common/Card";
+import { faList } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const Filter = (props) => {
+  const { className, placeholder, array, isClick } = props;
 
-    const {
-        className, placeholder
-    } = props;
+  // TODO selectedItems를 이용해 겟 요청 후 부모 컴포넌트로 data 전송
+  // (props로 부모 컴포넌트의 데이터 state를 받으면 됨)
+  const [selectedItems, setSelectedItems] = useState([]);
+  // console.log("selectedItems", selectedItems);
+  const [secondClick, setSecondClick] = useState(false);
+  const [searchText, setSearchText] = useState(""); // 검색어 상태
 
-    const [selectedBreed, setSelectedBreed] = useState()
+  const filterArray = Object.entries(array);
 
+  // 검색 필터링 로직
+  const filteredArray = searchText
+    ? filterArray.filter(([key, value]) =>
+        value.toLowerCase().includes(searchText.toLowerCase())
+      )
+    : filterArray;
 
-    // TODO 부모 컴포넌트에서 받아오기
-    const dogBreedArray = dogBreedSelector;
-    const catBreedArray = Object.entries(catBreedSelector);
+  const handleCheckboxChange = (key) => {
+    setSelectedItems((prevSelectedItems) => {
+      // 존재하는지 확인
+      const existingIndex = prevSelectedItems.findIndex(
+        (item) => item.key === key
+      );
 
-    // TODO 고양이인지 개인지 확인하는 STATE 받아오기
+      // Toggle the selection state
+      if (existingIndex >= 0) {
+        // Remove the item if it's already selected
+        const newSelectedItems = [...prevSelectedItems];
+        newSelectedItems.splice(existingIndex, 1);
+        return newSelectedItems;
+      } else {
+        // Add the item if it's not selected
+        return [...prevSelectedItems, { key, value: true }];
+      }
+    });
+  };
 
-    return (
-        <div className={className}>
-            <input placeholder={placeholder}/>
+  return (
+    <>
+      {isClick && (
+        <Card className={className}>
+          <div className="filter-util-container">
+            <input
+                type="text"
+                placeholder={placeholder}
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)} // 검색어 상태 업데이트
+            />
+            <button
+                onClick={() => setSecondClick(!secondClick)}
+                className="open-button"
+            >
+                <FontAwesomeIcon icon={faList}/>   
+            </button>            
+          </div>
+          {secondClick && (
             <div className="select-container">
-                {catBreedArray.map(([key, value]) => {
-                    return (
+                <div className="select-list">
+                    {filteredArray.map(([key, value]) => {
+                        const isChecked = selectedItems.some(
+                        (item) => item.key === key
+                        );
+
+                        return (
                         <div key={key} className="select-item">
                             <p>{value}</p>
-                            <input type="checkbox" />
+                            <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => handleCheckboxChange(key)}
+                            />
                         </div>
-                    );
-                })}
+                        );
+                    })}
+                </div>
+                <button>적용</button>
             </div>
-        </div>
-    )
-}
+          )}
+        </Card>
+      )}
+    </>
+  );
+};
 
 export default Filter;
