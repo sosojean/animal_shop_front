@@ -9,11 +9,42 @@ const FilterRegion = (props) => {
 
     const [secondClick, setSecondClick] = useState(false);
     const [thirdClick, setThirdClick] = useState(false);
-    const [currentCode, setCurrentCode] = useState();
-    const [currentSubCode, setCurrentSubCode] = useState();
+    const [currentName, setCurrentName] = useState();
+    const [currentSubName, setCurrentSubName] = useState();
 
     const filterArray = array;
-    const subFilterArray = array.find(value => value.uprCd === currentCode)?.subcategories ?? [];
+    const subFilterArray = array.find(value => value.name === currentName)?.subcategories ?? [];
+
+    const getLocationData = (reset, city, subCity = '', selectedKey = 'location') => {
+        setSelectedItems((prevSelectedItems) => {
+        //   const locationArray = prevSelectedItems[selectedKey] || [];
+
+          let newLocationArray;
+
+          if (reset) {
+            newLocationArray = [];
+          } else {
+            newLocationArray = [city, subCity];
+          }
+          
+          return {
+            ...prevSelectedItems,
+            [selectedKey]: newLocationArray
+          }
+        })
+    };
+
+    const handleResetLocation = (selectedKey = 'location') => {
+        setSelectedItems((prevSelectedItems) => {
+    
+            let newLocationArray = [];
+              
+            return {
+                ...prevSelectedItems,
+                [selectedKey]: newLocationArray
+            }
+        })
+    }
 
     return (
         <>
@@ -22,14 +53,17 @@ const FilterRegion = (props) => {
                 <div className="select-container">
                     <p>시/도</p>
                     <button onClick={() => setSecondClick(!secondClick)}>
-                        {filterArray.find(value => value.uprCd === currentCode)?.name ?? "시/도 선택"}
+                        {filterArray.find(value => value.name === currentName)?.name ?? "시/도 선택"}
                     </button>
                     {secondClick && 
                         <div className="select-list">
                             {filterArray?.map((value, index) => {
                                     return (
-                                    <p key={value.uprCd}
-                                        onClick={() => setCurrentCode(value.uprCd)}>
+                                    <p key={index}
+                                        onClick={() => {
+                                            setCurrentName(value.name);
+                                            getLocationData(false, value.name, '');
+                                        }}>
                                         {value.name}
                                     </p>
                                     );
@@ -39,23 +73,29 @@ const FilterRegion = (props) => {
                 
                 </div>
                 <div className="select-container">
-                    <p>군/구</p>
+                    <p>시/군/구</p>
                     <button onClick={() => setThirdClick(!thirdClick)}>
-                        {subFilterArray.find(value => value.orgCd === currentSubCode)?.name ?? "시/도 선택"}
+                        {subFilterArray.find(value => value === currentSubName) ?? "시/도 선택"}
                     </button>
                     {thirdClick && 
                         <div className="select-list">
                             {subFilterArray?.map((value, index) => {
                                     return (
-                                    <p key={value.orgCd}
-                                        onClick={() => setCurrentSubCode(value.orgCd)}>
-                                        {value.name}
+                                    <p key={index}
+                                        onClick={() => {
+                                            setCurrentSubName(value);
+                                            getLocationData(false, currentName, value);
+                                        }}>
+                                        {value}
                                     </p>
                                     );
                             })}
                         </div>               
                     }
-                
+                </div>
+                <div>
+                    <button>적용</button>
+                    <button onClick={() => getLocationData(true)}>초기화</button>       
                 </div>
             </Card>            
         }

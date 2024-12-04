@@ -1,57 +1,51 @@
 import { useState } from "react"
 import FilterMini from "./FilterMini";
+import FilterMiniAge from "./FilterMiniAge";
 
 
 const AdoptFilterMini = (props) => {
 
-    const processState = [
-        { code: "all", name: "전체" },
-        { code: "protection", name: "보호" },
-        { code: "announcement", name: "공고" }
-    ];
+    const {
+        subSelectedItems, setSubSelectedItems
+    } = props;
 
-    const gender = [
-        { code: "all", name: "전체" },
-        { code: "female", name: "여아" },
-        { code: "male", name: "남아" }
-    ]
+    const status = [{code: "T", name: "보호중"}, {code: "F", name: "공고중"}];
 
-    // TODO 나이 물어보고 나중에 만들기
+    const sex = [{code: "M", name: "남아"}, {code:"F", name:"여아"}, 
+        {code:"Q", name:"알수없음"}];
 
-    const petAttributes = [
-        { code: "processState", name: "상태" },
-        { code: "age", name: "나이" },
-        { code: "gender", name: "성별" },
-        { code: "neutered", name: "중성화" }
-      ];
+    const age = [{code: 1, name: "1살 미만"}, {code: 5, name: "1살 ~ 5살"}, 
+        {code: 9, name: "6살 ~ 9살"}, {code: 10, name: "10살 이상"}]
 
-    const neutered = [
-        { code: "all", name: "전체" },
+    const neuter = [
         { code: "Y", name: "완료" },
         { code: "N", name: "미완료" },
-        { code: "Q", name: "알 수 없음" }
+        { code: "U", name: "알수없음" }
     ]
+
+    const petAttributes = [
+        { code: "status", name: "상태" },
+        { code: "age", name: "나이" },
+        { code: "sex", name: "성별" },
+        { code: "neuter", name: "중성화" }
+    ];
 
     const [allShow, setAllShow] = useState(false);
     const [showState, setShowState] = useState({
-        processState: false,
+        status: false, // status
         age: false,
-        gender: false,
-        neutered: false
+        sex: false,
+        neuter: false
       });
-
-    const [selectedItems, setSelectedItems] = useState({})
-
-    console.log("selectedItems", selectedItems);
     
     // 해당 항목의 상태를 토글하는 함수
     const toggleShow = (code) => {
         setShowState((prevState) => {
           const newState = {
-            processState: false,
+            status: false,
             age: false,
-            gender: false,
-            neutered: false
+            sex: false,
+            neuter: false
           };
           newState[code] = !prevState[code]; // 클릭한 항목만 반전
           return newState;
@@ -73,28 +67,35 @@ const AdoptFilterMini = (props) => {
                     })}
                 </ul>            
             }
-            {showState.processState && 
+            {showState.status && 
                 <FilterMini
-                    data = {processState}
-                    keyName = "processState"
-                    selectedItems = {selectedItems}
-                    setSelectedItems = {setSelectedItems}
+                    data = {status}
+                    keyName = "status"
+                    selectedItems = {subSelectedItems}
+                    setSelectedItems = {setSubSelectedItems}
                 />}
-            {showState.age && <div>age</div>}
-            {showState.gender && 
+            {showState.age &&
+                <FilterMiniAge
+                    data = {age}
+                    keyName = "age"
+                    selectedItems = {subSelectedItems}
+                    setSelectedItems = {setSubSelectedItems}
+                />
+            }
+            {showState.sex && 
                 <FilterMini
-                    data = {gender}
-                    keyName = "gender"
-                    selectedItems = {selectedItems}
-                    setSelectedItems = {setSelectedItems}
+                    data = {sex}
+                    keyName = "sex"
+                    selectedItems = {subSelectedItems}
+                    setSelectedItems = {setSubSelectedItems}
                 />            
             }
-            {showState.neutered &&
+            {showState.neuter &&
                 <FilterMini
-                    data = {neutered}
-                    keyName = "neutered"
-                    selectedItems = {selectedItems}
-                    setSelectedItems = {setSelectedItems}
+                    data = {neuter}
+                    keyName = "neuter"
+                    selectedItems = {subSelectedItems}
+                    setSelectedItems = {setSubSelectedItems}
                 />     
             }
         </div>

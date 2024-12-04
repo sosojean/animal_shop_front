@@ -8,8 +8,6 @@ const Filter = (props) => {
     selectedItems, setSelectedItems
   } = props;
 
-  // const [selectedItems, setSelectedItems] = useState([]);
-  // console.log("selectedItems", selectedItems);
   const [secondClick, setSecondClick] = useState(false);
   const [searchText, setSearchText] = useState(""); // 검색어 상태
 
@@ -22,23 +20,28 @@ const Filter = (props) => {
       )
     : filterArray;
 
-  const handleCheckboxChange = (key, name) => {
+  const handleCheckboxChange = (key, name, selectedKey = 'breed') => {
     setSelectedItems((prevSelectedItems) => {
-      // 존재하는지 확인
-      const existingIndex = prevSelectedItems.findIndex(
-        (item) => item.key === key
-      );
-
-      // Toggle the selection state
+      // breed 배열 찾기
+      const breedArray = prevSelectedItems[selectedKey] || [];
+  
+      // breed 배열에서 해당 항목 찾기
+      const existingIndex = breedArray.findIndex(item => item.key === key);
+  
+      let newBreedArray;
       if (existingIndex >= 0) {
-        // Remove the item if it's already selected
-        const newSelectedItems = [...prevSelectedItems];
-        newSelectedItems.splice(existingIndex, 1);
-        return newSelectedItems;
+        // 이미 선택된 항목이면 제거
+        newBreedArray = breedArray.filter(item => item.key !== key);
       } else {
-        // Add the item if it's not selected
-        return [...prevSelectedItems, { key, value: true, name: name }];
+        // 선택되지 않은 항목이면 추가
+        newBreedArray = [...breedArray, { key, checked: true, name }];
       }
+  
+      // 새로운 상태 반환
+      return {
+        ...prevSelectedItems,
+        [selectedKey]: newBreedArray
+      };
     });
   };
 
@@ -64,9 +67,9 @@ const Filter = (props) => {
             <div className="select-container">
                 <div className="select-list">
                     {filteredArray.map(([key, value]) => {
-                        const isChecked = selectedItems.some(
+                        const isChecked = selectedItems?.breed?.some(
                         (item) => item.key === key
-                        );
+                        ) || false;
 
                         return (
                         <div key={key} className="select-item">

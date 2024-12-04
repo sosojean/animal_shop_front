@@ -4,10 +4,22 @@ const FilterMini = (props) => {
 
     const {data, keyName, selectedItems, setSelectedItems} = props;
 
-    const handleAddItem = (code) => {
-        setSelectedItems({
-            ...selectedItems,
-            [keyName]: code
+    // console.log("FilterMini", keyName);
+
+    const handleAddItem = (status, selectedKey = keyName) => {
+        setSelectedItems((prevSelectedItems) => {
+
+            const keyIndex = prevSelectedItems.findIndex(item => 
+                selectedKey in item); // 없으면 -1
+
+              if (keyIndex > -1) {
+                let updatedItems = [...prevSelectedItems];
+                updatedItems[keyIndex] = { [selectedKey]: status };
+
+                return updatedItems;          
+              } else {
+                return [...prevSelectedItems, { [selectedKey]: status }];
+              }
         })
     }
       

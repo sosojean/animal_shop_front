@@ -1,6 +1,7 @@
 import Card from "../common/Card";
 import Filter from "./Filter";
-import { catBreedSelector, dogBreedSelector, regionOptions } from "../../utils/petOptions";
+import { catBreedSelector, dogBreedSelector} from "../../utils/petOptions";
+import { regionOptions } from "../../utils/regionOptions";
 import { useState } from "react";
 import FilterRegion from "./FilterRegion";
 
@@ -10,14 +11,28 @@ const AdoptFilterMax = (props) => {
     const {selectedItems, setSelectedItems} = props;
 
     const [click, setClick] = useState({breed: false, region: false});
-    // const [regionClick, setRegionClick] = useState(false);
     const [isCat, setIsCat] = useState(false);
 
     const handleDeleteItem = (index) => {
         setSelectedItems((prevSelectedItems) => {
-            const newSelectedItems = [...prevSelectedItems];
+            const key = "breed"
+            const breedArray = prevSelectedItems[key] || [];
+
+            const newSelectedItems = [...breedArray];
             newSelectedItems.splice(index, 1); // 해당 인덱스의 항목 제거
             return newSelectedItems;
+        })
+    }
+
+    const handleAddSpecies = (species = "dog", selectedKey = 'species') => {
+        setSelectedItems((prevSelectedItems) => {
+    
+              let newSpecies = species
+
+    
+              return {
+                [selectedKey]: newSpecies
+              }
         })
     }
 
@@ -28,7 +43,7 @@ const AdoptFilterMax = (props) => {
                 <Card>
                     <button onClick={() => {
                         setIsCat(false);
-                        setSelectedItems([]);
+                        handleAddSpecies("dog");
                     }}>
                         강아지
                     </button>
@@ -36,7 +51,7 @@ const AdoptFilterMax = (props) => {
                 <Card>
                     <button onClick={() => {
                         setIsCat(true);
-                        setSelectedItems([]);
+                        handleAddSpecies("cat");
                     }}>
                         고양이
                     </button>
@@ -47,11 +62,11 @@ const AdoptFilterMax = (props) => {
                         ...prevState,
                         breed: !prevState.breed}))
                 }}>
-                    {selectedItems.length > 0 
-                        ? selectedItems.length === 1 ?
-                            `${selectedItems[0].name}` :
-                            `${selectedItems[0].name} 외 ${selectedItems.length - 1}건`
-                        : "선택 품종 정보"}
+                    {selectedItems.breed?.length > 0 
+                        ? selectedItems.breed?.length === 1 ?
+                            `${selectedItems.breed[0].name}` :
+                            `${selectedItems.breed[0].name} 외 ${selectedItems.breed?.length - 1}건`
+                        : "품종 선택"}
                 </p>
                 {isCat ?
                     <Filter
@@ -77,20 +92,24 @@ const AdoptFilterMax = (props) => {
                             ...prevState,
                             region: !prevState.region}))
                     }}>
-                        선택 정보
+                    {selectedItems.location?.length > 0 
+                        ? `${selectedItems.location[0]} ${" " + selectedItems.location[1]}`
+                        : "지역 선택"}
                 </p>
                 <FilterRegion
                     className="region-filter"
                     array={regionOptions}
                     isClick={click.region}
+                    selectedItems={selectedItems}
+                    setSelectedItems={setSelectedItems}
                 />
             </div>
         </Card>
         <div className="filter-breed-container">
-            {selectedItems[0] && (
+            {selectedItems.breed?.length > 0 && (
             <>
                 <div className="filter-breed-list">
-                    {selectedItems.map((item, index) => {
+                    {selectedItems.breed.map((item, index) => {
                         
                         return (
                             <div className="filter-breed-item">
