@@ -3,6 +3,7 @@ import Chart from "../../../components/common/Chart";
 import instance from "../../../utils/axios";
 import NextPrevButton from "../../../components/common/NextPrevButton";
 import StatAnalysisTable from "../../../components/shop/admin/StatAnalysisTable";
+import AdminMenu from "../../../components/shop/admin/AdminMenu";
 
 const AdminStatAnalysis = () => {
 
@@ -89,6 +90,7 @@ const AdminStatAnalysis = () => {
 
     return (
         <div>
+            <AdminMenu/>
             <div>
                 <NextPrevButton value={year} setValue={setYear} start ={2024} stop={2024}/>
                 <NextPrevButton value={month} setValue={setMonth} start ={1} stop={12}/>

@@ -40,6 +40,8 @@ import AdoptAnimal from "../../pages/additional/AdoptAnimal";
 import AdoptDetail from "../additional/AdoptDetail";
 import PendingProductManagement from "../../pages/shop/admin/PendingProductManagement";
 import AdminStatAnalysis from "../../pages/shop/admin/AdminStatAnalysis";
+import AdminNoticeList from "../../pages/shop/admin/AdminNoticeList";
+import AdminNoticeWrite from "../../pages/shop/admin/AdminNoticeWrite";
 
 const Router = (props) => {
     return (
@@ -56,7 +58,6 @@ const Router = (props) => {
                         <Route path="/join" element={<Join/>}/>
                         <Route path="/login" element={<Login reload={props.reload} setReload={props.setReload}/>}/>
                         <Route path="/password" element={<PasswordFinder/>} />
-                        <Route path="/post/write" element={<PostWrite/>}/>
                         <Route path="/join/success" element={<Information case ="join" />}/>
                         <Route path="/mypage" element={<MyPage/>}/>
                         <Route path="/mypage/edit" element={<MyPageEdit/>}/>
@@ -67,9 +68,12 @@ const Router = (props) => {
                         <Route path="/pet/edit/:petId" element={<PetInfoEdit />}/>
 
 
+
                         {/*게시판*/}
                         <Route path="/:category/:post_id" element={<ContentsViewer/>}/>
                         <Route path="/search" element={<Search/>}/>
+                        <Route path="/post/write" element={<PostWrite/>}/>
+
 
                         {/*스토어*/}
                         <Route path="/shop" element={<ShopMain/>}/>
@@ -100,6 +104,9 @@ const Router = (props) => {
                         <Route path="/admin/product" element={<ProductManagement/>}/>
                         <Route path="/admin/product/pending" element={<PendingProductManagement/>}/>
                         <Route path="/admin/analysis" element={<AdminStatAnalysis/>}/>
+                        <Route path="/admin/notice" element={<AdminNoticeList/>}/>
+                        <Route path="/admin/notice/write" element={<AdminNoticeWrite/>}/>
+
 
 
                         {/* 입양 */}
