@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const Filter = (props) => {
   const { className, placeholder, array, isClick,
-    selectedItems, setSelectedItems
+    selectedItems, setSelectedItems, getRefreshData
   } = props;
 
   const [secondClick, setSecondClick] = useState(false);
@@ -21,6 +21,7 @@ const Filter = (props) => {
     : filterArray;
 
   const handleCheckboxChange = (key, name, selectedKey = 'breed') => {
+
     setSelectedItems((prevSelectedItems) => {
       // breed 배열 찾기
       const breedArray = prevSelectedItems[selectedKey] || [];
@@ -77,13 +78,15 @@ const Filter = (props) => {
                             <input
                             type="checkbox"
                             checked={isChecked}
-                            onChange={() => handleCheckboxChange(key, value)}
+                            onChange={() => {
+                              handleCheckboxChange(key, value);
+                              getRefreshData();}}
                             />
                         </div>
                         );
                     })}
                 </div>
-                <button>적용</button>
+                {/* <button>적용</button> */}
             </div>
           )}
         </Card>

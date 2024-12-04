@@ -6,7 +6,7 @@ import FilterMiniAge from "./FilterMiniAge";
 const AdoptFilterMini = (props) => {
 
     const {
-        subSelectedItems, setSubSelectedItems
+        subSelectedItems, setSubSelectedItems, getRefreshData
     } = props;
 
     const status = [{code: "T", name: "보호중"}, {code: "F", name: "공고중"}];
@@ -38,8 +38,24 @@ const AdoptFilterMini = (props) => {
         neuter: false
       });
 
-    const extractedData = subSelectedItems.flatMap(item => Object.entries(item));
+    const extractedData = Object.entries(subSelectedItems);
     console.log("extractedData", extractedData);
+
+    const handleDeleteItem = (key, value, type) => {
+
+        setSubSelectedItems((prevItems) => {
+
+            if (type === 'object') {
+                let filterList = subSelectedItems[key].filter(v => v !== value);
+                let newItems = {...prevItems, [key]: filterList}
+                return newItems;
+            } else {
+                let newItems = {...prevItems}
+                delete newItems[key];
+                return newItems;            
+            }
+        })
+    }
     
     // 해당 항목의 상태를 토글하는 함수
     const toggleShow = (code) => {
@@ -77,6 +93,7 @@ const AdoptFilterMini = (props) => {
                     keyName = "status"
                     selectedItems = {subSelectedItems}
                     setSelectedItems = {setSubSelectedItems}
+                    getRefreshData = {getRefreshData}
                 />}
             {showState.age &&
                 <FilterMiniAge
@@ -84,6 +101,7 @@ const AdoptFilterMini = (props) => {
                     keyName = "age"
                     selectedItems = {subSelectedItems}
                     setSelectedItems = {setSubSelectedItems}
+                    getRefreshData = {getRefreshData}
                 />
             }
             {showState.sex && 
@@ -92,6 +110,7 @@ const AdoptFilterMini = (props) => {
                     keyName = "sex"
                     selectedItems = {subSelectedItems}
                     setSelectedItems = {setSubSelectedItems}
+                    getRefreshData = {getRefreshData}
                 />            
             }
             {showState.neuter &&
@@ -100,21 +119,38 @@ const AdoptFilterMini = (props) => {
                     keyName = "neuter"
                     selectedItems = {subSelectedItems}
                     setSelectedItems = {setSubSelectedItems}
+                    getRefreshData = {getRefreshData}
                 />     
             }
         </div>
         {subSelectedItems && 
             <div className="sub-select-list">
                 {extractedData.map((value, index) => {
-                    const isAge = value[0] === 'age';
+                    const isAge = typeof(value[1]);
 
-                    if (isAge) {
+                    if (isAge === "object") {
+                        const key = value[0]
+                        const item = value[1]
+                        const type = typeof(item);
+
                         return value[1].map((v, i) => (
-                        <span key={`${i} + 10`}>{v}</span>
+                            <div key={`${i} + 10`}>
+                                <span>{v}</span>
+                                <button onClick={() => {
+                                    handleDeleteItem(key, v, type)
+                                    }}>x</button>
+                            </div>
                         ));
                     } else {
                         return (
-                        <span key={index}>{value[1]}</span>
+                            <div key={index}>
+                                <span>{value[1]}</span>
+                                <button onClick={() => {
+                                    const key = value[0]
+                                    const item = value[1]
+                                    handleDeleteItem(key, item)
+                                    }}>x</button>
+                            </div>
                         );
                     }
                 })}

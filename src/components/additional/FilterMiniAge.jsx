@@ -4,28 +4,33 @@ const FilterMiniAge = (props) => {
     const {data, keyName, selectedItems, setSelectedItems} = props;
 
     const handleAddItem = (status, selectedKey = keyName) => {
-        setSelectedItems((prevSelectedItems) => {
-          const arrayIndex = prevSelectedItems.findIndex(item => selectedKey in item);
-      
-          if (arrayIndex === -1) {
-            return [...prevSelectedItems, { [selectedKey]: [status] }];
+      setSelectedItems((prevSelectedItems) => {
+        // 해당 키가 이미 존재하는지 확인
+        if (selectedKey in prevSelectedItems) {
+          const currentList = prevSelectedItems[selectedKey];
+          const statusIndex = currentList.indexOf(status);
+          
+          if (statusIndex === -1) {
+            // status가 리스트에 없으면 추가
+            return {
+              ...prevSelectedItems,
+              [selectedKey]: [...currentList, status]
+            };
           } else {
-            const updatedItems = [...prevSelectedItems];
-            const selectedList = updatedItems[arrayIndex][selectedKey];
-            const listIndex = selectedList.findIndex(item => item === status);
-      
-            if (listIndex === -1) {
-              updatedItems[arrayIndex] = {
-                ...updatedItems[arrayIndex],
-                [selectedKey]: [...updatedItems[arrayIndex][selectedKey], status]
-              };
-            } else {
-                updatedItems[arrayIndex][selectedKey].splice(listIndex, 1);
-            }
-      
-            return updatedItems;
+            // status가 리스트에 있으면 제거
+            return {
+              ...prevSelectedItems,
+              [selectedKey]: currentList.filter((_, index) => index !== statusIndex)
+            };
           }
-        });
+        } else {
+          // 키가 존재하지 않으면 새 리스트로 추가
+          return {
+            ...prevSelectedItems,
+            [selectedKey]: [status]
+          };
+        }
+      });
     };
       
     return (

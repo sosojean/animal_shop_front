@@ -4,7 +4,7 @@ import { useState } from "react";
 const FilterRegion = (props) => {
 
     const { className, placeholder, array, isClick,
-        selectedItems, setSelectedItems
+        selectedItems, setSelectedItems, getRefreshData
       } = props;
 
     const [secondClick, setSecondClick] = useState(false);
@@ -24,7 +24,10 @@ const FilterRegion = (props) => {
           if (reset) {
             newLocationArray = [];
           } else {
-            newLocationArray = [city, subCity];
+
+            if (subCity !== '')
+                newLocationArray = [city, subCity];
+            else newLocationArray = [city];
           }
           
           return {
@@ -33,18 +36,6 @@ const FilterRegion = (props) => {
           }
         })
     };
-
-    const handleResetLocation = (selectedKey = 'location') => {
-        setSelectedItems((prevSelectedItems) => {
-    
-            let newLocationArray = [];
-              
-            return {
-                ...prevSelectedItems,
-                [selectedKey]: newLocationArray
-            }
-        })
-    }
 
     return (
         <>
@@ -63,6 +54,7 @@ const FilterRegion = (props) => {
                                         onClick={() => {
                                             setCurrentName(value.name);
                                             getLocationData(false, value.name, '');
+                                            getRefreshData();
                                         }}>
                                         {value.name}
                                     </p>
@@ -75,7 +67,7 @@ const FilterRegion = (props) => {
                 <div className="select-container">
                     <p>시/군/구</p>
                     <button onClick={() => setThirdClick(!thirdClick)}>
-                        {subFilterArray.find(value => value === currentSubName) ?? "시/도 선택"}
+                        {subFilterArray.find(value => value === currentSubName) ?? "시/군/구 선택"}
                     </button>
                     {thirdClick && 
                         <div className="select-list">
@@ -85,6 +77,7 @@ const FilterRegion = (props) => {
                                         onClick={() => {
                                             setCurrentSubName(value);
                                             getLocationData(false, currentName, value);
+                                            getRefreshData();
                                         }}>
                                         {value}
                                     </p>

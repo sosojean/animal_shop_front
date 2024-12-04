@@ -8,7 +8,7 @@ import FilterRegion from "./FilterRegion";
 
 const AdoptFilterMax = (props) => {
 
-    const {selectedItems, setSelectedItems} = props;
+    const {selectedItems, setSelectedItems, getRefreshData} = props;
 
     const [click, setClick] = useState({breed: false, region: false});
     const [isCat, setIsCat] = useState(false);
@@ -18,9 +18,14 @@ const AdoptFilterMax = (props) => {
             const key = "breed"
             const breedArray = prevSelectedItems[key] || [];
 
-            const newSelectedItems = [...breedArray];
-            newSelectedItems.splice(index, 1); // 해당 인덱스의 항목 제거
-            return newSelectedItems;
+            // 새로운 배열 생성 (불변성 유지)
+            const newBreedArray = breedArray.filter((_, i) => i !== index);
+
+            // 새로운 객체 반환 (불변성 유지)
+            return {
+                ...prevSelectedItems,
+                [key]: newBreedArray
+            };
         })
     }
 
@@ -43,7 +48,8 @@ const AdoptFilterMax = (props) => {
                 <Card>
                     <button onClick={() => {
                         setIsCat(false);
-                        handleAddSpecies("dog");
+                        getRefreshData();
+                        handleAddSpecies("개");
                     }}>
                         강아지
                     </button>
@@ -51,7 +57,8 @@ const AdoptFilterMax = (props) => {
                 <Card>
                     <button onClick={() => {
                         setIsCat(true);
-                        handleAddSpecies("cat");
+                        getRefreshData();
+                        handleAddSpecies("고양이");
                     }}>
                         고양이
                     </button>
@@ -76,6 +83,7 @@ const AdoptFilterMax = (props) => {
                         isClick={click.breed}
                         selectedItems={selectedItems}
                         setSelectedItems={setSelectedItems}
+                        getRefreshData={getRefreshData}
                     /> :                    
                     <Filter
                         className="breed-filter"
@@ -84,6 +92,7 @@ const AdoptFilterMax = (props) => {
                         isClick={click.breed}
                         selectedItems={selectedItems}
                         setSelectedItems={setSelectedItems}
+                        getRefreshData={getRefreshData}
                     />                
                 }
             </div>
@@ -93,7 +102,9 @@ const AdoptFilterMax = (props) => {
                             region: !prevState.region}))
                     }}>
                     {selectedItems.location?.length > 0 
-                        ? `${selectedItems.location[0]} ${" " + selectedItems.location[1]}`
+                        ? selectedItems.location[1] ? 
+                            `${selectedItems.location[0]} ${" " + selectedItems.location[1]}` : 
+                            `${selectedItems.location[0]}`
                         : "지역 선택"}
                 </p>
                 <FilterRegion
@@ -102,6 +113,7 @@ const AdoptFilterMax = (props) => {
                     isClick={click.region}
                     selectedItems={selectedItems}
                     setSelectedItems={setSelectedItems}
+                    getRefreshData={getRefreshData}
                 />
             </div>
         </Card>
@@ -112,8 +124,8 @@ const AdoptFilterMax = (props) => {
                     {selectedItems.breed.map((item, index) => {
                         
                         return (
-                            <div className="filter-breed-item">
-                                <span key={item.key}>{item.name}</span>
+                            <div className="filter-breed-item" key={item.key}>
+                                <span>{item.name}</span>
                                 <button onClick={() => handleDeleteItem(index)}>X</button>                
                             </div>
                         )
