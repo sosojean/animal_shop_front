@@ -37,6 +37,9 @@ const AdoptFilterMini = (props) => {
         sex: false,
         neuter: false
       });
+
+    const extractedData = subSelectedItems.flatMap(item => Object.entries(item));
+    console.log("extractedData", extractedData);
     
     // 해당 항목의 상태를 토글하는 함수
     const toggleShow = (code) => {
@@ -53,6 +56,7 @@ const AdoptFilterMini = (props) => {
       };
 
     return (
+        <>
         <div className="filter-mini-container">
             <button onClick={() => setAllShow(!allShow)}>필터</button>
             {allShow &&
@@ -99,6 +103,24 @@ const AdoptFilterMini = (props) => {
                 />     
             }
         </div>
+        {subSelectedItems && 
+            <div className="sub-select-list">
+                {extractedData.map((value, index) => {
+                    const isAge = value[0] === 'age';
+
+                    if (isAge) {
+                        return value[1].map((v, i) => (
+                        <span key={`${i} + 10`}>{v}</span>
+                        ));
+                    } else {
+                        return (
+                        <span key={index}>{value[1]}</span>
+                        );
+                    }
+                })}
+            </div>      
+        }
+        </>
     )
 }
 
