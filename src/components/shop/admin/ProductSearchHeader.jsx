@@ -9,6 +9,7 @@ const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal}) 
     const searchQuery = {
         searchBy:"0",
         searchTerm:"",
+        status:"0",
         species:"0",
         category:"0",
         detailedCategory:"0"
@@ -22,11 +23,11 @@ const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal}) 
                 ...infoList
             }))
         console.log("executed")
-
     }
 
 
-    const searchByOptions = ["판매자","상품명"];
+    const searchByOptions = ["seller","item"];
+    const statusOptions = ["전체","sold_out","stop","sell"];
     const speciesOptions = ["전체","cat", "dog"];
     const categoryOptions = ["전체","Toys","Food","Accessories","Health"];
     const detailedCategoryOptions =
@@ -55,19 +56,15 @@ const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal}) 
             params={...params,
                 detailed_category:detailedCategoryOptions[searchQueryData.category][searchQueryData.detailedCategory]}
                 // detailed_category 카테고리 파라미터 이름이라 컨벤션 바꾸면 안됨
+        }
+        if (searchQueryData.status!=="0"){
+            params={...params,
+                status:statusOptions[searchQueryData.status]
 
+            }
         }
 
 
-
-        //
-        // const params = {
-        //     searchBy:searchByOptions[searchQueryData.searchBy],
-        //     searchTerm:searchQueryData.searchTerm,
-        //     species:(searchQueryData.species==="0")?null:speciesOptions[searchQueryData.species],
-        //     category:(searchQueryData.category==="0")?null:categoryOptions[searchQueryData.category] ,
-        //     detailed_category: (searchQueryData.detailed_category==="0")?null:detailedCategoryOptions[searchQueryData.category][searchQueryData.detailedCategory]
-        // }
         instance({
             url:"/item/search",
             method:"get",
@@ -101,6 +98,12 @@ const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal}) 
                 }}
                           selectedValue={searchQueryData.detailedCategory}
                           optionItems={detailedCategoryOptions[searchQueryData.category]}/>
+
+                <Selector handleSelectChange={(name, e) => {
+                    applySearchQuery({'status': e})
+                }}
+                          selectedValue={searchQueryData.status}
+                          optionItems={statusOptions}/>
 
                 <Selector handleSelectChange={(name, e) => {
                     applySearchQuery({'searchBy': e})

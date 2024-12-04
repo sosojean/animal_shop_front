@@ -2,12 +2,10 @@ import React, {useEffect, useRef, useState} from 'react';
 import AdminMenu from "../../../components/shop/admin/AdminMenu";
 
 import AdminProduct from "../../../components/shop/admin/AdminProduct";
-import Pagination from "../../../components/board/Pagination";
 import ProductSearchHeader from "../../../components/shop/admin/ProductSearchHeader";
 import instance from "../../../utils/axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTable} from "@fortawesome/free-solid-svg-icons";
-import { json2csv } from 'json-2-csv';
 import * as converter from "json-2-csv";
 
 
@@ -19,8 +17,6 @@ const ProductManagement = () => {
     const [isEdited, setIsEdited] = useState(false)
     const [totalPost, setTotalPost] = useState(0)
     const linkRef = useRef(null);
-
-
 
     useEffect(() => {
         instance({
@@ -66,6 +62,7 @@ const ProductManagement = () => {
             <button onClick={saveToCsv}>파일저장 (.csv) <FontAwesomeIcon className="csv-icon" icon={faTable}/></button>
             <a ref={linkRef} style={{display: "none"}}>Download</a>
 
+            <div className="product-manage-table-container">
             <table className="admin-products">
 
                 <thead className="product">
@@ -81,7 +78,7 @@ const ProductManagement = () => {
                     <th className="status">판매 상태</th>
                     <th className="brand">판매자</th>
                     <th className="price">가격</th>
-                    <th>판매중단</th>
+                    <th className="revoke">중단</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -100,7 +97,8 @@ const ProductManagement = () => {
                 </tbody>
 
             </table>
-            <Pagination itemPerPage={20} currentPage={page} handlePageChange={setPage} totalPost={totalPost}/>
+            {/*<Pagination itemPerPage={20} currentPage={page} handlePageChange={setPage} totalPost={totalPost}/>*/}
+        </div>
         </div>
     );
 };

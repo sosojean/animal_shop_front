@@ -9,8 +9,8 @@ const StatAnalysisTable = ({data,colName1, colName2}) => {
         <table className={"table"}>
             <thead>
                 <tr className="table-header">
-                    <td>{colName1}</td>
-                    <td>{colName2}</td>
+                    <th>{colName1}</th>
+                    <th>{colName2}</th>
                 </tr>
 
 

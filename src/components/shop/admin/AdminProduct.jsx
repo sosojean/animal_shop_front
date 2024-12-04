@@ -41,7 +41,7 @@ const AdminProduct = ({item, isEdited, setIsEdited}) => {
                 <td className="img"><img src={item["thumbnail_url"][0]} alt=""/></td>
 
                 <td className="title">{item?.name}</td>
-                <td className="deta">{item["item_detail"]}</td>
+                <td className="detail">{item["item_detail"]}</td>
 
                 <td className="category">
                     <span className="category-name">{item?.category}</span>
@@ -57,8 +57,8 @@ const AdminProduct = ({item, isEdited, setIsEdited}) => {
 
                 <td>
                     <div>
-                        <button>옵션 보기</button>
-                        <button onClick={() => setEditPendingText(!editPendingText)}>판매 중단</button>
+                        {/*<button>옵션 보기</button>*/}
+                        <button className="revoke" onClick={() => setEditPendingText(!editPendingText)}>중단</button>
                     </div>
                 </td>
 

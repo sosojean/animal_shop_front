@@ -12,12 +12,13 @@ const AdminMenu = (props) => {
                 <Link to="/admin/product">
                 <li className="menu-item">판매상품관리</li>
                 </Link>
-                <Link to="/admin/product/pending">
-                <li className="menu-item">중단상품관리</li>
-                </Link>
 
                 <Link to="/admin/analysis">
                 <li className="menu-item">사이트 통계</li>
+                </Link>
+
+                <Link to="/admin/notice">
+                    <li className="menu-item">판매자 공지</li>
                 </Link>
 
 

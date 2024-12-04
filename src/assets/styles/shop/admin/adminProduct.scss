@@ -1,10 +1,35 @@
+.product-manage-table-container{
+  table-layout: fixed;
+  width: 100%;
+  table {
+    table-layout: fixed; /* 열 너비 고정 */
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead {
+    display: table-header-group; /* 기본값 유지 */
+  }
+
+  tbody {
+    display: block; /* tbody만 스크롤 가능 */
+    max-height: 600px; /* 스크롤 높이 */
+    overflow-y: auto;
+  }
+
+  tr {
+    display: table; /* 열 너비를 유지하기 위해 table로 설정 */
+    width: 100%;
+    table-layout: fixed; /* tbody의 열 너비가 thead와 동일하게 유지 */
+  }
 
 .admin-products{
   width: 100%;
   display: table;
 
   img,button{
-    width: 40px;
+    width: 30px;
+    height: 100%;
   }
   img{
     object-fit: cover;
@@ -12,19 +37,71 @@
 
   }
 
+  //.img,.no,{
+  //  width: 33px;
+  //}
+  //
+  //.stock{
+  //  width: 60px;
+  //}
+  //.title{
+  //  width: 50px;
+  //}
+  //
+  //
+  //.detail .category{
+  //  width: 250px;
+  //}
+//
+//<th className="no"> no</th>
+//
+//<th className="img"> 이미지</th>
+//<th className="title">상품명</th>
+//<th className="detail">상품설명</th>
+//
+//<th className="category">카테고리</th>
+//<th className="stock">재고</th>
+//<th className="status">판매 상태</th>
+//<th className="brand">판매자</th>
+//<th className="price">가격</th>
+
+
+  .no, .img{
+    width: 3%;
+  }//6
+
+  .title, .category{
+    width: 20%;
+  }//46
+  .detail{
+    width: 25%;
+  }//71
+
+  .stock{
+    width: 5%;
+
+  }//76
+
+  .status, .brand, .price{
+    width: 7%;
+
+  }
+  //.revoke{
+  //  width: 2%;
+  //}
+
+
+
 
   .reason{
     width: 100%;
   }
-
-
 
   td{
     display:table-cell;
     vertical-align:middle;
     text-overflow: ellipsis;
     overflow: hidden;
-    //text-overflow: ellipsis;
     white-space: nowrap;
 
   }
@@ -38,7 +115,7 @@
     font-weight: 100;
     //padding:24px;
     //text-align:left;
-    height: 48px;
+    height: 40px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     vertical-align:middle;
   }
@@ -94,6 +171,9 @@
     background:#FFFFFF;
     //padding:4px;
     text-align:left;
+    height: 30px;
+
+
 
     vertical-align:middle;
     font-weight:300;
@@ -115,4 +195,18 @@
 
 }
 
+  tbody::-webkit-scrollbar {
+    width: 5px;
+  }
 
+  tbody::-webkit-scrollbar-thumb {
+    background: var(--alpha-30); /* 스크롤바 색상 */
+    border-radius: 10px; /* 스크롤바 둥근 테두리 */
+  }
+
+  tbody::-webkit-scrollbar-track {
+    background: var(--alpha-5);  /*스크롤바 뒷 배경 색상*/
+  }
+
+
+}

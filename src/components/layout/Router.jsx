@@ -42,6 +42,7 @@ import PendingProductManagement from "../../pages/shop/admin/PendingProductManag
 import AdminStatAnalysis from "../../pages/shop/admin/AdminStatAnalysis";
 import AdminNoticeList from "../../pages/shop/admin/AdminNoticeList";
 import AdminNoticeWrite from "../../pages/shop/admin/AdminNoticeWrite";
+import AdminNoticeDetail from "../../pages/shop/admin/AdminNoticeDetail";
 
 const Router = (props) => {
     return (
@@ -106,6 +107,7 @@ const Router = (props) => {
                         <Route path="/admin/analysis" element={<AdminStatAnalysis/>}/>
                         <Route path="/admin/notice" element={<AdminNoticeList/>}/>
                         <Route path="/admin/notice/write" element={<AdminNoticeWrite/>}/>
+                        <Route path="/admin/notice/:noticeId" element={<AdminNoticeDetail/>}/>
 
 
 
