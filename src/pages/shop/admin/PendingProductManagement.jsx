@@ -1,11 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import AdminMenu from "../../../components/shop/admin/AdminMenu";
-import {Link} from "react-router-dom";
-import ItemDelButton from "../../../components/shop/seller/itemList/itemDelButton";
-import Chart from "../../../components/common/Chart";
-import axios from "axios";
-import Products from "../../../components/shop/product/Products";
-import SellerItem from "../../../components/shop/seller/itemList/SellerItem";
+
 import AdminProduct from "../../../components/shop/admin/AdminProduct";
 import Pagination from "../../../components/board/Pagination";
 import instance from "../../../utils/axios";
@@ -37,11 +32,7 @@ const PendingProductManagement = () => {
 
             <AdminMenu/>
             <span>중단 상품 관리</span>
-
-
             <ProductSearchHeader/>
-
-
             <div className="admin-product">
 
                 <div className="product">
@@ -54,13 +45,8 @@ const PendingProductManagement = () => {
 
                     </div>
                     <span>판매중단</span>
-
                 </div>
-
-
             </div>
-
-
             <div className="admin-products">
                 {data && data.map(
                     item => {

@@ -19,7 +19,7 @@ const WriteEditor = forwardRef((props, ref) => {
             formData.append('image', blob);
 
             axios({
-                url: 'http://localhost:8080/file/image-upload',
+                url: 'http://localhost:8080/file/post-image-upload',
                 method: 'POST',
                 data: formData,
             }).then((response) => {

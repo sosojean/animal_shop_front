@@ -5,11 +5,14 @@ import axios from "axios";
 
 const InputImage = ({imageUploadPath, setImage,image,objName}) =>{
 
+    const [file, setFile] = useState()
     const imageUrl = "http://localhost:8080/file/image-print?filename=";
 
     const ImgUploadHandler = async (e) => {
         console.log("img upload")
+
         const file = e.target.files[0];
+        setFile(file)
         const formData = new FormData();
         if (file != null) {
             formData.append('image', new Blob([file], {type: 'multipart/form-data'}), file.name);

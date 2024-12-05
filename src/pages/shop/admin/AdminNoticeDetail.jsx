@@ -1,9 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import instance from "../../../utils/axios";
+import {Viewer} from "@toast-ui/react-editor";
+import "../../../assets/styles/board/contentViewer.scss"
+import AdminMenu from "../../../components/shop/admin/AdminMenu";
+import {useModifyTime} from "../../../utils/useModifyTime";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPenToSquare} from "@fortawesome/free-regular-svg-icons";
+import {faShare, faXmark} from "@fortawesome/free-solid-svg-icons";
+
 
 const AdminNoticeDetail = () => {
     const [data, setData] = useState()
+    const [isAuth, setIsAuth] = useState(true)
+    const modifiedTime = useModifyTime(data?.created_date);
+    const navigate = useNavigate()
+    const [fileName, setFileName] = useState(null)
+
     const extensionToMimeType = {
         jpg: "image/jpeg",
         jpeg: "image/jpeg",
@@ -17,6 +30,7 @@ const AdminNoticeDetail = () => {
 
 
     const {noticeId} = useParams();
+
     useEffect(() => {
         instance({
             url:`/notices/select/${noticeId}`,
@@ -24,8 +38,10 @@ const AdminNoticeDetail = () => {
         }).then(res => {
             console.log(res);
             setData(res.data["noticesDTOList"][0])
-            console.log(res.data["noticesDTOList"]);
-
+            console.log(res.data["noticesDTOList"][0]["attachmentUrl"]);
+            const fileName
+                = res.data["noticesDTOList"][0]["attachmentUrl"].split("_")[2] || "download";
+            setFileName(fileName)
         }).catch((error) => {
             console.log(error);
         })
@@ -43,7 +59,7 @@ const AdminNoticeDetail = () => {
             console.log(data["attachmentUrl"].split("_") )
 
 
-            const fileName = data["attachmentUrl"].split("_")[2] || "download";
+
             const extension = fileName.split(".").pop().toLowerCase(); // 확장자 추출
 
             const mimeType = extensionToMimeType[extension] || "application/octet-stream";
@@ -52,7 +68,6 @@ const AdminNoticeDetail = () => {
             a.download = fileName; // 다운로드할 파일 이름
 
             a.href = url;
-            // a.download = creatorDetailData.file_src.split("/").pop() || "download";
 
             document.body.appendChild(a);
             a.click();
@@ -66,18 +81,76 @@ const AdminNoticeDetail = () => {
 
     }
 
+    const editHandler = () => {
+        const trimmedData = {...data}
+        trimmedData.contents = trimmedData.content;
+        delete trimmedData.content;
+        console.log(trimmedData);
+
+        navigate("/admin/notice/write", {state: trimmedData});
+    }
+
+    const deleteHandler = () => {
+        instance({
+            method: "DELETE",
+            url: `/notices/delete/${data.id}`
+
+        }).then(response => {
+            console.log(response)
+            navigate("/admin/notice");
+        }).catch(error => console.error(error));
+
+    }
+
+
     return ( <>
+            <AdminMenu/>
+
             {data &&
                 <div>
-                    <span>{data.content}</span>
-                    <span>{data["created_date"]}</span>
-                    <span>{data.id}</span>
-                    <span>{data.name}</span>
-                    <span>{data.priority}</span>
-                    <span>{data.title}</span>
-                    <span>{data.attachmentUrl}</span>
 
-                    <button onClick={fileDownloadHandler}>다운</button>
+                    <div>
+                        <div className="content-info-container">
+                            <div className="info-box">
+                                <div className="content-info">
+                                    {/*<h2> {data.category}</h2>*/}
+                                    <span>{data.priority == 0 ? <span className="important">필독</span> : ''}</span>
+                                    <h1> {data.title}</h1>
+                                </div>
+                                <div className="content-author-info">
+                                    <span className="user-name">{data.name}{" "}</span>
+
+                                    <span className="modified-time">{" "}·{" "} {modifiedTime}</span>
+                                    {/*<span className="hits">조회 {data.hits}</span>*/}
+                                </div>
+                            </div>
+
+                            <div className="content-modify-button">
+                                {isAuth ? (<>
+                                    <button onClick={editHandler}><FontAwesomeIcon icon={faPenToSquare}/>수정</button>
+                                    <button onClick={deleteHandler}><FontAwesomeIcon className="fa-xmark" icon={faXmark}/>삭제
+                                    </button>
+                                </>) : null}
+                                <button><FontAwesomeIcon icon={faShare}/>공유</button>
+                            </div>
+
+                        </div>
+
+                        <hr/>
+
+                        <div className="view-content">
+                            <Viewer
+                                initialValue={data.content}
+                            />
+                        </div>
+
+                        <label htmlFor="download">{fileName!=null?fileName:""}</label>
+                        <button id="download" name="download"  onClick={fileDownloadHandler}>다운</button>
+
+
+                        <hr/>
+                        <Link to={"/admin/notice"}> 목록보기</Link>
+                    </div>
                 </div>
             }</>
     );
