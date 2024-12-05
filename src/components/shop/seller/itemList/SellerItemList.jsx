@@ -3,13 +3,15 @@ import instance from "../../../../utils/axios";
 import '../../../../assets/styles/shop/sellerItemList.scss'
 import Pagination from "../../../board/Pagination";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-import ItemDelButton from "./itemDelButton";
 import SellerItem from "./SellerItem";
+import Modal from "../../../common/Modal";
+import SellerDiscount from "../SellerDiscount";
 
 
 const SellerItemList = ({navigateUrl}) => {
 
     const [itemList, setItemList] = useState([]); // 아이템 리스트
+    // console.log("itemList", itemList);
     const [totalCount, setTotalCount] = useState(0); // 아이템 개수
 
     const location = useLocation();
@@ -51,6 +53,7 @@ const SellerItemList = ({navigateUrl}) => {
                 <div className='SellerItemPrice'>가격</div>
                 <div className='SellerItemSpecies'>동물</div>
                 <div className='SellerItemCategory'>상품</div>
+                <div>할인</div>
                 <div className='SellerItemUpdate'>수정</div>
                 <div className='SellerItemDelete'>삭제</div>
             </div>
@@ -74,7 +77,6 @@ const SellerItemList = ({navigateUrl}) => {
                 totalPost={totalCount}
                 handlePageChange={handlePageChange}
             />
-
         </div>
     )
 }
