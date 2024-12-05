@@ -14,18 +14,17 @@ const AdoptAnimal = () => {
     const [selectedItems, setSelectedItems] = useState([]);
     const [subSelectedItems, setSubSelectedItems] = useState([]);
     const [update, setUpdate] = useState(false);
-    console.log("selectedItems", selectedItems);
-    // console.log("subSelectedItems", subSelectedItems);
-
 
     const location = useLocation();
     const navigate = useNavigate();
     const queryParams = new URLSearchParams(location.search);
     const currentPage = parseInt(queryParams.get("page")) || 1; // 현재 페이지 확인
 
+    // 데이터 갱신
     const getRefreshData = () => {
         setUpdate(!update);
-        console.log("업데이트 됐습니다");
+        // console.log("업데이트 됐습니다");
+        navigate("/adoption");
     }
 
     const getApiData = (page) => {
@@ -36,12 +35,15 @@ const AdoptAnimal = () => {
 
         console.log("selectedItems", selectedItems);
         console.log("subSelectedItems", subSelectedItems);
+        console.log("subSelectedItems.age", subSelectedItems.age);
         
         let data = {
-            species: selectedItems.species,
+            species: selectedItems.species || "개",
             breed: breedList,
             location: selectedItems.location,
-            sex: subSelectedItems.sex
+            sex: subSelectedItems.sex,
+            neuter: subSelectedItems.neuter,
+            age: subSelectedItems.age
         }
 
         console.log("data", data)
@@ -81,6 +83,9 @@ const AdoptAnimal = () => {
                 setSubSelectedItems={setSubSelectedItems}
                 getRefreshData={getRefreshData}
             />
+            <div>
+                <p>{dataCount}마리의 아이들이 보호자를 기다리고 있어요</p>
+            </div>
             {data &&
                 <AdoptList data={data}/>
             }

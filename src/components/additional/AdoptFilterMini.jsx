@@ -9,8 +9,6 @@ const AdoptFilterMini = (props) => {
         subSelectedItems, setSubSelectedItems, getRefreshData
     } = props;
 
-    const status = [{code: "T", name: "보호중"}, {code: "F", name: "공고중"}];
-
     const sex = [{code: "M", name: "남아"}, {code:"F", name:"여아"}, 
         {code:"Q", name:"알수없음"}];
 
@@ -24,7 +22,6 @@ const AdoptFilterMini = (props) => {
     ]
 
     const petAttributes = [
-        { code: "status", name: "상태" },
         { code: "age", name: "나이" },
         { code: "sex", name: "성별" },
         { code: "neuter", name: "중성화" }
@@ -32,15 +29,42 @@ const AdoptFilterMini = (props) => {
 
     const [allShow, setAllShow] = useState(false);
     const [showState, setShowState] = useState({
-        status: false, // status
         age: false,
         sex: false,
         neuter: false
       });
 
     const extractedData = Object.entries(subSelectedItems);
-    console.log("extractedData", extractedData);
+    // console.log("extractedData", extractedData);
 
+    // 문자열 변환
+    const getConvertedString = (key, code) => {
+
+        // 배열선택
+        let selectedList;
+        switch (key) {
+            case "neuter":
+                selectedList = neuter;
+                break;
+            case "age":
+                selectedList = age;
+                break;
+            case "sex":
+                selectedList = sex;
+                break;
+            default:
+                selectedList = [];
+                break;
+        }
+
+        // 변환할 String 추출
+        let convertedString = selectedList.filter(item => item.code === code)[0].name;
+        console.log("convertedString", convertedString);
+
+        return convertedString;
+    }
+
+    // 단일 delete
     const handleDeleteItem = (key, value, type) => {
 
         setSubSelectedItems((prevItems) => {
@@ -87,14 +111,6 @@ const AdoptFilterMini = (props) => {
                     })}
                 </ul>            
             }
-            {showState.status && 
-                <FilterMini
-                    data = {status}
-                    keyName = "status"
-                    selectedItems = {subSelectedItems}
-                    setSelectedItems = {setSubSelectedItems}
-                    getRefreshData = {getRefreshData}
-                />}
             {showState.age &&
                 <FilterMiniAge
                     data = {age}
@@ -135,25 +151,33 @@ const AdoptFilterMini = (props) => {
 
                         return value[1].map((v, i) => (
                             <div key={`${i} + 10`}>
-                                <span>{v}</span>
+                                <span>{getConvertedString(key, v)}</span>
                                 <button onClick={() => {
+                                    getRefreshData();
                                     handleDeleteItem(key, v, type)
                                     }}>x</button>
                             </div>
                         ));
                     } else {
+                        const key = value[0]
+                        const item = value[1]
+                        const cs = getConvertedString(key, item)
                         return (
                             <div key={index}>
-                                <span>{value[1]}</span>
+                                <span>{cs}</span>
                                 <button onClick={() => {
-                                    const key = value[0]
-                                    const item = value[1]
-                                    handleDeleteItem(key, item)
+                                    handleDeleteItem(key, item);
+                                    getRefreshData();
                                     }}>x</button>
                             </div>
                         );
                     }
                 })}
+                {extractedData.length > 0 && 
+                    <button onClick={() => {
+                        setSubSelectedItems({})
+                        getRefreshData();
+                    }}>전체 초기화</button>}
             </div>      
         }
         </>

@@ -8,7 +8,7 @@ const AdoptList = (props) => {
     
     return (
         <div className="adopt-list-container">
-            {data.map((d, i) => {
+            {data.map((d) => {
                 return(
                     <Link to={`/adoption/detail/${d.id}`} key={d.id}>
                         <AdoptItem data={d}/> 

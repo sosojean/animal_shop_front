@@ -1,7 +1,7 @@
 
 
 const FilterMiniAge = (props) => {
-    const {data, keyName, selectedItems, setSelectedItems} = props;
+    const {data, keyName, selectedItems, setSelectedItems, getRefreshData} = props;
 
     const handleAddItem = (status, selectedKey = keyName) => {
       setSelectedItems((prevSelectedItems) => {
@@ -39,10 +39,10 @@ const FilterMiniAge = (props) => {
 
                 return (
                     <div key={index}>
-                        <input type="checkbox"
-                            onClick={() => handleAddItem(value.code)}
-                        />
-                        <li>{value.name}</li>                        
+                        <li onClick={() => {
+                              getRefreshData();
+                              handleAddItem(value.code);}}>
+                                {value.name}</li>                        
                     </div>
                 )
             })}
