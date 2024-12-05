@@ -12,7 +12,14 @@ const SellerDiscount = (props) => {
 
         setDiscountedItem((prevItem) => {
 
-            // id와 비교
+            let originItem = [...prevItem]
+            
+            // id와 비교하여 요소 존재 여부 확인
+            // let existedId = originItem.findIndex((item, index) => {
+            //     item.id === id
+            // }) // index
+
+
             const newItem = {
                 name: name,
                 price: price,
@@ -20,7 +27,7 @@ const SellerDiscount = (props) => {
                 option_id: id,
                 select: false // 체크박스 관리
             }
-            return [...prevItem, newItem]
+            // return [...prevItem, newItem]
         })
     }
 
