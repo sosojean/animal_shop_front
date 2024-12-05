@@ -87,7 +87,7 @@ const AdoptAnimal = () => {
                 <p>{dataCount}마리의 아이들이 보호자를 기다리고 있어요</p>
             </div>
             {data &&
-                <AdoptList data={data}/>
+                <AdoptList data={data} className="adopt-list-container"/>
             }
             <Pagination
                 currentPage={currentPage}
