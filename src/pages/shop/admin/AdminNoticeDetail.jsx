@@ -36,7 +36,8 @@ const AdminNoticeDetail = () => {
         instance({
             url:`/file/download`,
             method:"post",
-            data: {filePath: data.attachmentUrl}
+            data: {filePath: data.attachmentUrl},
+            responseType: "arraybuffer"
 
         }).then((response) => {
             console.log(data["attachmentUrl"].split("_") )
