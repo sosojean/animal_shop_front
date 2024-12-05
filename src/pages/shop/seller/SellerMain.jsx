@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import '../../../assets/styles/shop/seller/sellerMain.scss';
 import SellerMenu from "../../../components/shop/seller/SellerMenu";
 import SellerItemList from "../../../components/shop/seller/itemList/SellerItemList";
+import SellerStatAnalysis from "./SellerStatAnalysis";
 
 
 const SellerMain = () => {
@@ -13,19 +14,7 @@ const SellerMain = () => {
 
         <div className="sellerMainContainer">
         <SellerMenu/>
-            <h1>판매자 센터</h1>
-            <div className="sellerListHeader">
-                <h2>상품 등록 목록</h2>
-                <div className="sellerListHeaderLink">
-                    <Link to="/seller/item/new" className="linkContainer">
-                         <div className="linkContainer">상품 등록 하러 가기</div>
-                    </Link>
-                    <Link to="/seller/item/list" className="linkContainer">
-                        <div className="linkContainer">상품 등록 목록 더보기</div>
-                    </Link>
-                </div>
-            </div>
-            <SellerItemList navigateUrl={navigateUrl}/>
+        <SellerStatAnalysis/>
         </div>
     )
 }

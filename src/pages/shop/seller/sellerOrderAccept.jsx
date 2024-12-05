@@ -2,6 +2,7 @@ import instance from "../../../utils/axios";
 import {useEffect, useState} from "react";
 import SellerItem from "../../../components/shop/seller/itemList/SellerItem";
 import SellerAcceptItem from "../../../components/shop/seller/sellerAcceptItem";
+import SellerMenu from "../../../components/shop/seller/SellerMenu";
 
 const SellerOrderAccept = () => {
     const [data, setData] = useState()
@@ -21,6 +22,7 @@ const SellerOrderAccept = () => {
 
     return (
         <div>
+            <SellerMenu/>
             {data&&data.map(item =>{
                 return (
                     <SellerAcceptItem key={item.orderId} isEdited={isEdited} setIsEdited={setIsEdited} item={item}/>
