@@ -9,6 +9,9 @@
     padding: 1rem;
 
     .option-container {
+
+        border-bottom: 1px solid black;
+        padding-bottom: 1rem;
         
         .option-item {
             display: flex;
@@ -18,9 +21,41 @@
 
     .discount-option-container {
 
+        padding-top: 1rem;
+
         .discount-option {
             display: flex;
-            gap: 1rem;
+            justify-content: space-between;
+            
+            span {
+                padding: 5px;
+            }
+
+            input {
+                margin-left: 1rem;
+            }
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+
+            .select-button {
+                display: flex;
+                gap: 5px;
+
+                span {
+                    padding: 5px;
+                }
+            }
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: rgb(237,237,237);
         }
     }
     

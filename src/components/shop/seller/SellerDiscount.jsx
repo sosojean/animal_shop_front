@@ -4,8 +4,9 @@ import instance from "../../../utils/axios"
 
 const SellerDiscount = (props) => {
 
-    const {data} = props;
+    const {data, getRefreshData} = props;
     const [discountedItem, setDiscountedItem] = useState([]);
+    const [isDataFetched, setIsDataFetched] = useState(false);
 
     console.log("seller discount - data", data);
     console.log("discountedItem", discountedItem)
@@ -15,6 +16,10 @@ const SellerDiscount = (props) => {
         const options = [...data.options];
         const discountedOptions = options.filter(option => 
             option.discountRate > 0);
+        
+        if (discountedOptions.length > 0) {
+            setIsDataFetched(true);   
+        }
         
         setDiscountedItem((prevItem) => {
 
@@ -109,6 +114,26 @@ const SellerDiscount = (props) => {
     // state 제거 핸들러 (선택)
     const handleRemoveState = () => {
 
+        if (isDataFetched) {
+            const trueList = discountedItem.filter(item => item.select === true);
+        
+            trueList.forEach(item =>
+                instance({
+                    url: `/seller/discount/revoke`,
+                    method: "PATCH",
+                    data: item
+                }).then((res) => {
+                    console.log("할인율 삭제 성공", res);
+                    getRefreshData();
+                })
+                .catch((err) => {
+                    console.error("error", err);
+                })            
+            )
+
+            alert("적용한 할인율을 삭제했습니다");
+        }
+
         setDiscountedItem((prevItem) => {
             const newList = [...prevItem]
             const falseList = newList.filter(item => item.select === false)
@@ -116,8 +141,6 @@ const SellerDiscount = (props) => {
             return falseList;
         })
     }
-
-    // 할인율 제거 핸들러 (선택)
 
     // 할인율 등록 핸들러 (선택)
     const handleApplyDiscount = () => {
@@ -130,16 +153,19 @@ const SellerDiscount = (props) => {
                 data: item
             }).then((res) => {
                 console.log("할인율 등록 성공", res);
+                getRefreshData();
             })
             .catch((err) => {
                 console.error("error", err);
             })            
         )
-    }
 
+        alert("할인율을 적용했습니다");
+    }
 
     return (
         <div className="discount-modal-container">
+            <div><h1>할인 적용</h1></div>
             <div className="option-container">
                 {data.options.map((option, index) => {
                     return(
@@ -158,14 +184,23 @@ const SellerDiscount = (props) => {
                 })}
             </div>
             <div className="discount-option-container">
-                <div>
-                    <div>
+                <div className="button-container">
+                    <div className="select-button">
                         <input type="checkbox" onClick={handleCheckAll}/>
                         <span>전체선택</span>                        
                     </div>
-                    <button onClick={handleRemoveState}>삭제</button>
+                    <button onClick={() => {
+                        handleRemoveState();}}>
+                        삭제
+                    </button>
                 </div>
-                <div>헤더 필요</div>
+                <div className="header-container">
+                    <span>선택</span>
+                    <span>옵션명</span>
+                    <span>옵션가격</span>
+                    <span>할인율</span>
+                    <span>할인가격</span>
+                </div>
                 {discountedItem.map((item, index) => {
 
                     return (
@@ -174,15 +209,17 @@ const SellerDiscount = (props) => {
                                 onClick={() => handleCheckItem(index)}
                             />
                             <span>{item.name} </span>
-                            <span>{item.price} </span>
+                            <span>{item.price}원 </span>
                             <span>{item.option_discount_rate}% </span>
-                            <span>{item.price * (1-item.option_discount_rate/100)} </span>
+                            <span>{item.price * (1-item.option_discount_rate/100)}원 </span>
                         </div>
                     )
                 })}
             </div>
             <div>
-                <button onClick={handleApplyDiscount}>등록</button>
+                <button onClick={() => {
+                    handleApplyDiscount();
+                }}>등록</button>
             </div>        
         </div>
     )

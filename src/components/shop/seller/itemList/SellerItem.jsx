@@ -4,7 +4,7 @@ import Modal from "../../../common/Modal";
 import SellerDiscount from "../SellerDiscount";
 import { useState } from "react";
 
-const SellerItem = ({item ,navigateUrl,getItemList, currentPage }) => {
+const SellerItem = ({item ,navigateUrl,getItemList, currentPage, getRefreshData }) => {
     const [modalOpen, setModalOpen] = useState(false);
 
     console.log("item", item);
@@ -34,7 +34,7 @@ const SellerItem = ({item ,navigateUrl,getItemList, currentPage }) => {
             </li>
 
             <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
-                <SellerDiscount data={item}/>
+                <SellerDiscount data={item} getRefreshData={getRefreshData}/>
             </Modal>
         </>
     )
