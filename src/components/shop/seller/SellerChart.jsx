@@ -10,6 +10,8 @@ const SellerChart = ({data,data2,categories,setSelectedIndex}) => {
 
             // Define your chart options here
             chart: {
+                animations: {
+                    enabled: false},
                 type: 'line',
                 toolbar: {
                     show: false,

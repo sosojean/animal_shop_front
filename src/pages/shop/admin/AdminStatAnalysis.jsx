@@ -4,7 +4,6 @@ import instance from "../../../utils/axios";
 import NextPrevButton from "../../../components/common/NextPrevButton";
 import StatAnalysisTable from "../../../components/shop/admin/StatAnalysisTable";
 import AdminMenu from "../../../components/shop/admin/AdminMenu";
-import {getLastYearDate} from "../../../utils/getDate";
 
 const AdminStatAnalysis = () => {
 

@@ -34,6 +34,8 @@ const TestComp = ({data}) => {
             toolbar: {
                 show: false
             },
+            animations: {
+                enabled: false},
         },
         plotOptions: {
             bar: {

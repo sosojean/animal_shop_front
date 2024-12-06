@@ -4,7 +4,8 @@ import StatAnalysisTable from "../../../components/shop/admin/StatAnalysisTable"
 import instance from "../../../utils/axios";
 import SellerChart from "../../../components/shop/seller/SellerChart";
 import TestComp from "./testComp";
-import getDate, {getLastYearFirstDate} from "../../../utils/getDate";
+import SellerAnalysisTable from "../../../components/shop/seller/SellerAnalysisTable";
+import SellerItemAnalysisTable from "../../../components/shop/seller/SellerItemAnalysisTable";
 
 const SellerStatAnalysis = () => {
 
@@ -100,14 +101,16 @@ const SellerStatAnalysis = () => {
     useEffect(() => {
 
 
-        const url = `/seller/profit-item-info?year=${2024}&month=${2}`;
+        console.log(dateList)
+        console.log(selectedIndex)
+
+        const month = dateList[selectedIndex].slice(5,7).replace(0,"")
+        const year = dateList[selectedIndex].slice(0,4)
+        const url = `/seller/profit-item-info?year=${year}&month=${month}`;
         instance({
             url:url,
             method:"GET",
         }).then((res) => {
-
-
-
             const data = res.data.itemProfitInfoList;
             setItemPriceData(priceDataTrimmer(data))
         })
@@ -225,12 +228,20 @@ const SellerStatAnalysis = () => {
             </div>
 
 
-            <div className="stat-analysis-table">
+            <div className="stat-analysis-table"
+                 style={{width: '1080px', display: "flex", justifyContent: "space-between"}}>
                 {itemData && cartData &&
                     <SellerChart data={itemData.data} data2={cartData.data} categories={generateDateList(from, to)}
                                  setSelectedIndex={setSelectedIndex}/>}
-                {/*{trimmedData&&<TestComp data={trimmedData}/>}*/}
+                {itemPriceData && <TestComp data={itemPriceData}/>}
+                {console.log(itemData)}
 
+            </div>
+            <div style={{width: '1080px', display: "flex", justifyContent: "space-between"}}>
+
+                {itemData && <SellerAnalysisTable data1={itemData.categories} data2={itemData.data} colName1="date"
+                                                  colName2="point"/>}
+                {itemPriceData && <SellerItemAnalysisTable itemPriceData={itemPriceData}/>}
             </div>
         </div>
     );
