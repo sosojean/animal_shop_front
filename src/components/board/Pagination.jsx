@@ -1,14 +1,14 @@
 import "../../assets/styles/board/pagination.scss";
 import {useEffect, useState} from "react";
 
-const Pagination = ({currentPage, totalPost, handlePageChange}) => {
+const Pagination = ({currentPage, totalPost, handlePageChange, itemPerPage}) => {
 
     // console.log("totalPost: ", totalPost);
 
     const [page, setPage] = useState(1); // 현재 페이지 수
 
     // const totalPost = 100; // 총 게시물 수
-    const pageRange = 10; // 페이지당 보여줄 게시물 수
+    const pageRange = itemPerPage? itemPerPage:10; // 페이지당 보여줄 게시물 수
     const btnRange = 10; // 보여질 페이지 버튼의 개수
 
     const currentSet = Math.ceil(page / btnRange); // 현재 버튼이 몇번째 세트인지 나타내는 수

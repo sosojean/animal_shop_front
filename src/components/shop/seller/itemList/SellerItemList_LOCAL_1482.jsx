@@ -6,7 +6,6 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import SellerItem from "./SellerItem";
 import Modal from "../../../common/Modal";
 import SellerDiscount from "../SellerDiscount";
-import SellerMenu from "../SellerMenu";
 
 
 const SellerItemList = ({navigateUrl}) => {
@@ -49,8 +48,7 @@ const SellerItemList = ({navigateUrl}) => {
         navigate(`/seller/item/list?page=${newPage}`); // 페이지 변화
     };
 
-    return(<>
-        <SellerMenu/>
+    return(
         <div className="sellerItemListContainer">
             <div className='SellerItemListHeaderContainer'>
                 <div className='SellerItemId'>상품번호</div>
@@ -84,7 +82,7 @@ const SellerItemList = ({navigateUrl}) => {
                 handlePageChange={handlePageChange}
             />
         </div>
-    </>)
+    )
 }
 
 export default SellerItemList;

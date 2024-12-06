@@ -72,7 +72,10 @@ const SellerItemList = ({navigateUrl}) => {
                         navigateUrl={navigateUrl}
                         getItemList={getItemList}
                         currentPage={currentPage}
+<<<<<<< HEAD
                         getRefreshData={getRefreshData}
+=======
+>>>>>>> 16c3c783f347500166b622106e7d680bb7d10a32
                     />
                 )
             )}

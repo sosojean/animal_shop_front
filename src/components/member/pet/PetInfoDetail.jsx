@@ -29,7 +29,7 @@ const PetInfoDetail = ({item, setIsEdited, isEdited}) => {
 
 
     return (
-        <Card className="detail-info">
+        <Card className="pet-detail-info">
 
             {item ? <>
                     <img className={"pet-profile"} src={url} alt=""/>

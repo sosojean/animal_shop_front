@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
+import parseJwt from "../../utils/parseJwt";
 
 const Header = (props) => {
 
@@ -19,9 +20,11 @@ const Header = (props) => {
     const [hover, setHover] = useState(false)
     const navigate = useNavigate();
 
+    const token = localStorage.getItem("accessToken");
     useEffect(() => {
-        if (localStorage.getItem("accessToken")) {
+        if (token) {
             setIsAuth(true)
+            console.log(parseJwt(token))
         }
     })
     const handleLogout = () => {
@@ -97,7 +100,9 @@ const Header = (props) => {
                             {isAuth ? <>
                                     <Link to="/cart"><FontAwesomeIcon icon={faCartShopping}/> </Link>
                                     <Link to="/mypage">
-                                        <FontAwesomeIcon icon={faUser} />
+                                        {/*<img src="" alt=""/>*/}
+                                        {/*{todo: 여기 프로필 이미지 넣어야됨}*/}
+
                                     </Link>
                                     <button className={"logout"} onClick={handleLogout}>로그아웃
                                         <FontAwesomeIcon icon={faArrowRightFromBracket}/>
