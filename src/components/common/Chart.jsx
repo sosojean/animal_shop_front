@@ -2,7 +2,7 @@ import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 
 
-const Chart = () => {
+const Chart = ({data,series, labels , categories, setSelectedIndex}) => {
     const chartOptions = {
         // Define your chart options here
         chart: {
@@ -13,25 +13,21 @@ const Chart = () => {
             zoom:{
                 enabled: false,
             },
-
             events:{
 
                 dataPointSelection: function(e, chart, opts) {
-                    console.log(e, opts)
+                    setSelectedIndex(opts.selectedDataPoints[0][0]?opts.selectedDataPoints[0][0]:0)
                 }
             }
         },
         series: [
             {
                 name: 'Series 1',
-                data: [30, 40, 35, 50, 49, 60, 70, 91, 125,30, 40, 35, 50, 49, 60, 70, 91, 125],
-            },        {
-                name: 'Series 2',
-                data: [60, 20, 38, 44, 99, 45, 10, 77, 12,60, 20, 38, 44, 99, 45, 10, 77, 12],
+                data: data,
             },
         ],
         xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+            categories:categories ,
         },
 
         selection:{
@@ -61,13 +57,13 @@ const Chart = () => {
     const pieOptions = {
         // Define your chart options here
 
-        series: [44, 55, 13, 43, 22],
+        series: series,
         options: {
             chart: {
                 width: 380,
                 type: 'pie',
             },
-            labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+            labels: labels,
             responsive: [{
                 breakpoint: 480,
                 options: {
@@ -85,7 +81,7 @@ const Chart = () => {
 
     return (
         <>
-            <div style={{width: '1080px', display:"flex"}}>
+            <div style={{width: '1080px', display:"flex" ,justifyContent:"space-between"}}>
                 <ReactApexChart
                     options={chartOptions}
                     series={chartOptions.series}

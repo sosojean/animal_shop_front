@@ -6,7 +6,7 @@ import instance from "../../../utils/axios";
 import {useNavigate} from "react-router-dom";
 
 const DeliveryConfirmModal = ({setModalOpen, modalOpen,item}) => {
-    console.log(item.orderItemDTOList);
+    // console.log(item.orderItemDTOList);
     const [checkedItems, setCheckedItems] = useState([])
     const [cancelData, setCancelData] = useState()
 
@@ -20,7 +20,7 @@ const DeliveryConfirmModal = ({setModalOpen, modalOpen,item}) => {
         setCheckedItems(checkedItems.filter(num => num !== newVal));
     }
     useEffect(() => {
-        console.log(checkedItems);
+        // console.log(checkedItems);
     }, [checkedItems]);
 
     // useEffect(() => {
@@ -37,7 +37,7 @@ const DeliveryConfirmModal = ({setModalOpen, modalOpen,item}) => {
                 deliveryProgressId:checkedItems[0]
             }
         }).then(res=>{
-            console.log(res.data)
+            // console.log(res.data)
             setCancelData(res.data)
 
 

@@ -220,8 +220,6 @@ const ProductDetailHeader = ({data}) => {
     <>
         {data&& (
 
-
-
         <div className="detailContainer">
             <div className="thumbnail-area-container">
             <Thumbnails thumbnails={data["thumbnail_url"]}
@@ -233,7 +231,7 @@ const ProductDetailHeader = ({data}) => {
             />
             </div>
             <div className="zoom-img-container">
-                <div className="inner-img-container">
+                <div className="inner-img-container" style={{ display: zoomImage ? "block" : "none" }}>
                     {zoomImage&&<img className="zoom-img"
                                      style={{transform: `translate(${-xy.x*4}px, ${-xy.y*4}px)`}}
                                      src={data["thumbnail_url"][index]}/>}
