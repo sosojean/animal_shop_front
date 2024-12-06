@@ -15,6 +15,8 @@
         img {
             width: 400px;
             height: 400px;
+
+            border-radius: 10px;
         }
     
     }
@@ -34,4 +36,11 @@
         }
         
     }
+}
+
+.adopt-inside-list {
+    display: flex;
+    gap: 2rem;
+    overflow-x: scroll;
+    margin-top: 5rem;
 }

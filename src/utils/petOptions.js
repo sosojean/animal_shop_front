@@ -269,4 +269,3 @@ export const dogBreedSelector = {
     "000134": "화이트테리어",
     "000111": "휘펫"
 }
-
