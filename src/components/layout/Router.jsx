@@ -44,6 +44,7 @@ import AdminNoticeList from "../../pages/shop/admin/AdminNoticeList";
 import AdminNoticeWrite from "../../pages/shop/admin/AdminNoticeWrite";
 import AdminNoticeDetail from "../../pages/shop/admin/AdminNoticeDetail";
 import SellerSuspendingItems from "../../pages/shop/seller/SellerSuspendingItems";
+import SellerPointHistory from "../../pages/shop/seller/SellerPointHistory";
 
 const Router = (props) => {
     return (
@@ -100,6 +101,10 @@ const Router = (props) => {
                         <Route path="/seller/orders/detail/:orderId" element={<SellerOrderDetail/>}/>
                         <Route path="/seller/register" element={<SellerRegister/>}/>
                         <Route path="/seller/register/success" element={<Information case ="seller" />}/>
+                        <Route path="/seller/point/history" element={<SellerPointHistory/>}/>
+
+
+
 
                         {/*주문*/}
                         <Route path="/order/delivery" element={<DeliveryInfo/>}/>

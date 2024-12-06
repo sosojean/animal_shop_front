@@ -24,7 +24,11 @@ const SellerMenu = (props) => {
                 <Link to="/seller/item/list/suspending">
                     <li className="menu-item">정지상품</li>
                 </Link>
-                <li className="menu-item">-</li>
+
+                <Link to="/seller/point/history">
+                    <li className="menu-item">정산금 확인</li>
+                </Link>
+
                 <li className="menu-item">-</li>
                 <li className="menu-item">-</li>
 

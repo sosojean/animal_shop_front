@@ -12,15 +12,14 @@ const AllProduct = (props) => {
 
     useEffect(() => {
 
-        let url = `http://localhost:8080/shop/product-category?species=${category}&page=1`
-        if (category === "all") {
-            url = `http://localhost:8080/shop/best?page=1`
-        }
+        let url = `http://localhost:8080/shop/product-category?species=cat`
+        // species=species&category=category&detailed_category&page=1
         axios({
             url:url ,
             method:"get"
         }).then(res => {
-            setData(res.data["best_goods"]);
+            console.log(res)
+            setData(res.data["goods"]);
         })
     },[])
 

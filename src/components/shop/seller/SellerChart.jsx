@@ -3,71 +3,70 @@ import ReactApexChart from 'react-apexcharts';
 
 // const SellerChart = ({data,series, labels , categories, setSelectedIndex}) => {
 
-const SellerChart = ({data,data2,series}) => {
+const SellerChart = ({data,data2,categories,setSelectedIndex}) => {
 
 
     const chartOptions = {
-         options : {
+
+            // Define your chart options here
             chart: {
-                height: 350,
-                type: "line",
-            },
-            stroke: {
-                curve: "smooth",
-                width: [3, 3], // 라인의 두께 설정
-            },
-            dataLabels: {
-                enabled: false, // 데이터 라벨 비활성화
-            },
-            colors: ["#008FFB", "#00E396"], // 데이터 세트 색상
-            xaxis: {
-                categories: [1, 2, 3, 4, 5], // X축 레이블
-            },
-            yaxis: [
-                {
-                    title: {
-                        text: "Dataset 1",
-                    },
-                    labels: {
-                        show:false,
-                        style: {
-                            colors: "#008FFB",
-                        },
-                    },
+                type: 'line',
+                toolbar: {
+                    show: false,
                 },
-                {
-                    opposite: true, // 두 번째 Y축을 오른쪽에 표시
-                    title: {
-                        text: "Dataset 2",
-                    },
-                    labels: {
-                        show:false,
-                        style: {
-                            colors: "#00E396",
-                        },
-                    },
+                zoom:{
+                    enabled: false,
                 },
-            ],
-            tooltip: {
-                shared: true,
-                intersect: false, // 포인트 교차하지 않음
+                events:{
+
+                    dataPointSelection: function(e, chart, opts) {
+                        console.log(e,chart,opts)
+                        setSelectedIndex(opts.dataPointIndex?opts.dataPointIndex:0)
+
+                        //     opts.selectedDataPoints[0][0]:0)
+                    }
+                }
             },
-        },
+
 
          series : [
             {
                 name: "Dataset 1",
-                data: [1000000, 2000000, 3000000, 4000000, 1000000], // 첫 번째 데이터 세트
+                data: data, // 첫 번째 데이터 세트
             },
             {
                 name: "Dataset 2",
-                data: [1, 4, 1, 2, 1], // 두 번째 데이터 세트
+                data: data2, // 두 번째 데이터 세트
             },
-        ]
+        ],
+        xaxis: {
+            categories:categories ,
+        },
+
+        selection:{
+            enabled: true,
+            type: 'x',
+            stroke:{
+                width: 2,
+            }
+        },
+        tooltip: {
+            intersect: true,
+            shared: false
+        },
+        markers: {
+            size: 6,
+        },
+
+        dataLabels: {
+            enabled: false
+        },
+
     }
 
-    return <ReactApexChart options={chartOptions.options}
-                           series={chartOptions.series} type="line"
+    return <ReactApexChart options={chartOptions}
+                           series={chartOptions.series}
+                           type="line"
                            width={500}
                            height={350} />;
 
