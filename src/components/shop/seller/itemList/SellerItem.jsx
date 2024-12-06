@@ -1,7 +1,14 @@
 import {Link} from "react-router-dom";
 import ItemDelButton from "./itemDelButton";
+import Modal from "../../../common/Modal";
+import SellerDiscount from "../SellerDiscount";
+import { useState } from "react";
 
 const SellerItem = ({item ,navigateUrl,getItemList, currentPage }) => {
+    const [modalOpen, setModalOpen] = useState(false);
+
+    console.log("item", item);
+
     return(
         <>
             <li className="sellerItemContainer" key={item.id}>
@@ -15,6 +22,9 @@ const SellerItem = ({item ,navigateUrl,getItemList, currentPage }) => {
                 <div className='SellerItemPrice'>{item.options[0].price} 원</div>
                 <div className='SellerItemSpecies'>{item.species}</div>
                 <div className='SellerItemCategory'>{item.category}</div>
+                <div>
+                    <button onClick={() => setModalOpen(true)}>할인</button>
+                </div>
                 <Link to={`/seller/item/edit/${item.id}`}>
                     <div className="SellerItemDelete">
                         <button style={{marginRight: '10px'}}>수정</button>
@@ -22,6 +32,10 @@ const SellerItem = ({item ,navigateUrl,getItemList, currentPage }) => {
                 </Link>
                 <ItemDelButton itemId={item.id} url={navigateUrl} getItemList={() => getItemList(currentPage)}/>
             </li>
+
+            <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
+                <SellerDiscount data={item}/>
+            </Modal>
         </>
     )
 }

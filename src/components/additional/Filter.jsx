@@ -1,37 +1,98 @@
 import { useState } from "react";
-import { catBreedSelector, dogBreedSelector } from "../../utils/petOptions";
-
+import Card from "../common/Card";
+import { faList } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const Filter = (props) => {
+  const { className, placeholder, array, isClick,
+    selectedItems, setSelectedItems, getRefreshData
+  } = props;
 
-    const {
-        className, placeholder
-    } = props;
+  const [secondClick, setSecondClick] = useState(false);
+  const [searchText, setSearchText] = useState(""); // 검색어 상태
 
-    const [selectedBreed, setSelectedBreed] = useState()
+  const filterArray = Object.entries(array);
 
+  // 검색 필터링 로직
+  const filteredArray = searchText
+    ? filterArray.filter(([key, value]) =>
+        value.toLowerCase().includes(searchText.toLowerCase())
+      )
+    : filterArray;
 
-    // TODO 부모 컴포넌트에서 받아오기
-    const dogBreedArray = dogBreedSelector;
-    const catBreedArray = Object.entries(catBreedSelector);
+  const handleCheckboxChange = (key, name, selectedKey = 'breed') => {
 
-    // TODO 고양이인지 개인지 확인하는 STATE 받아오기
+    setSelectedItems((prevSelectedItems) => {
+      // breed 배열 찾기
+      const breedArray = prevSelectedItems[selectedKey] || [];
+  
+      // breed 배열에서 해당 항목 찾기
+      const existingIndex = breedArray.findIndex(item => item.key === key);
+  
+      let newBreedArray;
+      if (existingIndex >= 0) {
+        // 이미 선택된 항목이면 제거
+        newBreedArray = breedArray.filter(item => item.key !== key);
+      } else {
+        // 선택되지 않은 항목이면 추가
+        newBreedArray = [...breedArray, { key, checked: true, name }];
+      }
+  
+      // 새로운 상태 반환
+      return {
+        ...prevSelectedItems,
+        [selectedKey]: newBreedArray
+      };
+    });
+  };
 
-    return (
-        <div className={className}>
-            <input placeholder={placeholder}/>
+  return (
+    <>
+      {isClick && (
+        <Card className={className}>
+          <div className="filter-util-container">
+            <input
+                type="text"
+                placeholder={placeholder}
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)} // 검색어 상태 업데이트
+            />
+            <button
+                onClick={() => setSecondClick(!secondClick)}
+                className="open-button"
+            >
+                <FontAwesomeIcon icon={faList}/>   
+            </button>            
+          </div>
+          {secondClick && (
             <div className="select-container">
-                {catBreedArray.map(([key, value]) => {
-                    return (
+                <div className="select-list">
+                    {filteredArray.map(([key, value]) => {
+                        const isChecked = selectedItems?.breed?.some(
+                        (item) => item.key === key
+                        ) || false;
+
+                        return (
                         <div key={key} className="select-item">
                             <p>{value}</p>
-                            <input type="checkbox" />
+                            <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => {
+                              handleCheckboxChange(key, value);
+                              getRefreshData();}}
+                            />
                         </div>
-                    );
-                })}
+                        );
+                    })}
+                </div>
+                {/* <button>적용</button> */}
             </div>
-        </div>
-    )
-}
+          )}
+        </Card>
+      )}
+    </>
+  );
+};
 
 export default Filter;

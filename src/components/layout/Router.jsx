@@ -38,6 +38,7 @@ import ProductManagement from "../../pages/shop/admin/ProductManagement";
 import PasswordFinder from "../../pages/member/PasswordFinder";
 import AdoptAnimal from "../../pages/additional/AdoptAnimal";
 import AdoptDetail from "../additional/AdoptDetail";
+import AdoptAnimalDetail from "../../pages/additional/AdoptAnimalDetail";
 import PendingProductManagement from "../../pages/shop/admin/PendingProductManagement";
 import AdminStatAnalysis from "../../pages/shop/admin/AdminStatAnalysis";
 import AdminNoticeList from "../../pages/shop/admin/AdminNoticeList";
@@ -122,7 +123,7 @@ const Router = (props) => {
 
                         {/* 입양 */}
                         <Route path="/adoption" element={<AdoptAnimal/>}/>
-                        <Route path="/adoption/detail/:desertionNo" element={<AdoptDetail/>}/>
+                        <Route path="/adoption/detail/:desertionNo" element={<AdoptAnimalDetail/>}/>
 
                     </Routes>
                 </div>

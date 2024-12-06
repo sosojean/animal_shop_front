@@ -28,11 +28,33 @@
 
         .breed-filter {
 
-            .select-container{
+            .filter-util-container {
                 
-                .select-item {
-                    display: flex;
+                display: flex;
+
+                .open-button {
+
+                    border: none;
+                    background-color: transparent;
+    
                 }
+            }
+
+            .select-container{
+
+                // height: 200px;
+
+                .select-list {
+
+                    height: 200px;
+                    overflow-y: auto;
+
+                    .select-item {
+                        display: flex;
+                    }                    
+                }
+                
+
             }
         }
     }
@@ -40,7 +62,76 @@
     .region-selector {
 
         @include selector-style;
+
+        .region-filter {
+
+            .select-container{
+
+                .select-list {
+
+                    height: 100px;
+                    overflow-y: auto;
+
+                    .select-item {
+                        display: flex;
+                    }                    
+                }
+                
+
+            }
+        }
     }
+}
+
+.filter-mini-container {
+
+    display: flex;
+    margin: 2rem 0 1rem 2rem;
+
+    .filter-att-list {
+        margin-left: 10px;
+        display: flex;
+        gap: 5px;
+        border: 1px solid rgb(0, 0, 0);
+
+        li {
+            border-left: 1px solid rgb(0, 0, 0);
+            padding: 10px 20px 10px 20px;
+            text-align: center;
+        }
+
+        li:first-child {
+            border-left: none;
+        }
+    }
+
+}
+
+.sub-select-list {
+    padding: 1rem 3rem 1rem 3rem;
+    display: flex;
+    gap: 1rem;
+
+    span {
+        
+    }
+}
+
+.filter-breed-container {
+
+    .filter-breed-list {
+
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px; /* 카드 사이의 간격 */
+        padding: 16px; /* 컨테이너 안쪽 여백 */
+
+        .filter-breed-item {
+            display: flex;
+        }        
+    }
+
+
 }
 
 .adopt-list-container {
