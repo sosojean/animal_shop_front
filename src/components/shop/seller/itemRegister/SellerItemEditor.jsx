@@ -28,7 +28,7 @@ const SellerItemEditor = () => {
     const [sellStatus, setSellStatus] = useState("SELL"); // 상품상태
 
     // SellerItemCategory
-    const [itemSpecies, setItemSpecies] = useState("강아지"); // 동물종류
+    const [itemSpecies, setItemSpecies] = useState("dog"); // 동물종류
     const [itemType, setItemType] = useState("간식"); // 상품종류
 
     // SellerItemOption
