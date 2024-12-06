@@ -3,7 +3,6 @@ import NextPrevButton from "../../../components/common/NextPrevButton";
 import StatAnalysisTable from "../../../components/shop/admin/StatAnalysisTable";
 import instance from "../../../utils/axios";
 import SellerChart from "../../../components/shop/seller/SellerChart";
-import TestComp from "./testComp";
 
 const SellerStatAnalysis = () => {
 
@@ -68,7 +67,7 @@ const SellerStatAnalysis = () => {
 
 
             <div className="stat-analysis-table">
-                <TestComp />
+                {/* <TestComp /> */}
 
                 <SellerChart/>
             </div>

@@ -47,3 +47,14 @@ const Option = (props) => {
 }
 
 export default Option;
+
+// {data.options[0].discountRate !== null ?
+//     <div className="discount-price-container">                        
+//         <div className="discount-price">
+//             <span className="rate">{data.options[0].discountRate}%</span>
+//             <span className="appliedprice">{(defaultPrice * (1 - (data.options[0].discountRate/100))).toLocaleString()} 원</span>
+//         </div>
+//         <h1 className="origin-price">{defaultPrice.toLocaleString()} 원</h1>     
+//     </div> :
+//     <h1>{defaultPrice.toLocaleString()} 원</h1>
+// }

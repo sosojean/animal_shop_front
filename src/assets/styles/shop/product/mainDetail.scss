@@ -76,6 +76,33 @@
             padding: 10px;
         }
 
+        .discount-price-container{
+            .discount-price {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 5px;
+
+                .rate {
+                    font-size: 1.5rem;
+                    font-weight: bold;
+
+                    color:rgb(255,96,56);
+                }
+
+                .appliedprice {
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                }
+            }
+
+            .origin-price {
+                text-decoration: line-through;
+                color: rgb(189,189,189);
+                font-weight: 500;
+                font-size: 1.2rem;
+            }
+        }
+
         .optionContainer:last-child {
             border-bottom: 1px solid #000;
         }

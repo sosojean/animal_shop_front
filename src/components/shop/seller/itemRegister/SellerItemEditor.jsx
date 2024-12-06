@@ -35,7 +35,7 @@ const SellerItemEditor = () => {
     const [options, setOptions] = useState([{ name: 'default', price: '' }]); // 옵션
     const [defaultPrice, setDefaultPrice] = useState();
     console.log("options", options); 
-    const [newOption, setNewOption] = useState({ name: '', price: '' }); // 옵션 추가용 state
+    const [newOption, setNewOption] = useState({ name: '', price: ''}); // 옵션 추가용 state
 
     // SellerDetailImage
     const [detailImageUrl, setDetailImageUrl] = useState(""); // 상세 이미지

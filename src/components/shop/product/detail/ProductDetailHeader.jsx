@@ -23,6 +23,9 @@ const ProductDetailHeader = ({data}) => {
 
 
     const defaultPrice = data?.options[0].price;
+    const selectedDefault =  data.options[0].discountRate !== null ? 
+        defaultPrice * (1 - (data.options[0].discountRate/100)) : defaultPrice;
+
     // const optionLength = data?.options.length;
     console.log("session", session);
     console.log("data", data);
@@ -126,17 +129,35 @@ const ProductDetailHeader = ({data}) => {
     };
 
     //기존가격에 대한 상대 가격으로 표시
-    const priceTrimmer = (optionPrice)=> {
-        if (defaultPrice !== optionPrice) {
-            const trimmedPrice = optionPrice-defaultPrice ;
-            const result =
-                (trimmedPrice < 0) ?
-                    `(-${Math.abs(trimmedPrice).toLocaleString()}원)` : `(+${Math.abs(trimmedPrice).toLocaleString()}원)`;
-            return result;
-        }
-        else{
+    const priceTrimmer = (optionPrice, optionId)=> {
+
+        const findOption = data.options.filter(option => option.optionId === optionId);
+        const discount = findOption[0].discountRate;
+        const disOptionPrice = discount !== null ? optionPrice * (1-discount/100) : optionPrice;
+
+        if (selectedDefault !== disOptionPrice) {
+            const trimmedPrice = disOptionPrice - selectedDefault;
+
+            const result = (trimmedPrice < 0) ?
+                        `(-${Math.abs(trimmedPrice).toLocaleString()}원)` : 
+                        `(+${Math.abs(trimmedPrice).toLocaleString()}원)`;
+            return result
+        } else {
             return ""
         }
+
+        // if (selectedDefault !== optionPrice
+        
+        // if (defaultPrice !== optionPrice) {
+        //     const trimmedPrice = optionPrice-defaultPrice ;
+        //     const result =
+        //         (trimmedPrice < 0) ?
+        //             `(-${Math.abs(trimmedPrice).toLocaleString()}원)` : `(+${Math.abs(trimmedPrice).toLocaleString()}원)`;
+        //     return result;
+        // }
+        // else{
+        //     return ""
+        // }
     }
 
     //수량 변경 핸들러
@@ -212,7 +233,7 @@ const ProductDetailHeader = ({data}) => {
     }
 
     const trimOptionText = (option, priceTrimmer)=>{
-        return  `${option.name} ${priceTrimmer(option.price)}`;
+        return  `${option.name} ${priceTrimmer(option.price, option.optionId)}`;
 
     }
 
@@ -248,9 +269,20 @@ const ProductDetailHeader = ({data}) => {
 
                 </div>
 
-                <h2>{data.seller}</h2>
-                <h1>{data.name}</h1>
-                <h1>{defaultPrice.toLocaleString()} 원</h1>
+                <div>
+                    <h2>{data.seller}</h2>
+                    <h1>{data.name}</h1>
+                    {data.options[0].discountRate !== null ?
+                        <div className="discount-price-container">                        
+                            <div className="discount-price">
+                                <span className="rate">{data.options[0].discountRate}%</span>
+                                <span className="appliedprice">{(defaultPrice * (1 - (data.options[0].discountRate/100))).toLocaleString()} 원</span>
+                            </div>
+                            <h1 className="origin-price">{defaultPrice.toLocaleString()} 원</h1>     
+                        </div> :
+                        <h1>{defaultPrice.toLocaleString()} 원</h1>
+                    }
+                </div>
 
                 <Selector
                     selectedValue={selectedValue}
