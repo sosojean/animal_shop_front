@@ -12,12 +12,14 @@ import {
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 import parseJwt from "../../utils/parseJwt";
+import ToggleBtn from "../common/ToggleBtn";
 
 const Header = (props) => {
 
     const [isAuth, setIsAuth] = useState(false)
     const [keyword, setKeyword] = useState()
     const [hover, setHover] = useState(false)
+
     const navigate = useNavigate();
 
     const token = localStorage.getItem("accessToken");
@@ -72,12 +74,15 @@ const Header = (props) => {
                                 <Link onMouseEnter={hoverCategory} className="category">
                                     <li>유틸리티 <FontAwesomeIcon icon={faChevronDown}/></li>
                                 </Link>
-                                <Link onMouseEnter={leaveHeader} to="/admin/seller">
-                                    <li>관리자</li>
-                                </Link>
-                                <Link onMouseEnter={leaveHeader} to="/seller">
-                                    <li>판매자</li>
-                                </Link>
+                                <ToggleBtn setIsDog={props.setIsDog} isDog={props.isDog}/>
+
+
+                                {/*<Link onMouseEnter={leaveHeader} to="/admin/seller">*/}
+                                {/*    <li>관리자</li>*/}
+                                {/*</Link>*/}
+                                {/*<Link onMouseEnter={leaveHeader} to="/seller">*/}
+                                {/*    <li>판매자</li>*/}
+                                {/*</Link>*/}
 
 
                             </ul>

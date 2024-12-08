@@ -11,6 +11,7 @@ const SellerItem = ({item ,navigateUrl,getItemList, currentPage }) => {
 
     return(
         <>
+            {item&&<>
             <li className="sellerItemContainer" key={item.id}>
                 <div className="SellerItemId">{item.id}</div>
                 <div className="SellerItemImage">
@@ -19,7 +20,7 @@ const SellerItem = ({item ,navigateUrl,getItemList, currentPage }) => {
                 <div className='SellerItemName'>
                     <Link to={`/shop/detail/${item.id}`}>{item.name}</Link>
                 </div>
-                <div className='SellerItemPrice'>{item.options[0].price} 원</div>
+                <div className='SellerItemPrice'>{item.options[0]?.price} 원</div>
                 <div className='SellerItemSpecies'>{item.species}</div>
                 <div className='SellerItemCategory'>{item.category}</div>
                 <div>
@@ -36,6 +37,8 @@ const SellerItem = ({item ,navigateUrl,getItemList, currentPage }) => {
             <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
                 <SellerDiscount data={item}/>
             </Modal>
+            </>
+            }
         </>
     )
 }

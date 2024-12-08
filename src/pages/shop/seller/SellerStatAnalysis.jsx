@@ -19,7 +19,7 @@ const SellerStatAnalysis = () => {
     const [to, setTo] = useState({
         year: now.getFullYear(),
         month: now.getMonth()+ 1,
-        day: now.getDay(),
+        day: now.getDate(),
     })
 
 
@@ -185,7 +185,7 @@ const SellerStatAnalysis = () => {
 
     return (
         <div>
-
+            {console.log(now.getDay())}
             <div>
 
                 <button onClick={() => {

@@ -46,13 +46,35 @@ import AdminNoticeWrite from "../../pages/shop/admin/AdminNoticeWrite";
 import AdminNoticeDetail from "../../pages/shop/admin/AdminNoticeDetail";
 import SellerSuspendingItems from "../../pages/shop/seller/SellerSuspendingItems";
 import SellerPointHistory from "../../pages/shop/seller/SellerPointHistory";
+import {useEffect, useState} from "react";
+import instance from "../../utils/axios";
 
 const Router = (props) => {
+    const species = localStorage.getItem("species");
+    let speciesInitVal;
+    if (species === "dog"){
+        speciesInitVal = true
+    }
+
+    // if (localStorage.getItem("accessToken")){
+    //     instance({
+    //         url:"/leader",
+    //         method:"get"
+    //     }).then(res=>{
+    //         console.log(res)
+    //     }).catch(err=>{
+    //         console.log(err)
+    //     })
+    // }
+
+    const [isDog, setIsDog] = useState(species==="dog")
+
+
     return (
         <BrowserRouter>
             <ScrollToTop/>
             <div className="outer-container">
-                <Header reload={props.reload} setReload={props.setReload}/>
+                <Header reload={props.reload} setReload={props.setReload} isDog={isDog} setIsDog={setIsDog}/>
                 <div className="inner-container">
                     <Routes>
                         <Route path="/" element={<Home isAuth={props.isAuth}/>}/>
@@ -80,7 +102,7 @@ const Router = (props) => {
 
 
                         {/*스토어*/}
-                        <Route path="/shop" element={<ShopMain/>}/>
+                        <Route path="/shop" element={<ShopMain isDog={isDog} setIsDog={setIsDog}/>}/>
                         <Route path="/shop/:category" element={<AllProduct/>}/>
                         <Route path="/shop/detail/:itemId" element={<ProductDetail/>}/>
                         <Route path="/pay/success" element={<Information case ="orderSuccess" />}/>

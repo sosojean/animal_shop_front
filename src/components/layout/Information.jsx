@@ -22,6 +22,8 @@ const Information = (props) => {
             const partnerOrderId = searchParams.get("partner_order_id")
 
             orderChecker(pgToken,partnerUserId, partnerOrderId)
+
+
         }
     }, []);
 
