@@ -225,7 +225,7 @@ const SellerStatAnalysis = () => {
                 {/*<button>{"<-"}</button>*/}
 
             <div className="stat-analysis-table">
-                <TestComp />
+                {/* <TestComp /> */}
 
             </div>
             </div>
@@ -236,7 +236,7 @@ const SellerStatAnalysis = () => {
                 {itemData && cartData &&
                     <SellerChart data={itemData.data} data2={cartData.data} categories={generateDateList(from, to)}
                                  setSelectedIndex={setSelectedIndex}/>}
-                {itemPriceData && <TestComp data={itemPriceData}/>}
+                {/* {itemPriceData && <TestComp data={itemPriceData}/>} */}
                 {console.log(itemData)}
 
             </div>

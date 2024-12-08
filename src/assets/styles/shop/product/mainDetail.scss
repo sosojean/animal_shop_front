@@ -152,6 +152,22 @@
                     }
                 }
 
+                .price-container {
+                    
+                    .discount-rate {
+                        font-size: 1.0rem;
+                        font-weight: bold;
+                        margin-left: 5px;
+                        color:rgb(255,96,56);
+                    }
+
+                    .origin-price {
+                        font-size: 0.8rem;
+                        text-decoration: line-through;
+                        color: rgb(189,189,189);
+                    }
+                }
+
                 .price{
                     font-size: 1.2rem;
                 }

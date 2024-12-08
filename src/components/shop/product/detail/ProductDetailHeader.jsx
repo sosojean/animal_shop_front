@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import '../../../../assets/styles/shop/product/mainDetail.scss'
-import {Link, useNavigate, useParams} from "react-router-dom";
-import axios from "axios";
+import {useNavigate} from "react-router-dom";
 import Option from "../option/Option";
 import Thumbnails from "./Thumbnails";
 import Selector from "../../../common/Selector";
@@ -302,6 +301,7 @@ const ProductDetailHeader = ({data}) => {
                                         price={data.options[itemIndex].price}
                                         handleStockChange={handleStockChange}
                                         handleOptionDelete={handleOptionDelete}
+                                        data={data.options[itemIndex]}
                         />)
                     })}
                 </div>

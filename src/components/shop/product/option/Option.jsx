@@ -3,6 +3,9 @@ import {useState} from "react";
 
 
 const Option = (props) => {
+    const {data} = props;
+    console.log("option data", data);
+
     const [stock, setStock] = useState(1)
 
     const handleStock = (value) =>{
@@ -39,7 +42,14 @@ const Option = (props) => {
                     <span>{stock}</span>
                     <button onClick={handlePlusClick}>+</button>
                 </div>
-                <span className="price"> {(props.price * stock).toLocaleString() + "원"}</span>
+                {data.discountRate !== null ?
+                    <div className="price-container">
+                        <span className="price"> {((props.price * (1 - data.discountRate / 100)) * stock).toLocaleString() + "원"}</span>
+                        <span className="discount-rate">{data.discountRate + "%"}</span>
+                        <span className="origin-price"> {(props.price * stock).toLocaleString() + "원"}</span>                 
+                    </div> : 
+                    <span className="price"> {(props.price * stock).toLocaleString() + "원"}</span>
+                }
             </div>
 
         </div>
@@ -47,14 +57,3 @@ const Option = (props) => {
 }
 
 export default Option;
-
-// {data.options[0].discountRate !== null ?
-//     <div className="discount-price-container">                        
-//         <div className="discount-price">
-//             <span className="rate">{data.options[0].discountRate}%</span>
-//             <span className="appliedprice">{(defaultPrice * (1 - (data.options[0].discountRate/100))).toLocaleString()} 원</span>
-//         </div>
-//         <h1 className="origin-price">{defaultPrice.toLocaleString()} 원</h1>     
-//     </div> :
-//     <h1>{defaultPrice.toLocaleString()} 원</h1>
-// }
