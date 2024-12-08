@@ -9,10 +9,10 @@ const SellerItemCategory = ({itemSpecies, setItemSpecies, itemType, setItemType}
             <div className='SelectContents'>
                 <div>
                     <select value={itemSpecies} onChange={(e) => { setItemSpecies(e.target.value) }}>
-                        <option value="강아지">강아지</option>
-                        <option value="고양이">고양이</option>
+                        <option value="dog">강아지</option>
+                        <option value="cat">고양이</option>
                     </select>
-                    <p>{itemSpecies}</p>
+                    <p>{itemSpecies === "dog" ? "강아지" : "고양이"}</p>
                 </div>
                 <div>
                     <select value={itemType} onChange={(e) => { setItemType(e.target.value) }}>

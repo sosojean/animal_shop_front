@@ -37,6 +37,10 @@ const SellerItemList = ({navigateUrl}) => {
         }
     };
 
+    const getRefreshData = () => {
+        getItemList(currentPage);
+    }
+
     useEffect(() => {
         getItemList(currentPage);
     }, [currentPage]);
@@ -68,6 +72,7 @@ const SellerItemList = ({navigateUrl}) => {
                         navigateUrl={navigateUrl}
                         getItemList={getItemList}
                         currentPage={currentPage}
+                        getRefreshData={getRefreshData}
                     />
                 )
             )}

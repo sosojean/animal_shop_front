@@ -28,14 +28,14 @@ const SellerItemEditor = () => {
     const [sellStatus, setSellStatus] = useState("SELL"); // 상품상태
 
     // SellerItemCategory
-    const [itemSpecies, setItemSpecies] = useState("강아지"); // 동물종류
+    const [itemSpecies, setItemSpecies] = useState("dog"); // 동물종류
     const [itemType, setItemType] = useState("간식"); // 상품종류
 
     // SellerItemOption
     const [options, setOptions] = useState([{ name: 'default', price: '' }]); // 옵션
     const [defaultPrice, setDefaultPrice] = useState();
     console.log("options", options); 
-    const [newOption, setNewOption] = useState({ name: '', price: '' }); // 옵션 추가용 state
+    const [newOption, setNewOption] = useState({ name: '', price: ''}); // 옵션 추가용 state
 
     // SellerDetailImage
     const [detailImageUrl, setDetailImageUrl] = useState(""); // 상세 이미지

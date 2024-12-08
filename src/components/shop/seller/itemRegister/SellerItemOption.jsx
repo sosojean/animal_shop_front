@@ -7,9 +7,10 @@ const SellerItemOption = ({options, setOptions, newOption, setNewOption,
     // 옵션 추가
     const handleAddOption = () => {
         if (newOption.name && newOption.price) {
-            setOptions([...options, { name: newOption.name, price: parseInt(newOption.price) }]);
+            setOptions([...options, 
+                { name: newOption.name, price: parseInt(newOption.price)}]);
             // 입력 필드 초기화
-            setNewOption({ name: '', price: '' });
+            setNewOption({ name: '', price: ''});
         } else {
             alert('옵션 이름과 가격을 모두 입력해주세요.');
         }

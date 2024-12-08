@@ -4,7 +4,7 @@ import Modal from "../../../common/Modal";
 import SellerDiscount from "../SellerDiscount";
 import { useState } from "react";
 
-const SellerItem = ({item ,navigateUrl,getItemList, currentPage }) => {
+const SellerItem = ({item ,navigateUrl,getItemList, currentPage, getRefreshData }) => {
     const [modalOpen, setModalOpen] = useState(false);
 
     console.log("item", item);
@@ -21,7 +21,7 @@ const SellerItem = ({item ,navigateUrl,getItemList, currentPage }) => {
                     <Link to={`/shop/detail/${item.id}`}>{item.name}</Link>
                 </div>
                 <div className='SellerItemPrice'>{item.options[0]?.price} 원</div>
-                <div className='SellerItemSpecies'>{item.species}</div>
+                <div className='SellerItemSpecies'>{item.species === "dog" ? "강아지" : "고양이"}</div>
                 <div className='SellerItemCategory'>{item.category}</div>
                 <div>
                     <button onClick={() => setModalOpen(true)}>할인</button>

@@ -224,7 +224,10 @@ const SellerStatAnalysis = () => {
                 {/*{from.day}*/}
                 {/*<button>{"<-"}</button>*/}
 
+            <div className="stat-analysis-table">
+                <TestComp />
 
+            </div>
             </div>
 
 
