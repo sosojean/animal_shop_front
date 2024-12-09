@@ -8,7 +8,7 @@ const SellerItemOption = ({options, setOptions, newOption, setNewOption,
     const handleAddOption = () => {
         if (newOption.name && newOption.price) {
             setOptions([...options, 
-                { name: newOption.name, price: parseInt(newOption.price)}]);
+                { name: newOption.name, price: parseInt(newOption.price), discount_rate: 0}]);
             // 입력 필드 초기화
             setNewOption({ name: '', price: ''});
         } else {

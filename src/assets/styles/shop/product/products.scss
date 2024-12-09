@@ -20,14 +20,13 @@
 
   .product{
   width: 250px;
+  height: 400px;
   img{
     width: 250px;
     height: 250px;
     object-fit: cover;
 
   }
-
-
 
   .product-info{
 
@@ -45,8 +44,20 @@
 
     }
     .price{
+      font-weight: bold;
       font-size: 1.2rem;
-
+    }
+    .origin-price {
+      text-decoration: line-through;
+      color: rgb(194,194,194);
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+    .discount-rate {
+      color: rgb(255,71,71);
+      font-weight: bold;
+      margin-right: 5px;
+      font-size: 1.2rem;
     }
     .star{
       font-size: 0.8rem;

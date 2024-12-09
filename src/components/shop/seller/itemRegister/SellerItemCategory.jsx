@@ -1,6 +1,15 @@
+import { dogItemCategory, catItemCategory } from "../../../../utils/categoryOption"
+// import { useState } from "react";
 
+const SellerItemCategory = ({itemSpecies, setItemSpecies, itemType, setItemType, detailedType, setDetailedType}) => {
+    
+    const dogDetailedCategory = dogItemCategory.filter((category, index) => {
+        return category.main.name === itemType;
+    })[0].subcategories;
 
-const SellerItemCategory = ({itemSpecies, setItemSpecies, itemType, setItemType}) => {
+    const catDetailedCategory = catItemCategory.filter((category, index) => {
+        return category.main.name === itemType;
+    })[0].subcategories;
 
     return (
         <div className='RegSelectContainer CategoryContainer'>
@@ -16,16 +25,38 @@ const SellerItemCategory = ({itemSpecies, setItemSpecies, itemType, setItemType}
                 </div>
                 <div>
                     <select value={itemType} onChange={(e) => { setItemType(e.target.value) }}>
-                        <option>간식</option>
-                        <option>사료</option>
-                        <option>식기</option>
-                        <option>영양제</option>
-                        <option>위생용품</option>
-                        <option>이동장</option>
-                        <option>장난감</option>
-                        <option>하네스</option>
+                        {itemSpecies === "dog" ?
+                            dogItemCategory.map((category, index) => {
+                                return (
+                                    <option value={category.main.name}>{category.main.convert}</option>
+                                )
+                            })     :
+                            catItemCategory.map((category, index) => {
+                                return (
+                                    <option value={category.main.name}>{category.main.convert}</option>
+                                )
+                            })                 
+                        }
+
                     </select>
                     <p>{itemType}</p>
+                </div>
+                <div>
+                    <select value={detailedType} onChange={(e) => { setDetailedType(e.target.value) }}>
+                        {itemSpecies === "dog" ?
+                            dogDetailedCategory?.map((category, index) => {
+                                return (
+                                    <option value={category.name}>{category.convert}</option>
+                                )
+                            }) : 
+                            catDetailedCategory.map((category, index) => {
+                                return (
+                                    <option value={category.name}>{category.convert}</option>
+                                )
+                            })             
+                        }
+                    </select>
+                    <p>{detailedType}</p>
                 </div>
             </div>
         </div>

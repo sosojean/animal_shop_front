@@ -42,7 +42,7 @@ const Option = (props) => {
                     <span>{stock}</span>
                     <button onClick={handlePlusClick}>+</button>
                 </div>
-                {data.discountRate !== null ?
+                {data.discountRate !== 0 ?
                     <div className="price-container">
                         <span className="price"> {((props.price * (1 - data.discountRate / 100)) * stock).toLocaleString() + "원"}</span>
                         <span className="discount-rate">{data.discountRate + "%"}</span>

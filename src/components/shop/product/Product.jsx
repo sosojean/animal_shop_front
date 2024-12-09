@@ -5,7 +5,7 @@ import instance from "../../../utils/axios";
 
 const Product = (props) => {
 
-    // console.log("props.data", props.data);
+    console.log("props.data", props.data);
 
     let cart = [];
     const optionCount = props.data?.option_count;
@@ -26,6 +26,32 @@ const Product = (props) => {
         } catch (error) {
             // 에러가 발생한 경우
             console.log('장바구니 데이터 에러 발생:', error);
+        }
+    }
+
+    const addOptions = () => {
+
+        let sessionOptions = {
+            itemId: props.data?.id,
+            options: [{
+                name: props.data?.name,
+                price: props.data?.price,
+                optionId: props.data?.id,
+                discountRate: props.data?.discount_rate    
+            }]
+        }
+
+        console.log("sessionOptions", sessionOptions);
+
+        let storageOpitons = localStorage.getItem("options");
+        storageOpitons = storageOpitons ? JSON.parse(storageOpitons) : [];
+
+        let validItemId = storageOpitons.find(options =>
+            sessionOptions.itemId === options.itemId)
+
+        if (!validItemId) {
+            storageOpitons.push(sessionOptions);
+            localStorage.setItem("options", JSON.stringify(storageOpitons));
         }
     }
 
@@ -70,11 +96,13 @@ const Product = (props) => {
                 storageCart.push(sessionItem);
             }
 
+            addOptions();
             localStorage.setItem("cart", JSON.stringify(storageCart));
 
         }else {
             cart.push(sessionItem);
             localStorage.setItem("cart", JSON.stringify(cart));
+            addOptions();
         }
 
         handlePostCart(item);
@@ -90,7 +118,13 @@ const Product = (props) => {
               <div className="product-info">
                   <span className="brand">{props.data?.nickname}</span>
                   <span className="title">{props.data?.name}</span>
-                  <span className="price">{props.data?.price}원</span>
+                  {props.data?.discount_rate > 0 ?
+                    <div>
+                        <p className="origin-price">{(props.data?.price).toLocaleString()}원</p>
+                        <span className="discount-rate">{props.data?.discount_rate}%</span>
+                        <span className="price">{((props.data?.price) * (1 - props.data?.discount_rate/100)).toLocaleString()}</span>
+                    </div> : <span className="price">{(props.data?.price).toLocaleString()}원</span>
+                  }
 
                   <div className="option">
                       <span className="option">참치맛</span>

@@ -81,6 +81,7 @@ const ProductDetailHeader = ({data}) => {
     
         // 업데이트된 storageCart를 다시 localStorage에 저장
         localStorage.setItem("cart", JSON.stringify(storageCart));
+        addOptions();
         alert("장바구니에 담았습니다!");
     };
 
@@ -271,7 +272,7 @@ const ProductDetailHeader = ({data}) => {
                 <div>
                     <h2>{data.seller}</h2>
                     <h1>{data.name}</h1>
-                    {data.options[0].discountRate !== null ?
+                    {data.options[0].discountRate !== 0 ?
                         <div className="discount-price-container">                        
                             <div className="discount-price">
                                 <span className="rate">{data.options[0].discountRate}%</span>
