@@ -48,6 +48,7 @@ import SellerSuspendingItems from "../../pages/shop/seller/SellerSuspendingItems
 import SellerPointHistory from "../../pages/shop/seller/SellerPointHistory";
 import {useEffect, useState} from "react";
 import instance from "../../utils/axios";
+import Withdraw from "../shop/seller/Withdraw";
 
 const Router = (props) => {
     const species = localStorage.getItem("species");
@@ -140,6 +141,8 @@ const Router = (props) => {
                         <Route path="/admin/notice" element={<AdminNoticeList/>}/>
                         <Route path="/admin/notice/write" element={<AdminNoticeWrite/>}/>
                         <Route path="/admin/notice/:noticeId" element={<AdminNoticeDetail/>}/>
+                        <Route path="/admin/point/withdraw" element={<Withdraw/>}/>
+                        <Route path="/admin/point/withdraw" element={<Withdraw/>}/>
 
 
 
