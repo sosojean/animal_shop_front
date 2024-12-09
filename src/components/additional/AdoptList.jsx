@@ -12,8 +12,6 @@ const AdoptList = (props) => {
         {data &&
             <div className={className}>
                 {data.map((d) => {
-
-                    console.log("d.id", d.id);
                     return(
                         <Link to={`/adoption/detail/${d.id}`} key={d.id}>
                             <AdoptItem data={d} /> 

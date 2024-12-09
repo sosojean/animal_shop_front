@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Card from "../common/Card";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const AdoptItem = (props) => {
 
@@ -34,6 +36,7 @@ const AdoptItem = (props) => {
                 <div className="process-container">
                     <p>{data.status}</p>
                 </div>
+                {/* <span><FontAwesomeIcon icon={faHeart}/></span> */}
                 <div>
                     <span>{getConvertedKind("species") + " " + 
                         getConvertedKind() + "/"}</span>
