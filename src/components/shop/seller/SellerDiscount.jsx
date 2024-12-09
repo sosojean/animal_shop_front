@@ -15,7 +15,7 @@ const SellerDiscount = (props) => {
     const getDiscountedData = () => {
         const options = [...data.options];
         const discountedOptions = options.filter(option => 
-            option.discountRate > 0);
+            option.discount_rate > 0);
         
         if (discountedOptions.length > 0) {
             setIsDataFetched(true);   
@@ -28,7 +28,7 @@ const SellerDiscount = (props) => {
                 item = {
                     name: item.name,
                     price: item.price,
-                    option_discount_rate: item.discountRate,
+                    option_discount_rate: item.discount_rate,
                     option_id: item.optionId,
                     select: false // 체크박스 관리
                 }
@@ -173,7 +173,7 @@ const SellerDiscount = (props) => {
                             <span>{option.name} </span>
                             <span> {option.price}원</span>
                             <input type="number" placeholder="할인율(%)"
-                                defaultValue={option.discountRate}
+                                defaultValue={option.discount_rate}
                                 onChange={(e) => 
                                     handleAddItem(option.name, option.price, 
                                         e.target.value, option.optionId)

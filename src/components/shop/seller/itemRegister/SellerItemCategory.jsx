@@ -5,11 +5,27 @@ const SellerItemCategory = ({itemSpecies, setItemSpecies, itemType, setItemType,
     
     const dogDetailedCategory = dogItemCategory.filter((category, index) => {
         return category.main.name === itemType;
-    })[0].subcategories;
+    });
 
     const catDetailedCategory = catItemCategory.filter((category, index) => {
         return category.main.name === itemType;
-    })[0].subcategories;
+    });
+
+    const getConvertedName = () => {
+        const categoryIndex = dogItemCategory.findIndex((category) => {
+            return category.main.name === itemType});
+
+        console.log("categoryIndex", categoryIndex);
+        
+        return dogItemCategory[categoryIndex]?.main?.convert;
+    }
+
+    const getConvertedSubcategory = () => {
+        const categoryIndex = dogDetailedCategory[0]?.subcategories?.findIndex((category) => 
+        {return category.name === detailedType})
+
+        return dogDetailedCategory[0]?.subcategories[categoryIndex]?.convert;
+    }
 
     return (
         <div className='RegSelectContainer CategoryContainer'>
@@ -39,24 +55,24 @@ const SellerItemCategory = ({itemSpecies, setItemSpecies, itemType, setItemType,
                         }
 
                     </select>
-                    <p>{itemType}</p>
+                    <p>{getConvertedName()}</p>
                 </div>
                 <div>
                     <select value={detailedType} onChange={(e) => { setDetailedType(e.target.value) }}>
                         {itemSpecies === "dog" ?
-                            dogDetailedCategory?.map((category, index) => {
+                            dogDetailedCategory[0]?.subcategories?.map((category, index) => {
                                 return (
                                     <option value={category.name}>{category.convert}</option>
                                 )
                             }) : 
-                            catDetailedCategory.map((category, index) => {
+                            catDetailedCategory[0]?.subcategories?.map((category, index) => {
                                 return (
                                     <option value={category.name}>{category.convert}</option>
                                 )
                             })             
                         }
                     </select>
-                    <p>{detailedType}</p>
+                    <p>{getConvertedSubcategory()}</p>
                 </div>
             </div>
         </div>
