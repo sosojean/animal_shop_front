@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import SellerMenu from "../../../components/shop/seller/SellerMenu";
 import instance from "../../../utils/axios";
 import HistoryItem from "../../../components/shop/seller/HistoryItem";
+import StatAnalysisTable from "../../../components/shop/admin/StatAnalysisTable";
 
 const SellerPointHistory = () => {
     const [data, setData] = useState()
@@ -21,10 +22,10 @@ const SellerPointHistory = () => {
         <div>
             <SellerMenu/>
             test
+            <div className="stat-analysis-table">
+            {data&&<StatAnalysisTable data={data} colName1={"date"} colName2={"point"}/>}
+            </div>
 
-            {data&&data.map(item=>{
-                return (<HistoryItem item={item}/>)
-            })}
 
 
         </div>

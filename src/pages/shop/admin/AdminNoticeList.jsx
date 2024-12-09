@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import instance from "../../../utils/axios";
 import "../../../assets/styles/board/board.scss"
 
-const AdminNoticeList = () => {
+const AdminNoticeList = ({isSeller}) => {
 
     const [data, setData] = useState()
 
@@ -31,9 +31,13 @@ const AdminNoticeList = () => {
                     return <AdminNoticeItem item={item}/>
                 })}
             </div>
-            <Link to="/admin/notice/write">
-                <span> 공지 작성 </span>
-            </Link>
+
+            {!isSeller&&
+                <Link to="/admin/notice/write">
+                    <span> 공지 작성 </span>
+                </Link>
+            }
+
 
 
 

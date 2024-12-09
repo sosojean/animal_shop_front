@@ -5,7 +5,9 @@ const SellerMenu = (props) => {
 
     return (<nav className="adminMenu">
             <ul className="menu">
-
+                <Link to="/seller/notice">
+                    <li className="menu-item">공지 확인</li>
+                </Link>
                 <Link to="/seller">
                     <li className="menu-item">대시보드</li>
                 </Link>

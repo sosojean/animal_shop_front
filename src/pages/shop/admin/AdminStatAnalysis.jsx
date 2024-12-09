@@ -4,6 +4,7 @@ import instance from "../../../utils/axios";
 import NextPrevButton from "../../../components/common/NextPrevButton";
 import StatAnalysisTable from "../../../components/shop/admin/StatAnalysisTable";
 import AdminMenu from "../../../components/shop/admin/AdminMenu";
+import "../../../assets/styles/shop/admin/statAnalysisTable.scss"
 
 const AdminStatAnalysis = () => {
 
@@ -102,8 +103,8 @@ const AdminStatAnalysis = () => {
 
             {trimmedData && trimmedSellerData.series &&
                 <Chart data={trimmedData?.data} categories={trimmedData?.categories}
-                            series={trimmedSellerData?.series} labels={trimmedSellerData?.labels}
-                            setSelectedIndex={setSelectedIndex}/>}
+                       series={trimmedSellerData?.series} labels={trimmedSellerData?.labels}
+                       setSelectedIndex={setSelectedIndex}/>}
 
             {data &&sellerData&& <div className="stat-analysis-table">
                 <StatAnalysisTable data={data} colName1="date" colName2="point"/>

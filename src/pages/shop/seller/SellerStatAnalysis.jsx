@@ -19,7 +19,7 @@ const SellerStatAnalysis = () => {
     const [to, setTo] = useState({
         year: now.getFullYear(),
         month: now.getMonth()+ 1,
-        day: now.getDate(),
+        day: now.getDate()+1, // todo: 당일 조회 안됨
     })
 
 
@@ -228,7 +228,7 @@ const SellerStatAnalysis = () => {
             </div>
 
 
-            <div className="stat-analysis-table"
+            <div
                  style={{width: '1080px', display: "flex", justifyContent: "space-between"}}>
                 {itemData && cartData &&
                     <SellerChart data={itemData.data} data2={cartData.data} categories={generateDateList(from, to)}
@@ -236,8 +236,8 @@ const SellerStatAnalysis = () => {
                 {itemPriceData && <TestComp data={itemPriceData}/>}
                 {console.log(itemData)}
 
-            </div>
-            <div style={{width: '1080px', display: "flex", justifyContent: "space-between"}}>
+            </div >
+            <div className="stat-analysis-table" style={{width: '1080px', display: "flex", justifyContent: "space-between"}}>
 
                 {itemData && <SellerAnalysisTable data1={itemData.categories} data2={itemData.data} colName1="date"
                                                   colName2="point"/>}

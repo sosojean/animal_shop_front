@@ -60,32 +60,32 @@ const MyPageEdit = (props) => {
         e.preventDefault();
         let data;
 
-        if (inputEmail != email && inputName != name) {
+        // if (inputEmail != email && inputName != name) {
             data = {
                 mail: email,
                 nickname: name,
                 profile:imgUrl
 
             }
-        } else if (inputName != name) {
-            data = {
-                nickname: name,
-                profile:imgUrl
-
-            }
-
-        } else if (inputEmail != email) {
-            data = {
-                mail: email,
-                profile:imgUrl
-
-            }
-
-        } else {
-            data = {
-                profile:imgUrl
-            }
-        }
+        // } else if (inputName != name) {
+        //     data = {
+        //         nickname: name,
+        //         profile:imgUrl
+        //
+        //     }
+        //
+        // } else if (inputEmail != email) {
+        //     data = {
+        //         mail: email,
+        //         profile:imgUrl
+        //
+        //     }
+        //
+        // } else {
+        //     data = {
+        //         profile:imgUrl
+        //     }
+        // }
 
         console.log("data",data)
 
