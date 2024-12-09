@@ -6,7 +6,7 @@
   justify-content: space-between;
 
 .table-container{
-  width: 50%;
+  width: 500px;
 
   .table {
     display: table;
@@ -20,8 +20,8 @@
       padding: 10px;
       height: 40px;
       text-align: center;
-      td{
-        width: 50%;
+      th{
+        width: 125px;
         vertical-align: middle;
       }
     }
@@ -29,8 +29,7 @@
 
       text-align: center;
       td{
-        width: 50%;
-
+        width: 125px;
         height: 40px;
         vertical-align: middle;
       }
@@ -39,10 +38,6 @@
 
   }
 
-  //.col {
-  //  border: 1px solid #ddd;
-  //  padding: 8px;
-  //}
 
 }
   tbody::-webkit-scrollbar {
@@ -57,9 +52,6 @@ tbody::-webkit-scrollbar-thumb {
 tbody::-webkit-scrollbar-track {
     background: var(--alpha-5);  /*스크롤바 뒷 배경 색상*/
   }
-//
-//
-//}
 
 
 table tbody {

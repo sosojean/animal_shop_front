@@ -52,7 +52,7 @@ const PetInfoDetail = ({item, setIsEdited, isEdited}) => {
                     </div>
                 </>
 
-                : "등록된 반려동물이 없어요"
+                : <div className={"pet-profile"}>등록된 반려동물이 없어요</div>
 
             }
 

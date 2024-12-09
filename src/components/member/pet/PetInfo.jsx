@@ -4,6 +4,8 @@ import instance from "../../../utils/axios";
 import {useNavigate} from "react-router-dom";
 import {weightOptions,catBreedOptions,dogBreedOptions,ageOptions} from "../../../utils/petOptions";
 import "../../../assets/styles/member/petInfo.scss"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCrown} from "@fortawesome/free-solid-svg-icons";
 
 const PetInfo = ({item, index, setIsEdited, isEdited, setSelectedPet}) => {
 
@@ -40,7 +42,7 @@ const PetInfo = ({item, index, setIsEdited, isEdited, setSelectedPet}) => {
         <Card onClick={handleSelect} className={"pet-info"}>
             <img className={"pet-profile"} src={url} alt=""/>
             <div className={"info-section"}>
-                <h2>{item.name}</h2>
+                <h2>{item.isLeader&&<FontAwesomeIcon className="icon" icon={faCrown}/>}{" "+item.name}</h2>
                 <span>{item.age} 살</span>
                 <span>{item.species==="CAT"? catBreedOptions[parseInt(item.breed)]:dogBreedOptions[parseInt(item.breed)]}</span>
                 <span>{weightOptions[ parseInt(item.weight)]}</span>

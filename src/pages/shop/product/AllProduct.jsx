@@ -11,6 +11,8 @@ const AllProduct = (props) => {
 
 
     useEffect(() => {
+        const species= localStorage.getItem("species");
+
 // todo : 카테고리 받아와야함
         let url = `http://localhost:8080/shop/product-category`
         // species=species&category=category&detailed_category&page=1
@@ -18,10 +20,7 @@ const AllProduct = (props) => {
             url:url ,
             method:"get",
             params:{
-                species:"dog",
-                // category:"Toys",
-                // ["detailed-category"]:"Chewing",
-                // page:1
+                species:species?species:"dog"
             }
         }).then(res => {
             console.log(res)
@@ -34,12 +33,8 @@ const AllProduct = (props) => {
 
 
     return (<>
-        <span>all</span>
         {data&& <Products name ={category}  data={data}/>}
     </>)
   
 }
 export default AllProduct;
-
-
-

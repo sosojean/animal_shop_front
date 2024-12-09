@@ -5,13 +5,10 @@ import Home from "../../pages/board/Home";
 import Join from "../../pages/member/Join";
 import Login from "../../pages/member/Login";
 import PostWrite from "../../pages/board/PostWrite";
-import JoinSuccess from "../../pages/member/JoinSuccess";
 import "../../assets/styles/layout/router.scss";
 import MyPageEdit from "../../pages/member/MyPageEdit";
 import ContentsViewer from "../board/ContentsViewer";
 import Search from "../../pages/board/Search";
-import Product from "../shop/product/Product";
-import Products from "../shop/product/Products";
 import ShopMain from "../../pages/shop/ShopMain";
 import Cart from "../../pages/shop/order/Cart";
 import ProductDetail from "../../pages/shop/product/ProductDetail";
@@ -23,11 +20,9 @@ import SellerMain from "../../pages/shop/seller/SellerMain"
 import MyPage from "../member/MyPage";
 import SellerQnA from "../shop/seller/sellerQna/SellerQnA";
 import ScrollToTop from "../../utils/ScrollToTop";
-import SellerItemEditor from "../shop/seller/itemRegister/SellerItemEditor"
 import SellerItemRegister from "../../pages/shop/seller/SellerItemRegister";
 import SellerItemList from "../shop/seller/itemList/SellerItemList";
 import PetRegister from "../../pages/member/PetRegister";
-import PetInfoList from "../member/pet/PetInfoList";
 import PetInfoEdit from "../member/pet/PetInfoEdit";
 import PetInfoPage from "../../pages/member/PetInfoPage";
 import SellerOrderAccept from "../../pages/shop/seller/sellerOrderAccept";
@@ -37,7 +32,6 @@ import SellerManagement from "../shop/admin/SellerManagement";
 import ProductManagement from "../../pages/shop/admin/ProductManagement";
 import PasswordFinder from "../../pages/member/PasswordFinder";
 import AdoptAnimal from "../../pages/additional/AdoptAnimal";
-import AdoptDetail from "../additional/AdoptDetail";
 import AdoptAnimalDetail from "../../pages/additional/AdoptAnimalDetail";
 import PendingProductManagement from "../../pages/shop/admin/PendingProductManagement";
 import AdminStatAnalysis from "../../pages/shop/admin/AdminStatAnalysis";
@@ -47,7 +41,8 @@ import AdminNoticeDetail from "../../pages/shop/admin/AdminNoticeDetail";
 import SellerSuspendingItems from "../../pages/shop/seller/SellerSuspendingItems";
 import SellerPointHistory from "../../pages/shop/seller/SellerPointHistory";
 import {useEffect, useState} from "react";
-import instance from "../../utils/axios";
+import Withdraw from "../shop/seller/Withdraw";
+import FacilitiesMap from "../../pages/map/FacilitiesMap";
 
 const Router = (props) => {
     const species = localStorage.getItem("species");
@@ -113,6 +108,8 @@ const Router = (props) => {
 
                         {/*판매자*/}
                         <Route path="/seller" element={<SellerMain/>}/>
+                        <Route path="/seller/notice" element={<AdminNoticeList isSeller={true}/>}/>
+
                         <Route path="/seller/item/new" element={<SellerItemRegister/>}/>
                         <Route path="/seller/item/list" element={<SellerItemList/>}/>
                         <Route path="/seller/item/edit/:itemId" element={<SellerItemRegister/>}/>
@@ -137,15 +134,20 @@ const Router = (props) => {
                         <Route path="/admin/product" element={<ProductManagement/>}/>
                         <Route path="/admin/product/pending" element={<PendingProductManagement/>}/>
                         <Route path="/admin/analysis" element={<AdminStatAnalysis/>}/>
-                        <Route path="/admin/notice" element={<AdminNoticeList/>}/>
+                        <Route path="/admin/notice" element={<AdminNoticeList isSeller={false}/>}/>
                         <Route path="/admin/notice/write" element={<AdminNoticeWrite/>}/>
                         <Route path="/admin/notice/:noticeId" element={<AdminNoticeDetail/>}/>
+                        <Route path="/admin/point/withdraw" element={<Withdraw/>}/>
 
 
 
                         {/* 입양 */}
                         <Route path="/adoption" element={<AdoptAnimal/>}/>
                         <Route path="/adoption/detail/:desertionNo" element={<AdoptAnimalDetail/>}/>
+
+                        {/* 지도 */}
+                        <Route path="/map" element={<FacilitiesMap/>}/>
+
 
                     </Routes>
                 </div>

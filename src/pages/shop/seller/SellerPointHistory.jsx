@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SellerMenu from "../../../components/shop/seller/SellerMenu";
 import instance from "../../../utils/axios";
 import HistoryItem from "../../../components/shop/seller/HistoryItem";
+import StatAnalysisTable from "../../../components/shop/admin/StatAnalysisTable";
 
 const SellerPointHistory = () => {
     const [data, setData] = useState([]);
@@ -58,14 +59,11 @@ const SellerPointHistory = () => {
                 <button onClick={() => setPrevIndex(
                     prev => Math.max(prev - 1, 0))}>{">"}</button>
             </div>
-
-            <div>
-                {data.length > 0 ? (
-                    data.map(item => <HistoryItem key={item.id} item={item}/>)
-                ) : (
-                    <p>데이터가 없습니다.</p>
-                )}
+            test
+            <div className="stat-analysis-table">
+            {data&&<StatAnalysisTable data={data} colName1={"date"} colName2={"point"}/>}
             </div>
+
         </div>
     );
 };

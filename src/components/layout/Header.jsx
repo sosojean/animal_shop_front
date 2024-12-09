@@ -77,29 +77,29 @@ const Header = (props) => {
                                 <ToggleBtn setIsDog={props.setIsDog} isDog={props.isDog}/>
 
 
-                                {/*<Link onMouseEnter={leaveHeader} to="/admin/seller">*/}
-                                {/*    <li>관리자</li>*/}
-                                {/*</Link>*/}
-                                {/*<Link onMouseEnter={leaveHeader} to="/seller">*/}
-                                {/*    <li>판매자</li>*/}
-                                {/*</Link>*/}
+                                <Link onMouseEnter={leaveHeader} to="/admin/seller">
+                                    <li>관리자</li>
+                                </Link>
+                                <Link onMouseEnter={leaveHeader} to="/seller">
+                                    <li>판매자</li>
+                                </Link>
 
 
                             </ul>
                         </div>
 
-                        <form onMouseEnter={leaveHeader} className="searchBar" action="/search"
-                              onSubmit={(e) => {
-                                  searchHandler(e)
-                              }}>
-                            <input id="searchInput" type="text"
-                                   name="keyword" maxLength="50"
-                                   placeholder="글 제목, 본문 검색"
-                                   onChange={(e) => {
-                                       setKeyword(e.target.value)
-                                   }}/>
-                            {/* <button onClick={searchHandler}>검색</button> */}
-                        </form>
+                        {/*<form onMouseEnter={leaveHeader} className="searchBar" action="/search"*/}
+                        {/*      onSubmit={(e) => {*/}
+                        {/*          searchHandler(e)*/}
+                        {/*      }}>*/}
+                        {/*    <input id="searchInput" type="text"*/}
+                        {/*           name="keyword" maxLength="50"*/}
+                        {/*           placeholder="글 제목, 본문 검색"*/}
+                        {/*           onChange={(e) => {*/}
+                        {/*               setKeyword(e.target.value)*/}
+                        {/*           }}/>*/}
+                        {/*    /!* <button onClick={searchHandler}>검색</button> *!/*/}
+                        {/*</form>*/}
 
                         <div className="headerRegisterContainer" onMouseEnter={leaveHeader}>
                             {isAuth ? <>

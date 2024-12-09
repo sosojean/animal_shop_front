@@ -1,4 +1,5 @@
 import React from 'react';
+import "../../../assets/styles/shop/admin/statAnalysisTable.scss"
 
 const SellerAnalysisTable = ({colName1, colName2, data1, data2}) => {
     return (

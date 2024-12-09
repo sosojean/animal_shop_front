@@ -11,8 +11,8 @@ const Category = (props) => {
 
                 <div className="category-menu">
                     <ul className="category-menu-item">
-                        <Link to="/free">
-                            <li>🐶 보험</li>
+                        <Link to="/map">
+                            <li>🐶 지도</li>
                         </Link>
                         <Link to="/adoption">
                             <li>🐱 입양</li>
