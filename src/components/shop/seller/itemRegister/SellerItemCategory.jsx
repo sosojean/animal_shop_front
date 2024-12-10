@@ -4,12 +4,10 @@ import { dogItemCategory, catItemCategory } from "../../../../utils/categoryOpti
 const SellerItemCategory = ({itemSpecies, setItemSpecies, itemType, setItemType, detailedType, setDetailedType}) => {
     
     const dogDetailedCategory = dogItemCategory.filter((category, index) => {
-        return category.main.name === itemType;
-    });
+        return category.main.name === itemType;});
 
     const catDetailedCategory = catItemCategory.filter((category, index) => {
-        return category.main.name === itemType;
-    });
+        return category.main.name === itemType;});
 
     const getConvertedName = () => {
         const categoryIndex = dogItemCategory.findIndex((category) => {
@@ -21,10 +19,17 @@ const SellerItemCategory = ({itemSpecies, setItemSpecies, itemType, setItemType,
     }
 
     const getConvertedSubcategory = () => {
-        const categoryIndex = dogDetailedCategory[0]?.subcategories?.findIndex((category) => 
-        {return category.name === detailedType})
+        if (itemSpecies === "dog"){
+            const categoryIndex = dogDetailedCategory[0]?.subcategories?.findIndex((category) => 
+            {return category.name === detailedType})
 
-        return dogDetailedCategory[0]?.subcategories[categoryIndex]?.convert;
+            return dogDetailedCategory[0]?.subcategories[categoryIndex]?.convert;
+        } else {
+            const categoryIndex = catDetailedCategory[0]?.subcategories?.findIndex((category) => 
+                {return category.name === detailedType})
+    
+            return catDetailedCategory[0]?.subcategories[categoryIndex]?.convert;
+        }
     }
 
     return (
