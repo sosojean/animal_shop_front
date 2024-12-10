@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import Card from "../common/Card";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import instance from "../../utils/axios"
 
 const AdoptItem = (props) => {
 
@@ -26,6 +27,19 @@ const AdoptItem = (props) => {
         }
     }
 
+    const handleAddInterest = () => {
+        instance({
+            url: `/abandoned_animal/register?desertionNo=${data.desertion_no}`,
+            method: "get",
+        }).then((res) => {
+            console.log("handleAddInterest response", res.data);
+            alert("관심동물에 등록됐습니다!");
+        })
+        .catch((err) => {
+            console.error("handleAddInterest error", err);
+        })
+    }
+
     return (
         <>
         <Card className="adopt-item-Container">
@@ -33,10 +47,10 @@ const AdoptItem = (props) => {
                 <img src={data.popfile} alt="강아지"/>
             </div>
             <div className="info-container">
-                <div className="process-container">
-                    <p>{data.status}</p>
+                <div className="process-container" onClick={handleAddInterest}>
+                    {/* <p>{data.status}</p> */}
+                    <span><FontAwesomeIcon icon={faPlus}/></span>    
                 </div>
-                {/* <span><FontAwesomeIcon icon={faHeart}/></span> */}
                 <div>
                     <span>{getConvertedKind("species") + " " + 
                         getConvertedKind() + "/"}</span>

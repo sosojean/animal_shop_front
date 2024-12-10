@@ -143,7 +143,7 @@ const Router = (props) => {
 
                         {/* 입양 */}
                         <Route path="/adoption" element={<AdoptAnimal/>}/>
-                        <Route path="/adoption/detail/:desertionNo" element={<AdoptAnimalDetail/>}/>
+                        <Route path="/adoption/detail/:id" element={<AdoptAnimalDetail/>}/>
 
                         {/* 지도 */}
                         <Route path="/map" element={<FacilitiesMap/>}/>
