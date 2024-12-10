@@ -1,13 +1,14 @@
 import {useEffect, useState} from "react";
 import '../../../../assets/styles/shop/product/mainDetail.scss'
-import {Link, useNavigate, useParams} from "react-router-dom";
-import axios from "axios";
+import {useNavigate} from "react-router-dom";
 import Option from "../option/Option";
 import Thumbnails from "./Thumbnails";
 import Selector from "../../../common/Selector";
 import instance from "../../../../utils/axios";
 
 const ProductDetailHeader = ({data}) => {
+
+    console.log("ProductDetailHeader", data);
 
     const [option, setOption] = useState([]);
     const [stocks, setStocks] = useState([]);
@@ -23,8 +24,8 @@ const ProductDetailHeader = ({data}) => {
 
 
     const defaultPrice = data?.options[0].price;
-    const selectedDefault =  data.options[0].discountRate !== null ? 
-        defaultPrice * (1 - (data.options[0].discountRate/100)) : defaultPrice;
+    const selectedDefault =  data.options[0].discount_rate !== null ? 
+        defaultPrice * (1 - (data.options[0].discount_rate/100)) : defaultPrice;
 
     // const optionLength = data?.options.length;
     console.log("session", session);
@@ -82,6 +83,7 @@ const ProductDetailHeader = ({data}) => {
     
         // 업데이트된 storageCart를 다시 localStorage에 저장
         localStorage.setItem("cart", JSON.stringify(storageCart));
+        addOptions();
         alert("장바구니에 담았습니다!");
     };
 
@@ -132,7 +134,7 @@ const ProductDetailHeader = ({data}) => {
     const priceTrimmer = (optionPrice, optionId)=> {
 
         const findOption = data.options.filter(option => option.optionId === optionId);
-        const discount = findOption[0].discountRate;
+        const discount = findOption[0].discount_rate;
         const disOptionPrice = discount !== null ? optionPrice * (1-discount/100) : optionPrice;
 
         if (selectedDefault !== disOptionPrice) {
@@ -272,11 +274,11 @@ const ProductDetailHeader = ({data}) => {
                 <div>
                     <h2>{data.seller}</h2>
                     <h1>{data.name}</h1>
-                    {data.options[0].discountRate !== null ?
+                    {data.options[0].discount_rate > 0 || data.options[0].discount_rate !== null ?
                         <div className="discount-price-container">                        
                             <div className="discount-price">
-                                <span className="rate">{data.options[0].discountRate}%</span>
-                                <span className="appliedprice">{(defaultPrice * (1 - (data.options[0].discountRate/100))).toLocaleString()} 원</span>
+                                <span className="rate">{data.options[0].discount_rate}%</span>
+                                <span className="appliedprice">{(defaultPrice * (1 - (data.options[0].discount_rate/100))).toLocaleString()} 원</span>
                             </div>
                             <h1 className="origin-price">{defaultPrice.toLocaleString()} 원</h1>     
                         </div> :
@@ -302,6 +304,7 @@ const ProductDetailHeader = ({data}) => {
                                         price={data.options[itemIndex].price}
                                         handleStockChange={handleStockChange}
                                         handleOptionDelete={handleOptionDelete}
+                                        data={data.options[itemIndex]}
                         />)
                     })}
                 </div>

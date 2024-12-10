@@ -29,12 +29,13 @@ const SellerItemEditor = () => {
 
     // SellerItemCategory
     const [itemSpecies, setItemSpecies] = useState("dog"); // 동물종류
-    const [itemType, setItemType] = useState("간식"); // 상품종류
+    const [itemType, setItemType] = useState("food"); // 상품종류
+    const [detailedType, setDetailedType] = useState("");
 
     // SellerItemOption
     const [options, setOptions] = useState([{ name: 'default', price: '' }]); // 옵션
     const [defaultPrice, setDefaultPrice] = useState();
-    console.log("options", options); 
+    // console.log("options", options); 
     const [newOption, setNewOption] = useState({ name: '', price: ''}); // 옵션 추가용 state
 
     // SellerDetailImage
@@ -50,8 +51,6 @@ const SellerItemEditor = () => {
     const getRegisterData = () => {
         const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
         console.log("getRegisterData");
-        console.log(markdown);
-
 
         // 공통 데이터 정의
         const data = {
@@ -62,9 +61,12 @@ const SellerItemEditor = () => {
             sell_status: sellStatus,
             species: itemSpecies,
             category: itemType,
+            detailed_category: detailedType,
             thumbnailUrls: thumnailsUrls,
             imageUrl: detailImageUrl
         };
+
+        console.log("Data", data);
 
         // `itemId`가 있는 경우 `id` 속성 추가
         return itemId ? { ...data, id: itemId } : data;
@@ -86,6 +88,7 @@ const SellerItemEditor = () => {
             setItemName(item.name);
             setItemSpecies(item.species);
             setItemType(item.category);
+            setDetailedType(item.detailed_category);
             setSellStatus(item.sell_status);
             setItemStock(item.stock_number);
             setDetailImageUrl(item.image_url);
@@ -108,7 +111,8 @@ const SellerItemEditor = () => {
             <SellerNameRegister itemName={itemName} setItemName={setItemName} nameCount={nameCount} setNameCount={setNameCount}/>
             <SellerItemStock itemStock={itemStock} setItemStock={setItemStock}/>
             <SellerItemStatus sellStatus={sellStatus} setSellStatus={setSellStatus}/>
-            <SellerItemCategory itemSpecies={itemSpecies} setItemSpecies={setItemSpecies} itemType={itemType} setItemType={setItemType} />
+            <SellerItemCategory itemSpecies={itemSpecies} setItemSpecies={setItemSpecies} itemType={itemType} setItemType={setItemType}
+                detailedType={detailedType} setDetailedType={setDetailedType}/>
             <SellerItemOption options={options} setOptions={setOptions} newOption={newOption} setNewOption={setNewOption}
                 defaultPrice={defaultPrice} setDefaultPrice={setDefaultPrice}/>
             <SellerDetailImage detailImageUrl={detailImageUrl} setDetailImageUrl={setDetailImageUrl}/>
