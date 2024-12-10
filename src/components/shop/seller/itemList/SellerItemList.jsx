@@ -7,13 +7,15 @@ import SellerItem from "./SellerItem";
 import Modal from "../../../common/Modal";
 import SellerDiscount from "../SellerDiscount";
 import SellerMenu from "../SellerMenu";
+import SellerItemSearch from "./SellerItemSearch";
 
 
 const SellerItemList = ({navigateUrl}) => {
 
     const [itemList, setItemList] = useState([]); // 아이템 리스트
-    // console.log("itemList", itemList);
     const [totalCount, setTotalCount] = useState(0); // 아이템 개수
+    const [params, setParams] = useState({}); // 검색 PARAMS
+    console.log("parent params", params);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -37,13 +39,33 @@ const SellerItemList = ({navigateUrl}) => {
         }
     };
 
+    const getSearchList = async(page) => {
+        try {
+            const response = await instance({
+                url: `/seller/search?page=${page}`,
+                method: "get",
+                params: {...params}
+            });
+    
+            setItemList(response.data.itemDTOLists);
+            setTotalCount(response.data.total_count);
+
+            console.log("response.data", response.data);
+    
+        } catch (error) {
+            console.error('데이터 에러 발생:', error);
+            alert('데이터를 불러오지 못했습니다.');
+        }
+    }
+
     const getRefreshData = () => {
-        getItemList(currentPage);
+        getSearchList(currentPage);
     }
 
     useEffect(() => {
-        getItemList(currentPage);
-    }, [currentPage]);
+        // getItemList(currentPage);
+        getSearchList(currentPage);
+    }, [currentPage, params]);
 
     const handlePageChange = (newPage) => {
         navigate(`/seller/item/list?page=${newPage}`); // 페이지 변화
@@ -51,6 +73,8 @@ const SellerItemList = ({navigateUrl}) => {
 
     return(<>
         <SellerMenu/>
+        <SellerItemSearch params={params} setParams={setParams}
+            getRefreshData={getRefreshData}/>
         <div className="sellerItemListContainer">
             <div className='SellerItemListHeaderContainer'>
                 <div className='SellerItemId'>상품번호</div>
