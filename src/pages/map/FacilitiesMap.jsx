@@ -45,16 +45,6 @@ const FacilitiesMap = () => {
             console.log(err)
         })
     }, [Bounds]);
-// }, []);
-
-
-
-//         title: '내 위치',
-        //         latlng: new kakao.maps.LatLng(currLocation.latitude, currLocation.longitude)
-        //     },
-
-
-
 
 
 
