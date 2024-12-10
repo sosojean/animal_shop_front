@@ -5,24 +5,29 @@ const SellerItemSearch = (props) => {
 
     const {params, setParams} = props;
 
-    const [species, setSpecies] = useState({species: "total"});
+    const [species, setSpecies] = useState();
 
     const handleAddParam = () => {
         setParams((prevParams) => {
-            const newParams = {...prevParams};
+            let newParams = {...prevParams};
 
-            Object.assign(newParams, {...species});
+            if (species.species !== "total") {
+                Object.assign(newParams, {...species});
 
-            console.log("newParams", newParams);
-            return newParams;
+                console.log("newParams", newParams);
+                return newParams;                
+            } else {
+                newParams = {};
+                return newParams;
+            }
+
         })
     }
 
     return (
         <div>
             <select onChange={(e) => setSpecies((prevSpecies) => {
-                return {species: e.target.value};
-            })}>
+                    return {species: e.target.value};})}>
                 <option value="total">전체</option>
                 <option value="dog">강아지</option>
                 <option value="cat">고양이</option>
