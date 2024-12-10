@@ -7,7 +7,7 @@ import { useState } from "react";
 const SellerItem = ({item ,navigateUrl,getItemList, currentPage, getRefreshData }) => {
     const [modalOpen, setModalOpen] = useState(false);
 
-    console.log("item", item);
+    // console.log("item", item);
 
     return(
         <>
