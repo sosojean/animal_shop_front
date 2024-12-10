@@ -5,6 +5,8 @@ import instance from "../../utils/axios";
 import PlaceList from "../../components/map/PlaceList";
 const FacilitiesMap = () => {
     const [data, setData] = useState()
+    const [search, setSearch] = useState()
+
     const [currLocation, setCurrLocation] = useState(
         {lat: 0, lng: 0},
     )
@@ -44,7 +46,7 @@ const FacilitiesMap = () => {
         }).catch((err) => {
             console.log(err)
         })
-    }, [Bounds]);
+    }, [search]);
 
 
 
@@ -54,7 +56,7 @@ const FacilitiesMap = () => {
                 {data&&<PlaceList data={data}/>}
             </div>
 
-            {data&&<Map currLocation={currLocation} setCurrLocation={setCurrLocation} setBounds={setBounds} data={data}/>}
+            {data&&<Map search={search} setSearch={setSearch} currLocation={currLocation} setCurrLocation={setCurrLocation} setBounds={setBounds} data={data}/>}
         </div>
     );
 }

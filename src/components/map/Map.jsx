@@ -1,18 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react';
+import Search from "../../pages/board/Search";
 
-const Map = ({currLocation,setCurrLocation , setBounds, data}) => {
+const Map = ({currLocation,setCurrLocation , setBounds, data , setSearch , search}) => {
     const mapRef = useRef(null); // 지도 객체를 저장할 ref
-    const map = mapRef.current;
+    let map = mapRef.current;
 
     const [mapLoaded, setMapLoaded] = useState(false); // 상태 추가
     const [locationLoaded, setLocationLoaded] = useState(false)
     const [markerChanged, setMarkerChanged] = useState(false)
     const [markers, setMarkers] = useState([]);
-    const [swLatLng, setSwLatLng] = useState()
-    const [neLatLng, setNeLatLng] = useState()
 
-    // let swLatLng=null;
-    // let neLatLng=null;
     let positions = []
     let kakao =null;
 
@@ -39,13 +36,18 @@ const Map = ({currLocation,setCurrLocation , setBounds, data}) => {
             };
             if (!mapRef.current) {
                 mapRef.current = new kakao.maps.Map(mapContainer, options);
+                map = mapRef.current;
+                kakao.maps.event.addListener(map, 'bounds_changed',function (){
+                    applyBound(map)
+                })
+                console.log("map",map);
                 setMapLoaded(true)
             }
 
         });
     }
 
-    const setCurrentBounds = ( )=>{
+    const setCurrentBounds = ( swLatLng,neLatLng )=>{
         setBounds(
             {
                 swLatlng: {
@@ -62,50 +64,50 @@ const Map = ({currLocation,setCurrLocation , setBounds, data}) => {
 
     }
 
-    const getBound = ()=>{
-        const map = mapRef.current;
 
+    const applyBound=(map)=>{
         const bounds = map.getBounds();
-        setSwLatLng(bounds.getSouthWest())
-        setNeLatLng(bounds.getNorthEast())
 
-        setCurrentBounds()
+        let swLatlng = bounds.getSouthWest();
 
+        // 영역정보의 북동쪽 정보를 얻어옵니다
+        let neLatlng = bounds.getNorthEast();
+        console.log("-----------",bounds);
+        setCurrentBounds(swLatlng, neLatlng);
     }
-
 
 
     useEffect(() => {
 
-            const clearAllMarkers = () => {
-                markers.forEach((marker) => marker.setMap(null));
-                setMarkers([]);
-            };
-            clearAllMarkers()
-
-            // 마커 추가
-            const kakao = window.kakao;
-            const newMarkers = data.map((item) => {
-                const marker = new kakao.maps.Marker({
-                    map: map,
-                    position: new kakao.maps.LatLng(item.latitude, item.longitude),
-                    title: item.facility_name,
-                });
-                return marker;
-            });
-            setMarkers(newMarkers);
-
-            console.log(positions)
-
-
-            positions.forEach((position) => {
-                new kakao.maps.Marker({
-                    map: map,
-                    position: position.latlng,
-                    title: position.title,
-                });
-            });
-        // }
+        //     const clearAllMarkers = () => {
+        //         markers.forEach((marker) => marker.setMap(null));
+        //         setMarkers([]);
+        //     };
+        //     clearAllMarkers()
+        //
+        //     // 마커 추가
+        //     const kakao = window.kakao;
+        //     const newMarkers = data.map((item) => {
+        //         const marker = new kakao.maps.Marker({
+        //             map: map,
+        //             position: new kakao.maps.LatLng(item.latitude, item.longitude),
+        //             title: item.facility_name,
+        //         });
+        //         return marker;
+        //     });
+        //     setMarkers(newMarkers);
+        //
+        //     console.log(positions)
+        //
+        //
+        //     positions.forEach((position) => {
+        //         new kakao.maps.Marker({
+        //             map: map,
+        //             position: position.latlng,
+        //             title: position.title,
+        //         });
+        //     });
+        // // }
     }, [ data, markerChanged]);
 
 
@@ -119,7 +121,7 @@ const Map = ({currLocation,setCurrLocation , setBounds, data}) => {
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
                 });
-                setLocationLoaded(true); // 현위치 설정 후 로드 상태 변경
+                setLocationLoaded(!locationLoaded); // 현위치 설정 후 로드 상태 변경
             },
             (error) => {
                 console.error('Error getting location:', error);
@@ -137,20 +139,23 @@ const Map = ({currLocation,setCurrLocation , setBounds, data}) => {
                 .then(() => {
                     console.log('Kakao Maps SDK loaded');
                     loadMap();
-                    getBound();
+
+                    if (map){
+                        applyBound(map)
+                    }
 
                 })
                 .catch((err) => {
                     console.error('Error loading Kakao Maps SDK:', err);
                 });
         }
-    }, [locationLoaded]); // locationLoaded가 변경될 때만 실행
+    }, [locationLoaded, map]); // locationLoaded가 변경될 때만 실행
 
 
     return (
             <div className="map-container">
                 <div id="map" className="map"/>
-                <button onClick={setCurrentBounds}>aa</button>
+                <button onClick={()=>setSearch(!search)} >aa</button>
             </div>
     );
 
