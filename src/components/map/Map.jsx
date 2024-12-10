@@ -10,7 +10,6 @@ const Map = ({currLocation,setCurrLocation , setBounds, data , setSearch , searc
     const [markerChanged, setMarkerChanged] = useState(false)
     const [markers, setMarkers] = useState([]);
 
-    let positions = []
     let kakao =null;
 
     const new_script = src => {
@@ -25,7 +24,7 @@ const Map = ({currLocation,setCurrLocation , setBounds, data , setSearch , searc
     };
 
     const loadMap=() => {
-        console.log('script loaded!!!');
+        // console.log('script loaded!!!');
         kakao = window['kakao'];
 
         kakao.maps.load(() => {
@@ -40,7 +39,7 @@ const Map = ({currLocation,setCurrLocation , setBounds, data , setSearch , searc
                 kakao.maps.event.addListener(map, 'bounds_changed',function (){
                     applyBound(map)
                 })
-                console.log("map",map);
+                // console.log("map",map);
                 setMapLoaded(true)
             }
 
@@ -86,29 +85,33 @@ const Map = ({currLocation,setCurrLocation , setBounds, data , setSearch , searc
         //     clearAllMarkers()
         //
         //     // 마커 추가
-        //     const kakao = window.kakao;
-        //     const newMarkers = data.map((item) => {
-        //         const marker = new kakao.maps.Marker({
-        //             map: map,
-        //             position: new kakao.maps.LatLng(item.latitude, item.longitude),
-        //             title: item.facility_name,
-        //         });
-        //         return marker;
-        //     });
-        //     setMarkers(newMarkers);
-        //
-        //     console.log(positions)
-        //
-        //
-        //     positions.forEach((position) => {
-        //         new kakao.maps.Marker({
-        //             map: map,
-        //             position: position.latlng,
-        //             title: position.title,
-        //         });
-        //     });
-        // // }
-    }, [ data, markerChanged]);
+        const kakao = window.kakao;
+        if(map&&kakao){
+        data.map((item) => {
+
+            const marker = new kakao.maps.Marker({
+                map: map,
+                position: new kakao.maps.LatLng(item.latitude, item.longitude),
+                title: item.facility_name,
+            });
+
+            console.log("marker",marker)
+            console.log(item);
+
+        });
+
+        }
+
+            //
+            // positions.forEach((position) => {
+            //     new kakao.maps.Marker({
+            //         map: map,
+            //         position: position.latlng,
+            //         title: position.title,
+            //     });
+            // });
+        // }
+    }, [data]);
 
 
 
@@ -116,7 +119,7 @@ const Map = ({currLocation,setCurrLocation , setBounds, data , setSearch , searc
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                console.log('Current Position:', position);
+                // console.log('Current Position:', position);
                 setCurrLocation({
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
@@ -137,7 +140,7 @@ const Map = ({currLocation,setCurrLocation , setBounds, data , setSearch , searc
 
             my_script
                 .then(() => {
-                    console.log('Kakao Maps SDK loaded');
+                    // console.log('Kakao Maps SDK loaded');
                     loadMap();
 
                     if (map){
