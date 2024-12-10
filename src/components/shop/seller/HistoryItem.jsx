@@ -3,8 +3,10 @@ import React from 'react';
 const HistoryItem = ({item}) => {
     return (
         <div>
-            <span>{item.date}</span>
-            <span>{item.point}</span>
+          <span>{item.date}</span>
+          <span> - </span>
+
+          <span>{item.point}</span>
         </div>
     );
 };

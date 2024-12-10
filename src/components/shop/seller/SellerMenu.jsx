@@ -5,6 +5,13 @@ const SellerMenu = (props) => {
 
     return (<nav className="adminMenu">
             <ul className="menu">
+                <Link to="/seller/notice">
+                    <li className="menu-item">공지 확인</li>
+                </Link>
+                <Link to="/seller">
+                    <li className="menu-item">대시보드</li>
+                </Link>
+
                 <Link to="/seller/item/list">
                     <li className="menu-item">상품 관리</li>
                 </Link>
@@ -26,10 +33,10 @@ const SellerMenu = (props) => {
                 </Link>
 
                 <Link to="/seller/point/history">
-                    <li className="menu-item">정산금 확인</li>
+                    <li className="menu-item">판매수익</li>
                 </Link>
 
-                <li className="menu-item">-</li>
+
                 <li className="menu-item">-</li>
 
             </ul>

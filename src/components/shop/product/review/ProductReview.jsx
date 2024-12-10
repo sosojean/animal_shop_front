@@ -4,12 +4,15 @@ import {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart, faHeartBroken} from "@fortawesome/free-solid-svg-icons";
 import ReviewImages from "./ReviewImages";
+import {useModifyTime} from "../../../../utils/useModifyTime";
 
 const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit, isEdit}) => {
 
     const [isAuthor, setIsAuthor] = useState()
     const [isLiked, setIsLiked] = useState(item.heart)
     const [newComment, setNewComment] = useState(item.contents)
+    const modifiedTime = useModifyTime(item.createdDate)
+
 
     useEffect(() => {
         instance({
@@ -95,7 +98,7 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit,
                     <div className="review-header">
                         <div className="reviewerName">
                             <p>{item?.nickname}</p>
-                            <p>{item?.createdDate}</p>
+                            <p>{modifiedTime}</p>
 
                         </div>
                         <div className="review-control-buttons">
