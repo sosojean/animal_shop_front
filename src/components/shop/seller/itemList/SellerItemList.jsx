@@ -49,8 +49,6 @@ const SellerItemList = ({navigateUrl}) => {
     
             setItemList(response.data.itemDTOLists);
             setTotalCount(response.data.total_count);
-
-            console.log("response.data", response.data);
     
         } catch (error) {
             console.error('데이터 에러 발생:', error);
@@ -83,6 +81,9 @@ const SellerItemList = ({navigateUrl}) => {
                 <div className='SellerItemPrice'>가격</div>
                 <div className='SellerItemSpecies'>동물</div>
                 <div className='SellerItemCategory'>상품</div>
+                {/* <div className='SellerItemCategory'>세부</div> */}
+                {/* <div>상태</div>
+                <div>할인중</div> */}
                 <div>할인</div>
                 <div className='SellerItemUpdate'>수정</div>
                 <div className='SellerItemDelete'>삭제</div>
