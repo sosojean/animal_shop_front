@@ -49,8 +49,8 @@ const OrderedProduct = ({item, index, setIsEdited, isEdited}) => {
                     </div>
                 </Link>
 
-                <DefaultButton onClick={deliverProduct}>배송</DefaultButton>
-                <DefaultButton onClick={rejectProduct}>거절</DefaultButton>
+                <DefaultButton className={"default mid"} onClick={deliverProduct}>배송</DefaultButton>
+                <DefaultButton className={"primary mid"} onClick={rejectProduct}>거절</DefaultButton>
             </Card>
 
     );

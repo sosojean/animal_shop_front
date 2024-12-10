@@ -4,6 +4,7 @@ import AdminMenu from "../../../components/shop/admin/AdminMenu";
 import {Link} from "react-router-dom";
 import instance from "../../../utils/axios";
 import "../../../assets/styles/board/board.scss"
+import SellerMenu from "../../../components/shop/seller/SellerMenu";
 
 const AdminNoticeList = ({isSeller}) => {
 
@@ -24,7 +25,7 @@ const AdminNoticeList = ({isSeller}) => {
 
     return (
         <div>
-            <AdminMenu/>
+            {isSeller?<SellerMenu/>:<AdminMenu/>}
             <div className="notice-list">
 
                 {data&&data.map(item=>{

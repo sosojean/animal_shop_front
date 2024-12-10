@@ -1,3 +1,10 @@
-.map-container{
-  width: 500px;
+.map-outer-container{
+
+  display: flex;
+  .map-list{
+    width: 360px;
+  }
+  .map-container{
+    width: 720px;
+  }
 }

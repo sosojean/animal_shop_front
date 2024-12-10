@@ -18,7 +18,7 @@ const OrderedProductList = () => {
             url:url,
             method:'GET',
         }).then(res=>{
-            // console.log("res", res)
+            console.log("res", res)
             setData(res.data)
 
         }).catch(err=>{

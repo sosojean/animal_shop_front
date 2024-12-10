@@ -20,7 +20,8 @@ const DeliveryConfirmModal = ({setModalOpen, modalOpen,item}) => {
         setCheckedItems(checkedItems.filter(num => num !== newVal));
     }
     useEffect(() => {
-        // console.log(checkedItems);
+        console.log(item)
+        console.log(checkedItems);
     }, [checkedItems]);
 
     // useEffect(() => {
@@ -34,16 +35,17 @@ const DeliveryConfirmModal = ({setModalOpen, modalOpen,item}) => {
             url:"/delivery/delivery-check",
             method:'POST',
             data:{
-                deliveryProgressId:checkedItems[0]
+                deliveryProgressId:checkedItems
             }
         }).then(res=>{
-            // console.log(res.data)
+            console.log("delivery-check",res.data)
             setCancelData(res.data)
 
 
         }).catch(err=>{
             console.log(err)
         })
+
 
 
     }

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import OrderedProduct from "../product/orderedProduct";
 import Card from "../../common/Card";
 import instance from "../../../utils/axios";
+import DefaultButton from "../../common/DefaultButton";
 
 const SellerAcceptItem = ({item, setIsEdited, isEdited}) => {
 
@@ -45,8 +46,8 @@ const SellerAcceptItem = ({item, setIsEdited, isEdited}) => {
 
     return (
         <Card>
-            <button onClick={deliverAllProduct}>배송</button>
-            <button onClick={rejectAllProduct}>취소</button>
+            <DefaultButton className={"default mid"} onClick={deliverAllProduct}>배송</DefaultButton>
+            <DefaultButton className={"primary mid"} onClick={rejectAllProduct}>취소</DefaultButton>
 
             <span>{item.customer}</span>
             <span>{item.orderDate}</span>
