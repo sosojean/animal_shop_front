@@ -34,7 +34,7 @@ export function useModifyTime(time) {
             } else if (days < 8) {
                 timeText = `${days}일전`;
             } else if (days < 366) {
-                timeText = `${contentsDayList[1]}.${contentsDayList[2]}`;
+                timeText = `${contentsDayList[0]}.${contentsDayList[1]}.${contentsDayList[2]}`;
             } else {
                 timeText = `${contentsDayList[0]}.${contentsDayList[1]}.${contentsDayList[2]}`;
             }

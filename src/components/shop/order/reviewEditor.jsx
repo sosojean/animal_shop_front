@@ -77,9 +77,10 @@ const ReviewEditor = ({item, setReviewWriting}) => {
         setImages(newImages)
     }
 
-    return (<>
+    return (<div className="review-editor">
 
             <div className="star-rating">
+
                 {[...Array(5)].map((_, i) => {
                     return (
                         <button key={"btn" + i} className={i < rating ? "selected" : ""}
@@ -88,34 +89,34 @@ const ReviewEditor = ({item, setReviewWriting}) => {
                         </button>
                     )
                 })}
-                <span className="rating-comment">{ratingComment()}</span>
 
             </div>
 
+            <span className="rating-comment">{ratingComment()}</span>
+
             <form className="input-comment" onSubmit={(e) => onSubmitHandler(e)}>
 
-                    <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
-                    <div className="btn-section">
-                        <div className="img-section">
-                            <label className="input-file-button" htmlFor="input-file"><FontAwesomeIcon
-                                icon={faImage}/></label>
-                            <div className="images" >
-                            {images&&images.map((filename, i) => {
-                                return(<><img className="review-image" src={imageUrl+filename} alt=""/>
-                                    <button className="delete-image" onClick={(e)=>deleteImage(e,i)}>x</button>
+                <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
+                <div className="btn-section">
+                    <div className="img-section">
+                        <label className="input-file-button" htmlFor="input-file"><FontAwesomeIcon
+                            icon={faImage}/></label>
+                        <div className="images">
+                            {images && images.map((filename, i) => {
+                                return (<><img className="review-image" src={imageUrl + filename} alt=""/>
+                                    <button className="delete-image" onClick={(e) => deleteImage(e, i)}>x</button>
                                 </>)
                             })}
-                            </div>
                         </div>
-                        <input id="input-file" onChange={(e) => ImgUploadHandler(e)} type="file"
-                               accept="image/*"/>
-                        <button className="submit-button">등록</button>
                     </div>
-                </form>
+                    <input id="input-file" onChange={(e) => ImgUploadHandler(e)} type="file"
+                           accept="image/*"/>
+                    <button className="submit-button">등록</button>
+                </div>
+            </form>
 
 
-
-        </>
+        </div>
 
     )
 }

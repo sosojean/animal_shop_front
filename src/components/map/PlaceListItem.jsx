@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import instance from "../../utils/axios";
-import DetailInfoWindow from "./DetailInfoWindow";
+import Card from "../common/Card";
 
 const PlaceListItem = ({item, setSelectedItemId}) => {
 
@@ -11,9 +10,13 @@ const PlaceListItem = ({item, setSelectedItemId}) => {
 
     return (
         <>
-            <button onClick={selectPosition} className="get_detail_info">
-                <span>{item["facility_name"]}</span>
+            <Card className={"bottom-flat detail-info-card"}>
+            <button onClick={selectPosition} className="detail-info">
+                {console.log(item)}
+                <h3>{item["facility_name"]}</h3>
+                <span>{item["place_description"].split(",")[0]}</span>
             </button>
+            </Card>
 
         </>
 

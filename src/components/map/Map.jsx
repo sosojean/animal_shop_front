@@ -34,7 +34,7 @@ const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , s
             const mapContainer = document.getElementById('map');
             const options = {
                 center: new kakao.maps.LatLng(currLocation.latitude ? currLocation.latitude : 37.56000302825312, currLocation.longitude ? currLocation.longitude : 126.97540593203321), //좌표설정
-                level: 8
+                level: 3
             };
             if (!mapRef.current) {
                 mapRef.current = new kakao.maps.Map(mapContainer, options);
@@ -64,7 +64,6 @@ const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , s
         )
         setMarkerChanged(!markerChanged)
     } // 현 영역 get
-
 
     const applyBound=(map)=>{
         const bounds = map.getBounds();
@@ -100,6 +99,7 @@ const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , s
 
             markers.forEach(marker => marker.setMap(null));
             setMarkers([]);
+
 
             const newMarkers = data.map((item) => {
                 var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다
@@ -154,11 +154,6 @@ const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , s
 
     }, [data, map, selectedItemId]);
 
-    useEffect(() => {
-
-        console.log(selectedItemId)
-
-    }, [selectedItemId]);
 
 
     useEffect(() => {
@@ -174,6 +169,7 @@ const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , s
 
                     if (map){
                         applyBound(map)
+                        setSearch(!search)
                     }
 
                 })

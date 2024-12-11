@@ -30,15 +30,13 @@ const PlaceList = ({data, selectedItemId, setSelectedItemId}) => {
     },[selectedItemId])
 
     return (
-        <div>
+        <div className="place-list-container">
 
 
             {data&&data.map((item, index) => (
-                <div key={index}>
-                    {!selectedItemId&&<PlaceListItem  item={item}  setSelectedItemId={setSelectedItemId}/>}
-                </div>
+                !selectedItemId&&<PlaceListItem key={index} item={item}  setSelectedItemId={setSelectedItemId}/>
             ))}
-            {selectedItemId&&detailInfo&&<DetailInfoWindow setSelectedItemId={setSelectedItemId} item={detailInfo}/>}
+            {selectedItemId&&detailInfo&&<DetailInfoWindow selectedItemId={selectedItemId} setSelectedItemId={setSelectedItemId} item={detailInfo}/>}
 
         </div>
     );
