@@ -5,7 +5,7 @@ import "../../assets/styles/common/button.scss"
 const DefaultButton = ({children, onClick, className}) => {
     return (
         <div>
-            <button className={`button${className?" "+className:""}`} onClick={onClick}>{children}</button>
+            <button className={`button ${className?" "+className:""}`} onClick={onClick}>{children}</button>
         </div>
     );
 };

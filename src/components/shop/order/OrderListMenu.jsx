@@ -18,18 +18,7 @@ const OrderListMenu = ({setUrl}) => {
     }, []);
 
     return (
-        // approve
-        //
-        // deliveryCompleted
-        //
-        // deliveryProgress
-        //
-        // entire
-        // revoke
-        //
-        // waiting
-        //
-        //
+
         <Card className="order-list-menu">
             <button onClick={()=>{setUrl("/shop/orders")}}> 전체 {data?.entire}</button>
             <button onClick={()=>{setUrl("/shop/orders?status=waiting")}}> 결제 승인{data?.waiting}</button>

@@ -185,7 +185,6 @@ const SellerStatAnalysis = () => {
 
     return (
         <div>
-            {console.log(now.getDay())}
             <div>
                 <button onClick={() => {
                     applyDate(setFrom, "year", from.year + 1)
@@ -224,10 +223,11 @@ const SellerStatAnalysis = () => {
                 {/*<button>{"<-"}</button>*/}
             </div>
             <div style={{width: '1080px', display: "flex", justifyContent: "space-between"}}>
+
                 {itemData && cartData &&
                     <SellerChart data={itemData.data} data2={cartData.data} categories={generateDateList(from, to)}
                                  setSelectedIndex={setSelectedIndex}/>}
-                {/* {itemPriceData && <TestComp data={itemPriceData}/>} */}
+                 {itemPriceData && <TestComp data={itemPriceData}/>}
                 {console.log(itemData)}
 
             </div>

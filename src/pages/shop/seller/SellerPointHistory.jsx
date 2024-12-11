@@ -13,6 +13,7 @@ const SellerPointHistory = () => {
     useEffect(() => {
         // 종료 날짜 계산
         const end = new Date();
+        end.setDate(end.getDate() + 1);
         end.setMonth(end.getMonth() - prevIndex);
         if (prevIndex > 0) end.setDate(15);
 
