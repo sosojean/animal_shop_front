@@ -121,9 +121,9 @@ const AgeResult = (props) => {
         
         // 실내묘(집고양이)와 실외묘(길고양이) 구분
         switch (type) {
-            case '집고양이': // 실내묘
+            case '집고양이':
                 return baseAge + (additionalYears * 4);
-            case '길고양이': // 실외묘
+            case '길고양이':
                 return baseAge + (additionalYears * 8);
             default:
                 return "none";

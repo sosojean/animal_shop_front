@@ -8,6 +8,9 @@ const CalculatorSelector = () => {
             <Link to="/calculator/age">
                 <div>나이 계산기</div>
             </Link>
+            <Link to="/calculator/calorie">
+                <div>칼로리 계산기</div>
+            </Link>
         </div>
     )
 }
