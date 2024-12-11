@@ -28,7 +28,7 @@ const SellerItemSearch = (props) => {
             if (detail !== "total") {newParams.detailed_category = detail;}
             if (status !== "total") {newParams.status = status;}
             if (term !== "") {newParams.searchTerm = term;}
-            if (discount !== "total") {newParams.now_discount = discount;}
+            if (discount !== "total") {newParams.discount = discount;}
 
             return Object.keys(newParams).length > 0 ? newParams : {};
         });
