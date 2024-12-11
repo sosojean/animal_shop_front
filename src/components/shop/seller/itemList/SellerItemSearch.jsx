@@ -10,6 +10,7 @@ const SellerItemSearch = (props) => {
     const [detail, setDetail] = useState("total")
     const [status, setStatus] = useState("total")
     const [term, setTerm] = useState("");
+    const [discount, setDiscount] = useState("total")
 
     const dogDetailedCategory = dogItemCategory.filter((value, index) => {
         return value.main.name === category});
@@ -27,6 +28,7 @@ const SellerItemSearch = (props) => {
             if (detail !== "total") {newParams.detailed_category = detail;}
             if (status !== "total") {newParams.status = status;}
             if (term !== "") {newParams.searchTerm = term;}
+            if (discount !== "total") {newParams.now_discount = discount;}
 
             return Object.keys(newParams).length > 0 ? newParams : {};
         });
@@ -64,6 +66,11 @@ const SellerItemSearch = (props) => {
                 <option value="sell">판매</option>
                 <option value="sold_out">품절</option>
                 <option value="stop">판매중단</option>
+            </select>
+            <select onChange={(e) => {setDiscount(e.target.value);}}>
+                <option value="total">전체</option>
+                <option value="true">할인판매</option>
+                <option value="false">정가판매</option>
             </select>
             <input type="search" placeholder="상품명을 입력해주세요" onChange={(e) => {setTerm(e.target.value);}}/>
             <button onClick={() => {
