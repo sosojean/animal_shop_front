@@ -6,6 +6,10 @@ import PlaceList from "../../components/map/PlaceList";
 const FacilitiesMap = () => {
     const [data, setData] = useState()
     const [search, setSearch] = useState()
+    const [selectedItemId, setSelectedItemId] = useState(null)
+    const [mappingData, setMappingData] = useState({})
+
+
 
     const [currLocation, setCurrLocation] = useState(
         {lat: 0, lng: 0},
@@ -53,10 +57,17 @@ const FacilitiesMap = () => {
     return (
         <div className="map-outer-container">
             <div className="map-list">
-                {data&&<PlaceList data={data}/>}
+                {data&&<PlaceList selectedItemId={selectedItemId} setSelectedItemId={setSelectedItemId} data={data}/>}
+                {/*{data&&<PlaceList data={data}/>}*/}
+
             </div>
 
-            {data&&<Map search={search} setSearch={setSearch} currLocation={currLocation} setCurrLocation={setCurrLocation} setBounds={setBounds} data={data}/>}
+            {data&&<Map selectedItemId={selectedItemId} setSelectedItemId={setSelectedItemId}
+                        mappingData={mappingData} setMappingData={setMappingData}
+                        search={search} setSearch={setSearch}
+                        currLocation={currLocation} setCurrLocation={setCurrLocation}
+                        setBounds={setBounds} data={data}/>}
+
         </div>
     );
 }

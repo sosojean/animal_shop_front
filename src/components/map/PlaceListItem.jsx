@@ -1,10 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
+import instance from "../../utils/axios";
+import DetailInfoWindow from "./DetailInfoWindow";
 
-const PlaceListItem = ({item}) => {
+const PlaceListItem = ({item, setSelectedItemId}) => {
+
+
+    const selectPosition = ()=>{
+        setSelectedItemId(item["map_id"]);
+    }
+
     return (
-        <div>
-            <span>{item["facility_name"]}</span>
-        </div>
+        <>
+            <button onClick={selectPosition} className="get_detail_info">
+                <span>{item["facility_name"]}</span>
+            </button>
+
+        </>
+
     );
 };
 

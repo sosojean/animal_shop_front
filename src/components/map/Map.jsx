@@ -1,16 +1,19 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Search from "../../pages/board/Search";
 
-const Map = ({currLocation,setCurrLocation , setBounds, data , setSearch , search}) => {
+const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , setBounds, data ,
+                 setSearch , search, mappingData, setMappingData,
+             }) => {
     const mapRef = useRef(null); // 지도 객체를 저장할 ref
     let map = mapRef.current;
+    let kakao =null;
 
     const [mapLoaded, setMapLoaded] = useState(false); // 상태 추가
     const [locationLoaded, setLocationLoaded] = useState(false)
     const [markerChanged, setMarkerChanged] = useState(false)
     const [markers, setMarkers] = useState([]);
 
-    let kakao =null;
+
 
     const new_script = src => {
         return new Promise((resolve, reject) => {
@@ -21,7 +24,7 @@ const Map = ({currLocation,setCurrLocation , setBounds, data , setSearch , searc
             script.addEventListener('error', e => {reject(e);});
             document.head.appendChild(script);
         });
-    };
+    }; // kakao 스크립트 호출
 
     const loadMap=() => {
         // console.log('script loaded!!!');
@@ -39,12 +42,12 @@ const Map = ({currLocation,setCurrLocation , setBounds, data , setSearch , searc
                 kakao.maps.event.addListener(map, 'bounds_changed',function (){
                     applyBound(map)
                 })
-                // console.log("map",map);
+
                 setMapLoaded(true)
             }
 
         });
-    }
+    } // map 맵로드
 
     const setCurrentBounds = ( swLatLng,neLatLng )=>{
         setBounds(
@@ -59,9 +62,8 @@ const Map = ({currLocation,setCurrLocation , setBounds, data , setSearch , searc
                 }
             }
         )
-    setMarkerChanged(!markerChanged)
-
-    }
+        setMarkerChanged(!markerChanged)
+    } // 현 영역 get
 
 
     const applyBound=(map)=>{
@@ -71,50 +73,9 @@ const Map = ({currLocation,setCurrLocation , setBounds, data , setSearch , searc
 
         // 영역정보의 북동쪽 정보를 얻어옵니다
         let neLatlng = bounds.getNorthEast();
-        console.log("-----------",bounds);
+        // console.log("-----------",bounds);
         setCurrentBounds(swLatlng, neLatlng);
     }
-
-
-    useEffect(() => {
-
-        //     const clearAllMarkers = () => {
-        //         markers.forEach((marker) => marker.setMap(null));
-        //         setMarkers([]);
-        //     };
-        //     clearAllMarkers()
-        //
-        //     // 마커 추가
-        const kakao = window.kakao;
-        if(map&&kakao){
-        data.map((item) => {
-
-            const marker = new kakao.maps.Marker({
-                map: map,
-                position: new kakao.maps.LatLng(item.latitude, item.longitude),
-                title: item.facility_name,
-            });
-
-            console.log("marker",marker)
-            console.log(item);
-
-        });
-
-        }
-
-            //
-            // positions.forEach((position) => {
-            //     new kakao.maps.Marker({
-            //         map: map,
-            //         position: position.latlng,
-            //         title: position.title,
-            //     });
-            // });
-        // }
-    }, [data]);
-
-
-
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
@@ -131,6 +92,74 @@ const Map = ({currLocation,setCurrLocation , setBounds, data , setSearch , searc
             }
         );
     }, []);
+
+    useEffect(() => {
+        // 마커 추가
+        const kakao = window.kakao;
+        if(map&&kakao){
+
+            markers.forEach(marker => marker.setMap(null));
+            setMarkers([]);
+
+            const newMarkers = data.map((item) => {
+                var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다
+                    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+                    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+
+
+                let position = new kakao.maps.LatLng(item.latitude, item.longitude)
+                const isSelected = selectedItemId === item["map_id"];
+
+
+                const marker = new kakao.maps.Marker({
+                    map: map,
+                    position: position,
+                    title: item.facility_name,
+                    image: isSelected ? markerImage : null,
+                    zIndex: isSelected? 10:1
+                });
+
+                setMappingData((prev)=>({
+                    ...prev,
+                    [item.map_id]:marker
+                }))
+
+
+
+
+                ////////////////////
+
+                kakao.maps.event.addListener(marker, 'click', function() {
+                    console.log(item);
+                    setSelectedItemId(item["map_id"])
+
+
+                    console.log(this.getTitle());
+                });
+
+                //////////////////////
+                if (isSelected){
+                    map.panTo(position);
+                }
+
+                // console.log("marker",marker)
+                // console.log(item);
+                return marker
+
+            });
+            setMarkers(newMarkers);
+
+        }
+
+    }, [data, map, selectedItemId]);
+
+    useEffect(() => {
+
+        console.log(selectedItemId)
+
+    }, [selectedItemId]);
+
 
     useEffect(() => {
         if (locationLoaded) {

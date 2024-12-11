@@ -1,5 +1,6 @@
 .map-outer-container{
 
+  height: 100vh;
   display: flex;
   .map-list{
     width: 360px;
@@ -7,4 +8,10 @@
   .map-container{
     width: 720px;
   }
+
+  .detail-info-window{
+    display: flex;
+    flex-direction: column;
+  }
+
 }
