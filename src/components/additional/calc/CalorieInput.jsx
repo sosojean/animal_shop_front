@@ -65,7 +65,7 @@ const CalorieInput = (props) => {
                             })}
                         </select>
                         <select onChange={(e) => {handleInputChange("detail", e.target.value)}}>
-                            {dogDetailList[0].sub.map((detail, index) => {
+                            {dogDetailList[0]?.sub?.map((detail, index) => {
                                 return <option key={index} value={detail}>{detail}</option>
                             })}
                         </select>
