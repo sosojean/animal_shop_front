@@ -86,7 +86,7 @@ const ItemRegButton = ({getRegisterData, itemId, options}) => {
                         }}}>
                             수정
                     </button>
-                    <button onClick={handleDeleteItemData}>판매종료</button>
+                    <button onClick={handleDeleteItemData}>단종(품절)</button>
                 </div>
                 : <button onClick={() => {
                     if (defaultPrice !== '' && defaultPrice !== '0') {

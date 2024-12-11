@@ -1,25 +1,28 @@
 import Card from "../common/Card";
 import "../../assets/styles/additional/adoptDetail.scss"
 import axios from "axios";
+import instance from "../../utils/axios"
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const AdoptDetail = (props) => {
 
     const {setIsCat} = props;
 
     // const { data } = props;
-    const { desertionNo } = useParams();
+    const { id } = useParams();
 
     const [data, setData] = useState();
     const navigate = useNavigate();
 
     const getApiData = () => {
         axios({
-            url: `http://localhost:8080/abandoned_animal/detail?animalId=${desertionNo}`,
+            url: `http://localhost:8080/abandoned_animal/detail?animalId=${id}`,
             method: "get",
         }).then((res) => {
-            console.log("response", res.data);
+            console.log("getApiData response", res.data);
             setData(res.data);
         })
         .catch((err) => {
@@ -29,7 +32,7 @@ const AdoptDetail = (props) => {
 
     useEffect(()=>{
         getApiData();
-    }, [desertionNo]);
+    }, [id]);
 
     // data.kindCd 가공
     const getConvertedKind = (type) => {
@@ -101,6 +104,19 @@ const AdoptDetail = (props) => {
             endYear + "-" + endMonth + "-" + endDay
     }
 
+    const handleAddInterest = () => {
+        instance({
+            url: `/abandoned_animal/register?desertionNo=${data.desertion_no}`,
+            method: "get",
+        }).then((res) => {
+            console.log("handleAddInterest response", res.data);
+            alert("관심동물에 등록됐습니다!");
+        })
+        .catch((err) => {
+            console.error("handleAddInterest error", err);
+        })
+    }
+
     return (
         <>
         {data &&
@@ -113,6 +129,7 @@ const AdoptDetail = (props) => {
                         <span>{getConvertedKind("species")}</span>
                         <span>{" "}{getConvertedKind()}</span>
                         <span>{" / "}{getConvertedAge() + "세"}</span>
+                        <span onClick={handleAddInterest}><FontAwesomeIcon icon={faPlus}/></span>
                     </div>
                     <div className="feature-container">
                         <div>

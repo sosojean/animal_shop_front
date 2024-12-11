@@ -43,6 +43,7 @@ import SellerPointHistory from "../../pages/shop/seller/SellerPointHistory";
 import {useEffect, useState} from "react";
 import Withdraw from "../shop/seller/Withdraw";
 import FacilitiesMap from "../../pages/map/FacilitiesMap";
+import AdoptInterestAnimal from "../../pages/additional/AdoptInterestAnimal";
 
 const Router = (props) => {
     const species = localStorage.getItem("species");
@@ -143,7 +144,8 @@ const Router = (props) => {
 
                         {/* 입양 */}
                         <Route path="/adoption" element={<AdoptAnimal/>}/>
-                        <Route path="/adoption/detail/:desertionNo" element={<AdoptAnimalDetail/>}/>
+                        <Route path="/adoption/detail/:id" element={<AdoptAnimalDetail/>}/>
+                        <Route path="/adoption/interest" element={<AdoptInterestAnimal/>}/>
 
                         {/* 지도 */}
                         <Route path="/map" element={<FacilitiesMap/>}/>

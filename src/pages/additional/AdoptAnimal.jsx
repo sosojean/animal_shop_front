@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import "../../assets/styles/additional/adoptAnimal.scss"
 import AdoptList from "../../components/additional/AdoptList";
 import AdoptFilterMax from "../../components/additional/AdoptFilterMax";
@@ -73,6 +73,11 @@ const AdoptAnimal = () => {
 
     return (
         <div>
+            <div>
+                <Link to="/adoption/interest">
+                    <span>관심동물</span>
+                </Link>
+            </div>
             <AdoptFilterMax
                 selectedItems={selectedItems}
                 setSelectedItems={setSelectedItems}
