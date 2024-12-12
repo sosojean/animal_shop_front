@@ -44,6 +44,7 @@ import {useEffect, useState} from "react";
 import Withdraw from "../shop/seller/Withdraw";
 import FacilitiesMap from "../../pages/map/FacilitiesMap";
 import AdoptInterestAnimal from "../../pages/additional/AdoptInterestAnimal";
+import Chatting from "../../pages/Chatting/Chatting";
 
 const Router = (props) => {
     const species = localStorage.getItem("species");
@@ -149,6 +150,11 @@ const Router = (props) => {
 
                         {/* 지도 */}
                         <Route path="/map" element={<FacilitiesMap/>}/>
+
+
+                        {/* 채팅 */}
+                        <Route path="/shop/chatting" element={<Chatting/>}/>
+
 
 
                     </Routes>

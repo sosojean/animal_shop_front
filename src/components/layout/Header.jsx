@@ -105,7 +105,7 @@ const Header = (props) => {
                             {isAuth ? <>
                                     <Link to="/cart"><FontAwesomeIcon icon={faCartShopping}/> </Link>
                                     <Link to="/mypage">
-                                        {/*<img src="" alt=""/>*/}
+                                        <img className="profile-image" src={process.env.REACT_APP_IMG_PRINT + parseJwt(token).profileImg} alt=""/>
                                         {/*{todo: 여기 프로필 이미지 넣어야됨}*/}
 
                                     </Link>
