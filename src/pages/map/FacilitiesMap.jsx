@@ -3,9 +3,15 @@ import "../../assets/styles/map/facilitiesMap.scss"
 import Map from "../../components/map/Map";
 import instance from "../../utils/axios";
 import PlaceList from "../../components/map/PlaceList";
+import PlaceFilter from "../../components/map/PlaceFilter";
+import SearchBar from "../../components/map/SearchBar";
 const FacilitiesMap = () => {
     const [data, setData] = useState()
     const [search, setSearch] = useState()
+    const [selectedItemId, setSelectedItemId] = useState(null)
+    const [mappingData, setMappingData] = useState({})
+
+
 
     const [currLocation, setCurrLocation] = useState(
         {lat: 0, lng: 0},
@@ -22,6 +28,15 @@ const FacilitiesMap = () => {
         }
     })
 
+    const [searchData, setSearchData] = useState({
+        keyword: "",
+        // parking: false,
+        // indoor: false,
+        // outdoor: false,
+        category: null,
+
+    })
+
     let markerList = [];
 
     useEffect(() => {
@@ -30,14 +45,14 @@ const FacilitiesMap = () => {
             url:"/map/search",
             method:"post",
             data:{
-                "keyword": "약국",
-                // "parking": true,
-                // "indoor": false,
-                // "outdoor": true,
+                keyword: searchData.keyword,
+                // parking: false,
+                // indoor: false,
+                // outdoor: false,
 
-
-                "swLatlng": Bounds.swLatlng,
-                "neLatlng": Bounds.neLatlng
+                category:searchData.category,
+                swLatlng: Bounds.swLatlng,
+                neLatlng: Bounds.neLatlng
 
             }
         }).then((res) => {
@@ -53,10 +68,24 @@ const FacilitiesMap = () => {
     return (
         <div className="map-outer-container">
             <div className="map-list">
-                {data&&<PlaceList data={data}/>}
+                {data&&<>
+
+                    {!selectedItemId&&<PlaceFilter  searchData={searchData} setSearchData={setSearchData}/>}
+                    {!selectedItemId&&<SearchBar searchData={searchData} setSearchData={setSearchData}/>}
+
+                    <PlaceList selectedItemId={selectedItemId} setSelectedItemId={setSelectedItemId} data={data}/>
+                </>
+                }
+                {/*{data&&<PlaceList data={data}/>}*/}
+
             </div>
 
-            {data&&<Map search={search} setSearch={setSearch} currLocation={currLocation} setCurrLocation={setCurrLocation} setBounds={setBounds} data={data}/>}
+            {data&&<Map selectedItemId={selectedItemId} setSelectedItemId={setSelectedItemId}
+                        mappingData={mappingData} setMappingData={setMappingData}
+                        search={search} setSearch={setSearch}
+                        currLocation={currLocation} setCurrLocation={setCurrLocation}
+                        setBounds={setBounds} data={data}/>}
+
         </div>
     );
 }

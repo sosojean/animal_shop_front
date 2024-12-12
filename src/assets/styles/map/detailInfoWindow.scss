@@ -1,0 +1,41 @@
+.detail-info-window{
+  display: flex;
+  flex-direction: column;
+  hr{
+    width: 100%;
+  }
+
+  .place-review-item{
+    padding: 4px;
+    //height: 60px;
+    border-bottom: 1px solid var(--alpha-5);
+    .review-header{
+      display: flex;
+
+      .rating{
+        text-align: center;
+        align-items: center;
+        font-size: 0.75rem;
+        margin-left: 5px;
+        display: flex;
+        gap: 2px;
+        .star{
+          color: #ffe003;
+
+        }
+        .remains{
+          color: var(--alpha-5);
+
+        }
+      }
+    }
+
+    .review-image{
+      width: 50px;
+      height: 50px;
+
+    }
+
+  }
+
+}

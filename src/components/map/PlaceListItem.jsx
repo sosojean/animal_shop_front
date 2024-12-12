@@ -1,10 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Card from "../common/Card";
 
-const PlaceListItem = ({item}) => {
+const PlaceListItem = ({item, setSelectedItemId}) => {
+
+
+    const selectPosition = ()=>{
+        setSelectedItemId(item["map_id"]);
+    }
+
     return (
-        <div>
-            <span>{item["facility_name"]}</span>
-        </div>
+        <>
+            <Card className={"bottom-flat detail-info-card"}>
+            <button onClick={selectPosition} className="detail-info">
+                {console.log(item)}
+                <h3>{item["facility_name"]}</h3>
+                <span>{item["place_description"].split(",")[0]}</span>
+            </button>
+            </Card>
+
+        </>
+
     );
 };
 

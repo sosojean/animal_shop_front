@@ -1,0 +1,8 @@
+.place-filter-container{
+  display: flex;
+  flex-direction: row;
+  .selected{
+    background-color: lightgray;
+  }
+
+}

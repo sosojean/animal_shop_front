@@ -1,14 +1,14 @@
 import {useEffect, useRef, useState} from "react";
-import "../../../assets/styles/comment/commentEditor.scss";
+import "../../assets/styles/map/placeReviewEditor.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faImage, faStar} from "@fortawesome/free-solid-svg-icons";
 
 
-import instance from "../../../utils/axios";
 import axios from "axios";
+import instance from "../../utils/axios";
 
 
-const ReviewEditor = ({item, setReviewWriting}) => {
+const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited}) => {
     const [newComment, setNewComment] = useState("")
     const [rating, setRating] = useState(0)
     const [images, setImages] = useState([]);
@@ -22,16 +22,18 @@ const ReviewEditor = ({item, setReviewWriting}) => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         instance({
-            url: `/item_comment/create/${item.itemId}`,
-            method: "Post",
+            url: `/map/comment/register`,
+            method: "post",
             data: {
+                map_id:mapId,
                 contents: newComment,
                 rating: rating,
-                thumbnailUrls:images
+                map_comment_thumbnail_url:images
             }
         }).then((data) => {
             console.log(data);
             setReviewWriting(false)
+            setIsEdited(!isEdited);
 
         })
     }
@@ -81,6 +83,7 @@ const ReviewEditor = ({item, setReviewWriting}) => {
 
             <div className="star-rating">
 
+                <div className="stars">
                 {[...Array(5)].map((_, i) => {
                     return (
                         <button key={"btn" + i} className={i < rating ? "selected" : ""}
@@ -89,12 +92,14 @@ const ReviewEditor = ({item, setReviewWriting}) => {
                         </button>
                     )
                 })}
+                </div>
+                 <span className="rating-comment">{ratingComment()}</span>
+
 
             </div>
 
-            <span className="rating-comment">{ratingComment()}</span>
 
-            <form className="input-comment" onSubmit={(e) => onSubmitHandler(e)}>
+            <form className="input-place-review" onSubmit={(e) => onSubmitHandler(e)}>
 
                 <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
                 <div className="btn-section">
@@ -102,16 +107,25 @@ const ReviewEditor = ({item, setReviewWriting}) => {
                         <label className="input-file-button" htmlFor="input-file"><FontAwesomeIcon
                             icon={faImage}/></label>
                         <div className="images">
-                            {images && images.map((filename, i) => {
-                                return (<><img className="review-image" src={imageUrl + filename} alt=""/>
+                            {images && images.slice(0, 2).map((filename, i) => {
+                                return (<div className={`image  ${i == 1 ? "last-image " : ""}`}>
+                                    <img className={`review-image ${i == 1 ? "dark" : ""}`} src={imageUrl + filename}
+                                         alt=""/>
                                     <button className="delete-image" onClick={(e) => deleteImage(e, i)}>x</button>
-                                </>)
+                                    {(i == 1) && <span className={"count-text"}>{`+${images.length - 1}`}</span>}
+
+                                </div>)
                             })}
+
                         </div>
                     </div>
                     <input id="input-file" onChange={(e) => ImgUploadHandler(e)} type="file"
                            accept="image/*"/>
-                    <button className="submit-button">등록</button>
+                    <div className="buttons">
+                        <button className="submit-button" onClick={()=>setReviewWriting(false)}>취소</button>
+
+                        <button className="submit-button">등록</button>
+                    </div>
                 </div>
             </form>
 
@@ -120,4 +134,4 @@ const ReviewEditor = ({item, setReviewWriting}) => {
 
     )
 }
-export default ReviewEditor
+export default PlaceReviewEditor
