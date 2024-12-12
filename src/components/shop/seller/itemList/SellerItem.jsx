@@ -4,10 +4,14 @@ import Modal from "../../../common/Modal";
 import SellerDiscount from "../SellerDiscount";
 import { useState } from "react";
 
-const SellerItem = ({item ,navigateUrl,getItemList, currentPage, getRefreshData }) => {
+const SellerItem = (props) => {
+    
+    const { item ,navigateUrl,getItemList, currentPage, getRefreshData, pageType} = props
+    
     const [modalOpen, setModalOpen] = useState(false);
+    const [suspendOpen, setSuspendOpen] = useState(false);
 
-    // console.log("item", item);
+    console.log("item", item);
 
     return(
         <>
@@ -23,6 +27,11 @@ const SellerItem = ({item ,navigateUrl,getItemList, currentPage, getRefreshData 
                 <div className='SellerItemPrice'>{item.options[0]?.price} 원</div>
                 <div className='SellerItemSpecies'>{item.species === "dog" ? "강아지" : "고양이"}</div>
                 <div className='SellerItemCategory'>{item.category}</div>
+                {pageType === "suspending" &&
+                    <div>
+                        <button onClick={() => setSuspendOpen(true)}>사유</button>
+                    </div>                
+                }
                 <div>
                     <button onClick={() => setModalOpen(true)}>할인</button>
                 </div>
@@ -36,6 +45,11 @@ const SellerItem = ({item ,navigateUrl,getItemList, currentPage, getRefreshData 
 
             <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
                 <SellerDiscount data={item}/>
+            </Modal>
+            <Modal modalOpen={suspendOpen} setModalOpen={setSuspendOpen}>
+                <div style={{backgroundColor:"white", width:"200px", height:"200px"}}>
+                    <p>{item.suspensionReason}</p>
+                </div>
             </Modal>
             </>
             }

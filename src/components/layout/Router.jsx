@@ -45,6 +45,9 @@ import Withdraw from "../shop/seller/Withdraw";
 import FacilitiesMap from "../../pages/map/FacilitiesMap";
 import AdoptInterestAnimal from "../../pages/additional/AdoptInterestAnimal";
 import Chatting from "../../pages/Chatting/Chatting";
+import CalculatorSelector from "../../pages/additional/CalculatorSelector";
+import AgeCalculator from "../additional/calc/AgeCalculator";
+import CalorieCalculator from "../additional/calc/CalorieCalculator";
 
 const Router = (props) => {
     const species = localStorage.getItem("species");
@@ -151,6 +154,10 @@ const Router = (props) => {
                         {/* 지도 */}
                         <Route path="/map" element={<FacilitiesMap/>}/>
 
+                        {/* 계산기 */}
+                        <Route path="/calculator" element={<CalculatorSelector/>}/>
+                        <Route path="/calculator/age" element={<AgeCalculator/>}/>
+                        <Route path="/calculator/calorie" element={<CalorieCalculator/>}/>
 
                         {/* 채팅 */}
                         <Route path="/shop/chatting" element={<Chatting/>}/>
