@@ -12,7 +12,6 @@ const PlaceListItem = ({item, setSelectedItemId}) => {
         <>
             <Card className={"bottom-flat detail-info-card"}>
             <button onClick={selectPosition} className="detail-info">
-                {console.log(item)}
                 <h3>{item["facility_name"]}</h3>
                 <span>{item["place_description"].split(",")[0]}</span>
             </button>

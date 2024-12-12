@@ -8,12 +8,20 @@ import axios from "axios";
 import instance from "../../utils/axios";
 
 
-const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited}) => {
+const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited, isModify, item}) => {
     const [newComment, setNewComment] = useState("")
     const [rating, setRating] = useState(0)
     const [images, setImages] = useState([]);
+    const [id, setId] = useState()
     const imageUrl = "http://localhost:8080/file/image-print?filename=";
     useEffect(() => {
+        if (item){
+            console.log(item);
+            setNewComment(item.contents);
+            setRating(item.rating);
+            setImages(item.map_comment_thumbnail_url);
+            setId(item.id);
+        }
 
     }, [])
 
@@ -38,6 +46,29 @@ const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited}) => 
         })
     }
 
+    const onModifyHandler = (e) => {
+        e.preventDefault();
+        instance({
+            url: `/map/comment/update`,
+            method: "PATCH",
+            data: {
+                id:id,
+                map_id:mapId,
+                contents: newComment,
+                rating: rating,
+                map_comment_thumbnail_url:images
+            }
+        }).then((data) => {
+            console.log(data);
+            setReviewWriting(false)
+            setIsEdited(!isEdited);
+
+        }).catch((error) => {
+            console.log(error)
+        })
+        console.log(item);
+    }
+
     const ImgUploadHandler = async (e) => {
         const file = e.target.files[0];
         const formData = new FormData();
@@ -45,7 +76,7 @@ const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited}) => 
             formData.append('image', new Blob([file], {type: 'multipart/form-data'}), file.name);
 
             axios({
-                url: `http://localhost:8080/file/item-comment-image-upload`,
+                url: `http://localhost:8080/file/map-comment-image-upload`,
                 method: 'POST',
                 data: formData,
             }).then((response) => {
@@ -99,7 +130,9 @@ const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited}) => 
             </div>
 
 
-            <form className="input-place-review" onSubmit={(e) => onSubmitHandler(e)}>
+            <form className="input-place-review" onSubmit={(e) => {
+                isModify?onModifyHandler(e):onSubmitHandler(e)
+            }}>
 
                 <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
                 <div className="btn-section">

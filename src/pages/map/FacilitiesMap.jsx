@@ -11,6 +11,9 @@ const FacilitiesMap = () => {
     const [selectedItemId, setSelectedItemId] = useState(null)
     const [mappingData, setMappingData] = useState({})
 
+    const [totalPost, setTotalPost] = useState(0)
+    const [page, setPage] = useState(1)
+
 
 
     const [currLocation, setCurrLocation] = useState(
@@ -42,7 +45,7 @@ const FacilitiesMap = () => {
     useEffect(() => {
         console.log("Bounds",Bounds)
         instance({
-            url:"/map/search",
+            url:`/map/search?page=${page}`,
             method:"post",
             data:{
                 keyword: searchData.keyword,
@@ -57,11 +60,11 @@ const FacilitiesMap = () => {
             }
         }).then((res) => {
             setData(res.data.mapPositionDTOList);
-            console.log(res.data.mapPositionDTOList);
+            setTotalPost(res.data.total_count)
         }).catch((err) => {
             console.log(err)
         })
-    }, [search]);
+    }, [search, page]);
 
 
 
@@ -73,7 +76,9 @@ const FacilitiesMap = () => {
                     {!selectedItemId&&<PlaceFilter  searchData={searchData} setSearchData={setSearchData}/>}
                     {!selectedItemId&&<SearchBar searchData={searchData} setSearchData={setSearchData}/>}
 
-                    <PlaceList selectedItemId={selectedItemId} setSelectedItemId={setSelectedItemId} data={data}/>
+                    <PlaceList page={page} setPage={setPage}
+                               totalPost={totalPost} selectedItemId={selectedItemId}
+                               setSelectedItemId={setSelectedItemId} data={data}/>
                 </>
                 }
                 {/*{data&&<PlaceList data={data}/>}*/}
@@ -82,7 +87,7 @@ const FacilitiesMap = () => {
 
             {data&&<Map selectedItemId={selectedItemId} setSelectedItemId={setSelectedItemId}
                         mappingData={mappingData} setMappingData={setMappingData}
-                        search={search} setSearch={setSearch}
+                        search={search} setSearch={setSearch} setPage={setPage}
                         currLocation={currLocation} setCurrLocation={setCurrLocation}
                         setBounds={setBounds} data={data}/>}
 
