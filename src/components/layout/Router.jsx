@@ -47,6 +47,7 @@ import AdoptInterestAnimal from "../../pages/additional/AdoptInterestAnimal";
 import CalculatorSelector from "../../pages/additional/CalculatorSelector";
 import AgeCalculator from "../additional/calc/AgeCalculator";
 import CalorieCalculator from "../additional/calc/CalorieCalculator";
+import NutrientCalculator from "../additional/calc/NutrientCalculator";
 
 const Router = (props) => {
     const species = localStorage.getItem("species");
@@ -157,7 +158,7 @@ const Router = (props) => {
                         <Route path="/calculator" element={<CalculatorSelector/>}/>
                         <Route path="/calculator/age" element={<AgeCalculator/>}/>
                         <Route path="/calculator/calorie" element={<CalorieCalculator/>}/>
-
+                        <Route path="/calculator/nutrient" element={<NutrientCalculator/>}/>
                     </Routes>
                 </div>
 
