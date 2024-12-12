@@ -1,8 +1,9 @@
 
 
+
 const CalorieResult = (props) => {
 
-    const {calcData} = props;
+    const {calcData, amount, showFeeding} = props;
 
     const calculateDogRER = (weight) => {
         // 체중이 2kg~45kg 사이인 경우
@@ -159,26 +160,35 @@ const CalorieResult = (props) => {
 
     return (
         <div>
-            <h1>칼로리 계산</h1>
             <div>
+                <h1>칼로리 계산</h1>
                 <div>
-                    <p>1일 권장 칼로리</p>
-                    {calcData?.species === "강아지" ?
-                        <p>{calculateDogMER(calcData?.isPuppy, calcData?.month, calcData?.status, 
-                            calcData?.detail, calcData?.neuter)} kcal</p> :
-                        calcData?.species === "고양이" ?
-                            <p>{calculateCatMER(calcData?.isPuppy, calcData?.month, calcData?.status, 
+                    <div>
+                        <p>1일 권장 칼로리</p>
+                        {calcData?.species === "강아지" ?
+                            <p>{calculateDogMER(calcData?.isPuppy, calcData?.month, calcData?.status, 
                                 calcData?.detail, calcData?.neuter)} kcal</p> :
-                            <p>0 kcal</p>
-                    }
+                            calcData?.species === "고양이" ?
+                                <p>{calculateCatMER(calcData?.isPuppy, calcData?.month, calcData?.status, 
+                                    calcData?.detail, calcData?.neuter)} kcal</p> :
+                                <p>0 kcal</p>
+                        }
 
+                    </div>
+                    <div>
+                        <p>1일 기초대사량</p>
+                        <p>{calculateDogRER(calcData?.weight || 0)} kcal</p>
+                    </div>
+                    {showFeeding &&
+                        <div>
+                            <p>1일 급여량</p>
+                            <p>{(calculateDogRER(calcData?.weight || 0) * 1000) / amount} g</p>
+                        </div>                    
+                    }
                 </div>
-                <div>
-                    <p>1일 기초대사량</p>
-                    <p>{calculateDogRER(calcData?.weight || 0)} kcal</p>
-                </div>
-            </div>
+            </div>   
         </div>
+
     )
 }
 

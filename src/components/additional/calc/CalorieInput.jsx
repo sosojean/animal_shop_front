@@ -3,9 +3,11 @@ import { useState } from "react";
 
 const CalorieInput = (props) => {
 
-    const {calcData, setCalcData} = props;
+    const {calcData, setCalcData, showFeeding, setShowFeeding,
+        amount, setAmount} = props;
 
     console.log("calcData", calcData);
+    console.log("amount", amount);
 
     const speciesList = ["강아지", "고양이"];
     const ageList = ["성견/성묘", "1살미만"];
@@ -108,6 +110,13 @@ const CalorieInput = (props) => {
                         </div>                           
                 }
             </div>
+            <button onClick={() => {setShowFeeding(!showFeeding)}}>사료 급여량 g 계산</button>
+            {showFeeding &&
+                <div>
+                    <p>사료의 kcal(kg당)을 작성해주세요</p>
+                    <input type="number" onChange={(e) => setAmount(e.target.value)}/>
+                </div>            
+            }
         </div>
     )
 }
