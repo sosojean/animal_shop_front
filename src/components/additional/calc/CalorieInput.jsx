@@ -12,7 +12,7 @@ const CalorieInput = (props) => {
     const puppyList = ["1-4개월", "4-12개월"];
     const dogStatusList = [{main: "체중조절", sub: ["감량", "증량"]}, 
         {main: "높은 활동성", sub: ["활동적", "매우 활동적", "극도로 활동적"]}, 
-        {main: "임신/수유", sub: ["임신 초기", "임신 후기", "수유"]}];
+        {main: "임신/수유", sub: ["임신 초기", "임신 후기", "수유"]}, {main: "해당없음", sub: []}];
     const neuterList = ["완료", "안함"];
 
     const dogDetailList = dogStatusList.filter((value, index) => {
