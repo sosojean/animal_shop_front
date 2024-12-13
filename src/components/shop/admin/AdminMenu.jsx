@@ -24,6 +24,11 @@ const AdminMenu = (props) => {
                 <Link to="/admin/point/withdraw">
                     <li className="menu-item">판매자 정산</li>
                 </Link>
+
+                <Link to="/admin/wiki/new">
+                    <li className="menu-item">위키 작성</li>
+                </Link>
+                
             </ul>
         </nav>
     )

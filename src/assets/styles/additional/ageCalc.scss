@@ -1,0 +1,32 @@
+@mixin settingCenter($fd: column) {
+    display: flex;
+    flex-direction: $fd;
+    justify-content: center;
+    align-items: center;
+}
+
+.age-calc {
+    @include settingCenter;
+
+    .age-calc-header {
+        margin: 2rem 0 2rem 0;
+    }
+
+    .age-calc-section {
+        display: flex;
+
+        .age-input {
+            width: 500px;
+            background-color: yellowgreen;
+            // height: 500px;
+        }
+
+        .age-result {
+            background-color: yellowgreen;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    }
+}

@@ -1,0 +1,24 @@
+@mixin settingCenter($fd: column) {
+    display: flex;
+    flex-direction: $fd;
+    justify-content: center;
+    align-items: center;
+}
+
+.calc-selector {
+
+    @include settingCenter;
+
+    h1 {
+        margin: 2rem 0 2rem 0;
+    }
+
+    .selector-container {
+
+        background-color: yellowgreen;
+        width: 300px;
+        height: 300px;
+        padding-top: 3rem;
+        text-align: center;
+    }
+}
