@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 import PlaceListItem from "./PlaceListItem";
 import instance from "../../utils/axios";
 import DetailInfoWindow from "./DetailInfoWindow";
+import Pagination from "../board/Pagination";
 
-const PlaceList = ({data, selectedItemId, setSelectedItemId}) => {
+const PlaceList = ({page, setPage, totalPost, data, selectedItemId, setSelectedItemId}) => {
 // const PlaceList = ({data}) => {
 
     // const [selectedItemId, setSelectedItemId] = useState(null)
@@ -18,9 +19,6 @@ const PlaceList = ({data, selectedItemId, setSelectedItemId}) => {
             method: "POST",
         }).then((response) => {
 
-
-
-            // console.log(selectedItemId, response.data)
             setDetailInfo(response.data)
 
             // setDetailInfoWindow(true)
@@ -33,10 +31,16 @@ const PlaceList = ({data, selectedItemId, setSelectedItemId}) => {
         <div className="place-list-container">
 
 
-            {data&&data.map((item, index) => (
-                !selectedItemId&&<PlaceListItem key={index} item={item}  setSelectedItemId={setSelectedItemId}/>
+            {!selectedItemId&&data&&data.map((item, index) => (
+                <PlaceListItem key={index} item={item}  setSelectedItemId={setSelectedItemId}/>
             ))}
+            {!selectedItemId&&<Pagination totalPost={totalPost} btnCount={5}
+                                          handlePageChange={setPage}
+                                          currentPage={page} itemPerPage={15}/>
+
+            }
             {selectedItemId&&detailInfo&&<DetailInfoWindow selectedItemId={selectedItemId} setSelectedItemId={setSelectedItemId} item={detailInfo}/>}
+
 
         </div>
     );

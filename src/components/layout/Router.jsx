@@ -44,6 +44,7 @@ import {useEffect, useState} from "react";
 import Withdraw from "../shop/seller/Withdraw";
 import FacilitiesMap from "../../pages/map/FacilitiesMap";
 import AdoptInterestAnimal from "../../pages/additional/AdoptInterestAnimal";
+import Chatting from "../../pages/Chatting/Chatting";
 import CalculatorSelector from "../../pages/additional/CalculatorSelector";
 import AgeCalculator from "../additional/calc/AgeCalculator";
 import CalorieCalculator from "../additional/calc/CalorieCalculator";
@@ -159,6 +160,11 @@ const Router = (props) => {
                         <Route path="/calculator/age" element={<AgeCalculator/>}/>
                         <Route path="/calculator/calorie" element={<CalorieCalculator/>}/>
                         <Route path="/calculator/nutrient" element={<NutrientCalculator/>}/>
+
+                        {/* 채팅 */}
+                        <Route path="/shop/chatting" element={<Chatting/>}/>
+
+
                     </Routes>
                 </div>
 

@@ -1,8 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Search from "../../pages/board/Search";
 
+import markerImg from "../../assets/img/marker.svg"
+import defaultMarkerImg from "../../assets/img/defaultMarker.svg"
+import selectedMarkerImg from "../../assets/img/selectedMarker.svg"
+
+
 const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , setBounds, data ,
-                 setSearch , search, mappingData, setMappingData,
+                 setSearch , search, mappingData, setMappingData, setPage
              }) => {
     const mapRef = useRef(null); // 지도 객체를 저장할 ref
     let map = mapRef.current;
@@ -102,21 +107,25 @@ const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , s
 
 
             const newMarkers = data.map((item) => {
-                var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다
-                    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-                    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                const isSelected = selectedItemId === item["map_id"];
+
+                const size = isSelected ? 60 : 30;
+                const offset = {x:isSelected?10:0 ,y:isSelected?30:0};
+
+                var imageSrc = isSelected?selectedMarkerImg:defaultMarkerImg, // 마커이미지의 주소입니다
+                    imageSize = new kakao.maps.Size(size, size), // 마커이미지의 크기입니다
+                    imageOption = {offset: new kakao.maps.Point(offset.x, offset.y)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
                 var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
 
 
                 let position = new kakao.maps.LatLng(item.latitude, item.longitude)
-                const isSelected = selectedItemId === item["map_id"];
 
 
                 const marker = new kakao.maps.Marker({
                     map: map,
                     position: position,
                     title: item.facility_name,
-                    image: isSelected ? markerImage : null,
+                    image: markerImage,
                     zIndex: isSelected? 10:1
                 });
 
@@ -124,11 +133,6 @@ const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , s
                     ...prev,
                     [item.map_id]:marker
                 }))
-
-
-
-
-                ////////////////////
 
                 kakao.maps.event.addListener(marker, 'click', function() {
                     console.log(item);
@@ -151,10 +155,37 @@ const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , s
             setMarkers(newMarkers);
 
         }
+        if(map&&kakao&&currLocation.latitude!==0){
+            var imageSrc = markerImg, // 마커이미지의 주소입니다
+                imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
+                imageOption = {offset: new kakao.maps.Point(0, 0)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
 
-    }, [data, map, selectedItemId]);
+            let position = new kakao.maps.LatLng(currLocation.latitude, currLocation.longitude)
+
+            if (mappingData["current"]){
+                console.log(mappingData["current"]);
+                mappingData["current"].setMap(null);
+            }
+
+            const marker = new kakao.maps.Marker({
+                map: map,
+                position: position,
+                title: "현위치",
+                image: markerImage ,
+                // zIndex: 10
+            });
 
 
+            setMappingData((prev)=>({
+                ...prev,
+                "current":marker
+            }))
+
+        }
+
+
+        }, [data, map, selectedItemId]);
 
     useEffect(() => {
         if (locationLoaded) {
@@ -180,10 +211,25 @@ const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , s
     }, [locationLoaded, map]); // locationLoaded가 변경될 때만 실행
 
 
+    const moveToCurrent = ()=>{
+        const kakao = window.kakao;
+        console.log(currLocation)
+        map.setLevel(3);
+
+        map.panTo(new kakao.maps.LatLng(currLocation.latitude, currLocation.longitude));
+    }
+
     return (
             <div className="map-container">
                 <div id="map" className="map"/>
-                <button onClick={()=>setSearch(!search)} >aa</button>
+                <button onClick={()=> {
+                    setSearch(!search)
+                    setPage(1)
+                }} >검색</button>
+
+
+                <button onClick={()=>{moveToCurrent()}}> 현재 위치로  </button>
+
             </div>
     );
 

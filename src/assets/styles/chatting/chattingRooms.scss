@@ -1,0 +1,26 @@
+.chatting-rooms{
+  width: 40%;
+  border-left: 1px solid var(--alpha-5);
+  border-right: 1px solid var(--alpha-5);
+  height: calc(100vh - 160px);
+  overflow-y: scroll;
+  .chatting-room{
+    height: 90px;
+    border-bottom: 1px solid var(--alpha-5);
+
+  }
+
+
+}
+.chatting-rooms::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chatting-rooms::-webkit-scrollbar-thumb {
+  background: var(--alpha-30); /* 스크롤바 색상 */
+  border-radius: 10px; /* 스크롤바 둥근 테두리 */
+}
+
+.chatting-rooms::-webkit-scrollbar-track {
+  background: var(--alpha-5);  /*스크롤바 뒷 배경 색상*/
+}
