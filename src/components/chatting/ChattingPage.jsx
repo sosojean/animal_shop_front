@@ -3,7 +3,7 @@ import Chat from "./Chat";
 import instance from "../../utils/axios";
 import parseJwt from "../../utils/parseJwt";
 
-const ChattingPage = ({isConnected, setIsConnected,stompClient, setStompClient, selectedRoom, setSelectedRoom, setMessages, messages}) => {
+const ChattingPage = ({ setIsConnected,stompClient, selectedRoom, setMessages, messages}) => {
 
     const token = localStorage.getItem("accessToken");
 

@@ -109,8 +109,8 @@ const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , s
             const newMarkers = data.map((item) => {
                 const isSelected = selectedItemId === item["map_id"];
 
-                const size = isSelected ? 60 : 30;
-                const offset = {x:isSelected?10:0 ,y:isSelected?30:0};
+                const size = isSelected ? 40 : 30;
+                const offset = {x:isSelected?10:0 ,y:isSelected?10:0};
 
                 var imageSrc = isSelected?selectedMarkerImg:defaultMarkerImg, // 마커이미지의 주소입니다
                     imageSize = new kakao.maps.Size(size, size), // 마커이미지의 크기입니다

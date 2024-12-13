@@ -9,9 +9,10 @@ import SockJS from 'sockjs-client';
 const ChattingRooms = ({ isConnected, setIsConnected, stompClient,selectedRoom,setSelectedRoom, messages, setMessages}) => {
 
     const token = localStorage.getItem("accessToken");
-    // const [id, setId] = useState("")
+    const [id, setId] = useState("")
     const [roomInfos, setRoomInfos] = useState([])
     const [subscription, setSubscription] = useState(null)
+
 
 
 
@@ -25,7 +26,7 @@ const ChattingRooms = ({ isConnected, setIsConnected, stompClient,selectedRoom,s
         }).catch(err => {
             console.log(err);
         })
-    }, []);
+    }, [selectedRoom]);
 
     useEffect(() => {
 
@@ -65,8 +66,11 @@ const ChattingRooms = ({ isConnected, setIsConnected, stompClient,selectedRoom,s
             url: `${process.env.REACT_APP_API}/chat/room`,
             method: "GET",
         }).then(res => {
+            console.log(res.data);
             // setId(res.data.id);
-            // subscribeToChatRoom("1353f247-0b68-49aa-aa9c-c48a07448112")
+            socketConnect()
+            setSelectedRoom(res.data)
+            subscribeToChatRoom(res.data.id)
         }).catch((err) => {
             console.log(err);
         })
@@ -114,6 +118,28 @@ const ChattingRooms = ({ isConnected, setIsConnected, stompClient,selectedRoom,s
         }
     }
 
+    const socketConnect =()=> {
+        const socket = new SockJS(
+            `${process.env.REACT_APP_API}/ws?token=${token}`,
+        )
+        const client = Stomp.over(socket)
+        stompClient.current  = client
+        stompClient.current.connect(
+            {
+                Authorization: `Bearer ${token}`, // 헤더에 Authorization 토큰 추가
+            },
+            (frame) => {
+                // 연결 성공 시
+                console.log("Connected: " + frame);
+                setIsConnected(true)
+            },
+            (error) => {
+                // 연결 실패 시
+                console.error("Connection error:", error);
+            }
+        );
+
+    }
 
     return (
         <div className="chatting-rooms">
@@ -121,6 +147,7 @@ const ChattingRooms = ({ isConnected, setIsConnected, stompClient,selectedRoom,s
             {roomInfos&&
                 roomInfos.map((roomInfo,index)=> {
                 return <ChattingRoom key={index} roomInfo={roomInfo}
+                                     socketConnect={socketConnect}
                                      isConnected={isConnected}
                                      setIsConnected={setIsConnected}
                                      selectedRoom={selectedRoom}
@@ -131,7 +158,7 @@ const ChattingRooms = ({ isConnected, setIsConnected, stompClient,selectedRoom,s
         }
 
 
-
+            <button onClick={createChat} >새 채팅</button>
         </div>
     );
 };
