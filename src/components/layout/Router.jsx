@@ -49,6 +49,7 @@ import CalculatorSelector from "../../pages/additional/CalculatorSelector";
 import AgeCalculator from "../additional/calc/AgeCalculator";
 import CalorieCalculator from "../additional/calc/CalorieCalculator";
 import NutrientCalculator from "../additional/calc/NutrientCalculator";
+import WikiEditor from "../../pages/additional/WikiEditor";
 
 const Router = (props) => {
     const species = localStorage.getItem("species");
@@ -145,7 +146,8 @@ const Router = (props) => {
                         <Route path="/admin/notice/:noticeId" element={<AdminNoticeDetail/>}/>
                         <Route path="/admin/point/withdraw" element={<Withdraw/>}/>
 
-
+                        <Route path="/admin/wiki/new" element={<WikiEditor/>}/>
+                        <Route path="/admin/wiki/edit/:wikiId" element={<WikiEditor/>}/>
 
                         {/* 입양 */}
                         <Route path="/adoption" element={<AdoptAnimal/>}/>
@@ -163,6 +165,9 @@ const Router = (props) => {
 
                         {/* 채팅 */}
                         <Route path="/shop/chatting" element={<Chatting/>}/>
+
+                        {/* 위키 */}
+                        
 
 
                     </Routes>
