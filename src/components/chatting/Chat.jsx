@@ -4,10 +4,10 @@ import parseJwt from "../../utils/parseJwt";
 
 const Chat = ({item}) => {
     const token = localStorage.getItem("accessToken");
-    const isME =( parseJwt(token).sub.toString() === item.senderId.toString());
+    const isME =item.senderId&&( parseJwt(token).sub.toString() === item.senderId.toString());
     useEffect(() => {
-        console.log("isme", isME)
-        console.log("isme", parseJwt(token).sub, item.senderId)
+        // console.log("isme", isME)
+        // console.log("isme", parseJwt(token).sub, item.senderId)
     }, []);
 
 
@@ -18,14 +18,11 @@ const Chat = ({item}) => {
             {!isME && <>
                 <img className="profile" src="https://placehold.co/50" alt=""/>
                 <span className="sender">{item.senderNickname}</span></>}
-            <div className="message">
+                <div className="message">
 
+                        <span>{item.message}</span>
 
-
-                    <span>{item.message}</span>
-
-
-            </div>
+                </div>
         </div>
         </>
 

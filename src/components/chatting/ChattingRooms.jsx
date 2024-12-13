@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import ChattingRoom from "./ChattingRoom";
 import "../../assets/styles/chatting/chattingRooms.scss"
 import {Stomp} from "@stomp/stompjs";
@@ -6,31 +6,58 @@ import instance from "../../utils/axios";
 import SockJS from 'sockjs-client';
 
 
-const ChattingRooms = () => {
+const ChattingRooms = ({ isConnected, setIsConnected, stompClient,selectedRoom,setSelectedRoom, messages, setMessages}) => {
 
     const token = localStorage.getItem("accessToken");
-    let stompClient = null;
-    const [id, setId] = useState("")
+    // const [id, setId] = useState("")
+    const [roomInfos, setRoomInfos] = useState([])
+    const [subscription, setSubscription] = useState(null)
 
-    const socketConnect =()=> {
-        const socket = new SockJS(
-            `${process.env.REACT_APP_API}/ws?token=${token}`,
-        )
-        stompClient = Stomp.over(socket);
-        stompClient.connect(
-            {
-                Authorization: `Bearer ${token}`, // 헤더에 Authorization 토큰 추가
-            },
-            (frame) => {
-                // 연결 성공 시
-                console.log("Connected: " + frame);
-            },
-            (error) => {
-                // 연결 실패 시
-                console.error("Connection error:", error);
+
+
+
+    useEffect(() => {
+        instance({
+            url: `${process.env.REACT_APP_API}/chat-room/mine`,
+            method: "GET",
+        }).then(res => {
+            setRoomInfos(res.data);
+        }).catch(err => {
+            console.log(err);
+        })
+    }, []);
+
+    useEffect(() => {
+
+        if (stompClient.current && stompClient.current.connected) {
+            console.log('Connected');
+        } else {
+            console.log('Not connected');
+        }
+        if (subscription && selectedRoom) {
+            unsubscribeFromChatRoom();
+        }
+
+        if (selectedRoom && isConnected) {
+            console.log("selectedRoom.id", selectedRoom.id);
+            try {
+                subscribeToChatRoom(selectedRoom.id);
+                console.log("Subscribed to", selectedRoom);
+            } catch (error) {
+                console.error("Subscription failed:", error);
+                // 재시도
+                setTimeout(() => {
+                    subscribeToChatRoom(selectedRoom.id);
+                }, 100); // 3초 후 재시도
             }
-        );
-    }
+        }
+        return () => {
+            unsubscribeFromChatRoom(); // Clean-up on component unmount or dependency change
+        };
+    }, [selectedRoom, stompClient, isConnected]);
+
+
+
 
 
     function createChat() {
@@ -38,116 +65,71 @@ const ChattingRooms = () => {
             url: `${process.env.REACT_APP_API}/chat/room`,
             method: "GET",
         }).then(res => {
-            setId(res.data.id);
-            subscribeToChatRoom("1353f247-0b68-49aa-aa9c-c48a07448112")
+            // setId(res.data.id);
+            // subscribeToChatRoom("1353f247-0b68-49aa-aa9c-c48a07448112")
         }).catch((err) => {
             console.log(err);
         })
     }
 
+
     function subscribeToChatRoom(chatRoomId) {
-        if (!stompClient || !stompClient.connected) {
+        console.log(stompClient)
+        if (!stompClient || !stompClient.current?.connected) {
             console.error("Not connected to WebSocket.");
+            throw new Error("Not connected to WebSocket")
+            // return;
+        }
+
+        // 이미 해당 채팅방에 구독 중인지 확인
+        if (subscription && subscription.id === `/topic/chat/${chatRoomId}`) {
+            console.log("Already subscribed to this chat room:", chatRoomId);
             return;
         }
 
-        console.log("subscribeToChatRoom success")
-        // 채팅방 ID에 맞는 경로로 구독
-        stompClient.subscribe(`/topic/chat/${chatRoomId}`,
-            (messageOutput) => {
+        // 이전 구독 해제
+        unsubscribeFromChatRoom();
+
+        // 새로운 채팅방 구독
+        const sub = stompClient.current?.subscribe(`/topic/chat/${chatRoomId}`, (messageOutput) => {
             const message = JSON.parse(messageOutput.body);
-            console.log("Received: " + JSON.stringify(message));
+            console.log("Received: ", message);
+
+            setMessages((prev) => [...prev, message]);
         });
+
+        console.log("Subscribed to chat room:", chatRoomId);
+        setSubscription(sub);
     }
 
 
-    function sendMessage() {
-        if (stompClient && stompClient.connected && id) {
-            const message = {
-                message: "Hello, this is a message!", // 보낼 메시지
-                date: new Date().toISOString(), // ISO 8601 형식으로 날짜를 보냄
-            };
 
-            // 메시지를 /app/send/{chatRoomId} 경로로 전송
-            stompClient.send(
-                `/app/send/${"1353f247-0b68-49aa-aa9c-c48a07448112"}`,
-                {},
-                JSON.stringify(message)
-            );
-            console.log("Sent: " + JSON.stringify(message));
+    function unsubscribeFromChatRoom() {
+        if (subscription) {
+            subscription.unsubscribe();
+            console.log("Unsubscribed from chat room.");
+            setSubscription(null)
+        } else {
+            console.log("No active subscription to unsubscribe.");
         }
     }
 
-    function disconnectChat() {
-        if (stompClient) {
-            stompClient.disconnect(() => {
-                console.log("Disconnected");
-            });
-        }
-    }
-
-    function getMessage() {
-        instance({
-            url:`${process.env.REACT_APP_API}/chat/room/${"1353f247-0b68-49aa-aa9c-c48a07448112"}`,
-            method:"get"
-
-        }).then(res => {
-            console.log("Received: " + JSON.stringify(res));
-        }).catch((err) => {
-            console.log(err);
-        })
-    }
-
-    // function getRoom() {
-    //     instance({
-    //         url:`${process.env.REACT_APP_API}/chat-room/${"9e83d47f-ac8b-4c94-939c-b925bf11158c"}`,
-    //         method:"get"
-    //
-    //     }).then(res => {
-    //         console.log("Received: " + JSON.stringify(res));
-    //     }).catch((err) => {
-    //         console.log(err);
-    //     })
-    // }
 
     return (
         <div className="chatting-rooms">
 
-            <button onClick={socketConnect}>test connection</button>
-            <button onClick={createChat}>create chat</button>
-            <button onClick={sendMessage}>sendMessage</button>
-            <button onClick={disconnectChat}>disconnect chat</button>
+            {roomInfos&&
+                roomInfos.map((roomInfo,index)=> {
+                return <ChattingRoom key={index} roomInfo={roomInfo}
+                                     isConnected={isConnected}
+                                     setIsConnected={setIsConnected}
+                                     selectedRoom={selectedRoom}
+                                     setSelectedRoom={setSelectedRoom}
+                                     stompClient={stompClient}
+                                     subscribeToChatRoom={subscribeToChatRoom}
+                />})
+        }
 
-
-            {/*<button onClick={getRoom}>getRoom</button>*/}
-            <button onClick={getMessage}>getMessage</button>
-
-
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
-            <ChattingRoom/>
 
 
         </div>
