@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AgeInput from "./AgeInput";
 import AgeResult from "./AgeResult";
-
+import "../../../assets/styles/additional/ageCalc.scss"
 
 const AgeCalculator = () => {
 
@@ -9,14 +9,17 @@ const AgeCalculator = () => {
         // {species: "dog", birth: "20200120", size: "small"}
 
     return (
-        <div>
-            <h1>나이 계산기</h1>
-            <AgeInput
-                calcData={calcData} setCalcData={setCalcData}
-            />
-            <AgeResult
-                calcData={calcData} setCalcData={setCalcData}
-            />
+        <div className="age-calc">
+            <h1 className="age-calc-header">나이 계산기</h1>
+            <div className="age-calc-section">
+                <AgeInput
+                    calcData={calcData} setCalcData={setCalcData}
+                />
+                <AgeResult
+                    calcData={calcData} setCalcData={setCalcData}
+                />                
+            </div>
+
         </div>
     )
 }

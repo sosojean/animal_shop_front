@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import Card from "../../common/Card";
 
 const AgeResult = (props) => {
 
@@ -131,26 +131,31 @@ const AgeResult = (props) => {
     }
 
     return (
-        <div>
-            <h1>결과</h1>
+        <Card className="default-card age-result">
             {calcData?.species === "강아지" ?
-                <p>
-                    {getHumanAge(calcData?.birth, calcData?.size, "강아지") === "none" ? 
-                        "생년월일 혹은 크기를 정확히 작성해주세요" : 
-                        "우리 강아지의 나이는 " + getOriginalAge(calcData?.birth).years + "살 " + getOriginalAge(calcData?.birth).months + "개월이고" +
-                        " 사람으로 치면 " + getHumanAge(calcData?.birth, calcData?.size, "강아지") + "살이에요!"
-                    }
-                </p> : calcData?.species === "고양이" ?
-                        <p>
+                <Card className="default-card age-result-container">
+                        {getHumanAge(calcData?.birth, calcData?.size, "강아지") === "none" ? 
+                            <p>생년월일 혹은 크기를 정확히 작성해주세요</p> : 
+                            <>
+                                <p>우리 강아지의 나이는 <b>{getOriginalAge(calcData?.birth).years}살 {getOriginalAge(calcData?.birth).months}개월</b></p>
+                                <p>사람으로 치면 <b>{getHumanAge(calcData?.birth, calcData?.size, "강아지")}살</b>이에요!</p>                                
+                            </>
+                        }
+                </Card>
+                : calcData?.species === "고양이" ?
+                    <Card className="default-card age-result-container">
                             {getHumanAge(calcData?.birth, calcData?.size, "고양이") === "none" ? 
-                                "생년월일 혹은 크기를 정확히 작성해주세요" : 
-                                "우리 고양이의 나이는 " + getOriginalAge(calcData?.birth).years + "살 " + getOriginalAge(calcData?.birth).months + "개월이고" +
-                                " 사람으로 치면 " + getHumanAge(calcData?.birth, calcData?.size, "고양이") + "살이에요!"
-                            }
-                        </p> :
-                        <p>우리 아이의 정보를 입력해주세요!</p>
+                                <p>생년월일 혹은 크기를 정확히 작성해주세요</p>  : 
+                                <>
+                                    <p>우리 고양이의 나이는 <b>{getOriginalAge(calcData?.birth).years}살 {getOriginalAge(calcData?.birth).months}개월</b></p>
+                                    <p>사람으로 치면 <b>{getHumanAge(calcData?.birth, calcData?.size, "고양이")}살</b>이에요!</p>                                
+                                </>
+                            } 
+                    </Card>    
+                        :
+                        <Card className="default-card age-result-container"><p>우리 아이의 정보를 입력해주세요!</p></Card>
             }
-        </div>
+        </Card>
     )
 }
 

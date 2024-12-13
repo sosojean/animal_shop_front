@@ -1,4 +1,5 @@
-
+import Card from "../../common/Card";
+import DefaultButton from "../../common/DefaultButton";
 
 const AgeInput = (props) => {
 
@@ -18,50 +19,49 @@ const AgeInput = (props) => {
     console.log("calcData", calcData);
 
     return (
-        <div>
-            <div>
+        <Card className="default-card age-input">
+            <Card className="default-card species-selector">
                 <h3>반려동물 종류</h3>
                 <div>
                     {speciesList.map((species, index) => {
-                        return <div key={index} 
-                            onClick={() => {handleInputChange("species", species)}}>{species}</div>
+                        return <DefaultButton key={index} 
+                            onClick={() => {handleInputChange("species", species)}}>{species}</DefaultButton>
                     })}
                 </div>
-            </div>
-            <div>
+            </Card>
+            <Card>
                 <h3>생년월일</h3>
                 <input onChange={(e) => {handleInputChange("birth", e.target.value)}}/>
-            </div>
-            {/* TODO 강아지/고양이에 따라 소중대 - 길집 나누기 */}
+            </Card>
             {calcData?.species === "강아지" &&
-                <div>
+                <Card>
                     <h3>강아지 크기</h3>
                     <div>
                         {dogSizeList.map((size, index) => {
                             return (
-                                <div key={index} onClick={() => {handleInputChange("size", size)}}>
+                                <DefaultButton key={index} onClick={() => {handleInputChange("size", size)}}>
                                     {size}                           
-                                </div>
+                                </DefaultButton>
                             )
                         })}
                     </div>
-                </div>            
+                </Card>            
             }
             {calcData?.species === "고양이" &&
-                <div>
+                <Card>
                     <h3>고양이 유형</h3>
                         <div>
                             {catTypeList.map((type, index) => {
                                 return (
-                                    <div key={index} onClick={() => {handleInputChange("size", type)}}>
+                                    <DefaultButton key={index} onClick={() => {handleInputChange("size", type)}}>
                                         {type}
-                                    </div>
+                                    </DefaultButton>
                                 )
                             })}
                         </div>
-                </div>
+                </Card>
             }
-        </div>
+        </Card>
     )
 }
 
