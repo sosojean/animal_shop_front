@@ -56,7 +56,7 @@ const NutrientInput = (props) => {
                 })}
             </div>
             <div>
-                <h3>대형견</h3>
+                <h2>대형견</h2>
                 <button onClick={() => handlePetDataChange("isLarge", true)}>네</button>
                 <button onClick={() => handlePetDataChange("isLarge", false)}>아니오</button>
             </div>
