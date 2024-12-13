@@ -5,20 +5,47 @@ import {dogWikiBreeds, catWikiBreeds} from "../../../utils/petOptions";
 import DefaultButton from "../../common/DefaultButton";
 import catIcon from "../../../assets/img/catIcon.svg"
 
-const WikiInput = () => {
+const WikiInput = (props) => {
+    
+    const {postData, setPostData} = props;
 
     const dogBreeds = dogWikiBreeds;
     const catBreeds = catWikiBreeds;
 
     const [species, setSpecies] = useState("dog");
-    const [postData, setPostData] = useState({});
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState(postData?.attachmentUrl || null);
+    console.log("file", file);
+
+    // const [testFile, setTestFile] = useState(null);
+    // const imageUrl = "http://localhost:8080/file/image-print?filename=";
+
+    // const ImgUploadHandler = async (e) => {
+
+    //     const file = e.target.files[0];
+    //     setFile(file)
+    //     const formData = new FormData();
+    //     if (file != null) {
+    //         formData.append('image', new Blob([file], {type: 'multipart/form-data'}), file.name);
+
+    //         axios({
+    //             url: `http://localhost:8080/file/${imageUploadPath}`,
+    //             method: 'POST',
+    //             data: formData,
+    //         }).then((response) => {
+    //             console.log(response.data);
+    //             console.log(objName,response)
+    //             setImage(objName,response.data);
+
+    //         }).catch((error) => {
+    //             console.log(error)
+    //         })
+    //     }
+    // }
 
     // 이미지 미리보기
     const [imgPath, setImgPath] = useState("");
     const imgRef = useRef(null);
 
-    // console.log("postData", postData);
     console.log("file", file);
 
     const handlePostData = (field, value) => {
@@ -109,6 +136,7 @@ const WikiInput = () => {
                 <h2>개요</h2>
                 <textarea
                     placeholder="개요를 작성해주세요"
+                    value={postData?.overview || ''}
                     onChange={(e) => handlePostData("overview", e.target.value)}
                 />
             </div>
@@ -116,6 +144,7 @@ const WikiInput = () => {
                 <h2>외모</h2>
                 <textarea
                     placeholder="외모를 작성해주세요"
+                    value={postData?.appearance || ''}
                     onChange={(e) => handlePostData("appearance", e.target.value)}
                 />
             </div>
@@ -123,6 +152,7 @@ const WikiInput = () => {
                 <h2>성격</h2>
                 <textarea
                     placeholder="성격을 작성해주세요"
+                    value={postData?.temperament || ''}
                     onChange={(e) => handlePostData("temperament", e.target.value)}
                 />
             </div>
@@ -145,6 +175,7 @@ const WikiInput = () => {
                     />
                 </label>
             </div>
+            <img src={postData.attachmentUrl}/>
             <Link to="/admin/seller">
                 <DefaultButton onClick={handleSubmit}>제출</DefaultButton>
             </Link>
