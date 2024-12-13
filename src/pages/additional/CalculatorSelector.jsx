@@ -11,6 +11,9 @@ const CalculatorSelector = () => {
             <Link to="/calculator/calorie">
                 <div>칼로리 계산기</div>
             </Link>
+            <Link to="/calculator/nutrient">
+                <div>사료 영양성분 계산기</div>
+            </Link>
         </div>
     )
 }
