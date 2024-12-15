@@ -2,7 +2,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "../../pages/board/Home";
-import Join from "../../pages/member/Join";
+import JoinWithEmail from "../../pages/member/JoinWithEmail";
 import Login from "../../pages/member/Login";
 import PostWrite from "../../pages/board/PostWrite";
 import "../../assets/styles/layout/router.scss";
@@ -44,12 +44,14 @@ import {useEffect, useState} from "react";
 import Withdraw from "../shop/seller/Withdraw";
 import FacilitiesMap from "../../pages/map/FacilitiesMap";
 import AdoptInterestAnimal from "../../pages/additional/AdoptInterestAnimal";
-import Chatting from "../../pages/Chatting/Chatting";
+import Chatting from "../../pages/chatting/Chatting";
 import CalculatorSelector from "../../pages/additional/CalculatorSelector";
 import AgeCalculator from "../additional/calc/AgeCalculator";
 import CalorieCalculator from "../additional/calc/CalorieCalculator";
 import NutrientCalculator from "../additional/calc/NutrientCalculator";
 import WikiEditor from "../../pages/additional/WikiEditor";
+import Join from "../../pages/member/Join";
+import OAuthRedirect from "../../pages/member/OAuthRedirect";
 
 const Router = (props) => {
     const species = localStorage.getItem("species");
@@ -83,9 +85,9 @@ const Router = (props) => {
                         <Route path="/:category" element={<Home isAuth={props.isAuth}/>}/>
 
                         {/*회원*/}
-                        <Route path="/join/email" element={<Join/>}/>
-                        <Route path="/join/oAuth" element={<Join/>}/>
+                        <Route path="/join/email" element={<JoinWithEmail/>}/>
                         <Route path="/join" element={<Join/>}/>
+                        <Route path="/oauth" element={<OAuthRedirect/>}/>
 
 
                         <Route path="/login" element={<Login reload={props.reload} setReload={props.setReload}/>}/>

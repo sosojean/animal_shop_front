@@ -76,7 +76,7 @@ const Login = (props) => {
 
                     <button className={"main-button"} onClick={handleLogin}>로그인</button>
 
-                    <Link to="/src/pages/member/Join">
+                    <Link to="/join">
                         <button>회원가입</button>
                     </Link>
 
