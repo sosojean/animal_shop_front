@@ -83,7 +83,11 @@ const Router = (props) => {
                         <Route path="/:category" element={<Home isAuth={props.isAuth}/>}/>
 
                         {/*회원*/}
+                        <Route path="/join/email" element={<Join/>}/>
+                        <Route path="/join/oAuth" element={<Join/>}/>
                         <Route path="/join" element={<Join/>}/>
+
+
                         <Route path="/login" element={<Login reload={props.reload} setReload={props.setReload}/>}/>
                         <Route path="/password" element={<PasswordFinder/>} />
                         <Route path="/join/success" element={<Information case ="join" />}/>

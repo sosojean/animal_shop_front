@@ -10,7 +10,7 @@ const PlaceList = ({page, setPage, totalPost, data, selectedItemId, setSelectedI
     // const [selectedItemId, setSelectedItemId] = useState(null)
     const [detailInfoWindow, setDetailInfoWindow] = useState(false)
     const [detailInfo, setDetailInfo] = useState(null)
-
+    const [isEdited, setIsEdited] = useState(false)
 
     useEffect(() => {
         if (selectedItemId){
@@ -25,7 +25,7 @@ const PlaceList = ({page, setPage, totalPost, data, selectedItemId, setSelectedI
         }).catch((error) => {
             console.log(error);
         })}
-    },[selectedItemId])
+    },[selectedItemId, isEdited])
 
     return (
         <div className="place-list-container">
@@ -39,7 +39,7 @@ const PlaceList = ({page, setPage, totalPost, data, selectedItemId, setSelectedI
                                           currentPage={page} itemPerPage={15}/>
 
             }
-            {selectedItemId&&detailInfo&&<DetailInfoWindow selectedItemId={selectedItemId} setSelectedItemId={setSelectedItemId} item={detailInfo}/>}
+            {selectedItemId&&detailInfo&&<DetailInfoWindow selectedItemId={selectedItemId} setSelectedItemId={setSelectedItemId} item={detailInfo} isEdited={isEdited} setIsEdited={setIsEdited}/>}
 
 
         </div>

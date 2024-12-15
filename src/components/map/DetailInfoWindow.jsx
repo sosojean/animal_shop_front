@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Card from "../common/Card";
 import "../../assets/styles/map/detailInfoWindow.scss"
 import PlaceReviewList from "./PlaceReviewList";
@@ -11,27 +11,64 @@ import {
     faTreeCity,
     faUpRightFromSquare
 } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 
-const DetailInfoWindow = ({item ,selectedItemId,setSelectedItemId}) => {
 
+import instance from "../../utils/axios";
 
+const DetailInfoWindow = ({item ,selectedItemId,setSelectedItemId, isEdited, setIsEdited}) => {
 
-    return (
+  function addHeart() {
+    instance({
+      url:`map/add/like?mapId=${selectedItemId}`,
+      method:"GET",
+    }).then((res) => {
+      console.log(res);
+      setIsEdited(!isEdited);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+
+  function deleteHeart() {
+    instance({
+      url:`map/delete/like?mapId=${selectedItemId}`,
+      method:"GET",
+    }).then((res) => {
+      console.log(res);
+      setIsEdited(!isEdited);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+
+  return (
         <Card className="bottom-flat detail-info-window">
             <button onClick={() => setSelectedItemId(null)}> 뒤로</button>
 
-            <div>
+            <div className={"place-header"}>
+              <div className={"place-title"}>
                 <span>{item.facility_name}</span>
                 <span>{item.place_description}</span>
+              </div>
+              {item.like ?
+                  <button onClick={deleteHeart}><FontAwesomeIcon
+                      icon={solidHeart}/>
+                  </button> :
+                  <button onClick={addHeart}><FontAwesomeIcon
+                      icon={regularHeart}/>
+                  </button>}
             </div>
 
 
-            <span><FontAwesomeIcon icon={faLocationDot} />{item.road_address}</span>
+          <span><FontAwesomeIcon icon={faLocationDot}/>{item.road_address}</span>
 
             <span><FontAwesomeIcon icon={faCar} />{item.parking_available == "Y" ? "주차가능" : "주차불가"}</span>
 
             {/*<span>{item.latitude}</span>*/}
             {/*<span>{item.longitude}</span>*/}
+
             {item.additional_pet_fee !== "없음" && <span>추가입장료 {item.additional_pet_fee}</span>}
             {item.admission_fee !== "없음" && <span>입장료 {item.admission_fee}</span>}
 
