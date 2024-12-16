@@ -3,6 +3,7 @@ import Banner from "../../components/shop/Banner";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import ToggleBtn from "../../components/common/ToggleBtn";
+import instance from "../../utils/axios";
 
 const ShopMain = ({isDog, setIsDog}) => {
 
@@ -10,7 +11,22 @@ const ShopMain = ({isDog, setIsDog}) => {
 
     // const [isDog, setIsDog] = useState(true)
 
+    const token  = localStorage.getItem("accessToken");
+
     useEffect(() => {
+        token?
+        instance({
+            url:"/shop/main",
+            method:"get",
+            params:{species:isDog?"dog":"cat"}
+        }).then(res => {
+            setData(res.data);
+            console.log("ProductDetail", res.data);
+
+        }).catch(error => {
+            console.log(error);
+        })
+        :
         axios({
             url:"http://localhost:8080/shop/main",
             method:"get",
