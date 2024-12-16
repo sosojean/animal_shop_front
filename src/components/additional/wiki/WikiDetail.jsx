@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import instance from "../../../utils/axios";
 import WikiItem from "./WikiItem";
 import Comment from "../../comment/Comment";
+import WikiComment from "./WikiComment";
 
 const WikiDetail = () => {
 
@@ -29,7 +30,7 @@ const WikiDetail = () => {
     return (
         <div>
             <WikiItem data={wikiData}/>
-            {/* <Comment/> */}
+            <WikiComment id={id}/>
         </div>
     )
 }
