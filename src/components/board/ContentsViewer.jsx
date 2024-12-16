@@ -23,7 +23,7 @@ const ContentsViewer = ({props}) => {
     useEffect(() => {
         instance({
             method: "GET",
-            url: `/${category}/${post_id}`
+            url: `/post/${category}/${post_id}`
         })
             .then(response => {
                 setContentInfo(response.data)

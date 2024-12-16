@@ -19,7 +19,7 @@ const SellerAnalysisTable = ({colName1, colName2, data1, data2}) => {
             <tbody className="table-body">
             {data1&&data1.map((item, index) => {
                 return(
-                    <tr className={"col"}>
+                    <tr key={index} className={"col"}>
                         <td>{item}</td>
                         <td>{data2[index]}</td>
                     </tr>)

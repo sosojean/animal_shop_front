@@ -60,13 +60,16 @@ const SellerStatAnalysis = () => {
 
 
     useEffect(() => {
+        const start = `${from.year}-${String(from.month).padStart(2, "0")}-${String(from.day).padStart(2, "0")}`;
+        const end = `${to.year}-${String(to.month).padStart(2, "0")}-${String(to.day).padStart(2, "0")}`;
+
         instance({
             url: `/seller/total-item-info`,
             method:"get",
             params:{
                 time:"month",
-                start:`${from.year}-${from.month}-${from.day}`,
-                end:`${to.year}-${to.month}-${to.day}`,
+                start:start,
+                end:end,
             }
         }).then(res => {
             console.log(res);
@@ -78,12 +81,13 @@ const SellerStatAnalysis = () => {
 
 
         instance({
+
             url: `/seller/entire-ci-info`,
             method:"get",
             params:{
                 time:"month",
-                start:`${from.year}-${from.month}-${from.day}`,
-                end:`${to.year}-${to.month}-${to.day}`,
+                start:start,
+                end:end,
             }
         }).then(res => {
             console.log(res);

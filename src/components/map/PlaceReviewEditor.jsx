@@ -10,7 +10,7 @@ import instance from "../../utils/axios";
 
 const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited, isModify, item}) => {
     const [newComment, setNewComment] = useState("")
-    const [rating, setRating] = useState(0)
+    const [rating, setRating] = useState(5)
     const [images, setImages] = useState([]);
     const [id, setId] = useState()
     const imageUrl = "http://localhost:8080/file/image-print?filename=";

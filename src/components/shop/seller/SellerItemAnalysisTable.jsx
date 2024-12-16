@@ -26,7 +26,7 @@ const SellerItemAnalysisTable = ({itemPriceData}) => {
                             <tbody className="table-body">
                             {itemPriceData.map((item, index) => {
                                 return Object.entries(item.options).map(([option, value], idx) => (
-                                    <tr key={`${index}-${idx}`}>
+                                    <tr key={`${item.name} - ${idx}`}>
                                         {idx === 0 ?
                                             <td >{item.name}</td> : <td> </td>}
                                         <td>{option}</td>

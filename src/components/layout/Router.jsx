@@ -37,7 +37,7 @@ import PendingProductManagement from "../../pages/shop/admin/PendingProductManag
 import AdminStatAnalysis from "../../pages/shop/admin/AdminStatAnalysis";
 import AdminNoticeList from "../../pages/shop/admin/AdminNoticeList";
 import AdminNoticeWrite from "../../pages/shop/admin/AdminNoticeWrite";
-import AdminNoticeDetail from "../../pages/shop/admin/AdminNoticeDetail";
+import AdminNoticeDetailContent from "../shop/admin/notice/AdminNoticeDetailContent";
 import SellerSuspendingItems from "../../pages/shop/seller/SellerSuspendingItems";
 import SellerPointHistory from "../../pages/shop/seller/SellerPointHistory";
 import {useEffect, useState} from "react";
@@ -52,6 +52,7 @@ import NutrientCalculator from "../additional/calc/NutrientCalculator";
 import WikiEditor from "../../pages/additional/WikiEditor";
 import Join from "../../pages/member/Join";
 import OAuthRedirect from "../../pages/member/OAuthRedirect";
+import AdminNoticeDetail from "../../pages/shop/admin/AdminNoticeDetail";
 
 const Router = (props) => {
     const species = localStorage.getItem("species");
@@ -122,6 +123,7 @@ const Router = (props) => {
                         {/*판매자*/}
                         <Route path="/seller" element={<SellerMain/>}/>
                         <Route path="/seller/notice" element={<AdminNoticeList isSeller={true}/>}/>
+                        <Route path="/seller/notice/:noticeId" element={<AdminNoticeDetail isSeller={true}/>}/>
 
                         <Route path="/seller/item/new" element={<SellerItemRegister/>}/>
                         <Route path="/seller/item/list" element={<SellerItemList/>}/>

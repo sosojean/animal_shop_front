@@ -10,7 +10,7 @@ import axios from "axios";
 
 const ReviewEditor = ({item, setReviewWriting}) => {
     const [newComment, setNewComment] = useState("")
-    const [rating, setRating] = useState(0)
+    const [rating, setRating] = useState(5)
     const [images, setImages] = useState([]);
     const imageUrl = "http://localhost:8080/file/image-print?filename=";
     useEffect(() => {

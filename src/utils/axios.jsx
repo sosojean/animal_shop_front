@@ -50,16 +50,6 @@ instance.interceptors.request.use(function (config) {
     console.log(error);
 });
 
-//
-// function onTokenRefreshed(newToken) {
-//     refreshSubscribers.forEach(callback => callback(newToken));
-//     refreshSubscribers = [];
-// }
-//
-// function addRefreshSubscriber(callback) {
-//     refreshSubscribers.push(callback);
-// }
-
 instance.interceptors.response.use(
     response => response,
     async error => {
