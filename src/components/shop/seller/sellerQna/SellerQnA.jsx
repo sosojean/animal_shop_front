@@ -30,7 +30,8 @@ const SellerQnA = (props) => {
     return (<>
         <SellerMenu/>
 
-        <div>qna
+        <div>
+            <h2>문의 답변</h2>
 
             {data&&data.map((item)=>{
                return <ProductQnA isEdited={isEdited} setIsEdited={setIsEdited} item={item} position={"seller"}/>

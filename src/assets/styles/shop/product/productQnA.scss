@@ -1,5 +1,18 @@
+.qna-header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+.title{
+    font-size: 1.5rem;
+}
+    .modal-open-btn{
+    }
+}
 .qnaContainer{
     border-bottom: 1px solid lightgray;
+
     
     .qnaInfoContainer {
         display: flex;
@@ -7,11 +20,30 @@
         margin-bottom: 0.8rem;
         margin-top: 2rem;
 
-        font-size: 1.2rem;
-    }
+        color: var(--alpha-50);
+        font-size: 0.8rem;
 
+
+
+    }
+    .btn-container{
+        width: 100%;
+        display: flex;
+        justify-content: right;
+        padding-right: 8px;
+        padding-bottom: 8px;
+
+
+    }
     .qnaContent {
         margin-bottom: 2rem;
+    }
+    .answer{
+        margin-left: 1rem;
+    }
+    .placeholder{
+        margin-left: 1rem;
+        color: var(--alpha-30);
     }
 
     textArea {
@@ -22,7 +54,8 @@
         border: 0px solid var(--sercondary-color);
         resize: none;
         width: 100%;
-        min-height: 100px;
+        //min-height: 50px;
+        height: 100px;
 
     }
 

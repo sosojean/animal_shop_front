@@ -1,7 +1,8 @@
 import "../../assets/styles/layout/login.scss";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
+import {toast} from "react-toastify";
 
 const JoinWithEmail = ({props}) => {
     const navigate = useNavigate();
@@ -70,6 +71,9 @@ const JoinWithEmail = ({props}) => {
     const handleResponse = (response) => {
         console.log(response);
         if (response.message === "SignUp success") {
+
+                toast.success("Success Notcation !",
+                    {position: "top-right"});
             navigate("/join/success");
         }
     }
