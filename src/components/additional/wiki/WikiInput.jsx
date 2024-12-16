@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import instance from "../../../utils/axios"
 import axios from "axios";
@@ -9,20 +9,28 @@ import catIcon from "../../../assets/img/catIcon.svg"
 const WikiInput = (props) => {
     
     const {postData, setPostData} = props;
+    console.log("postData", postData);
 
     const dogBreeds = dogWikiBreeds;
     const catBreeds = catWikiBreeds;
 
     const [species, setSpecies] = useState("dog");
-    const [file, setFile] = useState(postData?.attachmentUrl || null);
-    console.log("file", file);
+    const [file, setFile] = useState(null);
 
     // 이미지 미리보기
     const [imgPath, setImgPath] = useState("");
+    console.log("imgPath", imgPath);
     const imgRef = useRef(null);
 
-    // 이미지 경로 테스트
-    const [detailImageUrl, setDetailImageUrl] = useState("");
+    const getSelect = () => {
+        const findCatIndex = catBreeds.findIndex(cat => cat === postData?.breedName);
+
+        if (findCatIndex !== -1){ setSpecies("cat") } 
+    }
+
+    useEffect(() => {
+        getSelect();
+    }, [postData])
 
     const handlePostData = (field, value) => {
         setPostData((prevData) => {
@@ -71,9 +79,48 @@ const WikiInput = (props) => {
         }
     };
 
-    const handleUploadDetailImage = async () => {
+    const handlePatch = async () => {
+        const formData = new FormData();
+        
+        // 파일 추가
+        if (file) {
+            formData.append('file', file);
+        }
+    
+        // JSON 데이터를 추가
+        const wikiDTO = postData;
+    
+        // JSON 데이터를 Blob으로 변환하여 추가
+        const wikiDTOBlob = new Blob([JSON.stringify(wikiDTO)], {
+            type: 'application/json'
+        });
+        formData.append('wikiDTO', wikiDTOBlob);
+
+        try {
+            const response = await instance.patch(`wiki/update/${postData.id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log('handlePatch 성공:', response.data);
+        } catch (error) {
+            console.error('handlePatch Error:', error);
+        }
+    };
+
+    const handleDelete = async () => {
+
+        try {
+            const response = await instance.delete(`wiki/delete/${postData.id}`);
+            console.log('handleDelete 성공:', response.data);
+        } catch (error) {
+            console.error('handhandleDeletelePatch Error:', error);
+        }
+    };
+
+    const handlePreviewImage = async () => {
         const file = imgRef.current.files[0];
-        console.log(file.name);
+        console.log("file.name", file.name);
 
         const formData = new FormData();
         formData.append("image", file);
@@ -92,7 +139,6 @@ const WikiInput = (props) => {
         } catch (error) {
             console.error('이미지 업로드 실패:', error);
         }
-
     }
 
     return (
@@ -100,11 +146,11 @@ const WikiInput = (props) => {
             <div>
                 <h2>종 선택</h2>
                 <div>
-                    <select onChange={(e) => setSpecies(e.target.value)}>
+                    <select value={species} onChange={(e) => setSpecies(e.target.value)}>
                         <option value="dog">강아지</option>
                         <option value="cat">고양이</option>
                     </select>
-                    <select onChange={(e) => handlePostData("breedName", e.target.value)}>
+                    <select value={postData.breedName} onChange={(e) => handlePostData("breedName", e.target.value)}>
                         {species === "dog" ?
                             dogBreeds.map((breed, index) => {
                                 return (
@@ -152,7 +198,7 @@ const WikiInput = (props) => {
                         // 파일이 선택되지 않았을 경우 아무 작업도 하지 않음
                         if (!e.target.files || e.target.files.length === 0) {return;}
                         handleFileChange();
-                        handleUploadDetailImage();}}
+                        handlePreviewImage();}}
                     ref={imgRef}
                     id="photo"
                 />
@@ -164,12 +210,20 @@ const WikiInput = (props) => {
                     />
                 </label>
             </div>
-            <img src={postData.attachmentUrl}/>
 
-            <Link to="/admin/seller">
-                <DefaultButton onClick={handleSubmit}>제출</DefaultButton>
-            </Link>
-            
+            {postData.id ? 
+                <div>
+                    <Link to="/admin/seller">
+                        <DefaultButton onClick={handlePatch}>수정</DefaultButton>
+                    </Link>
+                    <Link to="/admin/seller">
+                        <DefaultButton onClick={handleDelete}>삭제</DefaultButton>
+                    </Link>                
+                </div> : 
+                <Link to="/admin/seller">
+                    <DefaultButton onClick={handleSubmit}>제출</DefaultButton>
+                </Link>                   
+            }
         </div>
     )
 }
