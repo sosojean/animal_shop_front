@@ -14,20 +14,21 @@ const OrderListMenu = ({setUrl}) => {
         }).then(res => {
             console.log("data",res.data)
             setData(res.data)
+        }).catch(err=>{
+            console.log(err)
         })
     }, []);
 
     return (
+        data&&
 
         <Card className="order-list-menu">
-            <button onClick={()=>{setUrl("/shop/orders")}}> 전체 {data?.entire}</button>
-            <button onClick={()=>{setUrl("/shop/orders?status=waiting")}}> 결제 승인{data?.waiting}</button>
-            <button onClick={()=>{setUrl("/shop/orders?status=revoke")}}> 배송 취소{data?.revoke}</button>
-            {/*<button onClick={()=>{setUrl("/shop/orders?status=approve")}}> approve</button>*/}
+            <button  onClick={()=>{setUrl("/shop/orders")}}> 전체 {data.entire}</button>
+            <button disabled={data.waiting===0} onClick={()=>{setUrl("/shop/orders?status=waiting")}}> 결제 승인{data.waiting}</button>
+            <button disabled={data.revoke===0} onClick={()=>{setUrl("/shop/orders?status=revoke")}}> 배송 취소{data.revoke}</button>
 
-
-            <button onClick={()=>{setUrl("/delivery/progress-list")}}> 배송 중{data?.deliveryProgress}</button>
-            <button onClick={()=>{setUrl("/delivery/completed-list")}}> 배송 완료{data?.deliveryCompleted}</button>
+            <button disabled={data.deliveryProgress===0} onClick={()=>{setUrl("/delivery/progress-list")}}> 배송 중{data.deliveryProgress}</button>
+            <button disabled={data.deliveryCompleted===0} onClick={()=>{setUrl("/delivery/completed-list")}}> 배송 완료{data.deliveryCompleted}</button>
 
         </Card>
 

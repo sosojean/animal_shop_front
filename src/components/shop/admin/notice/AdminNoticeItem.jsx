@@ -3,16 +3,15 @@ import {Link} from "react-router-dom";
 import {useModifyTime} from "../../../../utils/useModifyTime";
 
 
-const AdminNoticeItem = ({item}) => {
+const AdminNoticeItem = ({item, isSeller}) => {
     const modifiedTime = useModifyTime(item?.created_date);
 
 
     return (
-        <Link to={`/admin/notice/${item.id}`}>
+        <Link to={`/${isSeller?"seller":"admin"}/notice/${item.id}`}>
 
 
             <div className={item.priority===0?"important list-container":"list-container"}>
-                <Link to={`/admin/notice/${item.id}`}>
                     <div className={"info"}>
                         <div className={"title"}>
                             <span>{item.priority == 0 ? <span className="important">필독</span> : ''}</span>
@@ -32,7 +31,6 @@ const AdminNoticeItem = ({item}) => {
                         </div>
 
                     </div>
-                </Link>
             </div>
 
 

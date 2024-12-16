@@ -5,6 +5,21 @@ const instance = axios.create({
     baseURL: "http://localhost:8080",
 });
 let isInvalidToken = false;
+let isTokenRefreshing = false; // 토큰 갱신 상태 플래그
+let refreshSubscribers = []; // 대기 중인 요청 저장소
+
+// 대기 중인 요청 처리 (성공/실패 분리)
+const processQueue = (newToken, error) => {
+    refreshSubscribers.forEach(({ resolve, reject, config }) => {
+        if (newToken) {
+            config.headers["Authorization"] = `Bearer ${newToken}`;
+            resolve(instance(config)); // 요청 재시도
+        } else {
+            reject(error); // 실패 시 에러 전달
+        }
+    });
+    refreshSubscribers = []; // 대기열 초기화
+};
 
 // 요청 인터셉터
 instance.interceptors.request.use(function (config) {
@@ -35,26 +50,19 @@ instance.interceptors.request.use(function (config) {
     console.log(error);
 });
 
-let isTokenRefreshing = false;
-let refreshSubscribers = [];
-
-function onTokenRefreshed(newToken) {
-    refreshSubscribers.forEach(callback => callback(newToken));
-    refreshSubscribers = [];
-}
-
-function addRefreshSubscriber(callback) {
-    refreshSubscribers.push(callback);
-}
-
 instance.interceptors.response.use(
     response => response,
     async error => {
         const {config, response} = error;
         if (response.status === 401 && !config._retry) {
             config._retry = true;
+            if (isTokenRefreshing) {
+                return new Promise((resolve, reject) => {
+                    refreshSubscribers.push({ resolve, reject, config });
+                });
+            }
 
-            if (!isTokenRefreshing) {
+
                 isTokenRefreshing = true;
                 isInvalidToken = true;
 
@@ -63,30 +71,28 @@ instance.interceptors.response.use(
                        {
                            url: '/auth/token',
                            method: "POST",
-                           refreshToken: localStorage.getItem('refreshToken')
-                    }
+                           // refreshToken: localStorage.getItem('refreshToken')
+                       }
                     );
+                    console.log("액세스토큰 갱신 완료 ")
                     const newAccessToken = response.data.accessToken;
                     localStorage.setItem("accessToken", newAccessToken);
                     isInvalidToken = false;
                     isTokenRefreshing = false;
-                    onTokenRefreshed(newAccessToken);
+                    processQueue(newAccessToken, null);
+                    return instance(config); // 원래 요청 재시도
+
                 } catch (err) {
                     console.log("토큰 재발급 실패, 리프레시 토큰 만료");
                     isTokenRefreshing = false;
+                    processQueue(null, err);
+
                     localStorage.setItem("accessToken", "" );
                     window.location.href = "/login";
 
                     return Promise.reject(error);
                 }
-            }
 
-            return new Promise((resolve) => {
-                addRefreshSubscriber(newToken => {
-                    config.headers['Authorization'] = `Bearer ${newToken}`;
-                    resolve(instance(config));
-                });
-            });
         }
         return Promise.reject(error);
     }
