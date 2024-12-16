@@ -8,10 +8,13 @@ const WikiComEditor = (props) => {
     const [comment, setComment] = useState("")
 
     const handleRegisterComment = () => {
+
+        const postData = {"content":comment};
+
         instance({
-            url: `/wiki/comment/${id}/comment`,
+            url: `/wiki/comment/${id}/register`,
             method: "post",
-            // data: data
+            data: postData
         }).then((res) => {
             console.log("response", res);
         })
@@ -25,7 +28,9 @@ const WikiComEditor = (props) => {
             <textarea 
                 onChange={(e) => setComment(e.target.value)} 
                 placeholder="댓글을 작성해주세요"/>
-            <DefaultButton>등록</DefaultButton>
+            <div>
+                <DefaultButton onClick={handleRegisterComment}>등록</DefaultButton>              
+            </div>
         </div>
     )
 }

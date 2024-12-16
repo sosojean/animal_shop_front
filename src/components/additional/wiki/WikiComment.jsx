@@ -1,4 +1,5 @@
 import WikiComEditor from "./WikiComEditor";
+import WikiComments from "./WikiComments";
 
 
 const WikiComment = (props) => {
@@ -8,6 +9,7 @@ const WikiComment = (props) => {
     return (
         <div>
             <WikiComEditor id={id}/>
+            <WikiComments id={id}/>
         </div>
     )
 }
