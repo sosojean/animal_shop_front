@@ -52,6 +52,8 @@ import NutrientCalculator from "../additional/calc/NutrientCalculator";
 import WikiEditor from "../../pages/additional/WikiEditor";
 import Join from "../../pages/member/Join";
 import OAuthRedirect from "../../pages/member/OAuthRedirect";
+import Wiki from "../../pages/additional/Wiki";
+import WikiDetail from "../additional/wiki/WikiDetail";
 
 const Router = (props) => {
     const species = localStorage.getItem("species");
@@ -173,8 +175,8 @@ const Router = (props) => {
                         <Route path="/shop/chatting" element={<Chatting/>}/>
 
                         {/* 위키 */}
-                        
-
+                        <Route path="/wiki" element={<Wiki/>}/>
+                        <Route path="/wiki/:id" element={<WikiDetail/>}/>
 
                     </Routes>
                 </div>
