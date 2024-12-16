@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import instance from "../../../utils/axios"
+import axios from "axios";
 import {dogWikiBreeds, catWikiBreeds} from "../../../utils/petOptions";
 import DefaultButton from "../../common/DefaultButton";
 import catIcon from "../../../assets/img/catIcon.svg"
@@ -16,37 +17,12 @@ const WikiInput = (props) => {
     const [file, setFile] = useState(postData?.attachmentUrl || null);
     console.log("file", file);
 
-    // const [testFile, setTestFile] = useState(null);
-    // const imageUrl = "http://localhost:8080/file/image-print?filename=";
-
-    // const ImgUploadHandler = async (e) => {
-
-    //     const file = e.target.files[0];
-    //     setFile(file)
-    //     const formData = new FormData();
-    //     if (file != null) {
-    //         formData.append('image', new Blob([file], {type: 'multipart/form-data'}), file.name);
-
-    //         axios({
-    //             url: `http://localhost:8080/file/${imageUploadPath}`,
-    //             method: 'POST',
-    //             data: formData,
-    //         }).then((response) => {
-    //             console.log(response.data);
-    //             console.log(objName,response)
-    //             setImage(objName,response.data);
-
-    //         }).catch((error) => {
-    //             console.log(error)
-    //         })
-    //     }
-    // }
-
     // 이미지 미리보기
     const [imgPath, setImgPath] = useState("");
     const imgRef = useRef(null);
 
-    console.log("file", file);
+    // 이미지 경로 테스트
+    const [detailImageUrl, setDetailImageUrl] = useState("");
 
     const handlePostData = (field, value) => {
         setPostData((prevData) => {
@@ -60,19 +36,6 @@ const WikiInput = (props) => {
     const handleFileChange = () => {
         setFile(imgRef.current.files[0]);
     }
-
-    const handlePreviewImage = () => {
-        if (imgRef.current && imgRef.current.files) {
-          const img = imgRef.current.files[0];
-          
-          //이미지 미리보기 기능
-          const reader = new FileReader();
-          reader.readAsDataURL(img);
-          reader.onload = () => {
-            setImgPath(reader.result);
-          };
-        }
-      };
 
     const handleSubmit = async () => {
         const formData = new FormData();
@@ -107,6 +70,30 @@ const WikiInput = (props) => {
             console.error('handleSubmit Error:', error);
         }
     };
+
+    const handleUploadDetailImage = async () => {
+        const file = imgRef.current.files[0];
+        console.log(file.name);
+
+        const formData = new FormData();
+        formData.append("image", file);
+
+        try {
+            const response = await axios.post('http://localhost:8080/file/item-image-upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            // 업로드 후 서버에서 받은 파일명 출력
+            console.log('업로드 성공:', response.data);
+            const fileName = response.data;
+            setImgPath(`http://localhost:8080/file/image-print?filename=${fileName}`);
+        } catch (error) {
+            console.error('이미지 업로드 실패:', error);
+        }
+
+    }
 
     return (
         <div>
@@ -158,14 +145,16 @@ const WikiInput = (props) => {
             </div>
             <div>
                 <h2>대표 이미지</h2>
-                <input type="file"
-                    onChange={() => {
-                        handleFileChange();
-                        handlePreviewImage();
-                    }}
+                <input
+                    type="file"
                     accept="image/*"
-                    id="photo"
+                    onChange={(e) => {
+                        // 파일이 선택되지 않았을 경우 아무 작업도 하지 않음
+                        if (!e.target.files || e.target.files.length === 0) {return;}
+                        handleFileChange();
+                        handleUploadDetailImage();}}
                     ref={imgRef}
+                    id="photo"
                 />
                 <label htmlFor="photo">
                     <img
@@ -176,6 +165,7 @@ const WikiInput = (props) => {
                 </label>
             </div>
             <img src={postData.attachmentUrl}/>
+
             <Link to="/admin/seller">
                 <DefaultButton onClick={handleSubmit}>제출</DefaultButton>
             </Link>
