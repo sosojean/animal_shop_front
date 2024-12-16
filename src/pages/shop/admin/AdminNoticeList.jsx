@@ -29,7 +29,7 @@ const AdminNoticeList = ({isSeller}) => {
             <div className="notice-list">
 
                 {data&&data.map(item=>{
-                    return <AdminNoticeItem item={item}/>
+                    return <AdminNoticeItem item={item} isSeller={isSeller}/>
                 })}
             </div>
 
