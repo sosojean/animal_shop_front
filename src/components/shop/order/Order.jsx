@@ -19,6 +19,10 @@ const Order = ({item}) => {
 
     const open = (<>접기 <FontAwesomeIcon icon={faChevronUp}/></>);
     const close = (<>펼쳐보기 <FontAwesomeIcon icon={faChevronDown}/></>);
+    const isProgress = item.orderStatus === "PROGRESS";
+    const isCompleted = item.orderStatus === "COMPLETED";
+    const isOrderComplete = item.orderStatus === "ORDER";
+
 
 
 
@@ -48,13 +52,29 @@ const Order = ({item}) => {
             <Card className={"order"}>
 
 
-                <span>{item.orderId}</span>
-                <span>{item.orderDate}</span>
-                <span>{item.orderStatus}</span>
+                <span>주문번호 {item.orderId}</span>
+                <span>결제일 {item.orderDate}</span>
+                {isProgress&&<span>배송중</span>}
+                {isCompleted&&<span>배송 완료</span>}
+                {isOrderComplete&&<span>결제승인</span>}
+
+
+                {console.log(item)}
 
 
                 {item && item["orderItemDTOList"].map(
                     (orderItem, index) => {
+                        if (isProgress) {
+                            orderItem["delivery_approval"] = true;
+
+                        } else if (isCompleted) {
+                            orderItem["delivery_completed"] = true;
+
+                        } else if (isOrderComplete) {
+                            orderItem["order_completed"] = true;
+
+                        }
+
 
                         // console.log("orderItem", orderItem);
                         return (
@@ -72,10 +92,11 @@ const Order = ({item}) => {
                         {countMessage}
                         {isOpened ? open : close}
                     </button>}
-                <button className="order-list-btn"  onClick={deliveryConfirm}>배송 확정</button>
-
-                <button className="cancel-order order-list-btn" onClick={orderCancelHandler}>주문 취소</button>
-
+                {isProgress && <button className="order-list-btn" onClick={deliveryConfirm}>배송 확정</button>
+                }
+                {isOrderComplete &&
+                    <button className="cancel-order order-list-btn" onClick={orderCancelHandler}>주문 취소</button>
+                }
             </Card>
         </>
     )

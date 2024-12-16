@@ -33,14 +33,23 @@ const OrderProduct = ({item, position, applyCheck, subCheck}) => {
                     <div className={"product-info"}>
                         <img src={item.imgUrl} className="order-image"/>
                         <div className="product-info-text">
-                            <span>{item.count}</span>
-                            <span>{item.itemNm}</span>
-                            <span>{item.orderName}</span>
+
+                            {item.delivery_revoke ? <span>배송 취소</span> : ""}
+                            {item.delivery_approval ? <span>배송중</span> : ""}
+                            {item.delivery_completed ? <span>배송완료</span> : ""}
+                            {item.order_completed && !item.delivery_revoke ? <span>주문완료</span> : ""}
+
+                            <span> 품목 {item.itemNm}</span>
+                            <span> 옵션 {item.orderName}</span>
+
+                            <span> 가격 {item.orderPrice}</span>
+                            <span> 수량 {item.count}</span>
 
                             {/*<span>{item.orderPrice.toLocaleString() + "원"}</span>*/}
 
-                            <span>{(item.orderPrice * item.count).toLocaleString() + "원"}</span>
                         </div>
+                        <span>총계 {(item.orderPrice * item.count).toLocaleString() + "원"}</span>
+
                     </div>
                 </Link>
 
