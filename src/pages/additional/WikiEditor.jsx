@@ -7,6 +7,7 @@ const WikiEditor = () => {
     const { wikiId } = useParams();
 
     const [postData, setPostData] = useState({});
+    // const [species, setSpecies] = useState("dog");
     console.log("postData", postData);
 
     const getWikiData = (id) => {

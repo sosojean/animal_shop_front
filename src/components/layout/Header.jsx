@@ -27,6 +27,7 @@ const Header = (props) => {
         if (token) {
             setIsAuth(true)
             console.log(parseJwt(token))
+            console.log("role", parseJwt(token).role)
         }
     })
     const handleLogout = () => {
@@ -76,14 +77,17 @@ const Header = (props) => {
                                 </Link>
                                 <ToggleBtn setIsDog={props.setIsDog} isDog={props.isDog}/>
 
+                                {parseJwt(token)?.role === "ADMIN" &&
+                                    <Link onMouseEnter={leaveHeader} to="/admin/seller">
+                                        <li>관리자</li>
+                                    </Link>                                
+                                }
 
-                                <Link onMouseEnter={leaveHeader} to="/admin/seller">
-                                    <li>관리자</li>
-                                </Link>
-                                <Link onMouseEnter={leaveHeader} to="/seller">
-                                    <li>판매자</li>
-                                </Link>
-
+                                {parseJwt(token)?.role === "SELLER" &&
+                                    <Link onMouseEnter={leaveHeader} to="/seller">
+                                        <li>판매자</li>
+                                    </Link>
+                                }
 
                             </ul>
                         </div>

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import instance from "../../../utils/axios";
 import AgeInput from "./AgeInput";
 import AgeResult from "./AgeResult";
 import "../../../assets/styles/additional/ageCalc.scss"
@@ -6,7 +7,23 @@ import "../../../assets/styles/additional/ageCalc.scss"
 const AgeCalculator = () => {
 
     const [calcData, setCalcData] = useState();
-        // {species: "dog", birth: "20200120", size: "small"}
+    // {species: "dog", birth: "20200120", size: "small"}
+    
+    const getMyPetData = () => {
+        instance({
+            url: `/calc/age`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response", res.data);
+        })
+        .catch((err) => {
+            console.error("error", err);
+        })
+    }
+
+    useEffect(() => {
+        getMyPetData();
+      }, []);
 
     return (
         <div className="age-calc">

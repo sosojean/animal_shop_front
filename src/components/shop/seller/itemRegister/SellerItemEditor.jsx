@@ -66,8 +66,6 @@ const SellerItemEditor = () => {
             imageUrl: detailImageUrl
         };
 
-        console.log("Data", data);
-
         // `itemId`가 있는 경우 `id` 속성 추가
         return itemId ? { ...data, id: itemId } : data;
     }
