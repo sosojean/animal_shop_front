@@ -5,6 +5,7 @@ import "../src/assets/styles/common.css";
 import {QueryClient, QueryClientProvider} from "react-query";
 import Router from "./components/layout/Router";
 import {useEffect, useState} from "react";
+import {ToastContainer} from "react-toastify";
 
 function App() {
     // const [nickName, setNickName] = useState('');
@@ -22,6 +23,7 @@ function App() {
             <div className="App">
                 <Router isAuth={isAuth} reload={reload} setReload={setReload}/>
             </div>
+            <ToastContainer autoClose={3000} />
         </QueryClientProvider>
     );
 }
