@@ -10,6 +10,7 @@ import {
 } from "../../components/member/pet/register/PetRegisterComps";
 
 import {weightOptions,catBreedOptions,dogBreedOptions,ageOptions} from "../../utils/petOptions";
+import axios from "axios";
 
 
 const PetRegister = () => {
@@ -39,6 +40,8 @@ const PetRegister = () => {
     const [isFirstPage, setIsFirstPage] = useState(true)
     const [isLastPage, setIsLastPage] = useState(false)
     const [completeForm, setCompleteForm] = useState(false)
+    const [dogBreedOptions, setDogBreedOptions] = useState([]);
+    const [catBreedOptions, setCatBreedOptions] = useState([]);
 
     const applyPetInfo = (name,value) => {
         setPetInfo((prev)=>(
@@ -48,8 +51,33 @@ const PetRegister = () => {
             }))
     }
 
+    const getBreedOptions = () => {
+        axios({
+            url: `http://localhost:8080/pet/breed-list?species=DOG`,
+            method: "get",
+        }).then((res) => {
+            console.log("getBreedOptions response", res.data);
+            setDogBreedOptions(res.data.breeds);
+        })
+        .catch((err) => {
+            console.error("error", err);
+        })
+
+        axios({
+            url: `http://localhost:8080/pet/breed-list?species=CAT`,
+            method: "get",
+        }).then((res) => {
+            console.log("getBreedOptions response", res.data);
+            setCatBreedOptions(res.data.breeds);
+        })
+        .catch((err) => {
+            console.error("error", err);
+        })
+    }
+
     useEffect(() => {
         setCompleteForm(isComplete())
+        getBreedOptions();
         console.log(petInfo)
 
     }, [currentStep,petInfo]);
@@ -97,6 +125,7 @@ const PetRegister = () => {
             case step.ImageBreedAge: return <ImageBreedAge applyPetInfo={applyPetInfo}
                                                            petInfo={petInfo}
                                                            optionItems={ageOptions}
+                                                           breedOptions={dogBreedOptions}
                                                            strings={catBreedOptions}
                                                            strings1={dogBreedOptions}/>
             case step.GenderWeight: return <GenderAndWeight onClick={() => applyPetInfo("gender", "MALE")} petInfo={petInfo}

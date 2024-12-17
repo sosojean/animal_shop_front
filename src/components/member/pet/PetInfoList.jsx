@@ -5,8 +5,9 @@ import Card from "../../common/Card";
 import PetInfoDetail from "./PetInfoDetail";
 import {Link} from "react-router-dom";
 
-const PetInfoList = ({setSelectedPet, data ,isEdited, setIsEdited}) => {
+const PetInfoList = (props) => {
 
+    const {setSelectedPet, data ,isEdited, setIsEdited, dogBreedOptions, catBreedOptions} = props;
 
     return (<>
             {/*<button onClick={changeLeaderHandler}>대표 동물 변경하기</button>*/}
@@ -14,7 +15,9 @@ const PetInfoList = ({setSelectedPet, data ,isEdited, setIsEdited}) => {
                     {data && data.map((item, index) => {
                         return <PetInfo setSelectedPet={setSelectedPet}
                                         index ={index} key={item.id}
-                                        item={item} setIsEdited={setIsEdited} isEdited={isEdited}/>
+                                        item={item} setIsEdited={setIsEdited} isEdited={isEdited}
+                                        dogBreedOptions={dogBreedOptions} catBreedOptions={catBreedOptions}
+                                        />
                         }
                     )}
                     <Card className={"pet-info"}>

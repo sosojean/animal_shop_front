@@ -1,13 +1,17 @@
 import Card from "../../common/Card";
-import {catBreedOptions, dogBreedOptions, weightOptions} from "../../../utils/petOptions";
-import React from "react";
+import {weightOptions} from "../../../utils/petOptions";
+import React, { useEffect, useState } from "react";
 import "../../../assets/styles/member/PetInfoDetail.scss"
 import instance from "../../../utils/axios";
+import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCrown} from "@fortawesome/free-solid-svg-icons";
 
 
-const PetInfoDetail = ({item, setIsEdited, isEdited}) => {
+const PetInfoDetail = (props) => {
+
+    const {item, setIsEdited, isEdited, dogBreedOptions, catBreedOptions} = props;
+    
     console.log(item);
 
     const url = `http://localhost:8080/file/image-print?filename=${item?.profileImageUrl?item.profileImageUrl

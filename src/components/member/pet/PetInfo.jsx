@@ -7,8 +7,11 @@ import "../../../assets/styles/member/petInfo.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCrown} from "@fortawesome/free-solid-svg-icons";
 
-const PetInfo = ({item, index, setIsEdited, isEdited, setSelectedPet}) => {
+const PetInfo = (props) => {
 
+    const {item, index, setIsEdited, isEdited, setSelectedPet, dogBreedOptions, catBreedOptions} = props;
+
+    // console.log("petInfo", item);
     const navigate = useNavigate();
 
     const url = `http://localhost:8080/file/image-print?filename=${item.profileImageUrl?item.profileImageUrl
