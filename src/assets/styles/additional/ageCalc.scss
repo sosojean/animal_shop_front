@@ -19,6 +19,10 @@
             width: 500px;
             background-color: yellowgreen;
             // height: 500px;
+
+            .active {
+                background-color: yellowgreen;
+            }
         }
 
         .age-result {
