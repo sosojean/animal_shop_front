@@ -142,7 +142,8 @@ const PetRegister = () => {
     return (
         <div className={"pet-register"}>
             <PetInfoInput setNext = {setNext} setPrev = {setPrev} isComplete = {completeForm}
-                          isFirstPage={isFirstPage} isLastPage={isLastPage} petInfo={petInfo}>
+                          isFirstPage={isFirstPage} isLastPage={isLastPage} petInfo={petInfo}
+                          dogBreedOptions={dogBreedOptions} catBreedOptions={catBreedOptions}>
                 <div className="pet-register-form">
                 {inputSelector()}
                 </div>

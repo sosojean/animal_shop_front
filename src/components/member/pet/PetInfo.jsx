@@ -34,8 +34,6 @@ const PetInfo = (props) => {
         })
     }
 
-
-
     const handleSelect = () =>{
         setSelectedPet(index)
         console.log(index)
@@ -47,7 +45,7 @@ const PetInfo = (props) => {
             <div className={"info-section"}>
                 <h2>{item.isLeader&&<FontAwesomeIcon className="icon" icon={faCrown}/>}{" "+item.name}</h2>
                 <span>{item.age} 살</span>
-                <span>{item.species==="CAT"? catBreedOptions[parseInt(item.breed)]:dogBreedOptions[parseInt(item.breed)]}</span>
+                <span>{item.breed}</span>
                 <span>{weightOptions[ parseInt(item.weight)]}</span>
                 <span>{item.gender==="FEMALE"?"여아":"남아"}</span>
                 <span>{item["is_neutered"]}</span>

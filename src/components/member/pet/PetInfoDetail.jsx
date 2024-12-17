@@ -44,7 +44,7 @@ const PetInfoDetail = (props) => {
                         </div>
 
                         <span>{item.age} 살</span>
-                        <span>{item.species === "CAT" ? catBreedOptions[parseInt(item.breed)] : dogBreedOptions[parseInt(item.breed)]}</span>
+                        <span>{item.breed}</span>
                         <span>{weightOptions[parseInt(item.weight)]}</span>
                         <span>{item.gender === "FEMALE" ? "여아" : "남아"}</span>
                         <span>{item["is_neutered"]}</span>
