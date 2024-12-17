@@ -4,10 +4,13 @@ import CommentEditor from "./CommentEditor";
 import instance from "../../utils/axios";
 import {useModifyTime} from "../../utils/useModifyTime";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHeart, faHeartBroken, faReply, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {faReply, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {faPenToSquare} from "@fortawesome/free-regular-svg-icons";
 
-const Comment = ({parentList, comment, commentSummited, setCommentSummited}) => {
+import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
+
+const Comment = ({parentList, comment, commentSummited, setCommentSummited, idNicknameMap}) => {
     let url;
     const [edit, setEdit] = useState(false)
     const [reply, setReply] = useState(false)
@@ -79,10 +82,10 @@ const Comment = ({parentList, comment, commentSummited, setCommentSummited}) => 
 
     return (<>
 
-            <div className={comment.parent ? "comment child" : "comment"}>
+            <div id={comment.id} className={ comment.parent ? "comment child" : "comment"}>
                 <div className="info-section">
-                    <div className="author-info">
-                        {!parentList.has(comment.parent?.id) ? <span> {comment.parent?.id} </span> : null}
+                    <div className="author-info" >
+                        {!parentList.has(comment.parent?.id) ? <span> {idNicknameMap&&idNicknameMap[comment.parent?.id]} </span> : null}
                         <span className="nickname"> {comment.nickname} </span>
                         <span className="modified-time"> {modifiedTime} </span>
                         <span className="heart"> <FontAwesomeIcon icon={faHeart}/>{" "+comment.countHeart} </span>
@@ -95,8 +98,8 @@ const Comment = ({parentList, comment, commentSummited, setCommentSummited}) => 
                 <div className={"edit-section"}>
                     {isAuth ? <>
                         {!comment.heart ?
-                            <button onClick={() => heartHandler("add")}><FontAwesomeIcon icon={faHeart}/>좋아요</button>:
-                            <button onClick={() => heartHandler("delete")}><FontAwesomeIcon icon={faHeartBroken}/>취소</button>}
+                            <button onClick={() => heartHandler("add")}><FontAwesomeIcon icon={regularHeart}/>좋아요</button>:
+                            <button onClick={() => heartHandler("delete")}><FontAwesomeIcon icon={solidHeart}/>취소</button>}
 
                         <button onClick={() => setReply(!reply)}><FontAwesomeIcon icon={faReply}/>댓글작성</button>
                     </> : null}

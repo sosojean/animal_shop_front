@@ -1,6 +1,6 @@
 import "../../assets/styles/layout/login.scss";
 import {Link, useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 
 const Login = (props) => {
@@ -11,6 +11,10 @@ const Login = (props) => {
 
     const [isInvalid, setIsInvalid] = useState(false);
     const [isError, setIsError] = useState(false);
+
+    const K_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_KEY;
+    const K_REDIRECT_URI = `http://localhost:3000/oauth`;
+    const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${K_REST_API_KEY}&redirect_uri=${K_REDIRECT_URI}&response_type=code`;
 
     useEffect(() => {
         const token = localStorage.getItem("accessToken")
@@ -58,6 +62,11 @@ const Login = (props) => {
         }
     }
 
+    function kakaoLogin() {
+
+
+    }
+
     return (
         <div className={"container"}>
             <div className={"box"}>
@@ -83,11 +92,10 @@ const Login = (props) => {
                     <Link to="/password">
                         <div>
                             <span>비밀번호 찾기</span>
-                        </div>           
+                        </div>
                     </Link>
 
-
-
+                    <button onClick={(e)=>{   e.preventDefault(); window.location.href = kakaoURL;}}>카카오 로그인</button>
 
                 </form>
             </div>

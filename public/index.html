@@ -31,7 +31,7 @@
         default-src 'self';
         script-src 'self' 'unsafe-inline' https://dapi.kakao.com http://*.daumcdn.net;
         img-src 'self' 'unsafe-inline' data: https://dapi.kakao.com http://*.daumcdn.net *.kakaocdn.net https://placehold.co http://localhost:8080 http://www.animal.go.kr https://pbs.twimg.com;
-        connect-src 'self' ws://localhost:8080 http://localhost:8080 https://dapi.kakao.com;
+        connect-src 'self' https://kauth.kakao.com/oauth/token ws://localhost:8080 http://localhost:8080 https://dapi.kakao.com;
         style-src 'self' 'unsafe-inline';
         frame-src 'self' http://postcode.map.daum.net;      ">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https://dapi.kakao.com http://*.daumcdn.net; script-src 'self' 'unsafe-inline' https://dapi.kakao.com http://*.daumcdn.net; img-src 'self' 'unsafe-inline' https://dapi.kakao.com http://*.daumcdn.net http://www.animal.go.kr

@@ -31,6 +31,8 @@ const MyPageEdit = (props) => {
     const [submitted, setSubmitted] = useState(false)
     const [imgUrl, setImgUrl] = useState("");
 
+
+
     useEffect(() => {
         const fetchData = async () => {
             const response = await instance({
@@ -67,25 +69,6 @@ const MyPageEdit = (props) => {
                 profile:imgUrl
 
             }
-        // } else if (inputName != name) {
-        //     data = {
-        //         nickname: name,
-        //         profile:imgUrl
-        //
-        //     }
-        //
-        // } else if (inputEmail != email) {
-        //     data = {
-        //         mail: email,
-        //         profile:imgUrl
-        //
-        //     }
-        //
-        // } else {
-        //     data = {
-        //         profile:imgUrl
-        //     }
-        // }
 
         console.log("data",data)
 
@@ -214,7 +197,10 @@ const MyPageEdit = (props) => {
             <div className="box">
                 {/*<FontAwesomeIcon className={"icon"} icon={faUserPen}/>*/}
 
-                {imgUrl ? <img src={`http://localhost:8080/file/image-print?filename=${imgUrl}`} alt=""/>: <>
+                {imgUrl ? <img
+                    src={imgUrl.includes("http://k.kakaocdn.net")?imgUrl:
+                    process.env.REACT_APP_IMG_PRINT + imgUrl}
+                    alt=""/>: <>
                     <label className="edit-profile-image" htmlFor="profile">
                         <FontAwesomeIcon className={"icon"} icon={faUser}/>
                         <FontAwesomeIcon icon={faPen}/>
