@@ -19,7 +19,7 @@ const SellerStatAnalysis = () => {
     const [to, setTo] = useState({
         year: now.getFullYear(),
         month: now.getMonth()+ 1,
-        day: now.getDate()+1, // todo: 당일 조회 안됨
+        day: now.getDate(), // todo: 당일 조회 안됨
     })
 
 

@@ -1,0 +1,43 @@
+
+.orders{
+  display: flex;
+  gap: 1rem;
+  .order{
+    margin:8px;
+  }
+  .order-item-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .price{
+      font-size: 1.4rem;
+    }
+
+  }
+  .order-item-img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    justify-self: center;
+  }
+  .order-item-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    //margin-bottom: 15px;
+    gap: 4px;
+
+  }
+  .order-status-info{
+    font-size: 1.3rem;
+    text-align: center;
+    justify-content: space-between;
+  }
+
+
+  .order-control-buttons{
+    //width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -110,7 +110,6 @@ const Header = (props) => {
                                     <Link to="/cart"><FontAwesomeIcon icon={faCartShopping}/> </Link>
                                     <Link to="/mypage">
                                         <img className="profile-image" src={process.env.REACT_APP_IMG_PRINT + parseJwt(token).profileImg} alt=""/>
-                                        {/*{todo: 여기 프로필 이미지 넣어야됨}*/}
 
                                     </Link>
                                     <button className={"logout"} onClick={handleLogout}>로그아웃

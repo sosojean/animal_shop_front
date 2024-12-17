@@ -12,15 +12,20 @@ const SellerPointHistory = () => {
 
     useEffect(() => {
         // 종료 날짜 계산
+// 종료 날짜 계산
         const end = new Date();
-        end.setDate(end.getDate() + 1);
-        end.setMonth(end.getMonth() - prevIndex);
-        if (prevIndex > 0) end.setDate(15);
+        if (prevIndex === 0) {
+            // 이번 달이면 오늘 날짜
+            end.setDate(end.getDate());
+        } else {
+            // 이전 달이면 마지막 날짜
+            end.setMonth(end.getMonth() - prevIndex + 1);
+            end.setDate(0); // 이전 달의 마지막 날
+        }
 
-        // 시작 날짜 계산
+// 시작 날짜 계산
         const start = new Date(end);
-        start.setMonth(start.getMonth() - 1);
-        start.setDate(15);
+        start.setDate(1); // 월의 첫째 날
 
         setStartDate(start);
         setEndDate(end);

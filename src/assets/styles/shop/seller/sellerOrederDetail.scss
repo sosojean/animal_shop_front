@@ -1,0 +1,28 @@
+
+
+.order-detail-card{
+  .product-img{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+  }
+  .order-detail{
+    width: 100%;
+    padding-left:8px ;
+    gap: 8px;
+
+    .detail-info-item{
+      //justify-content: flex-start;
+      gap: 8px;
+      display: flex;
+    }
+    .title{
+      width: 80px;
+    }
+  }
+}
+.back-to-list{
+ width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -17,7 +17,7 @@ const PetInfoList = ({setSelectedPet, data ,isEdited, setIsEdited}) => {
                                         item={item} setIsEdited={setIsEdited} isEdited={isEdited}/>
                         }
                     )}
-                    <Card className={"pet-info"}>
+                    <Card className={"default-card pet-info"}>
                         <Link to={"/pet/register"}>
                         반려동물 추가하기 ->
                         </Link>
