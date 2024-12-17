@@ -11,13 +11,14 @@ const WikiComment = (props) => {
 
     const [data, setData] = useState();
     const [dataCount, setDataCount] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
 
     const location = useLocation();
     const navigate = useNavigate();
-    const queryParams = new URLSearchParams(location.search);
-    const currentPage = parseInt(queryParams.get("page")) || 1; // 현재 페이지 확인
+    // const queryParams = new URLSearchParams(location.search);
+    // const currentPage = parseInt(queryParams.get("page")) || 1; // 현재 페이지 확인
 
-    const getCommentData = (page = 1) => {
+    const getCommentData = (page = currentPage) => {
         axios({
             url: `http://localhost:8080/wiki/comment/${id}/list?page=${page}`,
             method: "get"
@@ -33,11 +34,12 @@ const WikiComment = (props) => {
 
     const handlePageChange = (newPage) => {
         getCommentData(newPage);
+        setCurrentPage(newPage);
     };
 
     useEffect(() => {
         getCommentData(currentPage);
-    }, []);
+    }, [id, currentPage]);
 
     return (
         <div>
