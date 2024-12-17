@@ -88,7 +88,7 @@ const Comment = ({parentList, comment, commentSummited, setCommentSummited, idNi
                         {!parentList.has(comment.parent?.id) ? <span> {idNicknameMap&&idNicknameMap[comment.parent?.id]} </span> : null}
                         <span className="nickname"> {comment.nickname} </span>
                         <span className="modified-time"> {modifiedTime} </span>
-                        <span className="heart"> <FontAwesomeIcon icon={faHeart}/>{" "+comment.countHeart} </span>
+                        <span className="heart"> <FontAwesomeIcon icon={regularHeart}/>{" "+comment.countHeart} </span>
                     </div>
                     <span> {comment.content} </span>
 
