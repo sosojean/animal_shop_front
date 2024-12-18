@@ -4,6 +4,7 @@ import SellerItem from "../../../components/shop/seller/itemList/SellerItem";
 import SellerAcceptItem from "../../../components/shop/seller/sellerAcceptItem";
 import SellerMenu from "../../../components/shop/seller/SellerMenu";
 import Pagination from "../../../components/board/Pagination";
+import Title from "../../../components/common/Title";
 
 const SellerOrderAccept = () => {
     const [data, setData] = useState()
@@ -29,6 +30,7 @@ const SellerOrderAccept = () => {
     return (
         <div className="seller-orders">
             <SellerMenu/>
+            <Title>주문/배송</Title>
             <div className="orders">
             {data&&data.map(item =>{
                 return (

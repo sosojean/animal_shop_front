@@ -5,6 +5,8 @@ import SellerAnalysisTable from "../../../components/shop/seller/SellerAnalysisT
 import SellerItemAnalysisTable from "../../../components/shop/seller/SellerItemAnalysisTable";
 import instance from "../../../utils/axios";
 import "../../../assets/styles/shop/seller/sellerStatAnalysis.scss"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faAnchor, faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 
 const SellerStatAnalysis = () => {
     const now = new Date();
@@ -137,22 +139,23 @@ const SellerStatAnalysis = () => {
             <div  className="btn-container row">
                 {/*<button>월별 조회 하기</button>*/}
                 <button
+                    className={"prev-next"}
                     onClick={() => applyYearChange(-1)}
                     disabled={from.year - 1 < 2000}
                 >
-                    지난해로 이동
+                    <FontAwesomeIcon icon={faAngleLeft}/>
                 </button>
                 <div>
                     <h3>
-                        조회
-                        기간: {from.year}.{String(from.month).padStart(2, "0")} - {to.year}.{String(to.month).padStart(2, "0")}
+                        {from.year}.{String(from.month).padStart(2, "0")} - {to.year}.{String(to.month).padStart(2, "0")}
                     </h3>
                 </div>
                 <button
+                    className={"prev-next"}
                     onClick={() => applyYearChange(1)}
                     disabled={to.year + 1 > now.getFullYear()}
                 >
-                    다음 해로 이동
+                    <FontAwesomeIcon icon={faAngleRight}/>
                 </button>
 
             </div>

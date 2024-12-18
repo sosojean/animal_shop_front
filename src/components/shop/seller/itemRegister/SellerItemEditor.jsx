@@ -11,6 +11,7 @@ import SellerDetailImage from './SellerDetailImage';
 import SellerThumbnails from './SellerThumbnails';
 import SellerDescription from './SellerDescription';
 import ItemRegButton from './ItemRegButton';
+import Title from "../../../common/Title";
 
 const SellerItemEditor = () => {
 
@@ -103,8 +104,7 @@ const SellerItemEditor = () => {
 
     return (
         <div className='itemRegContainer'>
-            
-            <h1>{itemId ? '상품 수정' : '상품 등록'}</h1>
+            <Title>{itemId ? '상품 수정' : '상품 등록'}</Title>
 
             <SellerNameRegister itemName={itemName} setItemName={setItemName} nameCount={nameCount} setNameCount={setNameCount}/>
             <SellerItemStock itemStock={itemStock} setItemStock={setItemStock}/>

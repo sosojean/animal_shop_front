@@ -4,6 +4,7 @@ import instance from "../../../../utils/axios";
 import {useEffect, useState} from "react";
 import ProductQnA from "../../product/QnA/ProductQnA";
 import Pagination from "../../../board/Pagination";
+import Title from "../../../common/Title";
 
 const SellerQnA = (props) => {
     const [data, setData] = useState()
@@ -31,7 +32,7 @@ const SellerQnA = (props) => {
         <SellerMenu/>
 
         <div>
-            <h2>문의 답변</h2>
+            <Title>문의 답변</Title>
 
             {data&&data.map((item)=>{
                return <ProductQnA isEdited={isEdited} setIsEdited={setIsEdited} item={item} position={"seller"}/>
