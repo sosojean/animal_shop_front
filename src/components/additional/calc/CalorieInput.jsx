@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Card from "../../common/Card";
 import DefaultButton from "../../common/DefaultButton";
 
@@ -6,7 +7,12 @@ import DefaultButton from "../../common/DefaultButton";
 const CalorieInput = (props) => {
 
     const {calcData, setCalcData, showFeeding, setShowFeeding,
-        amount, setAmount} = props;
+        amount, setAmount, setGoods} = props;
+
+    const [dogBreedOptions, setDogBreedOptions] = useState([]);
+    const [catBreedOptions, setCatBreedOptions] = useState([]);
+
+    const breedOptions = calcData?.species === "고양이" ? catBreedOptions : dogBreedOptions;
 
     console.log("calcData", calcData);
     console.log("amount", amount);
@@ -42,6 +48,60 @@ const CalorieInput = (props) => {
             return calcData[field] === value ? 'active' : '';
     };
 
+    const handleRecommend = () => {
+
+        // 데이터 가공
+        const originData = {...calcData};
+        let postData = {};
+
+        postData.breed = originData.breed || "푸들 (토이)";
+        postData.weight = parseFloat(originData.weight);
+        postData.species = originData.species === '강아지' ? 'DOG' : 'CAT';
+
+        console.log("postData", postData);
+        
+        axios({
+            url: `http://localhost:8080/calc/recommend/calorie`,
+            method: "POST",
+            data: postData
+        }).then((res) => {
+            console.log("handleRecommend", res.data);
+            setGoods(res.data.goods);
+        })
+        .catch((err) => {
+            console.error("error", err);
+        });
+    };
+
+    const getBreedOptions = () => {
+        axios({
+            url: `http://localhost:8080/pet/breed-list?species=DOG`,
+            method: "get",
+        }).then((res) => {
+            console.log("getBreedOptions response", res.data);
+            setDogBreedOptions(res.data.breeds);
+        })
+        .catch((err) => {
+            console.error("error", err);
+        })
+
+        axios({
+            url: `http://localhost:8080/pet/breed-list?species=CAT`,
+            method: "get",
+        }).then((res) => {
+            console.log("getBreedOptions response", res.data);
+            setCatBreedOptions(res.data.breeds);
+        })
+        .catch((err) => {
+            console.error("error", err);
+        })
+    }
+
+    useEffect(() => {
+        getBreedOptions();
+
+    }, []);
+
     return (
         <Card className="default-card calrorie-input">
             <Card className="default-card">
@@ -54,10 +114,16 @@ const CalorieInput = (props) => {
                             {species}</DefaultButton>
                     })}
                 </div>
+                <select value={calcData?.breed} onChange={(e) => {handleInputChange("breed", e.target.value)}}>
+                    {breedOptions.map((breed, index) => {
+                        return <option key={index} value={breed}>{breed}</option>
+                    })}
+                </select>
             </Card>
             <Card className="default-card">
                 <h2>반려동물 몸무게</h2>
-                <input type="number" onChange={(e) => {handleInputChange("weight", e.target.value)}}/>
+                <input type="number" value={calcData?.weight} 
+                    onChange={(e) => {handleInputChange("weight", e.target.value)}}/>
             </Card>
             <Card className="default-card">
                 <h2>반려동물 나이</h2>
@@ -172,13 +238,16 @@ const CalorieInput = (props) => {
                         </div>                           
                 }
             </Card>
-            <DefaultButton onClick={() => {setShowFeeding(!showFeeding)}}>사료 급여량 g 계산</DefaultButton>
-            {showFeeding &&
-                <Card className="default-card">
-                    <p>사료의 kcal(kg당)을 작성해주세요</p>
-                    <input type="number" onChange={(e) => setAmount(e.target.value)}/>
-                </Card>            
-            }
+            <Card className="default-card">
+                {showFeeding &&
+                    <Card className="default-card">
+                        <p>사료의 kcal(kg당)을 작성해주세요</p>
+                        <input type="number" onChange={(e) => setAmount(e.target.value)}/>
+                    </Card>            
+                }
+                <DefaultButton onClick={() => {setShowFeeding(!showFeeding)}}>사료 급여량 g 계산</DefaultButton>                
+            </Card>
+            <DefaultButton onClick={handleRecommend}>결과 확인</DefaultButton> 
         </Card>
     )
 }

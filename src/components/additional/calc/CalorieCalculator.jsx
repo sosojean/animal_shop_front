@@ -3,12 +3,14 @@ import instance from "../../../utils/axios";
 import CalorieInput from "./CalorieInput";
 import CalorieResult from "./CalorieResult";
 import "../../../assets/styles/additional/calorieCalc.scss"
+import CalcGoods from "./CalcGoods";
 
 const CalorieCalculator = () => {
 
     const [calcData, setCalcData] = useState(); 
     const [amount, setAmount] = useState(0);
     const [showFeeding, setShowFeeding] = useState(false);
+    const [goods, setGoods] = useState([]);
         // {species: "dog", birth: "20200120", size: "small"}
     
     // 로그인 회원 대표 펫 정보 가져오기기
@@ -44,10 +46,12 @@ const CalorieCalculator = () => {
             <div className="calrorie-calc-section">
                 <CalorieInput calcData={calcData} setCalcData={setCalcData}
                     showFeeding={showFeeding} setShowFeeding={setShowFeeding}
-                    amount={amount} setAmount={setAmount}/>
+                    amount={amount} setAmount={setAmount} setGoods={setGoods}/>
                 <CalorieResult calcData={calcData} amount={amount} showFeeding={showFeeding}/>    
             </div>
-          
+            <div>
+                <CalcGoods goods={goods}/>
+            </div>
         </div>
     )
 }
