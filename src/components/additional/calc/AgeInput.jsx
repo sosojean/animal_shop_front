@@ -4,7 +4,7 @@ import DefaultButton from "../../common/DefaultButton";
 
 const AgeInput = (props) => {
 
-    const {calcData, setCalcData, petData} = props;
+    const {calcData, setCalcData, setGoods} = props;
 
     const speciesList = ["강아지", "고양이"];
     const dogSizeList = ["소형", "중형", "대형", "래브란도 리트리버"];
@@ -26,23 +26,47 @@ const AgeInput = (props) => {
 
     const handleRecommend = () => {
 
-        const postData = {...calcData};
+        // 데이터 가공
+        const originData = {...calcData};
+        let postData = {};
+
+        // birth 가공
+        const today = new Date();
+
+        const year = parseInt(originData.birth.substring(0, 4));
+        const month = parseInt(originData.birth.substring(4, 6));
+        const day = parseInt(originData.birth.substring(6, 8));
+
+        // 생년월일로 Date 객체 생성
+        const birthDateObj = new Date(year, month - 1, day); // 월은 0부터 시작하므로 1을 빼줍니다
+
+        // 나이 계산
+        let age = today.getFullYear() - birthDateObj.getFullYear();
+        const monthDiff = today.getMonth() - birthDateObj.getMonth();
+
+        // 생일이 아직 지나지 않았다면 나이에서 1을 빼줍니다
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
+            age--;
+        }
+
+        postData.humanAge = age // birth 가공 해야함
+        postData.species = originData.species === '강아지' ? 'DOG' :
+            originData.species === '고양이' ? 'CAT' : ''
+        
+        console.log("postData", postData);
         
         axios({
-            url: `/calc/recommend/age`,
+            url: `http://localhost:8080/calc/recommend/age`,
             method: "POST",
-            data:{
-                "humanAge" : 12 ,
-                "species" : "CAT"
-            }
+            data: postData
         }).then((res) => {
+            console.log("handleRecommend", res.data);
+            setGoods(res.data.goods);
         })
         .catch((err) => {
             console.error("error", err);
         });
     };
-
-    console.log("calcData", calcData);
 
     return (
         <Card className="default-card age-input">
@@ -92,7 +116,7 @@ const AgeInput = (props) => {
                         </div>
                 </Card>
             }
-            <DefaultButton>결과 확인</DefaultButton>
+            <DefaultButton onClick={handleRecommend}>결과 확인</DefaultButton>
         </Card>
     )
 }

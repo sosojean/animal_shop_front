@@ -1,0 +1,37 @@
+@mixin settingCenter($fd: column) {
+    display: flex;
+    flex-direction: $fd;
+    justify-content: center;
+    align-items: center;
+}
+
+.nutrient-calc {
+    @include settingCenter;
+
+    .nutrient-calc-header {
+        margin: 2rem 0 2rem 0;
+    }
+
+    .nutrient-calc-section {
+        display: flex;
+
+        .nutrient-input {
+            width: 500px;
+            background-color: var(--point-color);
+            // height: 500px;
+
+            .active {
+                background-color: var(--point-background-color-80);
+            }
+
+        }
+
+        .nutrient-result {
+            background-color: var(--point-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    }
+}

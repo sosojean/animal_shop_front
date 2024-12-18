@@ -1,4 +1,4 @@
-
+import Card from "../../common/Card";
 
 
 const CalorieResult = (props) => {
@@ -159,12 +159,12 @@ const CalorieResult = (props) => {
     }
 
     return (
-        <div>
-            <div>
-                <h1>칼로리 계산</h1>
+        <Card className="default-card calorie-result">
+            <Card className="default-card">
+                {/* <h1>칼로리 계산</h1> */}
                 <div>
                     <div>
-                        <p>1일 권장 칼로리</p>
+                        <p><b>1일 권장 칼로리</b></p>
                         {calcData?.species === "강아지" ?
                             <p>{calculateDogMER(calcData?.isPuppy, calcData?.month, calcData?.status, 
                                 calcData?.detail, calcData?.neuter)} kcal</p> :
@@ -176,18 +176,18 @@ const CalorieResult = (props) => {
 
                     </div>
                     <div>
-                        <p>1일 기초대사량</p>
+                        <p><b>1일 기초대사량</b></p>
                         <p>{calculateDogRER(calcData?.weight || 0)} kcal</p>
                     </div>
                     {showFeeding &&
                         <div>
-                            <p>1일 급여량</p>
+                            <p><b>1일 급여량</b></p>
                             <p>{(calculateDogRER(calcData?.weight || 0) * 1000) / amount} g</p>
                         </div>                    
                     }
                 </div>
-            </div>   
-        </div>
+            </Card>   
+        </Card>
 
     )
 }
