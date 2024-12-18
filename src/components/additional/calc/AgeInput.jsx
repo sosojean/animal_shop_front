@@ -1,19 +1,45 @@
+import axios from "axios";
 import Card from "../../common/Card";
 import DefaultButton from "../../common/DefaultButton";
 
 const AgeInput = (props) => {
 
-    const {calcData, setCalcData} = props;
+    const {calcData, setCalcData, petData} = props;
 
     const speciesList = ["강아지", "고양이"];
-    const dogSizeList = ["소형", "중형", "대형", "래브란도 리트리버"]
-    const catTypeList = ["집고양이", "길고양이"]
+    const dogSizeList = ["소형", "중형", "대형", "래브란도 리트리버"];
+    const catTypeList = ["집고양이", "길고양이"];
 
+    // 결과에 사용할 데이터 저장
     const handleInputChange = (field, value) => {
         setCalcData(prevData => ({
             ...prevData,
             [field]: value
         }));
+    };
+
+    // 버튼 활성화
+    const isButtonActive = (field, value) => {
+        if (calcData)
+            return calcData[field] === value ? 'active' : '';
+    };
+
+    const handleRecommend = () => {
+
+        const postData = {...calcData};
+        
+        axios({
+            url: `/calc/recommend/age`,
+            method: "POST",
+            data:{
+                "humanAge" : 12 ,
+                "species" : "CAT"
+            }
+        }).then((res) => {
+        })
+        .catch((err) => {
+            console.error("error", err);
+        });
     };
 
     console.log("calcData", calcData);
@@ -25,13 +51,16 @@ const AgeInput = (props) => {
                 <div>
                     {speciesList.map((species, index) => {
                         return <DefaultButton key={index} 
-                            onClick={() => {handleInputChange("species", species)}}>{species}</DefaultButton>
+                                onClick={() => {handleInputChange("species", species)}}
+                                className={isButtonActive("species", species)}>
+                                    {species}
+                                </DefaultButton>
                     })}
                 </div>
             </Card>
             <Card>
                 <h3>생년월일</h3>
-                <input onChange={(e) => {handleInputChange("birth", e.target.value)}}/>
+                <input value={calcData?.birth} onChange={(e) => {handleInputChange("birth", e.target.value)}}/>
             </Card>
             {calcData?.species === "강아지" &&
                 <Card>
@@ -39,7 +68,8 @@ const AgeInput = (props) => {
                     <div>
                         {dogSizeList.map((size, index) => {
                             return (
-                                <DefaultButton key={index} onClick={() => {handleInputChange("size", size)}}>
+                                <DefaultButton key={index} onClick={() => {handleInputChange("size", size)}}
+                                    className={isButtonActive("size", size)}>
                                     {size}                           
                                 </DefaultButton>
                             )
@@ -53,7 +83,8 @@ const AgeInput = (props) => {
                         <div>
                             {catTypeList.map((type, index) => {
                                 return (
-                                    <DefaultButton key={index} onClick={() => {handleInputChange("size", type)}}>
+                                    <DefaultButton key={index} onClick={() => {handleInputChange("size", type)}}
+                                        className={isButtonActive("size", type)}>
                                         {type}
                                     </DefaultButton>
                                 )
@@ -61,6 +92,7 @@ const AgeInput = (props) => {
                         </div>
                 </Card>
             }
+            <DefaultButton>결과 확인</DefaultButton>
         </Card>
     )
 }

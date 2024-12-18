@@ -2,7 +2,8 @@ import "../../../../assets/styles/shop/product/productReview.scss"
 import instance from "../../../../utils/axios";
 import {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHeart } from "@fortawesome/free-solid-svg-icons";
+import {faHeart, faStar, faHeartBroken} from "@fortawesome/free-solid-svg-icons";
+
 import ReviewImages from "./ReviewImages";
 import {useModifyTime} from "../../../../utils/useModifyTime";
 
@@ -10,6 +11,8 @@ import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 
 const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit, isEdit}) => {
+
+    console.log("ProductReview item", item);
 
     const [isAuthor, setIsAuthor] = useState()
     const [isLiked, setIsLiked] = useState(item.heart)
@@ -86,6 +89,12 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit,
         })
     }
 
+    const renderStars = (rating) => {
+        return Array.from({length: 5}, (_, index) => (
+            <span key={index}>{index < rating ? '★' : ''}</span>
+        ));
+    };
+
     return (
         <div className="productReviewContainer">
             <div className="reviewerInfoContainer">
@@ -93,10 +102,15 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit,
                 <div className="reviewerInfoDetail">
                     <div className="reviewerStars">
                         <div>
-                            {/*todo 별 숫자 -> 갯수로 바꾸기*/}
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            {[...Array(5)].map((_, i) => {
+                                return (
+                                    <span key={i} className={i < item.rating ? "selected" : "non-selected"}>
+                                        <FontAwesomeIcon icon={faStar}/>
+                                    </span>
+                                )
+                            })}
                         </div>
-                        <p>5</p>
+                        <p>{item.rating}</p>
                     </div>
                     <div className="review-header">
                         <div className="reviewerName">
