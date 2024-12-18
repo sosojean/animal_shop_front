@@ -5,9 +5,18 @@
     width: 100%;
   }
 
+  .reviews{
+    .reviews-header{
+      display: flex;
+      justify-content: space-between;
+
+    }
+    .review-write-btn{
+
+    }
+  }
   .place-review-item{
     padding: 4px;
-    //height: 60px;
     border-bottom: 1px solid var(--alpha-5);
     .review-header{
       display: flex;

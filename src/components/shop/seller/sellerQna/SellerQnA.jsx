@@ -1,7 +1,7 @@
 import SellerMenu from "../SellerMenu";
 import axios from "axios";
 import instance from "../../../../utils/axios";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import ProductQnA from "../../product/QnA/ProductQnA";
 import Pagination from "../../../board/Pagination";
 import Title from "../../../common/Title";
@@ -37,8 +37,9 @@ const SellerQnA = (props) => {
             {data&&data.map((item)=>{
                return <ProductQnA isEdited={isEdited} setIsEdited={setIsEdited} item={item} position={"seller"}/>
             })}
+            {data&&data.length===0?<div className="no-contents"><span>작성된 문의가 없습니다.</span></div>:""}
 
-            <Pagination  currentPage={page} handlePageChange={setPage} totalPost={totalPost}/>
+            {data&&data?.length>10&&<Pagination currentPage={page} handlePageChange={setPage} totalPost={totalPost}/>}
 
 
 

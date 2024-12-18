@@ -62,3 +62,12 @@
     height: 460px;
     align-items: center;
 }
+
+.no-contents-thin{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    height: 230px;
+    align-items: center;
+}

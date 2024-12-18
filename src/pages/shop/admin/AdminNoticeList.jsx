@@ -35,6 +35,8 @@ const AdminNoticeList = ({isSeller}) => {
                 {data&&data.map(item=>{
                     return <AdminNoticeItem item={item} isSeller={isSeller}/>
                 })}
+                {data&&data.length===0?<div className="no-contents"><span>작성된 공지가 없습니다.</span></div>:""}
+
             </div>
 
             {!isSeller&&
