@@ -44,9 +44,16 @@
   height: 40px;
 }
 
-
-
 .wd100{
   width: 100%;
   height: 40px;
+}
+
+.result-button{
+  font-weight: bold;
+  font-size: 1.1rem;
+  
+  color: var(--alpha-70);
+  background-color: var(--sercondary-background-color);
+  border-radius: 15px;
 }
