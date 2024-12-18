@@ -56,12 +56,9 @@ const AgeInput = (props) => {
         console.log("postData", postData);
         
         axios({
-            url: `http://localhost:8080/calc/recommend/age `,
+            url: `http://localhost:8080/calc/recommend/age`,
             method: "POST",
-            data:{
-                "humanAge" : 12 ,
-                "species" : "CAT"
-            }
+            data: postData
         }).then((res) => {
             console.log("handleRecommend", res.data);
             setGoods(res.data.goods);
