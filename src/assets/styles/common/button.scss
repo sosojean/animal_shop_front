@@ -6,17 +6,21 @@
 
 }
 
-.primary{
+.primary.button{
   background: var(--point-color);
   color: white;
 
 }
 
-.default {
+.default.button {
   background: var(--alpha-5);
   color: black;
   border: 1px solid var(--alpha-5);
+}
 
+.alert.button{
+  background: var(--warning-color);
+  color: white;
 
 }
 
