@@ -2,6 +2,7 @@ import ProductReview from "./ProductReview";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import instance from "../../../../utils/axios";
+import "../../../../assets/styles/shop/product/productReviewList.scss"
 
 
 const ProductReviewList = ({itemId}) => {
@@ -41,7 +42,8 @@ const ProductReviewList = ({itemId}) => {
     return (
         <>
             <div id="review-target">
-            <span>리뷰</span>
+            <h2>리뷰</h2>
+                {data && data.length===0&&<div className="no-contents"><span>아직 작성된 리뷰가 없습니다.</span></div>}
                 {data && data.map(item =>{
                     return (
                     <ProductReview

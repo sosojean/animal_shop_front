@@ -11,6 +11,8 @@ const Comments = () => {
     const [commentSummited, setCommentSummited] = useState(false);
     const [parent, setParent] = useState(null)
 
+    const [sortedData, setSortedData] = useState()
+    const [idNicknameMap, setIdNicknameMap] = useState()
     useEffect(() => {
         // console.log("postid =" + post_id);
         instance({
@@ -19,7 +21,10 @@ const Comments = () => {
         }).then(({data}) => {
             // console.log(data)
             setData(data.comments)
-            replySort(data.comments)
+            const { sortedData, idToNickname } = replySort(data.comments); // **replySort 반환값 구조분해**
+
+            setSortedData(sortedData)
+            setIdNicknameMap(idToNickname)
         }).catch((error) => {
             console.log(error)
         });
@@ -30,9 +35,13 @@ const Comments = () => {
         const map = new Map();
         const finalList = new Set();
         const parentList = new Set();
+        const idToNickname = {}; // **ID와 닉네임 매핑 저장용** (추가)
+
 
         data.forEach((item) => {
             map.set(item.id, []);
+            idToNickname[item.id] = item.nickname; // **id와 nickname을 매핑** (추가)
+
             if (item.parent?.id) {
                 const children = map.get(item.parent.id) || [];
                 children.push(item.id);
@@ -59,16 +68,14 @@ const Comments = () => {
         const sortedData = data.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
         setParent(parentList);
 
-        return sortedData;
+        return {sortedData, idToNickname};
     };
 
 
     return (<>
-
-        {/*{data ? console.log(data) : null}*/}
         {data ? data.map((comment) => {
             return (<Comment key={comment.id} commentSummited={commentSummited} setCommentSummited={setCommentSummited}
-                             parentList={parent} comment={comment}/>)
+                             parentList={parent} comment={comment} idNicknameMap={idNicknameMap}/>)
         }) : null}
 
         <CommentEditor commentSummited={commentSummited} setCommentSummited={setCommentSummited}></CommentEditor>

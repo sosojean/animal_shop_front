@@ -6,6 +6,7 @@ import instance from "../../../utils/axios";
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCrown} from "@fortawesome/free-solid-svg-icons";
+import animalPlaceholder from "../../../assets/img/animalPlaceholder.svg"
 
 
 const PetInfoDetail = (props) => {
@@ -14,8 +15,8 @@ const PetInfoDetail = (props) => {
     
     console.log(item);
 
-    const url = `http://localhost:8080/file/image-print?filename=${item?.profileImageUrl?item.profileImageUrl
-        :"pet_00876a609b11427d8d6dbca99e978a5e.jpg"}`; // todo: default 이미지 지정
+    const url = item?.profileImageUrl?`http://localhost:8080/file/image-print?filename=${item.profileImageUrl
+        }`:animalPlaceholder; // todo: default 이미지 지정
 
 
 
@@ -33,11 +34,11 @@ const PetInfoDetail = (props) => {
 
 
     return (
-        <Card className="pet-detail-info">
+        <Card className="default-card pet-detail-info">
 
             {item ? <>
                     <img className={"pet-profile"} src={url} alt=""/>
-                    <Card className="detail-info-text">
+                    <Card className="default-card detail-info-text">
                         <div className={"name-section"}>
                             {item?.isLeader && <FontAwesomeIcon className="icon" icon={faCrown}/>}
                             <h2>{item.name}</h2>

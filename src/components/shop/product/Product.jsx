@@ -2,6 +2,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
 import instance from "../../../utils/axios";
+import DefaultButton from "../../common/DefaultButton";
 
 const Product = (props) => {
 
@@ -139,13 +140,13 @@ const Product = (props) => {
                   <div>
                       {optionCount > 1 ?
                           <Link to={`http://localhost:3000/shop/detail/${props.data?.id}`}>
-                              <button className="cart-button">옵션선택</button>
+                              <DefaultButton className="cart-button wd100">옵션선택</DefaultButton>
                           </Link> :
-                          ( <button
+                          ( <DefaultButton
                               onClick={addCart}
-                              className="cart-button">
+                              className="cart-button wd100">
                               장바구니
-                          </button> )}
+                          </DefaultButton> )}
                   </div>
               )}
 

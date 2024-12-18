@@ -29,17 +29,7 @@ const Order = ({item}) => {
 
     const orderCancelHandler = () => {
         setCancelModalOpen(true)
-        // console.log(item);
-        // instance({
-        //     url: `/shop/order/cancel_detail`,
-        //     method: "Patch",
-        //     data: { orderItemIds : [ item["orderItemDTOList"][0].orderItemId ]}
-        //
-        // }).then((data) => {
-        //     console.log(data);
-        // }).catch((error) => {
-        //     console.log(error)
-        // })
+
     }
 
     const deliveryConfirm= () => {
@@ -75,10 +65,7 @@ const Order = ({item}) => {
 
                         }
 
-
-                        // console.log("orderItem", orderItem);
                         return (
-
                             index == 0 ?
                                 <OrderProduct key={orderItem["itemNm"] + index} item={orderItem} position={"order"}/> :
                                 isOpened &&

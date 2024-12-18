@@ -1,12 +1,38 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import OrderedProduct from "../product/orderedProduct";
 import Card from "../../common/Card";
 import instance from "../../../utils/axios";
 import DefaultButton from "../../common/DefaultButton";
-
+import "../../../assets/styles/shop/seller/sellerAcceptItem.scss"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
+import OrderProduct from "../order/OrderProduct";
 const SellerAcceptItem = ({item, setIsEdited, isEdited}) => {
 
-    console.log(item);
+
+
+    const [isOpened, setIsOpened] = useState(false)
+
+    const [isConfirmed, setIsConfirmed] = useState(false)
+
+    const isSingle = item["deliveryItemDTOList"].length === 1;
+    const countMessage = `총 ${item["deliveryItemDTOList"].length} 건 주문 `;
+
+    const open = (<>접기 <FontAwesomeIcon icon={faChevronUp}/></>);
+    const close = (<>펼쳐보기 <FontAwesomeIcon icon={faChevronDown}/></>);
+
+    useEffect(() => {
+        const isAnyConfirmed = item.deliveryItemDTOList.some(
+            (deliveryItem) => deliveryItem["delivery_approval"] || deliveryItem["delivery_revoke"]
+        );
+        setIsConfirmed(isAnyConfirmed);
+    }, [item]);
+
+
+
+
+
+
 
     const deliverAllProduct =()=> {
         instance({
@@ -45,17 +71,49 @@ const SellerAcceptItem = ({item, setIsEdited, isEdited}) => {
 
 
     return (
-        <Card>
-            <DefaultButton className={"default mid"} onClick={deliverAllProduct}>배송</DefaultButton>
-            <DefaultButton className={"primary mid"} onClick={rejectAllProduct}>취소</DefaultButton>
+        <Card className="default-card order">
+            <div className="row  order-item-header">
+                <div className="row">
+                    <img className="order-item-img" src={item?.deliveryItemDTOList[0]["thumbnailUrl"]}/>
+                    <div className="col">
 
-            <span>{item.customer}</span>
-            <span>{item.orderDate}</span>
-            <span>{item.totalPrice}</span>
+                        <span><span className="highlight-gray">구매자</span> {item.customer}</span>
+                        <span>결제일시 {item.orderDate}</span>
+                    </div>
+                </div>
+                <div className="price"><span>총 결제 금액</span> <b>{item.totalPrice.toLocaleString()} </b><span>원</span></div>
+
+            </div>
+
+
+
+
             {item.deliveryItemDTOList.map((deliveryItem, index) => {
-                return (<OrderedProduct key={deliveryItem["orderItemId"]} item={deliveryItem} index={index}
-                                        setIsEdited={setIsEdited} isEdited={isEdited}/>)
+
+                return (
+                    index == 0 ? <OrderedProduct key={deliveryItem["orderItemId"]} item={deliveryItem} index={index}
+                                        setIsEdited={setIsEdited} isEdited={isEdited}/>:
+                        isOpened &&<OrderedProduct key={deliveryItem["orderItemId"]} item={deliveryItem} index={index}
+                                                   setIsEdited={setIsEdited} isEdited={isEdited}/>
+
+                )
             })}
+
+            {!isSingle &&
+                <DefaultButton className="default wd100 open-order order-list-btn"
+                        onClick={() => {
+                            setIsOpened(!isOpened)
+                        }}>
+                    {countMessage}
+                    {isOpened ? open : close}
+                </DefaultButton>}
+
+            <div className="row order-control-buttons">
+                {!isConfirmed&&<>
+                    <DefaultButton className={"default long"} onClick={rejectAllProduct}>전체 취소</DefaultButton>
+                    <DefaultButton className={"primary long"} onClick={deliverAllProduct}>전체 배송</DefaultButton></>}
+
+            </div>
 
 
         </Card>

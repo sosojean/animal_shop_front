@@ -4,6 +4,10 @@ import '../../assets/styles/board/heartButton.scss'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart, faHeartCrack} from "@fortawesome/free-solid-svg-icons";
 
+import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
+import {toast} from "react-toastify";
+
 export default function HeartButton({heartStatus, setHeartStatus, setCountHeart, countHeart}) {
     const {post_id} = useParams();
     const haveToken = localStorage.getItem('accessToken');
@@ -27,7 +31,7 @@ export default function HeartButton({heartStatus, setHeartStatus, setCountHeart,
             .then(response => {
                 setHeartStatus(!heartStatus);
                 setCountHeart(countHeart + (heartStatus ? -1 : 1));
-                alert(successMessage);
+                toast.success(successMessage)
             })
             .catch(error => console.error(error));
     }
@@ -39,8 +43,8 @@ export default function HeartButton({heartStatus, setHeartStatus, setCountHeart,
 
     return (
         <button className="heart-button" onClick={handleButtonClick}>
-            {heartStatus ? <span className="icon"><FontAwesomeIcon icon={faHeartCrack}/>추천 취소</span> :
-                <span className="icon"><FontAwesomeIcon icon={faHeart}/>추천</span>}
+            {heartStatus ? <span className="icon"><FontAwesomeIcon icon={solidHeart}/>취소</span> :
+                <span className="icon"><FontAwesomeIcon icon={regularHeart}/>추천</span>}
         </button>
     );
 }

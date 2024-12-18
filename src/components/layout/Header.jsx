@@ -23,6 +23,13 @@ const Header = (props) => {
     const navigate = useNavigate();
 
     const token = localStorage.getItem("accessToken");
+    const profileImg = parseJwt(token)?.profileImg
+    const imgSrc =profileImg?.includes("http://k.kakaocdn.net")?
+        profileImg:
+        process.env.REACT_APP_IMG_PRINT + profileImg
+
+
+
     useEffect(() => {
         if (token) {
             setIsAuth(true)
@@ -109,9 +116,7 @@ const Header = (props) => {
                             {isAuth ? <>
                                     <Link to="/cart"><FontAwesomeIcon icon={faCartShopping}/> </Link>
                                     <Link to="/mypage">
-                                        <img className="profile-image" src={process.env.REACT_APP_IMG_PRINT + parseJwt(token).profileImg} alt=""/>
-                                        {/*{todo: 여기 프로필 이미지 넣어야됨}*/}
-
+                                        <img className="profile-image" src={imgSrc} alt=""/>
                                     </Link>
                                     <button className={"logout"} onClick={handleLogout}>로그아웃
                                         <FontAwesomeIcon icon={faArrowRightFromBracket}/>

@@ -3,6 +3,10 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import instance from "../../../../utils/axios";
 import {useModifyTime} from "../../../../utils/useModifyTime";
+import DefaultButton from "../../../common/DefaultButton";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faA, faQ} from "@fortawesome/free-solid-svg-icons";
+import {toast} from "react-toastify";
 
 const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
 
@@ -16,6 +20,7 @@ const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
             method:"DELETE",
 
         }).then((data) => {
+            toast.success("삭제 성공")
             setIsEdited(!isEdited)
 
             // console.log(data);
@@ -60,27 +65,40 @@ const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
         })
     }
 
+    const nameMaskingMaker = (name) => {
+        const maskingCount = Math.ceil(name.length / 2); // Number of characters to mask
+        const start = Math.ceil((name.length - maskingCount) / 2); // Start position for masking
+        const end = start + maskingCount; // End position for masking
+
+        // Replace the masked portion with '*'
+        const maskedName = name.slice(0, start) + '*'.repeat(maskingCount) + name.slice(end);
+
+        return maskedName; // Return the masked name
+    };
+
 
 
     return (
         <div className="qnaContainer">
             <div className="qnaInfoContainer">
-                <p><b>{item.customer}</b></p>
-                <p>{date}</p>
-                <p>{item.option_name}</p>
+                <span><b>{nameMaskingMaker(item.customer)}</b></span>
+                <span>{date}</span>
+                <span>{item.option_name}</span>
             </div>
 
             <p className="qnaContent">
-                {item.contents}
+                <FontAwesomeIcon icon={faQ}/>{" "+ item.contents}
             </p>
-            {item.reply&&<p className="answer">{item.reply}</p>}
+            {item.reply ? <p className="answer"><FontAwesomeIcon icon={faA}></FontAwesomeIcon> {item.reply}</p> :
+                !isEdit&&<p className="placeholder">아직 답변이 등록되지 않았습니다.</p>}
             {position != "seller" ?
-                <button onClick={deleteHandler}>삭제</button> :
+                <div className={"btn-container"}>
+                <DefaultButton className={"small default delete"} onClick={deleteHandler}>삭제</DefaultButton>
+                </div>:
 
                 isEdit ? <>
 
-                    <textarea class="reply"
-                              onChange={e => {
+                    <textarea onChange={e => {
                                   setReply(e.target.value)
                               }}
                               className="edit-review" cols="30" rows="10"/>
@@ -90,10 +108,13 @@ const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
                         }}>취소
                         </button>
                     </> :
-                    <>
-                        <button onClick={answerDeleteHandler}>삭제</button>
-                        <button onClick={() => setIsEdit(true)}> 답변하기</button>
-                    </>
+                    <div className={"btn-container"}>
+                        {item.reply&&
+                            <DefaultButton className={"small primary"} onClick={answerDeleteHandler}>삭제</DefaultButton>
+                        }
+                        {!item.reply&&<DefaultButton  className={"small default"} onClick={() => setIsEdit(true)}> 답변</DefaultButton>
+                        }
+                    </div>
             }
 
 

@@ -6,6 +6,7 @@ import {weightOptions,catBreedOptions,dogBreedOptions,ageOptions} from "../../..
 import "../../../assets/styles/member/petInfo.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCrown} from "@fortawesome/free-solid-svg-icons";
+import animalPlaceholder from "../../../assets/img/animalPlaceholder.svg";
 
 const PetInfo = (props) => {
 
@@ -14,8 +15,8 @@ const PetInfo = (props) => {
     // console.log("petInfo", item);
     const navigate = useNavigate();
 
-    const url = `http://localhost:8080/file/image-print?filename=${item.profileImageUrl?item.profileImageUrl
-        :"pet_00876a609b11427d8d6dbca99e978a5e.jpg"}`; // todo: default 이미지 지정
+    const url = item.profileImageUrl?`http://localhost:8080/file/image-print?filename=${item.profileImageUrl
+        }`:animalPlaceholder; // todo: default 이미지 지정
 
     const handleEdit = () => {
         navigate(`/pet/edit/${item.id}` ,{state : item});
@@ -40,7 +41,7 @@ const PetInfo = (props) => {
     }
 
     return (
-        <Card onClick={handleSelect} className={"pet-info"}>
+        <Card onClick={handleSelect} className={"default-card pet-info"}>
             <img className={"pet-profile"} src={url} alt=""/>
             <div className={"info-section"}>
                 <h2>{item.isLeader&&<FontAwesomeIcon className="icon" icon={faCrown}/>}{" "+item.name}</h2>

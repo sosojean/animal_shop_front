@@ -3,8 +3,12 @@ import instance from "../../../../utils/axios";
 import {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart, faStar, faHeartBroken} from "@fortawesome/free-solid-svg-icons";
+
 import ReviewImages from "./ReviewImages";
 import {useModifyTime} from "../../../../utils/useModifyTime";
+
+import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 
 const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit, isEdit}) => {
 
@@ -118,8 +122,8 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit,
                             {isLoggedIn &&<>
                             {isLiked ?
 
-                                <button onClick={commentUnLikeHandler}><FontAwesomeIcon icon={faHeartBroken}/></button>
-                                : <button onClick={commentLikeHandler}><FontAwesomeIcon icon={faHeart}/></button>
+                                <button onClick={commentUnLikeHandler}><FontAwesomeIcon icon={solidHeart}/></button>
+                                : <button onClick={commentLikeHandler}><FontAwesomeIcon icon={regularHeart}/></button>
                             }
                             {isAuthor && <>
                                 {isEdit?

@@ -8,15 +8,15 @@
 
     --header-font-color: #FFF;
     --header-background-color: var(--point-color);
-    --point-color: #1CA8AF;
-    --point-background-color: #1CA8AF;
-    --point-background-color-10: #1CA8AF1a;
-    --point-background-color-20: #1CA8AF33;
-    --point-background-color-80: #1CA8AFc8;
-    --point-background-color-90: #1CA8AFe6;
-    --point-shadow-color: #0E7A80;
+    --point-color: #76a970;
+    --point-background-color: #76a970;
+    --point-background-color-10: #76a9701a;
+    --point-background-color-20: #76a97033;
+    --point-background-color-80: #76a970c8;
+    --point-background-color-90: #76a970e6;
+    --point-shadow-color: #5a8161;
     --point-shadow-color-30: rgba(0, 0, 0, 0.2);
-    --point-shadow-color-50: #0E7A8080;
+    --point-shadow-color-50: #5a816180;
 
     --default-font-color: #000;
     --reverse-font-color: #eee;
