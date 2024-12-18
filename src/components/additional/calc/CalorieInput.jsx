@@ -61,62 +61,114 @@ const CalorieInput = (props) => {
             </Card>
             <Card className="default-card">
                 <h2>반려동물 나이</h2>
-                <select onChange={(e) => {handleInputChange("isPuppy", e.target.value === "true")}}>
+                <div>
                     {ageList.map((age, index) => {
-                        return <option key={index} value={age === "1살미만" ? "true" : "false"}>
-                            {age}</option>
+                        return <DefaultButton 
+                            key={index} 
+                            className={isButtonActive("isPuppy", age === "1살미만")}
+                            onClick={() => {handleInputChange("isPuppy", age === "1살미만")}}>
+                            {age}
+                        </DefaultButton>
                     })}
-                </select>
+                </div>
             </Card>
-            <Card className="default-card">
+            <Card className="default-card detail-selector">
                 <h2>세부 선택</h2>
                 {calcData?.species === "고양이" ? 
                     calcData?.isPuppy ?
-                        <select onChange={(e) => {handleInputChange("month", e.target.value)}}>
-                            {kittenList.map((age, index) => {
-                                return <option key={index}>{age}</option>
-                            })}
-                        </select> : 
+                        <div className="buttons">
+                            <span><b>월령</b></span>
+                            {kittenList.map((age, index) => (
+                                <DefaultButton 
+                                    key={index}
+                                    className={isButtonActive("month", age)}
+                                    onClick={() => handleInputChange("month", age)}>
+                                    {age}
+                                </DefaultButton>
+                            ))}
+                        </div> : 
                         <div>
-                            <select onChange={(e) => {handleInputChange("status", e.target.value)}}>
-                                {catStatusList.map((status, index) => {
-                                    return <option key={index} value={status.main}>{status.main}</option>
-                                })}
-                            </select>
-                            <select onChange={(e) => {handleInputChange("detail", e.target.value)}}>
-                                {catDetailList[0]?.sub?.map((detail, index) => {
-                                    return <option key={index} value={detail}>{detail}</option>
-                                })}
-                            </select>
-                            <select onChange={(e) => {handleInputChange("neuter", e.target.value)}}>
-                                {neuterList.map((neuter, index) => {
-                                    return <option key={index} value={neuter}>{neuter}</option>
-                                })}
-                            </select>                       
+                            <div className="buttons">
+                                <span><b>상태</b></span>
+                                {catStatusList.map((status, index) => (
+                                    <DefaultButton 
+                                        key={index}
+                                        className={isButtonActive("status", status.main)}
+                                        onClick={() => handleInputChange("status", status.main)}>
+                                        {status.main}
+                                    </DefaultButton>
+                                ))}
+                            </div>
+                            <div className="buttons">
+                                <span><b>세부</b></span>
+                                {catDetailList[0]?.sub?.map((detail, index) => (
+                                    <DefaultButton 
+                                        key={index}
+                                        className={isButtonActive("detail", detail)}
+                                        onClick={() => handleInputChange("detail", detail)}>
+                                        {detail}
+                                    </DefaultButton>
+                                ))}
+                            </div>
+                            <div className="buttons">
+                                <span><b>중성화</b></span>
+                                {neuterList.map((neuter, index) => (
+                                    <DefaultButton 
+                                        key={index}
+                                        className={isButtonActive("neuter", neuter)}
+                                        onClick={() => handleInputChange("neuter", neuter)}>
+                                        {neuter}
+                                    </DefaultButton>
+                                ))}
+                            </div>
                         </div>
                     :
                     calcData?.isPuppy ?
-                        <select onChange={(e) => {handleInputChange("month", e.target.value)}}>
-                            {puppyList.map((age, index) => {
-                                return <option key={index}>{age}</option>
-                            })}
-                        </select> : 
+                        <div className="buttons">
+                            <span><b>월령</b></span>
+                            {puppyList.map((age, index) => (
+                                <DefaultButton 
+                                    key={index}
+                                    className={isButtonActive("month", age)}
+                                    onClick={() => handleInputChange("month", age)}>
+                                    {age}
+                                </DefaultButton>
+                            ))}
+                        </div> : 
                         <div>
-                            <select onChange={(e) => {handleInputChange("status", e.target.value)}}>
-                                {dogStatusList.map((status, index) => {
-                                    return <option key={index} value={status.main}>{status.main}</option>
-                                })}
-                            </select>
-                            <select onChange={(e) => {handleInputChange("detail", e.target.value)}}>
-                                {dogDetailList[0]?.sub?.map((detail, index) => {
-                                    return <option key={index} value={detail}>{detail}</option>
-                                })}
-                            </select>
-                            <select onChange={(e) => {handleInputChange("neuter", e.target.value)}}>
-                                {neuterList.map((neuter, index) => {
-                                    return <option key={index} value={neuter}>{neuter}</option>
-                                })}
-                            </select>                       
+                            <div className="buttons">
+                                <span><b>상태</b></span>
+                                {dogStatusList.map((status, index) => (
+                                    <DefaultButton 
+                                        key={index}
+                                        className={isButtonActive("status", status.main)}
+                                        onClick={() => handleInputChange("status", status.main)}>
+                                        {status.main}
+                                    </DefaultButton>
+                                ))}
+                            </div>
+                            <div className="buttons">
+                                <span><b>세부</b></span>
+                                {dogDetailList[0]?.sub?.map((detail, index) => (
+                                    <DefaultButton 
+                                        key={index}
+                                        className={isButtonActive("detail", detail)}
+                                        onClick={() => handleInputChange("detail", detail)}>
+                                        {detail}
+                                    </DefaultButton>
+                                ))}
+                            </div>
+                            <div className="buttons">
+                                <span><b>중성화</b></span>
+                                {neuterList.map((neuter, index) => (
+                                    <DefaultButton 
+                                        key={index}
+                                        className={isButtonActive("neuter", neuter)}
+                                        onClick={() => handleInputChange("neuter", neuter)}>
+                                        {neuter}
+                                    </DefaultButton>
+                                ))}
+                            </div>
                         </div>                           
                 }
             </Card>
