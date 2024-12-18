@@ -7,12 +7,12 @@ const NutrientInput = (props) => {
     const {petData, setPetData, nutrientData, setNutrientData, setGoods,
         showResult, setShowResult} = props;
 
-    // console.log("nutrientData", nutrientData);
+    console.log("nutrientData", nutrientData);
     console.log("petData", petData);
 
     const speciesList = ["강아지", "고양이"];
     const ageList = ["성견/성묘", "1살미만"];
-    const nutrientList = ['조단백질', '조지방', '조섬유', '조회분', '칼슘', '인', '수분']
+    const nutrientList = ['조단백질', '조지방', '조섬유', '조회분', '칼슘', '인', '수분', '타우린']
 
     const handleNutrientChange = (field, number) => {
 
@@ -94,16 +94,35 @@ const NutrientInput = (props) => {
                     <DefaultButton className={isButtonActive("isLarge", false)} onClick={() => handlePetDataChange("isLarge", false)}>아니오</DefaultButton>
                 </Card>            
             }
+            {petData?.species === "고양이" &&
+                <Card>
+                    <h2>사료 종류</h2>
+                    <DefaultButton className={isButtonActive("isDry", true)} onClick={() => handlePetDataChange("isDry", true)}>건식</DefaultButton>
+                    <DefaultButton className={isButtonActive("isDry", false)} onClick={() => handlePetDataChange("isDry", false)}>습식</DefaultButton>
+                </Card>            
+            }
             <Card>
                 <h2>영양성분</h2>
                 {nutrientList.map((nutrient, index) => {
-                    return (
-                        <div key={index}>
-                            <span>{nutrient}</span>
-                            <input type="number" defaultValue={0}
-                                onChange={(e) => {handleNutrientChange(nutrient, e.target.value)}}/>
-                        </div>
-                    )
+                    if (petData?.species === "고양이") {
+                        return (
+                            <div key={index}>
+                                <span>{nutrient}</span>
+                                <input type="number" defaultValue={0}
+                                    onChange={(e) => {handleNutrientChange(nutrient, e.target.value)}}/>
+                            </div>
+                        )}
+                    else {
+                        if (index < nutrientList.length - 1) {
+                            return (
+                                <div key={index}>
+                                    <span>{nutrient}</span>
+                                    <input type="number" defaultValue={0}
+                                        onChange={(e) => {handleNutrientChange(nutrient, e.target.value)}}/>
+                                </div>
+                            )
+                        }
+                    }
                 })}
             </Card>
             <DefaultButton onClick={() => { 

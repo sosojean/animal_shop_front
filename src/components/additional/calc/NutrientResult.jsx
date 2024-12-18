@@ -6,6 +6,7 @@ const NutrientResult = (props) => {
     const {petData, nutrientData} = props;
     // state {name: 조단백질, convert: ??, isTargetMet: true, 기준치 기입 필요}
 
+    let test = false;
     const getEliminateWater = (value, water) => {
         const result = value / (1 - water/100);
         return Math.round(result * 100) / 100;
@@ -15,8 +16,11 @@ const NutrientResult = (props) => {
         const nutrient = nutrientData;
         const waterIndex = nutrient.findIndex(nu => nu.name === "수분");
         const water = nutrient[waterIndex]?.value || 0;
+        const isDry = petData?.isDry;
         
-        const nutrients = ["조단백질", "조지방", "칼슘", "인"];
+        const nutrients = petData?.species === "고양이" ? 
+            ["조단백질", "조지방", "칼슘", "인", "타우린"] : ["조단백질", "조지방", "칼슘", "인"]
+
         let results = [];
         
         if (!age) return "나이를 작성해주세요";
@@ -46,6 +50,10 @@ const NutrientResult = (props) => {
                         break;
                     case "인":
                         targetValue = age === "1살미만" ? 0.8 : 0.5;
+                        maxValue = null;
+                        break;
+                    case "타우린":
+                        targetValue = isDry ? 0.1 : 0.2;
                         maxValue = null;
                         break;
                 }
@@ -93,47 +101,56 @@ const NutrientResult = (props) => {
     // 칼슘 인 비율 
     const getRate = () => {
         const nutrientResults = getNutrientAnalysis(petData?.age);
-        // console.log("nutrientResults", nutrientResults)
-
-        const calciumIndex = nutrientResults.findIndex((result, index) => {
-            return result.name === "칼슘"});
-        const phosphorusIndex = nutrientResults.findIndex((result, index) => {
-            return result.name === "인"});
-
+        const calciumIndex = nutrientResults.findIndex(result => result.name === "칼슘");
+        const phosphorusIndex = nutrientResults.findIndex(result => result.name === "인");
+    
         const calcium = nutrientResults[calciumIndex].convert;
         const phosphorus = nutrientResults[phosphorusIndex].convert;
-
-        const rate = calcium/phosphorus;
-        let isTargetMet;
-
+    
+        const rate = phosphorus !== 0 ? calcium / phosphorus : 0;
+        let isTargetMet = false;
+        let targetValue = 0;
+        let maxValue = null;
+    
         switch(petData?.species) {
             case "고양이":
                 switch(petData?.age) {
                     case "1살미만":
-                        isTargetMet = rate >= 1/0.8 ? "충족" : "미충족";
-                        return isTargetMet;
+                        targetValue = 1/0.8;
+                        isTargetMet = rate >= targetValue;
+                        break;
                     case "성견/성묘":
-                        isTargetMet = rate >= 1/0.83 ? "충족" : "미충족";
-                        return isTargetMet;
+                        targetValue = 1/0.83;
+                        isTargetMet = rate >= targetValue;
+                        break;
                     default:
-                        return "아기 고양이인지 성묘인지 표시해주세요"
+                        return { error: "아기 고양이인지 성묘인지 표시해주세요" };
                 }
+                break;
             case "강아지":
                 switch(petData?.age) {
                     case "1살미만":
-                        isTargetMet = 2 > (rate >= 1 && rate < 2) ? "충족" : "미충족";
-                        return isTargetMet;
                     case "성견/성묘":
-                        isTargetMet = 2 > (rate >= 1 && rate < 2) ? "충족" : "미충족";
-                        return isTargetMet;
+                        targetValue = 1;
+                        maxValue = 2;
+                        isTargetMet = rate >= targetValue && rate < maxValue;
+                        break;
                     default:
-                        return "아기 강아지인지 성견인지 표시해주세요"
+                        return { error: "아기 강아지인지 성견인지 표시해주세요" };
                 }
+                break;
             default:
-                return "강아지인지 고양이인지 표시해주세요"
+                return { error: "강아지인지 고양이인지 표시해주세요" };
         }
-
-    }
+    
+        return {
+            name: "칼슘:인 비율",
+            convert: parseFloat(rate.toFixed(2)),
+            isTargetMet: isTargetMet,
+            targetValue: parseFloat(targetValue.toFixed(2)),
+            maxValue: maxValue ? parseFloat(maxValue.toFixed(2)) : null
+        };
+    };
 
     const results = getNutrientAnalysis(petData?.age);
 
@@ -152,7 +169,7 @@ const NutrientResult = (props) => {
                     goals: [{
                         name: '기준치',
                         value: results.find(item => item.name === "조단백질")?.targetValue,
-                        strokeHeight: 5,
+                        strokeHeight: 30,
                         strokeColor: '#FEB019'
                     }]
                 },
@@ -162,17 +179,21 @@ const NutrientResult = (props) => {
                     goals: [{
                         name: '기준치',
                         value: results.find(item => item.name === "조지방")?.targetValue,
-                        strokeHeight: 5,
+                        strokeHeight: 30,
                         strokeColor: '#FEB019'
                     }]
                 }
             ]
         }],
+        plotOptions: {
+            bar: {
+              horizontal: true,
+            }
+        },
         colors: ['#008FFB'],
         yaxis: {
             min: 0,
-            max: 35,
-            title: { text: "대량영양소 (%)" }
+            max: 35
         },
         dataLabels: {
             enabled: true,
@@ -196,13 +217,13 @@ const NutrientResult = (props) => {
                         {
                             name: '기준치',
                             value: results.find(item => item.name === "칼슘")?.targetValue,
-                            strokeHeight: 5,
+                            strokeHeight: 30,
                             strokeColor: '#FEB019'
                         },
                         {
                             name: '최대치',
                             value: results.find(item => item.name === "칼슘")?.maxValue,
-                            strokeHeight: 5,
+                            strokeHeight: 30,
                             strokeColor: '#FF4560'
                         }
                     ]
@@ -214,24 +235,35 @@ const NutrientResult = (props) => {
                         {
                             name: '기준치',
                             value: results.find(item => item.name === "인")?.targetValue,
-                            strokeHeight: 5,
+                            strokeHeight: 30,
                             strokeColor: '#FEB019'
                         },
                         {
                             name: '최대치',
                             value: results.find(item => item.name === "인")?.maxValue,
-                            strokeHeight: 5,
+                            strokeHeight: 30,
                             strokeColor: '#FF4560'
                         }
                     ]
-                }
+                },
+            ...(petData.species === "고양이" ? [{
+                    x: '타우린',
+                    y: results.find(item => item.name === "타우린")?.convert,
+                    goals: [
+                      { name: '기준치', value: results.find(item => item.name === "타우린")?.targetValue, strokeHeight: 30, strokeColor: '#FEB019' }
+                    ]
+                }] : [])
             ]
         }],
+        plotOptions: {
+            bar: {
+              horizontal: true,
+            }
+        },
         colors: ['#00E396'],
         yaxis: {
             min: 0,
-            max: 3,
-            title: { text: "미량영양소 (%) - 칼슘:인 비율 " + getRate() }
+            max: 2
         },
         dataLabels: {
             enabled: true,
@@ -278,9 +310,14 @@ const NutrientResult = (props) => {
                                     <td>{result.isTargetMet ? "충족" : "미충족"}</td>
                                 </tr>
                             ))}
+                            <tr key={10}>
+                                <td>{getRate().name}</td>
+                                <td>{getRate().targetValue}</td>
+                                <td>{getRate().convert}</td>
+                                <td>{getRate().isTargetMet ? "충족" : "미충족"}</td> 
+                            </tr>
                         </tbody>
                     </table>
-                    <div><span>인:칼슘</span>{getRate()}</div>
                 </Card>        
 
             </div>

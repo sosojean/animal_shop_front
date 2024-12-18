@@ -7,7 +7,7 @@ import CalcGoods from "./CalcGoods";
 
 const NutrientCalculator = () => {
 
-    const [petData, setPetData] = useState({species: "강아지", age: "성견/성묘", isLarge: false});
+    const [petData, setPetData] = useState({species: "강아지", age: "성견/성묘", isLarge: false, isDry: false});
     const [nutrientData, setNutrientData] = useState([]);
     const [showResult, setShowResult] = useState(false);
     const [goods, setGoods] = useState([]);
