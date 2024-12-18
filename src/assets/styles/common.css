@@ -53,3 +53,12 @@
     border-radius: 2px/2px;
     /*color: white;*/
 }
+
+.no-contents{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    height: 460px;
+    align-items: center;
+}

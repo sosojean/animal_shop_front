@@ -9,6 +9,7 @@ const SellerManagement = (props) => {
     const [data, setData] = useState()
     const [page, setPage] = useState(1)
     const [totalSeller, setTotalSeller] = useState()
+    const [isEdited, setIsEdited] = useState(false)
 
 
     useEffect(() => {
@@ -24,7 +25,7 @@ const SellerManagement = (props) => {
         }).catch(error => {
             console.log(error)
         })
-    },[page])
+    },[page,isEdited])
 
     const header = {
         username: "이름",
@@ -40,7 +41,7 @@ const SellerManagement = (props) => {
         <SellerInfoItem isHeader = {true} item={header}/>
         {data&&data.map((item) =>{
                 return(
-                    <SellerInfoItem key={item.bln} item={item}/>
+                    <SellerInfoItem key={item.bln} item={item} setIsEdited={setIsEdited} isEdited={isEdited}/>
                 )
             })
         }

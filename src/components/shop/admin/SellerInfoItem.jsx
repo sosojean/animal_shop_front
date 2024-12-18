@@ -1,5 +1,6 @@
 import "../../../assets/styles/shop/admin/sellerInfoItem.scss"
 import instance from "../../../utils/axios";
+import {useState} from "react";
 const SellerInfoItem = (props) => {
     const item = props.item;
     // console.log(item);
@@ -9,6 +10,8 @@ const SellerInfoItem = (props) => {
         instance({
             url: `/admin/seller-ok?username=${item.username}`,
             method : "patch"
+        }).then((res)=>{
+            props.setIsEdited(!props.isEdited)
         })
     }
 
@@ -17,6 +20,9 @@ const SellerInfoItem = (props) => {
         instance({
             url: `/admin/seller-revoke?username=${item.username}`,
             method : "patch"
+        }).then((res) => {
+            console.log(res)
+            props.setIsEdited(!props.isEdited)
         })
     }
     const deleteSeller = (e) => {
@@ -24,6 +30,8 @@ const SellerInfoItem = (props) => {
         instance({
             url: `/admin/seller-delete?username=${item.username}`,
             method : "delete"
+        }).then((res) => {
+            props.setIsEdited(!props.isEdited)
         })
     }
 

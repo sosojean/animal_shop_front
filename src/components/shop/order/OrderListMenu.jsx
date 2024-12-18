@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Card from "../../common/Card";
 import "../../../assets/styles/shop/order/orderListMenu.scss"
 import instance from "../../../utils/axios";
+import DefaultButton from "../../common/DefaultButton";
 
 const OrderListMenu = ({setUrl}) => {
 
@@ -22,8 +23,8 @@ const OrderListMenu = ({setUrl}) => {
     return (
         data&&
 
-        <Card className="order-list-menu">
-            <button  onClick={()=>{setUrl("/shop/orders")}}> 전체 {data.entire}</button>
+        <Card className="default-card order-list-menu">
+            <button onClick={()=>{setUrl("/shop/orders")}}> 전체 {data.entire}</button>
             <button disabled={data.waiting===0} onClick={()=>{setUrl("/shop/orders?status=waiting")}}> 결제 승인{data.waiting}</button>
             <button disabled={data.revoke===0} onClick={()=>{setUrl("/shop/orders?status=revoke")}}> 배송 취소{data.revoke}</button>
 
