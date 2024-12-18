@@ -147,19 +147,6 @@ const ProductDetailHeader = ({data}) => {
         } else {
             return ""
         }
-
-        // if (selectedDefault !== optionPrice
-        
-        // if (defaultPrice !== optionPrice) {
-        //     const trimmedPrice = optionPrice-defaultPrice ;
-        //     const result =
-        //         (trimmedPrice < 0) ?
-        //             `(-${Math.abs(trimmedPrice).toLocaleString()}원)` : `(+${Math.abs(trimmedPrice).toLocaleString()}원)`;
-        //     return result;
-        // }
-        // else{
-        //     return ""
-        // }
     }
 
     //수량 변경 핸들러
@@ -274,7 +261,7 @@ const ProductDetailHeader = ({data}) => {
                 <div>
                     <h2>{data.seller}</h2>
                     <h1>{data.name}</h1>
-                    {data.options[0].discount_rate > 0 || data.options[0].discount_rate !== null ?
+                    {data.options[0].discount_rate > 0 && data.options[0].discount_rate !== null ?
                         <div className="discount-price-container">                        
                             <div className="discount-price">
                                 <span className="rate">{data.options[0].discount_rate}%</span>

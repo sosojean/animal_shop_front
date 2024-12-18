@@ -24,7 +24,7 @@ const SellerItem = (props) => {
                 <div className='SellerItemName'>
                     <Link to={`/shop/detail/${item.id}`}>{item.name}</Link>
                 </div>
-                <div className='SellerItemPrice'>{item.options[0]?.price} 원</div>
+                <div className='SellerItemPrice'>{item.options[0]?.price.toLocaleString()} 원</div>
                 <div className='SellerItemSpecies'>{item.species === "dog" ? "강아지" : "고양이"}</div>
                 <div className='SellerItemCategory'>{item.category}</div>
                 {pageType === "suspending" &&

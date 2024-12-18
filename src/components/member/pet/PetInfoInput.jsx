@@ -1,16 +1,29 @@
 import instance from "../../../utils/axios";
 
-const PetInfoInput = ({setNext,setPrev,children,isFirstPage,isLastPage,isComplete,petInfo}) => {
+const PetInfoInput = (props) => {
+
+    const {setNext,setPrev,children,isFirstPage,isLastPage,isComplete,petInfo,
+        catBreedOptions, dogBreedOptions
+    } = props;
 
     const confirmHandler=()=> {
+
+        const postData = {...petInfo};
+        const breedIndex = postData.breed
+        
+        switch (petInfo.species) {
+                case "CAT":
+                    postData.breed = catBreedOptions[parseInt(breedIndex)]
+                    break
+                case "DOG":
+                    postData.breed = dogBreedOptions[parseInt(breedIndex)]
+                    break
+        }
 
         instance({
             url:"/pet/register",
             method:"post",
-            data:{
-                ...petInfo
-
-            }
+            data: postData
         }).then((response) => {
             Object.entries(petInfo).forEach(([key,value]) => {
                 sessionStorage.setItem(key,value);

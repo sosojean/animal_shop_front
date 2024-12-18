@@ -1,14 +1,18 @@
 import Card from "../../common/Card";
-import {catBreedOptions, dogBreedOptions, weightOptions} from "../../../utils/petOptions";
-import React from "react";
+import {weightOptions} from "../../../utils/petOptions";
+import React, { useEffect, useState } from "react";
 import "../../../assets/styles/member/PetInfoDetail.scss"
 import instance from "../../../utils/axios";
+import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCrown} from "@fortawesome/free-solid-svg-icons";
 import animalPlaceholder from "../../../assets/img/animalPlaceholder.svg"
 
 
-const PetInfoDetail = ({item, setIsEdited, isEdited}) => {
+const PetInfoDetail = (props) => {
+
+    const {item, setIsEdited, isEdited, dogBreedOptions, catBreedOptions} = props;
+    
     console.log(item);
 
     const url = item?.profileImageUrl?`http://localhost:8080/file/image-print?filename=${item.profileImageUrl
@@ -41,7 +45,7 @@ const PetInfoDetail = ({item, setIsEdited, isEdited}) => {
                         </div>
 
                         <span>{item.age} 살</span>
-                        <span>{item.species === "CAT" ? catBreedOptions[parseInt(item.breed)] : dogBreedOptions[parseInt(item.breed)]}</span>
+                        <span>{item.breed}</span>
                         <span>{weightOptions[parseInt(item.weight)]}</span>
                         <span>{item.gender === "FEMALE" ? "여아" : "남아"}</span>
                         <span>{item["is_neutered"]}</span>

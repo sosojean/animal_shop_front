@@ -20,6 +20,15 @@
                 display: flex;
                 gap: 0.5rem;
                 margin-bottom: 0.8rem;
+
+                .selected {
+                    color: #ffcd03;
+                }
+
+                .non-selected {
+                    color: #d3d3d3;
+                }
+
             }
 
             .review-header{
