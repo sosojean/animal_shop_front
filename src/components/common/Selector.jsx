@@ -1,3 +1,4 @@
+import "../../assets/styles/common/selector.scss";
 const Selector = (props) => {
     const {
         trimOptionText = (option)=>{return option} ,
@@ -9,13 +10,12 @@ const Selector = (props) => {
     } = props;
 
     return (
-        <select value={selectedValue} onChange={e=>handleSelectChange(name,e.target.value)} >
+        <select className="selector" value={selectedValue} onChange={e=>handleSelectChange(name,e.target.value)} >
             <option value='placeholder' disabled hidden>옵션 선택</option>
             {optionItems.map((option, index) => {
                     return (
                         <option key={`${option+index}`}  value={index}>
                             {trimOptionText(option,priceTrimmer)}
-
                         </option>
                     )}
             )}

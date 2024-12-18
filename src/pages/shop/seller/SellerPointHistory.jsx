@@ -30,6 +30,7 @@ const SellerPointHistory = () => {
         setStartDate(start);
         setEndDate(end);
 
+        setData([])
         // API 호출
         instance({
             url: `/point/entire-sum-seller`,

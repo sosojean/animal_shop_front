@@ -40,7 +40,7 @@ const AdminNoticeDetailContent = ({isSeller}) => {
             setData(res.data["noticesDTOList"][0])
             console.log(res.data["noticesDTOList"][0]["attachmentUrl"]);
             const fileName
-                = res.data["noticesDTOList"][0]["attachmentUrl"].split("_")[2] || "download";
+                = res.data["noticesDTOList"][0]["attachmentUrl"].split("_")[2] || "";
             setFileName(fileName)
         }).catch((error) => {
             console.log(error);
@@ -143,9 +143,10 @@ const AdminNoticeDetailContent = ({isSeller}) => {
                             <Viewer initialValue={data.content}/>
                         </div>
 
-                        <label htmlFor="download">{fileName!=null?fileName:""}</label>
-                        <button id="download" name="download"  onClick={fileDownloadHandler}>다운</button>
-
+                        {fileName==""? "":<><label htmlFor="download">{fileName}</label>
+                            <button id="download" name="download"  onClick={fileDownloadHandler}>다운</button>
+                            </>
+                        }
 
                         <hr/>
                         <Link to={"/admin/notice"}> 목록보기</Link>

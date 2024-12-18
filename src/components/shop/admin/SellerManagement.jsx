@@ -4,6 +4,7 @@ import SellerInfoItem from "./SellerInfoItem";
 import instance from "../../../utils/axios";
 import Pagination from "../../board/Pagination";
 import AdminMenu from "./AdminMenu";
+import Title from "../../common/Title";
 
 const SellerManagement = (props) => {
     const [data, setData] = useState()
@@ -38,12 +39,12 @@ const SellerManagement = (props) => {
 
     return (<>
         <AdminMenu/>
+        <Title>판매자 관리</Title>
         <SellerInfoItem isHeader = {true} item={header}/>
         {data&&data.map((item) =>{
-                return(
-                    <SellerInfoItem key={item.bln} item={item} setIsEdited={setIsEdited} isEdited={isEdited}/>
-                )
-            })
+            return(
+                <SellerInfoItem key={item.bln} item={item} setIsEdited={setIsEdited} isEdited={isEdited}/>
+            )})
         }
         <Pagination currentPage={page} handlePageChange={setPage} totalPost={totalSeller}/>
     </>)

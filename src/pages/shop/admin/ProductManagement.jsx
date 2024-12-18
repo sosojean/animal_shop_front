@@ -7,6 +7,9 @@ import instance from "../../../utils/axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTable} from "@fortawesome/free-solid-svg-icons";
 import * as converter from "json-2-csv";
+import Title from "../../../components/common/Title";
+import DefaultButton from "../../../components/common/DefaultButton";
+import {toast} from "react-toastify";
 
 
 const ProductManagement = () => {
@@ -46,20 +49,21 @@ const ProductManagement = () => {
             linkRef.current.click();
             URL.revokeObjectURL(url);
         }
+        toast.success("파일이 저장되었습니다.");
     }
 
     return (
         <div>
             <AdminMenu/>
+            <Title>판매상품관리</Title>
 
-            <span>전체 상품 관리</span>
             <ProductSearchHeader setQueryData={setQueryData} setQueryDataTotal={setQueryDataTotal}
-                                 queryDataTotal={queryDataTotal}/>
-
-            <span> {queryDataTotal && `검색결과 ${queryDataTotal.toLocaleString()}건`}</span>
+                                 queryDataTotal={queryDataTotal} saveToCsv={saveToCsv}/>
 
 
-            <button onClick={saveToCsv}>파일저장 (.csv) <FontAwesomeIcon className="csv-icon" icon={faTable}/></button>
+
+
+
             <a ref={linkRef} style={{display: "none"}}>Download</a>
 
             <div className="product-manage-table-container">

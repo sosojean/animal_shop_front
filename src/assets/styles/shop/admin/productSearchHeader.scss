@@ -1,6 +1,51 @@
 .product-search-header{
+  height: 80px;
+  form{
+    * {
+      height: 40px;
+    }
+  }
+
+.search-products-count{
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  //justify-content:flex-end;
+  //display: flex;
+  gap: 1rem;
+  padding-bottom:8px;
+  padding-top:8px;
+  .filter{
+    background: #ffa676;
+    background: #e8e8e8;
+    //background: #ffebe0;
+    //background: #e5c1ad;
+    //background: #ff9e89;
+
+
+
+
+    border-radius: 1rem/1rem;
+    border: none;
+  }
+
+
+  .result-control{
+    text-align: right;
+    align-items: center;
+
+  }
+
+}
+  .product-filter{
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+  }
+
+
+
   .csv-icon{
     font-size: 1.5rem;
   }

@@ -15,7 +15,7 @@
     --point-background-color-80: #76a970c8;
     --point-background-color-90: #76a970e6;
     --point-shadow-color: #5a8161;
-    --point-shadow-color-30: rgba(0, 0, 0, 0.2);
+    --point-shadow-color-30: #5a81614d;
     --point-shadow-color-50: #5a816180;
 
     --default-font-color: #000;
@@ -35,7 +35,7 @@
     --alpha-70: rgb(0 0 0 / 70%);
     --alpha-80: rgb(0 0 0 / 80%);
     --alpha-reverse-90: rgb(255 255 255 / 80%);
-    --warning-color: #E73C3C;
+    --warning-color: #D94F30;
     --warning-color-10: rgb(231 60 60 / 10%);
     --apple-color: #000;
     --google-color: #d0543f;

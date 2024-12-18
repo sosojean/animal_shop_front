@@ -1,4 +1,4 @@
-// import "../../assets/styles/common/inputField.scss"
+import "../../assets/styles/common/inputField.scss"
 
 const InputField = (props) => {
     const {
@@ -16,7 +16,7 @@ const InputField = (props) => {
 
     return (<>
 
-        <div className={className}>
+        <div className={"input" +" "+ className}>
             <label htmlFor={name}>{title}</label>
             <input value={input} onChange={e=>{setInput(name,e.target.value)}}
                    type={type} id={name} placeholder={placeholder}  />
