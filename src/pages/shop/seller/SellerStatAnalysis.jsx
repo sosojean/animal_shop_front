@@ -4,6 +4,7 @@ import TestComp from "./testComp";
 import SellerAnalysisTable from "../../../components/shop/seller/SellerAnalysisTable";
 import SellerItemAnalysisTable from "../../../components/shop/seller/SellerItemAnalysisTable";
 import instance from "../../../utils/axios";
+import "../../../assets/styles/shop/seller/sellerStatAnalysis.scss"
 
 const SellerStatAnalysis = () => {
     const now = new Date();
@@ -40,6 +41,7 @@ const SellerStatAnalysis = () => {
     const [cartData, setCartData] = useState();
     const [dateList, setDateList] = useState(generateDateList);
     const [itemPriceData, setItemPriceData] = useState();
+    const [selectedMonth, setSelectedMonth] = useState(12)
 
     useEffect(() => {
         const start = `${from.year}-${String(from.month).padStart(2, "0")}-${String(from.day).padStart(2, "0")}`;
@@ -71,7 +73,7 @@ const SellerStatAnalysis = () => {
     }, [from, to]);
 
     useEffect(() => {
-        const month = dateList[selectedIndex].slice(5, 7).replace(0, "");
+        const month = dateList[selectedIndex].slice(5, 7);
         const year = dateList[selectedIndex].slice(0, 4);
         const url = `/seller/profit-item-info?year=${year}&month=${month}`;
 
@@ -80,7 +82,11 @@ const SellerStatAnalysis = () => {
             method: "GET",
         }).then((res) => {
             const data = res.data.itemProfitInfoList;
+            console.log(res.data)
+            setSelectedMonth(month)
+
             setItemPriceData(priceDataTrimmer(data));
+
         });
     }, [selectedIndex]);
 
@@ -127,15 +133,21 @@ const SellerStatAnalysis = () => {
     };
 
     return (
-        <div>
-            <div>
-                <button>월별 조회 하기</button>
+        <div className="seller-stat-analysis">
+            <div  className="btn-container row">
+                {/*<button>월별 조회 하기</button>*/}
                 <button
                     onClick={() => applyYearChange(-1)}
                     disabled={from.year - 1 < 2000}
                 >
                     지난해로 이동
                 </button>
+                <div>
+                    <h3>
+                        조회
+                        기간: {from.year}.{String(from.month).padStart(2, "0")} - {to.year}.{String(to.month).padStart(2, "0")}
+                    </h3>
+                </div>
                 <button
                     onClick={() => applyYearChange(1)}
                     disabled={to.year + 1 > now.getFullYear()}
@@ -143,12 +155,6 @@ const SellerStatAnalysis = () => {
                     다음 해로 이동
                 </button>
 
-            </div>
-            <div>
-                <h3>
-                    조회
-                    기간: {from.year}.{String(from.month).padStart(2, "0")} - {to.year}.{String(to.month).padStart(2, "0")}
-                </h3>
             </div>
 
 
@@ -161,7 +167,7 @@ const SellerStatAnalysis = () => {
                         setSelectedIndex={setSelectedIndex}
                     />
                 )}
-                {itemPriceData && <TestComp data={itemPriceData}/>}
+                {itemPriceData && <TestComp selectedMonth={selectedMonth} data={itemPriceData}/>}
             </div>
 
             <div
@@ -176,7 +182,15 @@ const SellerStatAnalysis = () => {
                         colName2="point"
                     />
                 )}
-                {itemPriceData && <SellerItemAnalysisTable itemPriceData={itemPriceData}/>}
+
+                {itemPriceData && itemPriceData.length !== 0?
+                    <SellerItemAnalysisTable itemPriceData={itemPriceData}/>:
+                    <div className="no-contents">
+                        <span>
+                            {selectedMonth<10?selectedMonth?.replace(0,""):selectedMonth}
+                            월의 판매 정보가 없습니다.
+                        </span>
+                    </div>}
             </div>
         </div>
     );

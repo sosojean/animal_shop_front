@@ -12,11 +12,12 @@
     display: table;
     width: 100%;
 
-    border:1px solid black;
+
+    border:1px solid  var(--point-shadow-color-50);
     //width: 100%;
     border-collapse: collapse;
     .table-header {
-      background-color: #f4f4f4;
+      background-color: var(--point-background-color-20);
       padding: 10px;
       height: 40px;
       text-align: center;
@@ -28,6 +29,7 @@
     .table-body{
 
       text-align: center;
+
       td{
         width: 125px;
         height: 40px;

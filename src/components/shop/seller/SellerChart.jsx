@@ -7,9 +7,11 @@ const SellerChart = ({data,data2,categories,setSelectedIndex}) => {
 
 
     const chartOptions = {
+        title:{text:"장바구니/구매 건수 추이"},
 
             // Define your chart options here
             chart: {
+
                 animations: {
                     enabled: false},
                 type: 'line',
@@ -33,11 +35,11 @@ const SellerChart = ({data,data2,categories,setSelectedIndex}) => {
 
          series : [
             {
-                name: "Dataset 1",
+                name: "판매건수",
                 data: data, // 첫 번째 데이터 세트
             },
             {
-                name: "Dataset 2",
+                name: "장바구니 담긴 횟수",
                 data: data2, // 두 번째 데이터 세트
             },
         ],
