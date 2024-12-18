@@ -21,9 +21,9 @@ const CalorieResult = (props) => {
         if (isPuppy) {
             switch (month) {
                 case "1-4개월":
-                    return Math.round(calculateDogRER(weight) * 3);
+                    return Math.round(calculateDogRER(weight) * 3) + "kcal";
                 case "4-12개월":
-                    return Math.round(calculateDogRER(weight) * 2);
+                    return Math.round(calculateDogRER(weight) * 2) + "kcal";
                 default:
                     return "아기 강아지의 월령을 선택해주세요";
             }
@@ -34,23 +34,23 @@ const CalorieResult = (props) => {
                 case "체중조절":
                     switch (detail) {
                         case "감량":
-                            adultMER = Math.round(calculateDogRER(weight));
+                            adultMER = Math.round(calculateDogRER(weight)) + "kcal";
                             break;
                         case "증량":
-                            adultMER = Math.round(calculateDogRER(weight) * 1.7);
+                            adultMER = Math.round(calculateDogRER(weight) * 1.7) + "kcal";
                             break;
                     }
                     break;
                 case "높은 활동성":
                     switch (detail) {
                         case "활동적":
-                            adultMER = Math.round(calculateDogRER(weight) * 2);
+                            adultMER = Math.round(calculateDogRER(weight) * 2) + "kcal";
                             break;
                         case "매우 활동적":
-                            adultMER = Math.round(calculateDogRER(weight) * 3);
+                            adultMER = Math.round(calculateDogRER(weight) * 3) + "kcal";
                             break;
                         case "극도로 활동적":
-                            adultMER = Math.round(calculateDogRER(weight) * 4);
+                            adultMER = Math.round(calculateDogRER(weight) * 4) + "kcal";
                             break;
                         default:
                             return "알맞는 활동성을 선택해주세요";
@@ -59,19 +59,19 @@ const CalorieResult = (props) => {
                 case "임신/수유": // 중성화 체크 필요 없음
                     switch (detail) {
                         case "임신 초기":
-                            return Math.round(calculateDogRER(weight) * 1.8);
+                            return Math.round(calculateDogRER(weight) * 1.8) + "kcal";
                         case "임신 후기":
-                            return Math.round(calculateDogRER(weight) * 3);
+                            return Math.round(calculateDogRER(weight) * 3) + "kcal";
                         case "수유":
-                            return `${Math.round(calculateDogRER(weight) * 2)} ~ ${Math.round(calculateDogRER(weight) * 6)} 새끼 수에 따라 범위 내에서 가감하세요`;
+                            return `${Math.round(calculateDogRER(weight) * 2)} ~ ${Math.round(calculateDogRER(weight) * 6)} kcal (새끼 수에 따라 범위 내에서 가감하세요)`;
                     }
                     break;
                 case "해당없음": // status에 해당되는 것 없음
                     switch (neuter) {
                         case "완료":
-                            return Math.round(calculateDogRER(weight) * 1.6);
+                            return Math.round(calculateDogRER(weight) * 1.6) + "kcal";
                         case "안함":
-                            return Math.round(calculateDogRER(weight) * 1.8);
+                            return Math.round(calculateDogRER(weight) * 1.8) + "kcal";
                         default:
                             return "중성화 여부를 선택해주세요";
                     }
@@ -82,9 +82,9 @@ const CalorieResult = (props) => {
             // 중성화 여부에 따른 값 반환
             switch (neuter) {
                 case "완료":
-                    return Math.round((adultMER - adultMER * 0.3));
+                    return Math.round((adultMER - adultMER * 0.3)) + "kcal";
                 case "안함":
-                    return Math.round(adultMER);
+                    return Math.round(adultMER) + "kcal";
                 default:
                     return "중성화 여부를 선택해주세요";
             }
@@ -98,11 +98,11 @@ const CalorieResult = (props) => {
         if (isPuppy) {
             switch (month) {
                 case "1-4개월":
-                    return Math.round(calculateDogRER(weight) * 3);
+                    return Math.round(calculateDogRER(weight) * 3) + "kcal";
                 case "4-6개월":
-                    return Math.round(calculateDogRER(weight) * 2.5);
+                    return Math.round(calculateDogRER(weight) * 2.5) + "kcal";
                 case "7-12개월":
-                    return Math.round(calculateDogRER(weight) * 2);
+                    return Math.round(calculateDogRER(weight) * 2) + "kcal";
                 default:
                     return "아기 고양이의 월령을 선택해주세요"
             }
@@ -113,32 +113,32 @@ const CalorieResult = (props) => {
                 case "체중조절":
                     switch (detail) {
                         case "감량":
-                            adultMER = Math.round(calculateDogRER(weight) * 0.8);
+                            adultMER = Math.round(calculateDogRER(weight) * 0.8) + "kcal";
                             break;
                         case "증량":
-                            adultMER = Math.round(calculateDogRER(weight) * 1.7);
+                            adultMER = Math.round(calculateDogRER(weight) * 1.7) + "kcal";
                             break;
                     }
                     break;
                 case "높은 활동성":
-                    adultMER = Math.round(calculateDogRER(weight) * 1.6);
+                    adultMER = Math.round(calculateDogRER(weight) * 1.6) + "kcal";
                     break;
                 case "임신/수유": // 중성화 체크 필요 없음
                     switch (detail) {
                         case "임신 초기":
-                            return Math.round(calculateDogRER(weight) * 2);
+                            return Math.round(calculateDogRER(weight) * 2) + "kcal";
                         case "임신 후기":
-                            return Math.round(calculateDogRER(weight) * 3);
+                            return Math.round(calculateDogRER(weight) * 3) + "kcal";
                         case "수유":
-                            return `${Math.round(calculateDogRER(weight) * 2)} ~ ${Math.round(calculateDogRER(weight) * 6)} 새끼 수에 따라 범위 내에서 가감하세요`;
+                            return `${Math.round(calculateDogRER(weight) * 2)} ~ ${Math.round(calculateDogRER(weight) * 6)} kcal (새끼 수에 따라 범위 내에서 가감하세요)`;
                     }
                     break;
                 case "해당없음": // status에 해당되는 것 없음
                     switch (neuter) {
                         case "완료":
-                            return Math.round(calculateDogRER(weight) * 1.2);
+                            return Math.round(calculateDogRER(weight) * 1.2) + "kcal";
                         case "안함":
-                            return Math.round(calculateDogRER(weight) * 1.4);
+                            return Math.round(calculateDogRER(weight) * 1.4) + "kcal";
                         default:
                             return "중성화 여부를 선택해주세요";
                     }
@@ -149,9 +149,9 @@ const CalorieResult = (props) => {
             // 중성화 여부에 따른 값 반환
             switch (neuter) {
                 case "완료":
-                    return Math.round((adultMER - adultMER * 0.3));
+                    return Math.round((adultMER - adultMER * 0.3)) + "kcal";
                 case "안함":
-                    return Math.round(adultMER);
+                    return Math.round(adultMER) + "kcal";
                 default:
                     return "중성화 여부를 선택해주세요";
             }
@@ -167,7 +167,7 @@ const CalorieResult = (props) => {
                         <p><b>1일 권장 칼로리</b></p>
                         {calcData?.species === "강아지" ?
                             <p>{calculateDogMER(calcData?.isPuppy, calcData?.month, calcData?.status, 
-                                calcData?.detail, calcData?.neuter)} kcal</p> :
+                                calcData?.detail, calcData?.neuter)}</p> :
                             calcData?.species === "고양이" ?
                                 <p>{calculateCatMER(calcData?.isPuppy, calcData?.month, calcData?.status, 
                                     calcData?.detail, calcData?.neuter)} kcal</p> :
@@ -182,7 +182,8 @@ const CalorieResult = (props) => {
                     {showFeeding &&
                         <div>
                             <p><b>1일 급여량</b></p>
-                            <p>{(calculateDogRER(calcData?.weight || 0) * 1000) / amount} g</p>
+                            <p>{(() => { const result = Math.round((calculateDogRER(calcData?.weight || 0) * 1000) / amount);
+                                return isFinite(result) && !isNaN(result) ? `${result} g` : '올바른 값을 입력해주세요';})()}</p>
                         </div>                    
                     }
                 </div>
