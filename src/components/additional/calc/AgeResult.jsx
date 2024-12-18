@@ -47,8 +47,8 @@ const AgeResult = (props) => {
         return "입력값 오류";
     }
 
-       // 강아지 나이 계산기
-       const getCalculateDogAge = (dogAge, size) => {
+    // 강아지 나이 계산기
+    const getCalculateDogAge = (dogAge, size) => {
         // 2년 이하의 강아지 나이 계산
         if (dogAge <= 2) {
             const months = Math.round(dogAge * 12);
