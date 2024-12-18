@@ -1,8 +1,10 @@
-
+import Card from "../../common/Card"
+import DefaultButton from"../../common/DefaultButton";
+import axios from "axios";
 
 const NutrientInput = (props) => {
 
-    const {petData, setPetData, nutrientData, setNutrientData, 
+    const {petData, setPetData, nutrientData, setNutrientData, setGoods,
         showResult, setShowResult} = props;
 
     // console.log("nutrientData", nutrientData);
@@ -36,43 +38,80 @@ const NutrientInput = (props) => {
         }));
     };
 
+    // 버튼 활성화
+    const isButtonActive = (field, value) => {
+        if (petData)
+            return petData[field] === value ? 'active' : '';
+    };
+
+    const handleRecommend = () => {
+
+        // 데이터 가공
+        const originData = {...petData};
+        let postData = {};
+
+        postData.species = originData.species === "강아지" ? "DOG" : "CAT"
+
+        console.log("postData", postData);
+        
+        axios({
+            url: `http://localhost:8080/calc/recommend/food`,
+            method: "POST",
+            data: postData
+        }).then((res) => {
+            console.log("handleRecommend", res.data);
+            setGoods(res.data.goods);
+        })
+        .catch((err) => {
+            console.error("error", err);
+        });
+    };
+
     return (
-        <div>
-            <div>
+        <Card className="default-card nutrient-input">
+            <Card>
                 <h2>반려동물 종류</h2>
                 <div>
                     {speciesList.map((species, index) => {
-                        return (<button key={index} 
+                        return (<DefaultButton key={index} className={isButtonActive("species", species)} 
                             onClick={() => handlePetDataChange("species", species)}>
-                                {species}</button>)
+                                {species}</DefaultButton>)
                     })}                  
                 </div>
-            </div>
-            <div>
+            </Card>
+            <Card>
                 <h2>반려동물 나이</h2>
                 {ageList.map((age, index) => {
-                    return <button key={index} onClick={(e) => handlePetDataChange("age", age)}>
-                        {age}</button>
+                    return <DefaultButton key={index} className={isButtonActive("age", age)} 
+                        onClick={(e) => handlePetDataChange("age", age)}>
+                        {age}</DefaultButton>
                 })}
-            </div>
-            <div>
-                <h2>대형견</h2>
-                <button onClick={() => handlePetDataChange("isLarge", true)}>네</button>
-                <button onClick={() => handlePetDataChange("isLarge", false)}>아니오</button>
-            </div>
-            <div>
+            </Card>
+            {petData?.species === "강아지" &&
+                <Card>
+                    <h2>대형견</h2>
+                    <DefaultButton className={isButtonActive("isLarge", true)} onClick={() => handlePetDataChange("isLarge", true)}>네</DefaultButton>
+                    <DefaultButton className={isButtonActive("isLarge", false)} onClick={() => handlePetDataChange("isLarge", false)}>아니오</DefaultButton>
+                </Card>            
+            }
+            <Card>
+                <h2>영양성분</h2>
                 {nutrientList.map((nutrient, index) => {
                     return (
                         <div key={index}>
                             <span>{nutrient}</span>
-                            <input type="number"
+                            <input type="number" defaultValue={0}
                                 onChange={(e) => {handleNutrientChange(nutrient, e.target.value)}}/>
                         </div>
                     )
                 })}
-            </div>
-            <button onClick={() => setShowResult(!showResult)}>결과 확인</button>
-        </div>
+            </Card>
+            <DefaultButton onClick={() => { 
+                setShowResult(!showResult);
+                handleRecommend();}}>
+                결과 확인
+            </DefaultButton>
+        </Card>
     )
 }
 

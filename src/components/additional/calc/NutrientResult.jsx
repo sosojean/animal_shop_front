@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import Card from "../../common/Card";
 import ReactApexChart from "react-apexcharts";
 
 const NutrientResult = (props) => {
@@ -240,39 +240,51 @@ const NutrientResult = (props) => {
     };
 
     return (
-        <div>
-            {/* {getNutrientAnalysis(petData?.age).map((result, index) => {
-
-                return (
-                    <div>
-                        <span>{result.name} </span>
-                        <span>{result.targetValue} </span>
-                        <span>{result.convert} </span>
-                        <span>{result.isTargetMet ? "충족" : "미충족"}</span>
-                    </div>
-                )
-            })}
-            <div>{getRate()}</div> */}
+        <Card className="default-card nutrient-result">
             <div>
                 {/* 기존 결과 표시 부분 */}
-                <div style={{ marginBottom: '20px', width: '50%' }}>
+                <Card style={{ marginBottom: '20px'}}>
                     <ReactApexChart 
                         options={macroOptions} 
                         series={macroOptions.series} 
                         type="bar" 
                         height={250} 
                     />
-                </div>
-                <div style={{ width: '50%' }}>
+                </Card>
+                <Card>
                     <ReactApexChart 
                         options={microOptions} 
                         series={microOptions.series} 
                         type="bar" 
                         height={250} 
                     />
-                </div>
+                </Card>
+                <Card>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>성분</th>
+                                <th>기준치</th>
+                                <th>입력값</th>
+                                <th>평가</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {getNutrientAnalysis(petData?.age).map((result, index) => (
+                                <tr key={index}>
+                                    <td>{result.name}</td>
+                                    <td>{result.targetValue}</td>
+                                    <td>{result.convert}</td>
+                                    <td>{result.isTargetMet ? "충족" : "미충족"}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <div><span>인:칼슘</span>{getRate()}</div>
+                </Card>        
+
             </div>
-        </div>
+        </Card>
     )
 }
 
