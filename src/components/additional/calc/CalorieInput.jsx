@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Card from "../../common/Card";
+import DefaultButton from "../../common/DefaultButton";
 
 
 const CalorieInput = (props) => {
@@ -34,22 +36,30 @@ const CalorieInput = (props) => {
         }));
     };
 
+    // 버튼 활성화
+    const isButtonActive = (field, value) => {
+        if (calcData)
+            return calcData[field] === value ? 'active' : '';
+    };
+
     return (
-        <div>
-            <div>
+        <Card className="default-card calrorie-input">
+            <Card className="default-card">
                 <h2>반려동물 종류</h2>
                 <div>
                     {speciesList.map((species, index) => {
-                        return <div key={index} onClick={() => {handleInputChange("species", species)}}>
-                            {species}</div>
-                    })}                  
+                        return <DefaultButton 
+                        key={index} className={isButtonActive("species", species)} 
+                        onClick={() => {handleInputChange("species", species)}}>
+                            {species}</DefaultButton>
+                    })}
                 </div>
-            </div>
-            <div>
+            </Card>
+            <Card className="default-card">
                 <h2>반려동물 몸무게</h2>
                 <input type="number" onChange={(e) => {handleInputChange("weight", e.target.value)}}/>
-            </div>
-            <div>
+            </Card>
+            <Card className="default-card">
                 <h2>반려동물 나이</h2>
                 <select onChange={(e) => {handleInputChange("isPuppy", e.target.value === "true")}}>
                     {ageList.map((age, index) => {
@@ -57,8 +67,8 @@ const CalorieInput = (props) => {
                             {age}</option>
                     })}
                 </select>
-            </div>
-            <div>
+            </Card>
+            <Card className="default-card">
                 <h2>세부 선택</h2>
                 {calcData?.species === "고양이" ? 
                     calcData?.isPuppy ?
@@ -109,15 +119,15 @@ const CalorieInput = (props) => {
                             </select>                       
                         </div>                           
                 }
-            </div>
-            <button onClick={() => {setShowFeeding(!showFeeding)}}>사료 급여량 g 계산</button>
+            </Card>
+            <DefaultButton onClick={() => {setShowFeeding(!showFeeding)}}>사료 급여량 g 계산</DefaultButton>
             {showFeeding &&
-                <div>
+                <Card className="default-card">
                     <p>사료의 kcal(kg당)을 작성해주세요</p>
                     <input type="number" onChange={(e) => setAmount(e.target.value)}/>
-                </div>            
+                </Card>            
             }
-        </div>
+        </Card>
     )
 }
 
