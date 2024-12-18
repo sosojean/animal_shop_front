@@ -3,14 +3,15 @@ import instance from "../../../utils/axios";
 import AgeInput from "./AgeInput";
 import AgeResult from "./AgeResult";
 import "../../../assets/styles/additional/ageCalc.scss"
+import CalcGoods from "./CalcGoods";
 
 const AgeCalculator = () => {
 
     const [calcData, setCalcData] = useState();
-    const [petData, setPetData] = useState({});
+    const [goods, setGoods] = useState([]);
+    console.log("goods", goods);
+    // const [petData, setPetData] = useState({});
     // {species: "dog", birth: "20200120", size: "small"}
-
-    console.log("petData", petData);
     
     const getMyPetData = () => {
         instance({
@@ -52,7 +53,7 @@ const AgeCalculator = () => {
                 }
             }
             
-            setPetData(stateData);
+            // setPetData(stateData);
             setCalcData(stateData);
         })
         .catch((err) => {
@@ -69,13 +70,16 @@ const AgeCalculator = () => {
             <h1 className="age-calc-header">나이 계산기</h1>
             <div className="age-calc-section">
                 <AgeInput
-                    calcData={calcData} setCalcData={setCalcData} petData={petData}
+                    calcData={calcData} setCalcData={setCalcData}
+                    setGoods={setGoods}
                 />
                 <AgeResult
                     calcData={calcData} setCalcData={setCalcData}
-                />                
+                />       
             </div>
-
+            <div>
+                <CalcGoods goods={goods}/>
+            </div>
         </div>
     )
 }
