@@ -15,19 +15,16 @@ const PlaceReview = ({item, mapId, setIsEdited, isEdited}) => {
     const modifiedTime = useModifyTime(item.created_date);
 
     useEffect(() => {
-
         instance({
             url:`/map/comment/check?commentId=${item.id}`,
             method:"get"
         }).then(res=>{
             console.log(item)
             console.log("item.id",item.id,res.data)
-
             setIsAuthor(res.data)
         }).catch(err=>{
             console.log(err)
         })
-
     }, [isEdited]);
 
     const deleteHandler = ()=>{

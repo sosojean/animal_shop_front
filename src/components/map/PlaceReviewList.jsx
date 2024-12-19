@@ -25,6 +25,7 @@ const PlaceReviewList = ({mapId}) => {
             // console.log(res.data)
             setTotalCount(res.data.total_count)
             setPage(1)
+            setIsEdited(!isEdited)
         }).catch((error) => {
             console.log(error)
         })

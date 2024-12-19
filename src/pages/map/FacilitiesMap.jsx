@@ -18,7 +18,7 @@ const FacilitiesMap = () => {
     const [page, setPage] = useState(1)
 
 
-
+    const [firstRender, setFirstRender] = useState(true)
     const [currLocation, setCurrLocation] = useState(
         {lat: 0, lng: 0},
     )
@@ -42,8 +42,17 @@ const FacilitiesMap = () => {
         category: null,
 
     })
-
     let markerList = [];
+
+    useEffect(() => {
+        // 페이지 로드 시 스크롤 막기
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            // 페이지 벗어날 때 스크롤 복원
+            document.body.style.overflow = "auto";
+        };
+    }, []);
 
     useEffect(() => {
         console.log("Bounds",Bounds)
@@ -65,7 +74,11 @@ const FacilitiesMap = () => {
             setData(res.data.mapPositionDTOList);
             setTotalPost(res.data.total_count)
             if (res.data.mapPositionDTOList.length === 0) {
-                toast.info("지도 내 검색 결과가 없습니다.")
+                if (firstRender) {
+                    setFirstRender(false)
+                }else{
+                    toast.info("지도 내 검색 결과가 없습니다.")
+                }
 
             }
         }).catch((err) => {

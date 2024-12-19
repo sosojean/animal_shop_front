@@ -17,12 +17,15 @@
 
 
   .place-list-container{
+
     padding: 4px;
     //height: 600px;
     //height: 800px;
 
     overflow-y: scroll;
     .place-list{
+      margin-top: 5px;
+
       min-height: 550px;
 
     }

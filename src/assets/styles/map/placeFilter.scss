@@ -26,7 +26,7 @@
     .category{
       white-space: nowrap; /* 기본적으로 텍스트가 한 줄로 유지되도록 */
 
-      border: 1px solid var(--alpha-5);
+      border: 1px solid var(--alpha-10);
       border-radius: 10px/10px;
       background: none;
       height: 40px;
@@ -47,7 +47,7 @@
 
     }
     input:checked + label {
-      background-color: orange;
+      background-color: var(--point-shadow-color-30);
       cursor: pointer;
     }
     label {
@@ -57,6 +57,7 @@
       cursor: pointer;
       //border: 1px solid #ccc;
       //border-radius: 4px;
+      background: var(--point-background-color-10);
       border: 1px solid var(--alpha-5);
       border-radius: 10px/10px;
     }
