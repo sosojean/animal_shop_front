@@ -1,10 +1,11 @@
-import AdoptInterestList from "../../components/additional/AdoptInterestList";
+import AdoptInterestList from "../../components/additional/adopt/AdoptInterestList";
 import Card from "../../components/common/Card";
 import Pagination from "../../components/board/Pagination";
 import "../../assets/styles/additional/adoptAnimal.scss"
 import instance from "../../utils/axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const AdoptInterestAnimal = () => {
 
@@ -47,6 +48,9 @@ const AdoptInterestAnimal = () => {
 
     return (
         <div>
+            <Link to="/adoption/commented">
+                <p>댓글 동물</p>
+            </Link>
             <Card>
                 <p>총 {dataCount} 마리의 아이들을 눈여겨 보고 있어요!</p>
             </Card>

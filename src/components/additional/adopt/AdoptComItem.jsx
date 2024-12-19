@@ -1,23 +1,25 @@
 import DefaultButton from "../../common/DefaultButton";
 import instance from "../../../utils/axios"
-import WikiComEditor from "./WikiComEditor";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import AdoptComEditor from "./AdooptComEditor";
 
-const WikiComItem = (props) => {
+const AdoptComItem = (props) => {
 
     const {data, getRefresh} = props;
     const isUpdate = true;
     const [showEditor, setShowEditor] = useState(false);
     const [isMine, setIsMine] = useState(false);
 
+    console.log("adoptcomitem data", data);
+
     // 댓글 삭제 API
     const handleDeleteComment = () => {
         instance({
-            url: `/wiki/comment/${data.id}/delete`,
+            url: `/abandoned_animal/${data.id}/comments/delete`,
             method: "DELETE"
         }).then((res) => {
-            // console.log("response", res.data);
+            console.log("response", res.data);
             getRefresh();
             toast.success('댓글이 성공적으로 삭제되었습니다.');
         })
@@ -29,7 +31,7 @@ const WikiComItem = (props) => {
 
     const getIsMyComment = () => {
         instance({
-            url: `/wiki/comment/${data.id}/myComment`,
+            url: `/abandoned_animal/${data.id}/myComment`,
             method: "get"
         }).then((res) => {
             console.log("getIsMyComment response", res.data);
@@ -42,12 +44,12 @@ const WikiComItem = (props) => {
 
     useEffect(() => {
         getIsMyComment();
-    }, []);
+      }, []);
 
     return (
         <div>
             {showEditor ? 
-                <WikiComEditor updatedData={data} update={isUpdate} 
+                <AdoptComEditor updatedData={data} update={isUpdate} 
                     setShowEditor={setShowEditor} getRefresh={getRefresh}/> : 
                 <>
                     <div>
@@ -57,17 +59,17 @@ const WikiComItem = (props) => {
                     {isMine &&
                         <div>
                             <DefaultButton onClick={handleDeleteComment}>삭제</DefaultButton>
-                        </div>                      
+                        </div>                         
                     }
                 </>           
             }
             {isMine &&
                 <DefaultButton onClick={() => setShowEditor(!showEditor)}>
-                    {showEditor ? "수정창 끄기" : "수정창 열기"}
+                    {showEditor ? "수정 취소" : "댓글 수정"}
                 </DefaultButton>            
             }
         </div>
     )
 }
 
-export default WikiComItem;
+export default AdoptComItem;

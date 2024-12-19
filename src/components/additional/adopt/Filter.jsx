@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Card from "../common/Card";
+import Card from "../../common/Card";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
@@ -49,7 +49,7 @@ const Filter = (props) => {
   return (
     <>
       {isClick && (
-        <Card className={className}>
+        <Card className="default-card">
           <div className="filter-util-container">
             <input
                 type="text"
@@ -86,7 +86,6 @@ const Filter = (props) => {
                         );
                     })}
                 </div>
-                {/* <button>적용</button> */}
             </div>
           )}
         </Card>

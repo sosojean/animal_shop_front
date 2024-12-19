@@ -111,10 +111,6 @@
     padding: 1rem 3rem 1rem 3rem;
     display: flex;
     gap: 1rem;
-
-    span {
-        
-    }
 }
 
 .filter-breed-container {
@@ -157,15 +153,17 @@
 
     .info-container {
         margin: 10px 0 10px 0;
+        display: flex;
+        justify-content: space-between;
 
         .process-container {
-            background-color: #d9d9d9;
-            width: 70px;
-            color: rgb(0, 0, 0);
-            padding: 7px;
-            text-align: center;
-            border-radius: 10px;
-            margin-bottom: 10px;
+            // background-color: #d9d9d9;
+            // width: 70px;
+            // color: rgb(0, 0, 0);
+            // padding: 7px;
+            // text-align: center;
+            // border-radius: 10px;
+            // margin-bottom: 10px;
         }
     }
 

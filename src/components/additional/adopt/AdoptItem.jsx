@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import Card from "../common/Card";
+import Card from "../../common/Card";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import instance from "../../utils/axios"
+import instance from "../../../utils/axios"
 import { Link } from "react-router-dom";
+import DefaultButton from "../../common/DefaultButton"
+import { toast } from "react-toastify";
 
 const AdoptItem = (props) => {
 
@@ -33,12 +35,12 @@ const AdoptItem = (props) => {
             url: `/abandoned_animal/register?desertionNo=${data.desertion_no}`,
             method: "get",
         }).then((res) => {
-            console.log("handleAddInterest response", res.data);
-            alert("관심동물에 등록됐습니다!");
+            // console.log("handleAddInterest response", res.data);
+            toast.success("관심동물에 등록됐습니다!");
         })
         .catch((err) => {
             console.error("handleAddInterest error", err);
-            alert("이미 등록된 아이예요!");
+            toast.error("이미 등록된 아이예요!")
         })
     }
 
@@ -51,25 +53,26 @@ const AdoptItem = (props) => {
                 </div>
             </Link>
             <div className="info-container">
-                <div className="process-container" onClick={handleAddInterest}>
-                    {/* <p>{data.status}</p> */}
-                    <span><FontAwesomeIcon icon={faPlus}/></span>    
-                </div>
-                <Link to={`/adoption/detail/${data.id}`} key={data.id}>  
+                <Link to={`/adoption/detail/${data.id}`}>
                     <div>
-                        <span>{getConvertedKind("species") + " " + 
-                            getConvertedKind() + "/"}</span>
-                        <span>{data.age}세</span>
-                    </div>
-                    <div>
-                        <span>{data.sex === 'F' ? "여아" : 
-                                data.sex === 'M' ? "남아" : "성별미상"}</span>
-                        <span>{" / "} 중성화 {" "}
-                            {data.neuterYn === 'Y' ? "완료" :
-                                data.neuterYn === 'N' ? "미완료" : "알수없음"}
-                        </span>
-                    </div>
+                        <div>
+                            <span>{getConvertedKind("species") + " " + 
+                                getConvertedKind() + "/"}</span>
+                            <span>{data.age}세</span>
+                        </div>
+                        <div>
+                            <span>{data.sex === 'F' ? "여아" : 
+                                    data.sex === 'M' ? "남아" : "성별미상"}</span>
+                            <span>{" / "} 중성화 {" "}
+                                {data.neuterYn === 'Y' ? "완료" :
+                                    data.neuterYn === 'N' ? "미완료" : "알수없음"}
+                            </span>
+                        </div>                    
+                    </div>                
                 </Link>
+                <DefaultButton className="default-button" onClick={handleAddInterest}>
+                    <span><FontAwesomeIcon icon={faPlus}/></span>
+                </DefaultButton>
             </div>
             <div className="addr-container">
                 <p>{data.location}</p>

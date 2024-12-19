@@ -1,9 +1,9 @@
-import Card from "../common/Card";
-import Filter from "./Filter";
-import { catBreedSelector, dogBreedSelector} from "../../utils/petOptions";
-import { regionOptions } from "../../utils/regionOptions";
+import Card from "../../common/Card";
+import Filter from "../adopt/Filter";
+import { catBreedSelector, dogBreedSelector} from "../../../utils/petOptions";
+import { regionOptions } from "../../../utils/regionOptions";
 import { useState } from "react";
-import FilterRegion from "./FilterRegion";
+import FilterRegion from "../adopt/FilterRegion";
 
 
 const AdoptFilterMax = (props) => {
@@ -43,7 +43,7 @@ const AdoptFilterMax = (props) => {
 
     return (
         <>
-        <Card className="filter-max-container">
+        <Card className="default-card filter-max-container">
             <div className="kind-selector">
                 <Card>
                     <button onClick={() => {

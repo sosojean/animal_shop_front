@@ -1,17 +1,17 @@
-import Card from "../common/Card";
-import "../../assets/styles/additional/adoptDetail.scss"
+import Card from "../../common/Card"
+import "../../../assets/styles/additional/adoptDetail.scss"
 import axios from "axios";
-import instance from "../../utils/axios"
+import instance from "../../../utils/axios"
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import AdoptAnimalComment from "../../../pages/additional/AdoptAnimalComment"
 
 const AdoptDetail = (props) => {
 
     const {setIsCat} = props;
 
-    // const { data } = props;
     const { id } = useParams();
 
     const [data, setData] = useState();
@@ -120,45 +120,49 @@ const AdoptDetail = (props) => {
     return (
         <>
         {data &&
-            <Card className="adopt-detail-container">
-                <div className="img-container">
-                    <img src={data.popfile}/>
-                </div>
-                <div className="info-container">
-                    <div className="basic-container">
-                        <span>{getConvertedKind("species")}</span>
-                        <span>{" "}{getConvertedKind()}</span>
-                        <span>{" / "}{getConvertedAge() + "세"}</span>
-                        <span onClick={handleAddInterest}><FontAwesomeIcon icon={faPlus}/></span>
+            <>
+                <Card className="adopt-detail-container">
+                    <div className="img-container">
+                        <img src={data.popfile}/>
                     </div>
-                    <div className="feature-container">
-                        <div>
-                            <span>
-                                {data.sexCd === 'F' ? "여아" : 
-                                    data.sexCd === 'M' ? "남아" : "성별미상"}
-                            </span>
-                            <span>{" / "}<b>중성화</b> {getConvertedNeuter()}</span>
-                            <span>{" / "}<b>무게</b> {getConvertedWeight()}</span>
+                    <div className="info-container">
+                        <div className="basic-container">
+                            <span>{getConvertedKind("species")}</span>
+                            <span>{" "}{getConvertedKind()}</span>
+                            <span>{" / "}{getConvertedAge() + "세"}</span>
+                            <span onClick={handleAddInterest}><FontAwesomeIcon icon={faPlus}/></span>
+                        </div>
+                        <div className="feature-container">
+                            <div>
+                                <span>
+                                    {data.sexCd === 'F' ? "여아" : 
+                                        data.sexCd === 'M' ? "남아" : "성별미상"}
+                                </span>
+                                <span>{" / "}<b>중성화</b> {getConvertedNeuter()}</span>
+                                <span>{" / "}<b>무게</b> {getConvertedWeight()}</span>
+                            </div>
+                            <div>
+                                <p><b>특이사항</b> {data.specialMark}</p>
+                            </div>
+                        </div>
+                        <div className="period-container">
+                            <p><b>공고번호</b> {data.noticeNo}</p>
+                            <p><b>공고기간</b> {getConvertedNoticeDate()}</p>
                         </div>
                         <div>
-                            <p><b>특이사항</b> {data.specialMark}</p>
+                            <div>
+                                <span>보호소 {data.careNm}</span>
+                                <span>{" / "}보호소 연락처 {data.careTel}</span>
+                            </div>
+                            <div> 
+                                <p>보호주소 {data.careAddr} </p>
+                            </div>
                         </div>
                     </div>
-                    <div className="period-container">
-                        <p><b>공고번호</b> {data.noticeNo}</p>
-                        <p><b>공고기간</b> {getConvertedNoticeDate()}</p>
-                    </div>
-                    <div>
-                        <div>
-                            <span>보호소 {data.careNm}</span>
-                            <span>{" / "}보호소 연락처 {data.careTel}</span>
-                        </div>
-                        <div> 
-                            <p>보호주소 {data.careAddr} </p>
-                        </div>
-                    </div>
-                </div>
-            </Card>        
+                </Card>
+                <AdoptAnimalComment id={id}/>            
+            </>
+
         }  
         </>
     )

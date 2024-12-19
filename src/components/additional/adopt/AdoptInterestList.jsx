@@ -1,4 +1,4 @@
-import AdoptInterestItem from "./AdpotInterestItem";
+import AdoptInterestItem from "../adopt/AdpotInterestItem";
 
 
 const AdoptInterestList = (props) => {

@@ -3,7 +3,7 @@ import instance from "../../../utils/axios";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
-const WikiComEditor = (props) => {
+const AdoptComEditor = (props) => {
 
     const {id, updatedData, update, setShowEditor, getRefresh} = props;
     const [comment, setComment] = useState("")
@@ -15,7 +15,7 @@ const WikiComEditor = (props) => {
         const postData = {"content":comment};
 
         instance({
-            url: `/wiki/comment/${id}/register`,
+            url: `/abandoned_animal/${id}/comments/register`,
             method: "post",
             data: postData
         }).then((res) => {
@@ -25,7 +25,7 @@ const WikiComEditor = (props) => {
         })
         .catch((err) => {
             console.error("error", err);
-            toast.error('댓글 등록 중 오류가 발생했습니다.');
+            toast.error('댓글 삭제 중 오류가 발생했습니다.');
         })
     }
 
@@ -35,13 +35,13 @@ const WikiComEditor = (props) => {
         const postData = {"content":comment, "author": updatedData.author};
 
         instance({
-            url: `/wiki/comment/${updatedData.id}/update`,
+            url: `/abandoned_animal/${updatedData.id}/comments/update`,
             method: "PATCH",
             data: postData
         }).then((res) => {
             // console.log("response", res);
-            toast.success('댓글이 성공적으로 수정되었습니다.');
             getRefresh();
+            toast.success('댓글이 성공적으로 수정되었습니다.');
         })
         .catch((err) => {
             console.error("error", err);
@@ -77,4 +77,4 @@ const WikiComEditor = (props) => {
     )
 }
 
-export default WikiComEditor;
+export default AdoptComEditor;

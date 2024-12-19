@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import WikiComItem from "./WikiComItem";
 
 const WikiComments = (props) => {
 
-    const {id, data, getRefresh} = props;
+    const {data, getRefresh} = props;
 
     return (
         <div>

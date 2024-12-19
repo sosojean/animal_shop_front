@@ -2,9 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import "../../assets/styles/additional/adoptAnimal.scss"
-import AdoptList from "../../components/additional/AdoptList";
-import AdoptFilterMax from "../../components/additional/AdoptFilterMax";
-import AdoptFilterMini from "../../components/additional/AdoptFilterMini";
+import AdoptList from "../../components/additional/adopt/AdoptList";
+import AdoptFilterMax from "../../components/additional/adopt/AdoptFilterMax";
+import AdoptFilterMini from "../../components/additional/adopt/AdoptFilterMini";
 import Pagination from "../../components/board/Pagination";
 
 const AdoptAnimal = () => {

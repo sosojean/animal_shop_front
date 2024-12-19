@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import AdoptDetail from "../../components/additional/AdoptDetail";
-import AdoptList from "../../components/additional/AdoptList";
+import AdoptDetail from "../../components/additional/adopt/AdoptDetail";
+import AdoptList from "../../components/additional/adopt/AdoptList";
 import axios from "axios";
-
+import AdoptAnimalComment from "./AdoptAnimalComment";
 
 const AdoptAnimalDetail = () => {
 
