@@ -5,6 +5,7 @@ import Option from "../option/Option";
 import Thumbnails from "./Thumbnails";
 import Selector from "../../../common/Selector";
 import instance from "../../../../utils/axios";
+import { toast } from "react-toastify";
 
 const ProductDetailHeader = ({data}) => {
 
@@ -216,9 +217,16 @@ const ProductDetailHeader = ({data}) => {
     }
 
     const purchaseHandler = () => {
-        const purchaseData = dataBuilder();
-        navigate("/order/delivery", {state : {purchaseData : purchaseData , itemId:data.id}})
+        const accessToken = localStorage.getItem('accessToken');
+        console.log("token", accessToken);
 
+        if (accessToken) {
+            const purchaseData = dataBuilder();
+            navigate("/order/delivery", {state : {purchaseData : purchaseData , itemId:data.id}});      
+        } else {
+            navigate("/login");
+            toast.warn("구매는 로그인이 필요합니다.");
+        }
     }
 
     const trimOptionText = (option, priceTrimmer)=>{
