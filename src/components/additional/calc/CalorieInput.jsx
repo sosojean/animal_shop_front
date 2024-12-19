@@ -6,7 +6,7 @@ import DefaultButton from "../../common/DefaultButton";
 
 const CalorieInput = (props) => {
 
-    const {calcData, setCalcData, showFeeding, setShowFeeding,
+    const {calcData, setCalcData, showResult, setShowResult,
         amount, setAmount, setGoods} = props;
 
     const [dogBreedOptions, setDogBreedOptions] = useState([]);
@@ -54,8 +54,8 @@ const CalorieInput = (props) => {
         const originData = {...calcData};
         let postData = {};
 
-        postData.breed = originData.breed || "푸들 (토이)";
-        postData.weight = parseFloat(originData.weight);
+        postData.breed = originData.breed || "싱가푸라";
+        postData.weight = parseFloat(originData.weight) || 1;
         postData.species = originData.species === '강아지' ? 'DOG' : 'CAT';
 
         console.log("postData", postData);
@@ -110,11 +110,15 @@ const CalorieInput = (props) => {
                     {speciesList.map((species, index) => {
                         return <DefaultButton 
                         key={index} className={isButtonActive("species", species)} 
-                        onClick={() => {handleInputChange("species", species)}}>
+                        onClick={() => {
+                            handleInputChange("species", species)
+                            handleInputChange("breed", "")
+                            }}>
                             {species}</DefaultButton>
                     })}
                 </div>
                 <select value={calcData?.breed} onChange={(e) => {handleInputChange("breed", e.target.value)}}>
+                    <option key={100} value="default">--종 선택--</option>
                     {breedOptions.map((breed, index) => {
                         return <option key={index} value={breed}>{breed}</option>
                     })}
@@ -239,15 +243,15 @@ const CalorieInput = (props) => {
                 }
             </Card>
             <Card className="default-card">
-                {showFeeding &&
-                    <Card className="default-card">
-                        <p>사료의 kcal(kg당)을 작성해주세요</p>
-                        <input type="number" onChange={(e) => setAmount(e.target.value)}/>
-                    </Card>            
-                }
-                <DefaultButton onClick={() => {setShowFeeding(!showFeeding)}}>사료 급여량 g 계산</DefaultButton>                
+                <h2>사료 kcal(/kg)</h2>
+                <input type="number" defaultValue={0} onChange={(e) => setAmount(e.target.value)}/>
+                <p>사료의 kcal(kg당)을 작성해주세요</p>                   
             </Card>
-            <DefaultButton onClick={handleRecommend}>결과 확인</DefaultButton> 
+            <DefaultButton onClick={() => {
+                handleRecommend();
+                setShowResult(!showResult)}}>
+                    결과 확인
+            </DefaultButton> 
         </Card>
     )
 }
