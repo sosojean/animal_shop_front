@@ -7,6 +7,7 @@ import ProductQnAList from "../../../components/shop/product/QnA/ProductQnAList"
 import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
+import ProductDetailInfo from "../../../components/shop/product/detail/ProductDetailInfo";
 
 const ProductDetail = () => {
     const [data, setData] = useState()
@@ -44,7 +45,7 @@ const ProductDetail = () => {
         const qnaPos = document.getElementById("qna-hr");
         const qnaAbsolutePos = window.scrollY + qnaPos.getBoundingClientRect().top;
         const infoPos = document.getElementById("info-hr");
-        // const infoAbsolutePos = window.scrollY + infoPos.getBoundingClientRect().top; //todo 인포 추가 후 처리 해줘야함
+        const infoAbsolutePos = window.scrollY + infoPos.getBoundingClientRect().top; //todo 인포 추가 후 처리 해줘야함
 
 
         if (qnaPos && qnaPos.offsetTop <= scroll) {
@@ -53,6 +54,8 @@ const ProductDetail = () => {
             setContent("review");
         } else if (navbarPos && navAbsolutePos <= scroll) {
             setContent("detail");
+        } else if (infoPos && infoAbsolutePos <= scroll) {
+            setContent("info")
         }
     }
 
@@ -87,6 +90,8 @@ const ProductDetail = () => {
 
                 <ProductQnAList data = {data} itemId = {itemId}/>
                 <hr id="info-hr" ref={targetRef}/>
+
+                <ProductDetailInfo data={data}/>
 
                 <Products/></>}
         </>

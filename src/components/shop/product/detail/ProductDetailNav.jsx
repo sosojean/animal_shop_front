@@ -22,7 +22,7 @@ const ProductDetailNav = ({content , setContent, isFixed}) => {
                 <li className={  content == "qna"?"active":""}>
                     <button onClick={scrollCallBack} id="qna">문의</button></li>
                 <li  className={content == "info" ? "active" : ""}>
-                    <button   id="info">상세 정보</button>
+                    <button onClick={scrollCallBack} id="info">상세 정보</button>
                 </li>
             </ul>
         </>
