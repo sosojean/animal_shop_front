@@ -3,6 +3,7 @@ import SellerMenu from "../../../components/shop/seller/SellerMenu";
 import instance from "../../../utils/axios";
 import HistoryItem from "../../../components/shop/seller/HistoryItem";
 import StatAnalysisTable from "../../../components/shop/admin/StatAnalysisTable";
+import Title from "../../../components/common/Title";
 
 const SellerPointHistory = () => {
     const [data, setData] = useState([]);
@@ -30,6 +31,7 @@ const SellerPointHistory = () => {
         setStartDate(start);
         setEndDate(end);
 
+        setData([])
         // API 호출
         instance({
             url: `/point/entire-sum-seller`,
@@ -51,8 +53,9 @@ const SellerPointHistory = () => {
     return (
         <div>
             <SellerMenu/>
-            <p>정산 예정 금액 {totalPoints}</p>
-            <div>
+            <Title>판매수익</Title>
+
+            <div className="row">
                 <button onClick={() => setPrevIndex(
                     prev => prev + 1)}>{"<"}</button>
                 <span>{`${startDate.getFullYear()}
@@ -60,15 +63,16 @@ const SellerPointHistory = () => {
                 -${startDate.getDate().toString().padStart(2, "0")}`}</span>
                 <span> ~ </span>
                 <span>{`${endDate.getFullYear()}
-                -${(endDate.getMonth()+ 1).toString().padStart(2,"0")}
-                -${endDate.getDate().toString().padStart(2,"0")}`}</span>
+                -${(endDate.getMonth() + 1).toString().padStart(2, "0")}
+                -${endDate.getDate().toString().padStart(2, "0")}`}</span>
                 <button onClick={() => setPrevIndex(
                     prev => Math.max(prev - 1, 0))}>{">"}</button>
             </div>
             test
             <div className="stat-analysis-table">
-            {data&&<StatAnalysisTable data={data} colName1={"date"} colName2={"point"}/>}
+                {data && <StatAnalysisTable data={data} colName1={"date"} colName2={"point"}/>}
             </div>
+            <p>정산 예정 금액 {totalPoints}</p>
 
         </div>
     );

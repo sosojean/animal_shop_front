@@ -1,7 +1,9 @@
 import WikiInput from "../../components/additional/wiki/WikiInput";
 import instance from "../../utils/axios";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import AdminMenu from "../../components/shop/admin/AdminMenu";
+import Title from "../../components/common/Title";
 
 const WikiEditor = () => {
     const { wikiId } = useParams();
@@ -29,7 +31,9 @@ const WikiEditor = () => {
 
     return (
         <div>
-            <h1>{wikiId ? "위키 백과 수정" : "위키 백과 등록"}</h1>
+            <AdminMenu/>
+            <Title>{wikiId ? "위키 백과 수정" : "위키 백과 등록"}</Title>
+
             <WikiInput
                 postData={postData}
                 setPostData={setPostData}

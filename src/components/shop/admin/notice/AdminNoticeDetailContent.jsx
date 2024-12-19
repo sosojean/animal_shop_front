@@ -7,7 +7,8 @@ import AdminMenu from "../AdminMenu";
 import {useModifyTime} from "../../../../utils/useModifyTime";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenToSquare} from "@fortawesome/free-regular-svg-icons";
-import {faShare, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {faFloppyDisk, faShare, faXmark} from "@fortawesome/free-solid-svg-icons";
+import DefaultButton from "../../../common/DefaultButton";
 
 
 const AdminNoticeDetailContent = ({isSeller}) => {
@@ -40,7 +41,7 @@ const AdminNoticeDetailContent = ({isSeller}) => {
             setData(res.data["noticesDTOList"][0])
             console.log(res.data["noticesDTOList"][0]["attachmentUrl"]);
             const fileName
-                = res.data["noticesDTOList"][0]["attachmentUrl"].split("_")[2] || "download";
+                = res.data["noticesDTOList"][0]["attachmentUrl"].split("_")[2] || "";
             setFileName(fileName)
         }).catch((error) => {
             console.log(error);
@@ -108,7 +109,7 @@ const AdminNoticeDetailContent = ({isSeller}) => {
             {data &&
                 <div>
 
-                    <div>
+                    <div className="content-container">
                         <div className="content-info-container">
                             <div className="info-box">
                                 <div className="content-info">
@@ -138,17 +139,24 @@ const AdminNoticeDetailContent = ({isSeller}) => {
                         </div>
 
                         <hr/>
+                        {fileName==""? "":<div className="row file-download"><label className="download" htmlFor="download">첨부파일 다운로드 {fileName}</label>
+                            <button id="download" name="download"  onClick={fileDownloadHandler}><FontAwesomeIcon icon={faFloppyDisk} /></button>
+                        </div>
+                        }
 
                         <div className="view-content">
                             <Viewer initialValue={data.content}/>
                         </div>
 
-                        <label htmlFor="download">{fileName!=null?fileName:""}</label>
-                        <button id="download" name="download"  onClick={fileDownloadHandler}>다운</button>
+
 
 
                         <hr/>
-                        <Link to={"/admin/notice"}> 목록보기</Link>
+                        <div className="list-button-container">
+                            <Link to={"/admin/notice"}>
+                            <DefaultButton className="primary long">목록보기</DefaultButton>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             }</>

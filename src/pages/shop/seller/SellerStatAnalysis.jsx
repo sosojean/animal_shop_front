@@ -1,63 +1,49 @@
-import React, {useEffect, useState} from 'react';
-import NextPrevButton from "../../../components/common/NextPrevButton";
-import StatAnalysisTable from "../../../components/shop/admin/StatAnalysisTable";
-import instance from "../../../utils/axios";
+import React, { useEffect, useState } from "react";
 import SellerChart from "../../../components/shop/seller/SellerChart";
 import TestComp from "./testComp";
 import SellerAnalysisTable from "../../../components/shop/seller/SellerAnalysisTable";
 import SellerItemAnalysisTable from "../../../components/shop/seller/SellerItemAnalysisTable";
+import instance from "../../../utils/axios";
+import "../../../assets/styles/shop/seller/sellerStatAnalysis.scss"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faAnchor, faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 
 const SellerStatAnalysis = () => {
-
-    //
     const now = new Date();
     const [from, setFrom] = useState({
-        year: now.getFullYear()- (now.getMonth()+1 === 12 ? 0 : 1),
-        month: now.getMonth()+ 1 ===12?1:now.getMonth() + 1,
+        year: now.getFullYear() - (now.getMonth() + 1 === 12 ? 0 : 1),
+        month: now.getMonth() + 1 === 12 ? 1 : now.getMonth() + 1,
         day: 1,
-    })
+    });
     const [to, setTo] = useState({
         year: now.getFullYear(),
-        month: now.getMonth()+ 1,
-        day: now.getDate(), // todo: 당일 조회 안됨
-    })
-
+        month: now.getMonth() + 1,
+        day: now.getDate(),
+    });
 
     const generateDateList = () => {
-        const startDate = new Date(from.year, from.month - 1); // 'from'을 Date 객체로 변환
-        const endDate = new Date(to.year, to.month - 1); // 'to'를 Date 객체로 변환
-
+        const startDate = new Date(from.year, from.month - 1);
+        const endDate = new Date(to.year, to.month - 1);
         const dateList = [];
+        let currentDate = new Date(startDate);
 
-        let currentDate = new Date(startDate); // 시작 날짜를 currentDate로 설정
-
-        // 월별로 반복
         while (currentDate <= endDate) {
-            // 'yyyy-mm' 형식으로 날짜를 문자열로 변환
-            const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}`;
+            const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
+                .toString()
+                .padStart(2, "0")}`;
             dateList.push(formattedDate);
-
-            // 다음 달로 이동
             currentDate.setMonth(currentDate.getMonth() + 1);
         }
 
         return dateList;
     };
 
-    const [selectedIndex, setSelectedIndex] = useState(0)
-    const [itemData, setItemData] = useState()
-    const [cartData, setCartData] = useState()
-    const [dateList, setDateList] = useState(generateDateList)
-    const [itemPriceData, setItemPriceData] = useState()
-
-    // const [isDaySum, setIsDaySum] = useState(false)
-
-
-
-    useEffect(() => {
-        console.log(itemData)
-    },[itemData])
-
+    const [selectedIndex, setSelectedIndex] = useState(11);
+    const [itemData, setItemData] = useState();
+    const [cartData, setCartData] = useState();
+    const [dateList, setDateList] = useState(generateDateList);
+    const [itemPriceData, setItemPriceData] = useState();
+    const [selectedMonth, setSelectedMonth] = useState(12)
 
     useEffect(() => {
         const start = `${from.year}-${String(from.month).padStart(2, "0")}-${String(from.day).padStart(2, "0")}`;
@@ -65,70 +51,54 @@ const SellerStatAnalysis = () => {
 
         instance({
             url: `/seller/total-item-info`,
-            method:"get",
-            params:{
-                time:"month",
-                start:start,
-                end:end,
-            }
-        }).then(res => {
-            console.log(res);
-            // trimData(res.data)
-            setItemData(trimData(res.data))
-        }).catch(err => {
-            console.log(err)
+            method: "get",
+            params: { time: "month", start, end },
         })
-
+            .then((res) => {
+                setItemData(trimData(res.data))
+            })
+            .catch(console.log);
 
         instance({
-
             url: `/seller/entire-ci-info`,
-            method:"get",
-            params:{
-                time:"month",
-                start:start,
-                end:end,
-            }
-        }).then(res => {
-            console.log(res);
-            // trimData(res.data)
-            setCartData(trimData(res.data))
-        }).catch(err => {
-            console.log(err)
+            method: "get",
+            params: { time: "month", start, end },
         })
-        setDateList(()=>generateDateList())
+            .then((res) => {
+                console.log(res)
 
+                setCartData(trimData(res.data))
+            })
+            .catch(console.log);
 
-    },[from,to])
-
+        setDateList(generateDateList());
+    }, [from, to]);
 
     useEffect(() => {
-
-
-        console.log(dateList)
-        console.log(selectedIndex)
-
-        const month = dateList[selectedIndex].slice(5,7).replace(0,"")
-        const year = dateList[selectedIndex].slice(0,4)
+        const month = dateList[selectedIndex].slice(5, 7);
+        const year = dateList[selectedIndex].slice(0, 4);
         const url = `/seller/profit-item-info?year=${year}&month=${month}`;
+
         instance({
-            url:url,
-            method:"GET",
+            url,
+            method: "GET",
         }).then((res) => {
             const data = res.data.itemProfitInfoList;
-            setItemPriceData(priceDataTrimmer(data))
-        })
+            console.log(res.data)
+            setSelectedMonth(month)
+
+            setItemPriceData(priceDataTrimmer(data));
+
+        });
     }, [selectedIndex]);
-
-
 
     const trimData = (data) => {
         const months = generateDateList();
         const dates = [];
         const points = [];
 
-        months.forEach(month => {
-            const existingData = data.find(item => item.date === month);
+        months.forEach((month) => {
+            const existingData = data.find((item) => item.date === month);
 
             if (existingData) {
                 dates.push(existingData.date);
@@ -139,107 +109,91 @@ const SellerStatAnalysis = () => {
             }
         });
 
-        return {
-            data: points,
-            categories: dates
-        };
+        return { data: points, categories: dates };
     };
 
-
-    const applyDate = (func, key, value) => {
-        if (key === 'month') {
-            // 월은 1-12 사이로 순회
-            value = value > 12 ? 1 : (value < 1 ? 12 : value);
-        }
-
-        if (key === 'year') {
-            // 현재 연도 이상으로 설정 금지
-            if (func === setTo && value > now.getFullYear()) return;
-            if (func === setFrom && value > now.getFullYear()) return;
-        }
-
-        func((prev) => ({
-            ...prev,
-            [key]: value
-        }));
+    const applyYearChange = (delta) => {
+        setFrom((prev) => ({ ...prev, year: prev.year + delta }));
+        setTo((prev) => ({ ...prev, year: prev.year + delta }));
     };
-
-
-
-
 
     const priceDataTrimmer = (data) => {
-        let trimmedItems = data.map(item => {
-            let newOptions = item["profitDTOList"].reduce((acc, optionItem) => {
-                acc[optionItem.optionName] = optionItem.point;
-                return acc;
-            }, {});
+        return data
+            .map((item) => {
+                const newOptions = item["profitDTOList"].reduce((acc, optionItem) => {
+                    acc[optionItem.optionName] = optionItem.point;
+                    return acc;
+                }, {});
 
-            return {
-                name: item["itemName"],
-                options: newOptions,
-                totalPoint: Object.values(newOptions).reduce((sum, point) => sum + point, 0)
-            };
-        });
-
-        return trimmedItems.sort((a, b) => b.totalPoint - a.totalPoint);
-    }
-
-
+                return {
+                    name: item["itemName"],
+                    options: newOptions,
+                    totalPoint: Object.values(newOptions).reduce((sum, point) => sum + point, 0),
+                };
+            })
+            .sort((a, b) => b.totalPoint - a.totalPoint);
+    };
 
     return (
-        <div>
-            <div>
-                <button onClick={() => {
-                    applyDate(setFrom, "year", from.year + 1)
-                }}>{"->"}</button>
-                {from.year}
-                <button onClick={() => {
-                    applyDate(setFrom, "year", from.year - 1)
-                }}>{"<-"}</button>
-                <button onClick={() => {
-                    applyDate(setFrom, "month", from.month + 1)
-                }}>{"->"}</button>
-                {from.month}
-                <button onClick={() => {
-                    applyDate(setFrom, "month", from.month - 1)
-                }}>{"<-"}</button>
-
-
-                <button onClick={() => {
-                    applyDate(setTo, "year", to.year + 1)
-                }}>{"->"}</button>
-                {to.year}
-                <button onClick={() => {
-                    applyDate(setTo, "year", to.year - 1)
-                }}>{"<-"}</button>
-                <button onClick={() => {
-                    applyDate(setTo, "month", to.month + 1)
-                }}>{"->"}</button>
-                {to.month}
-                <button onClick={() => {
-                    applyDate(setTo, "month", to.month - 1)
-                }}>{"<-"}</button>
-
-
-                {/*<button>{"->"}</button>*/}
-                {/*{from.day}*/}
-                {/*<button>{"<-"}</button>*/}
-            </div>
-            <div style={{width: '1080px', display: "flex", justifyContent: "space-between"}}>
-
-                {itemData && cartData &&
-                    <SellerChart data={itemData.data} data2={cartData.data} categories={generateDateList(from, to)}
-                                 setSelectedIndex={setSelectedIndex}/>}
-                 {itemPriceData && <TestComp data={itemPriceData}/>}
-                {console.log(itemData)}
+        <div className="seller-stat-analysis">
+            <div  className="btn-container row">
+                {/*<button>월별 조회 하기</button>*/}
+                <button
+                    className={"prev-next"}
+                    onClick={() => applyYearChange(-1)}
+                    disabled={from.year - 1 < 2000}
+                >
+                    <FontAwesomeIcon icon={faAngleLeft}/>
+                </button>
+                <div>
+                    <h3>
+                        {from.year}.{String(from.month).padStart(2, "0")} - {to.year}.{String(to.month).padStart(2, "0")}
+                    </h3>
+                </div>
+                <button
+                    className={"prev-next"}
+                    onClick={() => applyYearChange(1)}
+                    disabled={to.year + 1 > now.getFullYear()}
+                >
+                    <FontAwesomeIcon icon={faAngleRight}/>
+                </button>
 
             </div>
-            <div className="stat-analysis-table" style={{width: '1080px', display: "flex", justifyContent: "space-between"}}>
 
-                {itemData && <SellerAnalysisTable data1={itemData.categories} data2={itemData.data} colName1="date"
-                                                  colName2="point"/>}
-                {itemPriceData && <SellerItemAnalysisTable itemPriceData={itemPriceData}/>}
+
+            <div style={{width: "1080px", display: "flex", justifyContent: "space-between"}}>
+                {itemData && cartData && (
+                    <SellerChart
+                        data={itemData.data}
+                        data2={cartData.data}
+                        categories={generateDateList(from, to)}
+                        setSelectedIndex={setSelectedIndex}
+                    />
+                )}
+                {itemPriceData && <TestComp selectedMonth={selectedMonth} data={itemPriceData}/>}
+            </div>
+
+            <div
+                className="stat-analysis-table"
+                style={{width: "1080px", display: "flex", justifyContent: "space-between"}}
+            >
+                {itemData && (
+                    <SellerAnalysisTable
+                        data1={itemData.categories}
+                        data2={itemData.data}
+                        colName1="date"
+                        colName2="point"
+                    />
+                )}
+
+                {itemPriceData && itemPriceData.length !== 0?
+                    <SellerItemAnalysisTable itemPriceData={itemPriceData}/>:
+                    <div className="no-contents">
+                        <span>
+                            {selectedMonth<10?selectedMonth?.replace(0,""):selectedMonth}
+                            월의 판매 정보가 없습니다.
+                        </span>
+                    </div>}
             </div>
         </div>
     );

@@ -81,7 +81,8 @@ const DetailInfoWindow = ({item ,selectedItemId,setSelectedItemId, isEdited, set
 
             <span>영업시간 {item.operating_hours}</span>
             <span>휴무일 {item.closed_days}</span>
-            {item.pet_restrictions !== "해당없음" && item.pet_restrictions !== "제한사항 없음" &&
+            {item.pet_restrictions !== "해당없음" &&
+                item.pet_restrictions !== "제한사항 없음" &&
                 <span>{item.pet_restrictions}</span>}
             {<span>연락처 {item.phone_number}</span>}
             {item.homepage !== "정보없음" &&

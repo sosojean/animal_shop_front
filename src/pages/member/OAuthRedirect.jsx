@@ -5,7 +5,8 @@ import axios from "axios";
 const OAuthRedirect = () => {
     const [searchParams] = useSearchParams();
     const code = searchParams.get("code")
-    const url = `${process.env.REACT_APP_API}/auth/kakao/signin`   //로그인
+    const state = searchParams.get("state")
+    const url = `${process.env.REACT_APP_API}/auth/kakao/${state}`   //로그인
     const navigate = useNavigate()
     useEffect(() => {
         axios({
@@ -13,10 +14,13 @@ const OAuthRedirect = () => {
             method:"POST",
             data: {
                 code: code
+
             }
         }).then(res=>{
+            if (state == "signin"){
             localStorage.setItem("accessToken",res.data.accessToken)
             localStorage.setItem("refreshToken",res.data.refreshToken)
+            }
             navigate("/")
 
         })

@@ -5,6 +5,7 @@ import NextPrevButton from "../../../components/common/NextPrevButton";
 import StatAnalysisTable from "../../../components/shop/admin/StatAnalysisTable";
 import AdminMenu from "../../../components/shop/admin/AdminMenu";
 import "../../../assets/styles/shop/admin/statAnalysisTable.scss"
+import Title from "../../../components/common/Title";
 
 const AdminStatAnalysis = () => {
 
@@ -29,20 +30,23 @@ const AdminStatAnalysis = () => {
     const sellerNames=[];
 
     useEffect(() => {
-        const url = isDaySum?
-            `/point/day-sum-total?year=${year}&&month=${month}`:
-            `/point/month-sum-total?year=${year}`;
+        const url = isDaySum
+            ? `/point/day-sum-total?year=${year}&&month=${month}`
+            : `/point/month-sum-total?year=${year}`;
 
         instance({
-            url:url,
-            method:"GET",
+            url: url,
+            method: "GET",
         }).then((res) => {
             console.log(res);
-            setData(res.data.pointTotalDTOList);
-            setFirstDate(res.data["first_date"])
-            trimData(res.data.pointTotalDTOList);
-        })
-    }, [year,month,isDaySum]);
+            const filledData = isDaySum
+                ? fillMissingDates(res.data.pointTotalDTOList, year, month)
+                : fillMissingMonths(res.data.pointTotalDTOList, year);
+            setData(filledData);
+            setFirstDate(res.data["first_date"]);
+            trimData(filledData);
+        });
+    }, [year, month, isDaySum]);
 
     useEffect(() => {
         const url = isDaySum?`/point/day-sum-seller?year=${year}&month=${month}&day=${selectedIndex+1}`
@@ -57,8 +61,49 @@ const AdminStatAnalysis = () => {
         })
     }, [selectedIndex]);
 
+    const fillMissingDates = (data, year, month) => {
+        const now = new Date();
+        const isCurrentMonth = year === now.getFullYear() && month === now.getMonth() + 1;
+        const daysInMonth = isCurrentMonth ? now.getDate() : new Date(year, month, 0).getDate(); // 현재 달은 오늘까지만
+        const dateMap = data.reduce((acc, item) => {
+            acc[item.date] = item.point;
+            return acc;
+        }, {});
 
+        const filledData = [];
+        for (let day = 1; day <= daysInMonth; day++) {
+            const date = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+            filledData.push({
+                date: date,
+                point: dateMap[date] || 0,
+            });
+        }
+        return filledData;
+    };
 
+    const fillMissingMonths = (data, year) => {
+        const now = new Date();
+        const isCurrentYear = year === now.getFullYear();
+        const currentMonth = isCurrentYear ? now.getMonth() + 1 : 12; // 현재 연도면 현재 월까지, 아니면 12월까지
+
+        const monthMap = data.reduce((acc, item) => {
+            const [itemYear, itemMonth] = item.date.split("-");
+            if (parseInt(itemYear) === year) {
+                acc[itemMonth] = item.point;
+            }
+            return acc;
+        }, {});
+
+        const filledData = [];
+        for (let month = 1; month <= currentMonth; month++) {
+            const monthString = `${year}-${String(month).padStart(2, "0")}`;
+            filledData.push({
+                date: monthString,
+                point: monthMap[String(month).padStart(2, "0")] || 0,
+            });
+        }
+        return filledData;
+    };
 
     const trimData = (data) => {
         data.map((item) => {
@@ -93,6 +138,8 @@ const AdminStatAnalysis = () => {
     return (
         <div>
             <AdminMenu/>
+            <Title>사이트 통계</Title>
+
             <div>
                 <NextPrevButton value={year} setValue={setYear} start ={2024} stop={2024}/>
                 <NextPrevButton value={month} setValue={setMonth} start ={1} stop={12}/>

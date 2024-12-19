@@ -4,6 +4,7 @@ import '../../../assets/styles/shop/seller/sellerMain.scss';
 import SellerMenu from "../../../components/shop/seller/SellerMenu";
 import SellerItemList from "../../../components/shop/seller/itemList/SellerItemList";
 import SellerStatAnalysis from "./SellerStatAnalysis";
+import Title from "../../../components/common/Title";
 
 
 const SellerMain = () => {
@@ -14,6 +15,7 @@ const SellerMain = () => {
 
         <div className="sellerMainContainer">
         <SellerMenu/>
+            <Title>대시보드</Title>
         <SellerStatAnalysis/>
         </div>
     )

@@ -8,6 +8,7 @@ import Modal from "../../../common/Modal";
 import SellerDiscount from "../SellerDiscount";
 import SellerMenu from "../SellerMenu";
 import SellerItemSearch from "./SellerItemSearch";
+import Title from "../../../common/Title";
 
 
 const SellerItemList = ({navigateUrl}) => {
@@ -72,6 +73,7 @@ const SellerItemList = ({navigateUrl}) => {
 
     return(<>
         <SellerMenu/>
+        <Title>상품관리</Title>
         <SellerItemSearch params={params} setParams={setParams}
             getRefreshData={getRefreshData}/>
         <div className="sellerItemListContainer">

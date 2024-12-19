@@ -2,7 +2,7 @@ import React from 'react';
 import Chart from 'react-apexcharts';
 
 
-const TestComp = ({data}) => {
+const TestComp = ({data, selectedMonth}) => {
 
 
     // const data = [
@@ -28,6 +28,7 @@ const TestComp = ({data}) => {
 
 // 차트 옵션 설정
     const chartOptions = {
+        title:{text:`${selectedMonth} 월 상품 판매액`},
         chart: {
             type: 'bar',
             stacked: true,

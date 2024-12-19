@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import Order from "./Order";
 import "../../../assets/styles/shop/order/order.scss"
 import OrderListMenu from "./OrderListMenu";
+import Card from "../../common/Card";
 
 const OrderedProductList = () => {
     const [data, setData] = useState()
@@ -55,11 +56,11 @@ const OrderedProductList = () => {
 
         <OrderListMenu setUrl={setUrl}/>
 
-        {/*{data&&data.length < 1 &&<span>주문 내역이 없습니다.</span>}*/}
+        {data&&data.length < 1 &&<Card className="default-card no-contents" ><span>주문 내역이 없습니다.</span></Card>}
         {data && data.map(item=>{
             return(<Order key={item["orderId"]} item = {item} />)
         })}
-            {totalCount && totalCount>10 && (totalCount/10)>page&& <button onClick={loadMoreData}>더보기</button>}
+        {totalCount>10 && (totalCount/10)>page && <button onClick={loadMoreData}>더보기</button>}
 
         </div>
     )

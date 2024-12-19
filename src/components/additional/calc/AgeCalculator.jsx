@@ -7,11 +7,9 @@ import CalcGoods from "./CalcGoods";
 
 const AgeCalculator = () => {
 
-    const [calcData, setCalcData] = useState();
+    const [calcData, setCalcData] = useState({birth: 0});
     const [goods, setGoods] = useState([]);
-    console.log("goods", goods);
-    // const [petData, setPetData] = useState({});
-    // {species: "dog", birth: "20200120", size: "small"}
+    const [showResult, setShowResult] = useState(false);
     
     const getMyPetData = () => {
         instance({
@@ -71,11 +69,13 @@ const AgeCalculator = () => {
             <div className="age-calc-section">
                 <AgeInput
                     calcData={calcData} setCalcData={setCalcData}
-                    setGoods={setGoods}
+                    setGoods={setGoods} showResult={showResult} setShowResult={setShowResult}
                 />
-                <AgeResult
-                    calcData={calcData} setCalcData={setCalcData}
-                />       
+                {showResult &&
+                    <AgeResult
+                        calcData={calcData} setCalcData={setCalcData}
+                    />                     
+                }
             </div>
             <div>
                 <CalcGoods goods={goods}/>

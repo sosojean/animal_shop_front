@@ -3,6 +3,9 @@ import instance from "../../utils/axios";
 import PlaceReview from "./PlaceReview";
 import ReviewEditor from "../shop/order/reviewEditor";
 import PlaceReviewEditor from "./PlaceReviewEditor";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPen} from "@fortawesome/free-solid-svg-icons";
+import DefaultButton from "../common/DefaultButton";
 
 const PlaceReviewList = ({mapId}) => {
     const [data, setData] = useState()
@@ -47,24 +50,35 @@ const PlaceReviewList = ({mapId}) => {
 
     return (
         <div>
-            <span>리뷰</span>
 
-            {data &&<>
-                <span>{totalCount}</span>
+            {data && <div className={"reviews"}>
+                <div className={"row reviews-header"}>
+                    <div className={"row reviews-count"}>
+                        <span>리뷰</span>
+                        <span>{totalCount}</span>
+                    </div>
+
+                    <DefaultButton className={"primary long review-write-btn"} onClick={() => setReviewWriting(true)}>
+                        리뷰작성
+                        <FontAwesomeIcon icon={faPen}/>
+                    </DefaultButton>
+
+                </div>
                 {data.map((item, index) => (
-                        <PlaceReview item={item} key={index} mapId={mapId} isEdited={isEdited} setIsEdited = {setIsEdited}/>
+                    <PlaceReview item={item} key={index} mapId={mapId}
+                                     isEdited={isEdited} setIsEdited={setIsEdited}/>
                     )
                 )}
-                {totalCount===0?
-                    <div>
+                {totalCount === 0 ?
+                    <div className={"no-contents-thin"}>
                         <span>작성된 리뷰가 없습니다.</span>
-                    </div>:""}
+                    </div> : ""}
 
-            </>}
+            </div>}
 
-            {totalCount>7 && (totalCount/7)>page&& <button onClick={loadMoreData}>더보기</button>}
-            {reviewWriting ? <PlaceReviewEditor setIsEdited={setIsEdited} isEdited={isEdited} mapId={mapId} setReviewWriting={setReviewWriting}/> :
-                <button onClick={() => setReviewWriting(true)}>리뷰작성</button>}
+            {totalCount > 7 && (totalCount/7)>page&& <button onClick={loadMoreData}>더보기</button>}
+            {reviewWriting &&<PlaceReviewEditor setIsEdited={setIsEdited} isEdited={isEdited} mapId={mapId} setReviewWriting={setReviewWriting}/>
+               }
 
 
         </div>

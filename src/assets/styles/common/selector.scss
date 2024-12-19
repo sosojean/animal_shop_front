@@ -1,0 +1,27 @@
+.selector{
+  -webkit-appearance: none;  /* 크롬 화살표 없애기 */
+  -moz-appearance: none; /* 파이어폭스 화살표 없애기 */
+  appearance: none;  /* 화살표 없애기 */
+  display: inline-block;
+  border: 1px solid #dbdbdb;
+  //width: 100%;
+
+
+  color: #767676;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+
+
+  //background: url(/img/landing/ic-arrow-down-grey-24px.png) no-repeat 95% 50%;
+  border-radius: 6px;
+  padding: 5px 10px;
+  background: url(../../img/arrowDown.svg) no-repeat 95% 50%;
+
+}
+//.selector.small{
+//  width: 120px;
+//
+//}
+

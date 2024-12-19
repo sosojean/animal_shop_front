@@ -1,65 +1,92 @@
-.content-info-container {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+.content-container{
 
-  .content-info {
-    margin-bottom: 1rem;
-
-    h2 {
-      font-size: 1.1rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
-  }
-
-  .content-author-info {
-
-    .user-name {
-      font-weight: bold;
-      margin-right: 0.5rem;
-    }
-
-
-    .hearts {
-      font-weight: bold;
-      margin-right: 0.5rem;
-    }
-
-    .modified-time, .hits {
+  .file-download{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    .download{
+      cursor: pointer;
+      color: var(--alpha-50);
       font-size: 0.9rem;
-      color: var(--alpha-30);
+    }
+    button{
+      color: var(--alpha-50);
+
+      background: none;
+      border: none;
     }
   }
 
-  .content-modify-button {
+  .content-info-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 
 
-    button {
-      border: 3px solid transparent;
+    .content-info {
+      margin-bottom: 1rem;
 
-      padding: 0.3rem;
-
-      background-color: transparent;
-
-      :first-child {
-        margin-right: 0.3rem;
+      h2 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
       }
 
-      .fa-xmark {
+      h1 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    .content-author-info {
+
+      .user-name {
+        font-weight: bold;
         margin-right: 0.5rem;
       }
+
+
+      .hearts {
+        font-weight: bold;
+        margin-right: 0.5rem;
+      }
+
+      .modified-time, .hits {
+        font-size: 0.9rem;
+        color: var(--alpha-30);
+      }
     }
+
+    .content-modify-button {
+
+
+      button {
+        border: 3px solid transparent;
+
+        padding: 0.3rem;
+
+        background-color: transparent;
+
+        :first-child {
+          margin-right: 0.3rem;
+        }
+
+        .fa-xmark {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+
+  }
+
+  .list-button-container{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
   }
 }
-
 .view-content {
   margin: 20px;
   //margin-top: 2rem;

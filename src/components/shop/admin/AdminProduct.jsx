@@ -5,6 +5,7 @@ import {faAngleRight, faStar} from "@fortawesome/free-solid-svg-icons";
 import "../../../assets/styles/shop/admin/adminProduct.scss"
 import InputField from "../../common/InputField";
 import instance from "../../../utils/axios";
+import DefaultButton from "../../common/DefaultButton";
 const AdminProduct = ({item, isEdited, setIsEdited}) => {
 
     const [comment, setComment] = useState("")
@@ -38,7 +39,7 @@ const AdminProduct = ({item, isEdited, setIsEdited}) => {
             <tr className="product">
                 <td className="no">{item?.id}</td>
 
-                <td className="img"><img src={item["thumbnail_url"][0]} alt=""/></td>
+                <td className="img"><img className="table-image" src={item["thumbnail_url"][0]} alt=""/></td>
 
                 <td className="title">{item?.name}</td>
                 <td className="detail">{item["item_detail"]}</td>
@@ -56,10 +57,12 @@ const AdminProduct = ({item, isEdited, setIsEdited}) => {
                 <td className="price">{item?.options[0].price}원</td>
 
                 <td>
+{/*
                     <div>
+*/}
                         {/*<button>옵션 보기</button>*/}
-                        <button className="revoke" onClick={() => setEditPendingText(!editPendingText)}>중단</button>
-                    </div>
+                        <button className="revoke button" onClick={() => setEditPendingText(!editPendingText)}>중단</button>
+                    {/*</div>*/}
                 </td>
 
 
@@ -70,17 +73,25 @@ const AdminProduct = ({item, isEdited, setIsEdited}) => {
             {editPendingText && <>
                 <tr>
                     <td colSpan={10}>
-                    <textarea className="reason"
-                              value={comment} onChange={(e) => setComment(e.target.value)}
-                              placeholder="판매 중단 사유를 기재해주세요."
-                              cols="30" rows="3"></textarea>
-                    <button onClick={pendingHandler}> 확인</button>
+                        <div className="reason-container">
+                            <textarea className="reason"
+                                      value={comment} onChange={(e) => setComment(e.target.value)}
+                                      placeholder="판매 중단 사유를 기재해주세요."
+                                      cols="30" rows="3"></textarea>
+                            <div className={"btn-container"}>
+                                <DefaultButton className="small primary" onClick={pendingHandler}> 확인</DefaultButton>
+                                <DefaultButton className="small default"
+                                        onClick={() => setEditPendingText(!editPendingText)}>취소
+                                </DefaultButton>
+
+                            </div>
+                        </div>
                     </td>
                 </tr>
-                </>
+            </>
 
             }
-            </>
+        </>
 
     );
 };
