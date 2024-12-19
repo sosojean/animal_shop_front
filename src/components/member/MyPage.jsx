@@ -10,11 +10,12 @@ import parseJwt from "../../utils/parseJwt";
 
 const MyPage = () => {
     const token = localStorage.getItem("accessToken");
-    const profileImg = parseJwt(token).profileImg
+    const profileImg = parseJwt(token).profileImg || "https://placehold.co/250x250";
 
-    const imgSrc =profileImg.includes("http://k.kakaocdn.net")?
+    const imgSrc = profileImg.includes("http://k.kakaocdn.net")?
         profileImg:
-        process.env.REACT_APP_IMG_PRINT + profileImg
+        profileImg.includes("https://placehold.co") ? 
+            profileImg : process.env.REACT_APP_IMG_PRINT + profileImg;
 
     useEffect(() => {
         // if (token) {
@@ -27,7 +28,7 @@ const MyPage = () => {
         <div className="my-page">
             <div className="user-profiles">
             <Card className="user-info default-card">
-                <img src={imgSrc} alt=""/>
+                <img src={imgSrc} alt="" className="profile-img"/>
                 <div className="user-info-text">
                     <span>user 님 안녕하세요</span>
                     <Link to={"/mypage/edit"}><span> 회원 정보 수정 <FontAwesomeIcon icon={faArrowRight}/> </span></Link>
