@@ -1,0 +1,21 @@
+.wiki-container {
+
+    .wiki-header {
+        text-align: center;
+        margin: 2rem 0 2rem 0;
+    }
+
+    .wiki-item {
+        display: flex;
+        background-color: var(--point-background-color-20);
+
+        .item-header {
+            text-align: center;
+        }
+
+        .wiki-img {
+            width: 150px;
+            border-radius: 10px;
+        }
+    }
+}

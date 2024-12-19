@@ -48,7 +48,7 @@ const SellerThumbnails = ({thumnailsUrls, setThumnailsUrls}) => {
         <div className="RegThumnailContainer">
             <div className="pictureHeader">
                 <h3>대표 이미지</h3>
-                <h3 style={{ color: "gray" }}>({thumnailsUrls.length}/10)</h3>
+                <h3 style={{ color: "gray" }}>({thumnailsUrls.length}/4)</h3>
             </div>
 
             <div className="addPicture">
@@ -78,8 +78,8 @@ const SellerThumbnails = ({thumnailsUrls, setThumnailsUrls}) => {
                         </div>
                     ))}
 
-                    {/* 10개 미만일 경우 사진 추가 버튼 표시 */}
-                    {thumnailsUrls.length < 10 && (
+                    {/* 4개 미만일 경우 사진 추가 버튼 표시 */}
+                    {thumnailsUrls.length < 4 && (
                     <div
                         className="imageContainer"
                         onClick={() => thumbnailRefs.current[thumnailsUrls.length]?.click()} // 새 이미지 추가

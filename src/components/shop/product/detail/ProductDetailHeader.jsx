@@ -5,6 +5,7 @@ import Option from "../option/Option";
 import Thumbnails from "./Thumbnails";
 import Selector from "../../../common/Selector";
 import instance from "../../../../utils/axios";
+import { toast } from "react-toastify";
 
 const ProductDetailHeader = ({data}) => {
 
@@ -84,7 +85,7 @@ const ProductDetailHeader = ({data}) => {
         // 업데이트된 storageCart를 다시 localStorage에 저장
         localStorage.setItem("cart", JSON.stringify(storageCart));
         addOptions();
-        alert("장바구니에 담았습니다!");
+        toast.success("장바구니에 담았습니다!")
     };
 
     // post 통신
@@ -98,8 +99,10 @@ const ProductDetailHeader = ({data}) => {
                 data: v
             }).then(res=>{
                 // console.log("성공했습니다 ",i)
+                toast.success("장바구니에 담았습니다!");
             }).catch(err=>{
                 console.log(err)
+                toast.error("장바구니에 상품을 담는 중에 오류가 발생했습니다.")
             })
         })
     }
@@ -216,9 +219,16 @@ const ProductDetailHeader = ({data}) => {
     }
 
     const purchaseHandler = () => {
-        const purchaseData = dataBuilder();
-        navigate("/order/delivery", {state : {purchaseData : purchaseData , itemId:data.id}})
+        const accessToken = localStorage.getItem('accessToken');
+        console.log("token", accessToken);
 
+        if (accessToken) {
+            const purchaseData = dataBuilder();
+            navigate("/order/delivery", {state : {purchaseData : purchaseData , itemId:data.id}});      
+        } else {
+            navigate("/login");
+            toast.warn("구매는 로그인이 필요합니다.");
+        }
     }
 
     const trimOptionText = (option, priceTrimmer)=>{

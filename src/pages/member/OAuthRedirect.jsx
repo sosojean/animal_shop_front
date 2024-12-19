@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useNavigate, useSearchParams} from "react-router-dom";
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 const OAuthRedirect = () => {
     const [searchParams] = useSearchParams();
@@ -22,7 +23,10 @@ const OAuthRedirect = () => {
             localStorage.setItem("refreshToken",res.data.refreshToken)
             }
             navigate("/")
-
+        }).catch((err) => {
+            console.error("error", err);
+            navigate("/login");
+            toast.error("이미 가입 된 회원입니다. 이메일을 바꿔주세요.")
         })
     }, []);
 
