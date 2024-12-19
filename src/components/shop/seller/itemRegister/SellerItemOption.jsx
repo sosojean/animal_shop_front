@@ -1,19 +1,27 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
+import { toast } from "react-toastify";
 
 const SellerItemOption = ({options, setOptions, newOption, setNewOption, 
     defaultPrice, setDefaultPrice}) => {
 
     // 옵션 추가
     const handleAddOption = () => {
-        if (newOption.name && newOption.price) {
-            setOptions([...options, 
-                { name: newOption.name, price: parseInt(newOption.price), discount_rate: 0}]);
-            // 입력 필드 초기화
-            setNewOption({ name: '', price: ''});
-        } else {
-            alert('옵션 이름과 가격을 모두 입력해주세요.');
+        if (!newOption.name || !newOption.price) {
+            toast.warn('옵션 이름과 가격을 모두 입력해주세요.');
+            return;
         }
+    
+        const price = parseInt(newOption.price);
+        if (isNaN(price) || price <= 9) {
+            toast.warn('가격을 10원 이상으로 작성해주세요.');
+            return;
+        }
+    
+        setOptions([...options, 
+            { name: newOption.name, price: price, discount_rate: 0}]);
+        // 입력 필드 초기화
+        setNewOption({ name: '', price: ''});
     }
 
     // 옵션 삭제
