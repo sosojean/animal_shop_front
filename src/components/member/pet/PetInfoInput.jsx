@@ -1,4 +1,5 @@
 import instance from "../../../utils/axios";
+import DefaultButton from "../../common/DefaultButton";
 
 const PetInfoInput = (props) => {
 
@@ -45,9 +46,9 @@ const PetInfoInput = (props) => {
         {!isFirstPage&&< button onClick={setPrev}>이전</button>}
             {console.log(isComplete)}
         {!isLastPage?
-            <button disabled={!isComplete} onClick={setNext}>
-                {isFirstPage?"그냥 진행하기":"다음" }</button>:
-            <button onClick={confirmHandler}>완료</button>}
+            <DefaultButton className="default" disabled={!isComplete} onClick={setNext}>
+                {isFirstPage?"그냥 진행하기":"다음" }</DefaultButton>:
+            <DefaultButton className="default"  onClick={confirmHandler}>완료</DefaultButton>}
         </div>
 
     </div>)

@@ -6,7 +6,7 @@
   .pet-info{
     display:flex;
     width: 480px;
-    height: 480px;
+    height: 800px;
     align-items:flex-end;
 
 
@@ -24,7 +24,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        *{
+        a{
           width: 100%;
         }
 
@@ -46,9 +46,9 @@
       }
       .two-buttons{
         display: flex;
-        .selected{
-          color: #ffe003;
-        }
+        //.selected{
+        //  color: #ffe003;
+        //}
 
 
       }

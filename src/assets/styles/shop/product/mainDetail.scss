@@ -76,7 +76,7 @@
             padding: 10px;
         }
 
-        .price-container{
+        .origin-price-container{
             margin-top: 3rem;
             margin-bottom: 1rem;
             .origin-price {
@@ -143,6 +143,10 @@
                 .price{
                     font-size: 1.2rem;
                 }
+                .origin-price{
+                    color: rgb(189,189,189);
+                    text-decoration: line-through;
+                }
             }
 
 
@@ -189,8 +193,6 @@
 
                 .price-container {
 
-
-
                     .discount-rate {
                         font-size: 1.0rem;
                         font-weight: bold;
@@ -211,6 +213,7 @@
             }
         }
         .purchaseLinkContainer {
+            width: 100%;
             display: flex;
             justify-content: space-between;
             gap: 1rem;

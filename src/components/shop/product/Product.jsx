@@ -124,11 +124,16 @@ const Product = (props) => {
                         <p className="origin-price">{(props.data?.price).toLocaleString()}원</p>
                         <span className="discount-rate">{props.data?.discount_rate}%</span>
                         <span className="price">{((props.data?.price) * (1 - props.data?.discount_rate/100)).toLocaleString()}</span>
-                    </div> : <span className="price">{(props.data?.price).toLocaleString()}원</span>
+                    </div> :
+                      <div>
+                          <span className="price">{(props.data?.price).toLocaleString()}원</span>
+                          <p className="origin-price no-decoration">{"ㅤ"}</p>
+
+                      </div>
                   }
 
                   <div className="option">
-                      <span className="option">참치맛</span>
+                  <span className="option">참치맛</span>
                       <hr className="vertical"/>
                       <span className="count">{props.data?.count}</span>
                   </div>

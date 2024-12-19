@@ -190,7 +190,8 @@ const ProductDetailHeader = ({data}) => {
         const options = data?.options
         const newStock = [...stocks]
         newStock?.map((stock) => {
-            totalPrice+= options[stock.index].price*stock.count
+            console.log(options[stock.index].price , options[stock.index].discount_rate)
+            totalPrice+= options[stock.index].price * stock.count-(options[stock.index].price * options[stock.index].discount_rate)/100 * stock.count
         })
 
         return totalPrice.toLocaleString()
@@ -273,7 +274,7 @@ const ProductDetailHeader = ({data}) => {
                                     className="appliedprice">{(defaultPrice * (1 - (data.options[0].discount_rate / 100))).toLocaleString()} 원</span>
                             </div>
                         </div> :
-                        <div className="price-container">
+                        <div className="origin-price-container">
                           <h1 className="origin-price">{defaultPrice.toLocaleString()} 원</h1>
                         </div>
                     }
@@ -304,9 +305,9 @@ const ProductDetailHeader = ({data}) => {
 
 
                 <div className="purchaseLinkContainer">
-                    {stocks[0] && <span className="price">총 상품 금액 {priceCalculator()} 원</span>}
+                    {stocks[0] ? <span className="price">총 상품 금액 {priceCalculator()} 원</span>:<span></span>}
 
-                    <div className={" row"}>
+                    <div className={"buttons-container row"}>
                     <DefaultButton className={"default long"} onClick={() => {
                         addCart();
                         handlePostCart();

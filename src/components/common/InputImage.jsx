@@ -2,6 +2,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faImage} from "@fortawesome/free-solid-svg-icons";
 import {useState} from "react";
 import axios from "axios";
+import "../../assets/styles/common/inputImage.scss"
+import animalPlaceholder from "../../../src/assets/img/animalPlaceholder.svg"
 
 const InputImage = ({imageUploadPath, setImage,image,objName}) =>{
 
@@ -41,23 +43,34 @@ const InputImage = ({imageUploadPath, setImage,image,objName}) =>{
 
 
     return(
-        <>
+        <div>
             <div className="img-section">
-                <label className="input-file-button" htmlFor="input-file"><FontAwesomeIcon
-                    icon={faImage}/></label>
+
                 <div className="images">
-                    {image ?(<>
-                        <img className="review-image" src={imageUrl + image} alt=""/>
-                        <button className="delete-image"
-                                onClick={(e) => deleteImage(e)}>x</button>
-                        </>):
-                        <span>placeholder</span>
+                    {image ? (<div>
+                            <div className="image-container">
+                                <img className="review-image" src={imageUrl + image} alt=""/>
+                            </div>
+                            <button className="delete-image"
+                                    onClick={(e) => deleteImage(e)}>x
+                            </button>
+                        </div>) :
+
+
+
+
+                        <div className="image-container">
+                            <img className="review-image" src={animalPlaceholder} alt=""/>
+                        </div>
                     }
                 </div>
             </div>
+            <label className="input-file-button" htmlFor="input-file">
+                파일
+            </label>
             <input id="input-file" onChange={(e) => ImgUploadHandler(e)} type="file"
                    accept="image/*"/>
-        </>
+        </div>
     )
 }
 export default InputImage;
