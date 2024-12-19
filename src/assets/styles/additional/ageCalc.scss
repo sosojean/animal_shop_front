@@ -17,16 +17,45 @@
 
         .age-input {
             width: 500px;
-            background-color: yellowgreen;
+            background-color: var(--point-background-color-80);
             // height: 500px;
 
+            // .calc-secondary-header {
+            //     padding-bottom: 3px;
+            //     border-bottom: 5px dashed #76a970c8;
+            // }
+
+            .two-selector-card {
+                
+                .two-selector {
+                    display: flex;
+
+                    margin-top: 0.5rem;
+                    gap: 1rem;
+                }
+            }
+
             .active {
-                background-color: yellowgreen;
+                background-color: var(--point-background-color-80);
+                color: #FFF;
+            }
+
+            .result-button-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                margin-top: 1rem;
+
+                .result-button:hover {
+                    background-color: var(--point-shadow-color);
+                    color: var(--reverse-font-color);
+                }
             }
         }
 
         .age-result {
-            background-color: yellowgreen;
+            background-color: var(--point-background-color-80);
             display: flex;
             justify-content: center;
             align-items: center;

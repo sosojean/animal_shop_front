@@ -7,10 +7,12 @@ import CalcGoods from "./CalcGoods";
 
 const CalorieCalculator = () => {
 
-    const [calcData, setCalcData] = useState(); 
+    const [calcData, setCalcData] = useState({species: "강아지", breed: "치와와", weight: 0, 
+        age: "성견/성묘", status: "해당없음", neuter: "완료"}); 
     const [amount, setAmount] = useState(0);
-    const [showFeeding, setShowFeeding] = useState(false);
+    const [showFeeding, setShowFeeding] = useState(true);
     const [goods, setGoods] = useState([]);
+    const [showResult, setShowResult] = useState(false);
         // {species: "dog", birth: "20200120", size: "small"}
     
     // 로그인 회원 대표 펫 정보 가져오기기
@@ -45,9 +47,11 @@ const CalorieCalculator = () => {
             <h1 className="calrorie-calc-header">칼로리 계산기</h1>
             <div className="calrorie-calc-section">
                 <CalorieInput calcData={calcData} setCalcData={setCalcData}
-                    showFeeding={showFeeding} setShowFeeding={setShowFeeding}
+                    showResult={showResult} setShowResult={setShowResult}
                     amount={amount} setAmount={setAmount} setGoods={setGoods}/>
-                <CalorieResult calcData={calcData} amount={amount} showFeeding={showFeeding}/>    
+                {showResult &&
+                    <CalorieResult calcData={calcData} amount={amount} showFeeding={showFeeding}/>   
+                }
             </div>
             <div>
                 <CalcGoods goods={goods}/>
