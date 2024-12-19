@@ -5,21 +5,62 @@
     width: 100%;
   }
 
+  .place-header{
+    display: flex;
+    justify-content: space-between;
+    .go-back,.like{
+      background: none;
+      border: none;
+    }
+
+    .like{
+      color:var(--point-color);
+      font-size: 1.5rem;
+    }
+    .place-title-container{
+      align-content: center;
+    }
+  }
+  .place-description{
+    color: var(--alpha-50);
+  }
+  .operating-hour{
+    line-height: 1.5rem;
+  }
+  .close-day{
+    margin-bottom: 6px;
+  }
   .reviews{
     .reviews-header{
+      width: 100%;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      button{
+        height: 32px;
+      }
+
 
     }
     .review-write-btn{
 
     }
   }
+  .place-review-item:last-child{
+    border-bottom: none;
+
+  }
   .place-review-item{
     padding: 4px;
-    border-bottom: 1px solid var(--alpha-5);
+    border-bottom: 1px solid var(--alpha-10);
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .review-header{
       display: flex;
+      gap: 4px;
+      align-items: center;
 
       .rating{
         text-align: center;

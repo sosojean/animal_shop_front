@@ -4,6 +4,8 @@ import Search from "../../pages/board/Search";
 import markerImg from "../../assets/img/marker.svg"
 import defaultMarkerImg from "../../assets/img/defaultMarker.svg"
 import selectedMarkerImg from "../../assets/img/selectedMarker.svg"
+import DefaultButton from "../common/DefaultButton";
+import {toast} from "react-toastify";
 
 
 const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , setBounds, data ,
@@ -222,13 +224,18 @@ const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , s
     return (
             <div className="map-container">
                 <div id="map" className="map"/>
-                <button onClick={()=> {
+                <DefaultButton className="primary wd100" onClick={()=> {
                     setSearch(!search)
                     setPage(1)
-                }} >검색</button>
+                }} > 현 위치 검색</DefaultButton>
 
 
-                <button onClick={()=>{moveToCurrent()}}> 현재 위치로  </button>
+                <DefaultButton className="default wd100" onClick={()=>
+                {
+                    toast.success("현재위치로 이동했습니다.")
+                    moveToCurrent()
+                }
+                }> 현재 위치로  </DefaultButton>
 
             </div>
     );

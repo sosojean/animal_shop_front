@@ -28,12 +28,16 @@ const PlaceList = ({page, setPage, totalPost, data, selectedItemId, setSelectedI
     },[selectedItemId, isEdited])
 
     return (
-        <div className="place-list-container">
+        <div className="place-list-container" style={selectedItemId?{height:"800px"}:{height:"700px"}}>
 
 
-            {!selectedItemId&&data&&data.map((item, index) => (
+            {!selectedItemId&&<div className={"place-list"}>
+            {data&&data.map((item, index) => (
                 <PlaceListItem key={index} item={item}  setSelectedItemId={setSelectedItemId}/>
             ))}
+                {data&&data.length===0?<div className={"no-contents-thin"}><span>검색 결과가 없습니다.</span></div>:""}
+
+            </div>}
             {!selectedItemId&&<Pagination totalPost={totalPost} btnCount={5}
                                           handlePageChange={setPage}
                                           currentPage={page} itemPerPage={15}/>

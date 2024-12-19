@@ -1,8 +1,64 @@
 .place-filter-container{
   display: flex;
-  flex-direction: row;
-  .selected{
-    background-color: lightgray;
-  }
+  flex-direction: column;
+  gap: 0.5rem;
 
+.place-filter-inner-container{
+  width: 100%;
+
+  .show-more-button{
+    background: none;
+    border: none;
+    height: 40px;
+
+  }
+.place-filter-container-buttons{
+  width: 100%;
+
+  display: grid;
+  //flex-direction: row;
+  //height: 160px;
+
+  grid-template-columns: 80px 80px 80px 80px ;
+  //grid-template-rows: 1fr 1fr 1fr;
+
+  gap: 4px;
+    .category{
+      white-space: nowrap; /* 기본적으로 텍스트가 한 줄로 유지되도록 */
+
+      border: 1px solid var(--alpha-5);
+      border-radius: 10px/10px;
+      background: none;
+      height: 40px;
+
+    }
+    .selected{
+      background-color: lightgray;
+    }
+
+  }
 }
+.check-box-list {
+  display: flex;
+  gap: 4px;
+  .check-box-container {
+    input {
+      display: none;
+
+    }
+    input:checked + label {
+      background-color: orange;
+      cursor: pointer;
+    }
+    label {
+      width: 80px;
+      display: inline-block;
+      padding: 5px 10px;
+      cursor: pointer;
+      //border: 1px solid #ccc;
+      //border-radius: 4px;
+      border: 1px solid var(--alpha-5);
+      border-radius: 10px/10px;
+    }
+  }
+}}

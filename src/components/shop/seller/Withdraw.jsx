@@ -5,6 +5,9 @@ import instance from "../../../utils/axios";
 import WithdrawItem from "./WithdrawItem";
 import StatAnalysisTableCol3 from "../admin/StatAnalysisTableCol3";
 import Title from "../../common/Title";
+import "../../../assets/styles/shop/seller/sellerWithdraw.scss"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 
 const Withdraw = () => {
 
@@ -87,11 +90,15 @@ const Withdraw = () => {
 
             {/* 날짜 조정 버튼 */}
             <div className="row date-controls">
-                <button onClick={() => adjustDate(-1)}>이전 달</button>
+                <button className="prev-next" onClick={() => adjustDate(-1)}>
+                    <FontAwesomeIcon icon={faAngleLeft}/>
+                </button>
                 <span>
                     {startDate} ~ {endDate}
                 </span>
-                <button onClick={() => adjustDate(1)} disabled={isCurrentMonth()}>다음 달</button>
+                <button className="prev-next" onClick={() => adjustDate(1)} disabled={isCurrentMonth()}>
+                    <FontAwesomeIcon icon={faAngleRight}/>
+                </button>
 
             </div>
 

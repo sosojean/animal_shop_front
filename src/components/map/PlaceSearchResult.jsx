@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import BlogResultItem from "./BlogResultItem";
+import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const PlaceSearchResult = ({mapId, query}) => {
     const [data, setData] = useState()
@@ -25,7 +27,7 @@ const PlaceSearchResult = ({mapId, query}) => {
     return (
         <div>
             <hr/>
-            <h3>블로그 검색결과</h3>
+            <h3 className={"sub-header"}>블로그 검색결과 <FontAwesomeIcon icon={faMagnifyingGlass}/></h3>
 
             <div className="place-search-container">
 

@@ -52,18 +52,23 @@ const PlaceReviewList = ({mapId}) => {
         <div>
 
             {data && <div className={"reviews"}>
-                <div className={"row reviews-header"}>
-                    <div className={"row reviews-count"}>
-                        <span>리뷰</span>
-                        <span>{totalCount}</span>
-                    </div>
 
-                    <DefaultButton className={"primary long review-write-btn"} onClick={() => setReviewWriting(true)}>
-                        리뷰작성
-                        <FontAwesomeIcon icon={faPen}/>
-                    </DefaultButton>
+                        <h3 className="sub-header row reviews-header">
+                            <div>
+                                <span>리뷰</span>
+                                <span>{totalCount}</span>
+                            </div>
+                            <DefaultButton className={"primary  review-write-btn"} onClick={() => setReviewWriting(true)}>
+                                리뷰작성
+                                <FontAwesomeIcon icon={faPen}/>
+                            </DefaultButton>
+                        </h3>
 
-                </div>
+
+                    {/*</div>*/}
+
+
+
                 {data.map((item, index) => (
                     <PlaceReview item={item} key={index} mapId={mapId}
                                      isEdited={isEdited} setIsEdited={setIsEdited}/>

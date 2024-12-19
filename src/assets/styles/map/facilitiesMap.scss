@@ -1,20 +1,31 @@
 .map-outer-container{
-
+//gap: 1rem;
   height: 100vh;
   display: flex;
   .map-list{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     width: 360px;
   }
   .map-container{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     width: 720px;
   }
 
 
   .place-list-container{
     padding: 4px;
-    //margin: 10px;
-    height: 600px;
+    //height: 600px;
+    //height: 800px;
+
     overflow-y: scroll;
+    .place-list{
+      min-height: 550px;
+
+    }
 
     .detail-info-card{
 

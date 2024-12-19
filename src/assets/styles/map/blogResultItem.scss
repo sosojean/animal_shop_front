@@ -4,6 +4,15 @@
   gap: 4px;
 }
 
+.sub-header{
+  font-weight: 400;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--alpha-5);
+  svg{
+    font-size: 0.8rem;
+  }
+}
 .blog{
   display: flex;
 

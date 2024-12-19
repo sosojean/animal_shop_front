@@ -20,12 +20,15 @@ const PlaceReview = ({item, mapId, setIsEdited, isEdited}) => {
             url:`/map/comment/check?commentId=${item.id}`,
             method:"get"
         }).then(res=>{
+            console.log(item)
+            console.log("item.id",item.id,res.data)
+
             setIsAuthor(res.data)
         }).catch(err=>{
             console.log(err)
         })
 
-    }, []);
+    }, [isEdited]);
 
     const deleteHandler = ()=>{
         instance({
@@ -54,6 +57,7 @@ const PlaceReview = ({item, mapId, setIsEdited, isEdited}) => {
                                 return <span className="remains"><FontAwesomeIcon icon={faStar}/></span>
                             })}
                          </span>
+                        <span>{modifiedTime}</span>
 
                         {isAuthor && <>
                             <DefaultButton onClick={() => {
@@ -67,7 +71,6 @@ const PlaceReview = ({item, mapId, setIsEdited, isEdited}) => {
 
 
                     <span>{item.contents}</span>
-                    <span>{modifiedTime}</span>
 
                     <div>
                         {item && item.map_comment_thumbnail_url.map(
