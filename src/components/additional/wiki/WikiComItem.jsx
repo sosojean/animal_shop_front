@@ -1,13 +1,14 @@
 import DefaultButton from "../../common/DefaultButton";
 import instance from "../../../utils/axios"
 import WikiComEditor from "./WikiComEditor";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const WikiComItem = (props) => {
 
     const {data, getRefresh} = props;
     const isUpdate = true;
     const [showEditor, setShowEditor] = useState(false);
+    const [isMine, setIsMine] = useState(false);
 
     // 댓글 삭제 API
     const handleDeleteComment = () => {
@@ -23,6 +24,24 @@ const WikiComItem = (props) => {
         })
     }
 
+    const getIsMyComment = () => {
+        instance({
+            url: `/wiki/comment/${data.id}/myComment`,
+            method: "get"
+        }).then((res) => {
+            console.log("getIsMyComment response", res.data);
+            setIsMine(res.data);
+            // getRefresh();
+        })
+        .catch((err) => {
+            console.error("getIsMyComment error", err);
+        })
+    }
+
+    useEffect(() => {
+        getIsMyComment();
+    }, []);
+
     return (
         <div>
             {showEditor ? 
@@ -30,17 +49,21 @@ const WikiComItem = (props) => {
                     setShowEditor={setShowEditor} getRefresh={getRefresh}/> : 
                 <>
                     <div>
-                        <p>{data.author}</p>
+                        <p><b>{data.author}</b></p>
                         <p>{data.content}</p>                
                     </div>
-                    <div>
-                        <DefaultButton onClick={handleDeleteComment}>삭제</DefaultButton>
-                    </div>                
+                    {isMine &&
+                        <div>
+                            <DefaultButton onClick={handleDeleteComment}>삭제</DefaultButton>
+                        </div>                      
+                    }
                 </>           
             }
-            <DefaultButton onClick={() => setShowEditor(!showEditor)}>
-                {showEditor ? "수정창 끄기" : "수정창 열기"}
-            </DefaultButton>
+            {isMine &&
+                <DefaultButton onClick={() => setShowEditor(!showEditor)}>
+                    {showEditor ? "수정창 끄기" : "수정창 열기"}
+                </DefaultButton>            
+            }
         </div>
     )
 }

@@ -43,7 +43,7 @@ const AdoptFilterMax = (props) => {
 
     return (
         <>
-        <Card className="filter-max-container">
+        <Card className="default-card filter-max-container">
             <div className="kind-selector">
                 <Card>
                     <button onClick={() => {
