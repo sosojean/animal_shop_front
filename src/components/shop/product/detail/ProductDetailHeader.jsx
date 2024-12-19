@@ -5,6 +5,8 @@ import Option from "../option/Option";
 import Thumbnails from "./Thumbnails";
 import Selector from "../../../common/Selector";
 import instance from "../../../../utils/axios";
+import {toast} from "react-toastify";
+import DefaultButton from "../../../common/DefaultButton";
 
 const ProductDetailHeader = ({data}) => {
 
@@ -84,7 +86,7 @@ const ProductDetailHeader = ({data}) => {
         // 업데이트된 storageCart를 다시 localStorage에 저장
         localStorage.setItem("cart", JSON.stringify(storageCart));
         addOptions();
-        alert("장바구니에 담았습니다!");
+        toast.success("장바구니에 담았습니다!");
     };
 
     // post 통신
@@ -262,14 +264,18 @@ const ProductDetailHeader = ({data}) => {
                     <h2>{data.seller}</h2>
                     <h1>{data.name}</h1>
                     {data.options[0].discount_rate > 0 && data.options[0].discount_rate !== null ?
-                        <div className="discount-price-container">                        
+                        <div className="discount-price-container">
+                            <h1 className="origin-price">{defaultPrice.toLocaleString()} 원</h1>
+
                             <div className="discount-price">
                                 <span className="rate">{data.options[0].discount_rate}%</span>
-                                <span className="appliedprice">{(defaultPrice * (1 - (data.options[0].discount_rate/100))).toLocaleString()} 원</span>
+                                <span
+                                    className="appliedprice">{(defaultPrice * (1 - (data.options[0].discount_rate / 100))).toLocaleString()} 원</span>
                             </div>
-                            <h1 className="origin-price">{defaultPrice.toLocaleString()} 원</h1>     
                         </div> :
-                        <h1>{defaultPrice.toLocaleString()} 원</h1>
+                        <div className="price-container">
+                          <h1 className="origin-price">{defaultPrice.toLocaleString()} 원</h1>
+                        </div>
                     }
                 </div>
 
@@ -296,16 +302,19 @@ const ProductDetailHeader = ({data}) => {
                     })}
                 </div>
 
-                {stocks[0] && <span className="price">총 상품 금액 {priceCalculator()} 원</span>}
 
                 <div className="purchaseLinkContainer">
-                    <button onClick={() => {
+                    {stocks[0] && <span className="price">총 상품 금액 {priceCalculator()} 원</span>}
+
+                    <div className={" row"}>
+                    <DefaultButton className={"default long"} onClick={() => {
                         addCart();
                         handlePostCart();
                     }}>
                         장바구니
-                    </button>
-                    <button onClick={purchaseHandler}>구매하기</button>
+                    </DefaultButton>
+                    <DefaultButton className={"primary long"} onClick={purchaseHandler}>구매하기</DefaultButton>
+                    </div>
                 </div>
             </div>
         </div>

@@ -29,7 +29,7 @@
     --alpha-5: rgb(0 0 0 / 5%);
     --alpha-10: rgb(0 0 0 / 10%);
     --alpha-20: rgb(0 0 0 / 20%);
-    --alpha-30: rgb(0 0 0 / 30%);
+    --alpha-30: rgba(0, 0, 0, 0.3);
     --alpha-40: rgb(0 0 0 / 40%);
     --alpha-50: rgb(0 0 0 / 50%);
     --alpha-70: rgb(0 0 0 / 70%);

@@ -35,10 +35,10 @@ const PlaceList = ({page, setPage, totalPost, data, selectedItemId, setSelectedI
             {data&&data.map((item, index) => (
                 <PlaceListItem key={index} item={item}  setSelectedItemId={setSelectedItemId}/>
             ))}
-                {data&&data.length===0?<div className={"no-contents-thin"}><span>검색 결과가 없습니다.</span></div>:""}
+            {data&&data.length===0?<div className={"no-contents-thin"}><span>검색 결과가 없습니다.</span></div>:""}
 
             </div>}
-            {!selectedItemId&&<Pagination totalPost={totalPost} btnCount={5}
+            {data&&data.length!==0&&!selectedItemId&&<Pagination totalPost={totalPost} btnCount={5}
                                           handlePageChange={setPage}
                                           currentPage={page} itemPerPage={15}/>
 
