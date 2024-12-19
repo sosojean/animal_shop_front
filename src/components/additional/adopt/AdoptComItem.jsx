@@ -1,6 +1,7 @@
 import DefaultButton from "../../common/DefaultButton";
 import instance from "../../../utils/axios"
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import AdoptComEditor from "./AdooptComEditor";
 
 const AdoptComItem = (props) => {
@@ -20,9 +21,11 @@ const AdoptComItem = (props) => {
         }).then((res) => {
             console.log("response", res.data);
             getRefresh();
+            toast.success('댓글이 성공적으로 삭제되었습니다.');
         })
         .catch((err) => {
             console.error("error", err);
+            toast.error('댓글 삭제 중 오류가 발생했습니다.');
         })
     }
 
@@ -33,7 +36,6 @@ const AdoptComItem = (props) => {
         }).then((res) => {
             console.log("getIsMyComment response", res.data);
             setIsMine(res.data);
-            // getRefresh();
         })
         .catch((err) => {
             console.error("getIsMyComment error", err);
