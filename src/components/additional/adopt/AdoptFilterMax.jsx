@@ -1,9 +1,9 @@
-import Card from "../common/Card";
-import Filter from "./Filter";
-import { catBreedSelector, dogBreedSelector} from "../../utils/petOptions";
-import { regionOptions } from "../../utils/regionOptions";
+import Card from "../../common/Card";
+import Filter from "../adopt/Filter";
+import { catBreedSelector, dogBreedSelector} from "../../../utils/petOptions";
+import { regionOptions } from "../../../utils/regionOptions";
 import { useState } from "react";
-import FilterRegion from "./FilterRegion";
+import FilterRegion from "../adopt/FilterRegion";
 
 
 const AdoptFilterMax = (props) => {

@@ -1,4 +1,4 @@
-import AdoptInterestList from "../../components/additional/AdoptInterestList";
+import AdoptInterestList from "../../components/additional/adopt/AdoptInterestList";
 import Card from "../../components/common/Card";
 import Pagination from "../../components/board/Pagination";
 import "../../assets/styles/additional/adoptAnimal.scss"

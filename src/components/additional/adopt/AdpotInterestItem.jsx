@@ -1,8 +1,8 @@
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import Card from "../common/Card"
-import instance from "../../utils/axios";
+import Card from "../../common/Card";
+import instance from "../../../utils/axios";
 
 const AdoptInterestItem = (props) => {
 

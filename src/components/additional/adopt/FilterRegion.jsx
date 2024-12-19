@@ -1,4 +1,4 @@
-import Card from "../common/Card";
+import Card from "../../common/Card";
 import { useState } from "react";
 
 const FilterRegion = (props) => {

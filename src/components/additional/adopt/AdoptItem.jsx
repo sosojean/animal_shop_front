@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import Card from "../common/Card";
+import Card from "../../common/Card";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import instance from "../../utils/axios"
+import instance from "../../../utils/axios"
 import { Link } from "react-router-dom";
 
 const AdoptItem = (props) => {
