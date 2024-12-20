@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import "../../../assets/styles/shop/seller/sellerDiscount.scss"
 import instance from "../../../utils/axios"
+import Title from "../../common/Title";
 
 const SellerDiscount = (props) => {
 
     const {data, getRefreshData} = props;
+    
     const [discountedItem, setDiscountedItem] = useState([]);
     const [isDataFetched, setIsDataFetched] = useState(false);
 
-    console.log("seller discount - data", data);
-    console.log("discountedItem", discountedItem)
+    const titleList = ["", "옵션명", "원가", "할인율(%)"];
 
     // 수정 데이터 가져오기
     const getDiscountedData = () => {
@@ -165,23 +166,32 @@ const SellerDiscount = (props) => {
 
     return (
         <div className="discount-modal-container">
-            <div><h1>할인 적용</h1></div>
+            <h1 className="discount-header">할인 적용</h1>
             <div className="option-container">
-                {data.options.map((option, index) => {
-                    return(
-                         <div key={index} className="option-item">
-                            <span>{option.name} </span>
-                            <span> {option.price}원</span>
-                            <input type="number" placeholder="할인율(%)"
-                                defaultValue={option.discount_rate}
-                                onChange={(e) => 
-                                    handleAddItem(option.name, option.price, 
-                                        e.target.value, option.optionId)
-                                }
-                            />
-                         </div>   
-                    )     
-                })}
+                <div className="option-header">
+                    {titleList.map((title, i) => {
+                        return <span key={i} className={title}>{title}</span>
+                    })}
+                </div>
+                <div className="option-list">
+                    {data.options.map((option, index) => {
+                        return(
+                            <div key={index} className="option-item">
+                                <span><b>{index + 1}</b></span>
+                                <span>{option.name} </span>
+                                <span className="opiton-price" style={{textAlign: "right"}}>{option.price.toLocaleString()} 원</span>
+                                <input type="number" placeholder="할인율(%)"
+                                    defaultValue={option.discount_rate}
+                                    onChange={(e) => 
+                                        handleAddItem(option.name, option.price, 
+                                            e.target.value, option.optionId)
+                                    }
+                                />
+                            </div>   
+                        )     
+                    })}
+                </div>
+
             </div>
             <div className="discount-option-container">
                 <div className="button-container">
@@ -197,26 +207,31 @@ const SellerDiscount = (props) => {
                 <div className="header-container">
                     <span>선택</span>
                     <span>옵션명</span>
-                    <span>옵션가격</span>
-                    <span>할인율</span>
-                    <span>할인가격</span>
+                    <span style={{textAlign: "right"}}>옵션가격</span>
+                    <span style={{textAlign: "right"}}>할인율(%)</span>
+                    <span style={{textAlign: "right"}}>할인가격</span>
                 </div>
-                {discountedItem.map((item, index) => {
+                <div className="option-list">
+                    {discountedItem.map((item, index) => {
 
-                    return (
-                        <div key={item.option_id} className="discount-option">
-                            <input type="checkbox" checked={item.select}
-                                onClick={() => handleCheckItem(index)}
-                            />
-                            <span>{item.name} </span>
-                            <span>{item.price}원 </span>
-                            <span>{item.option_discount_rate}% </span>
-                            <span>{item.price * (1-item.option_discount_rate/100)}원 </span>
-                        </div>
-                    )
-                })}
+                        return (
+                            <div key={item.option_id} className="discount-option">
+                                <input type="checkbox" checked={item.select}
+                                    onClick={() => handleCheckItem(index)}
+                                />
+                                <span>{item.name} </span>
+                                <span style={{textAlign: "right"}}>{item.price.toLocaleString()} 원 </span>
+                                <span style={{textAlign: "right"}}>{item.option_discount_rate}% </span>
+                                <span style={{textAlign: "right"}}>
+                                    {(item.price * (1-item.option_discount_rate/100)).toLocaleString()}원
+                                </span>
+                            </div>
+                        )
+                    })}`
+                </div>
+
             </div>
-            <div>
+            <div className="register-button">
                 <button onClick={() => {
                     handleApplyDiscount();
                 }}>등록</button>
