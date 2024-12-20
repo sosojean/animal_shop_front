@@ -100,7 +100,7 @@ const SellerItemSearch = (props) => {
     }
 
     return (
-        <div>
+        <div className="seller-search-main-container">
             <div className="seller-search-container">
                 <select onChange={(e) => {setSpecies(e.target.value);}}>
                     <option value="total">강아지/고양이</option>
@@ -142,7 +142,7 @@ const SellerItemSearch = (props) => {
                 <button onClick={() => {
                     handleAddParam();}}>검색</button>
             </div>
-            <div>
+            <div className="filter-list">
                 <div className="filter-buttons row">
                     {paramsList.map((param, index) => {
                         if (param === "total"){ return null } 
@@ -157,7 +157,6 @@ const SellerItemSearch = (props) => {
                 </div>          
                 <p>검색결과 {totalCount}건</p>     
             </div>
-
         </div>
 
     )
