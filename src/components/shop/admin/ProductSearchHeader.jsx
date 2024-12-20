@@ -6,6 +6,9 @@ import instance from "../../../utils/axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFileCsv, faTable} from "@fortawesome/free-solid-svg-icons";
 import DefaultButton from "../../common/DefaultButton";
+import { allItemCategory, dogItemCategory, sellStatusCategory } from '../../../utils/categoryOption';
+
+
 const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal, saveToCsv}) => {
     const searchQuery = {
         searchBy:"0",
@@ -24,6 +27,7 @@ const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal, s
                 ...infoList
             }))
         console.log("executed")
+        console.log("applySearchQuery", searchQueryData);
     }
 
 
@@ -37,7 +41,7 @@ const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal, s
         ["세부카테고리","toys", "walking_supplies", "potty_supplies", "clothing/accessories", "houses/beds", "grooming/care", "nose_work"]];
     const detailedCatCategoryOptions =
         [["세부카테고리"],["세부카테고리","main_cans", "adult", "kitten", "all_ages", "pouches", "dry_food", "air/dried_food"],
-            ["세부카테고리","pouch_treats", "freeze-dried/dehydrated", "nutritional/functional", "snack_cans", "jerky", "dental_treats", "snacks"],
+            ["세부카테고리","pouch_treats", "freeze_dried/dehydrated", "nutritional/functional", "snack_cans", "jerky", "dental_treats", "snacks"],
             ["세부카테고리","fishing_rods/lasers", "scratchers/boxes", "litter", "tunnels/hunting_instinct", "cat_towers/cat_wheels", "litter_boxes/bathroom_aids", "balls/plush_toys"]];
 
     const activeFilters = Object.entries(searchQueryData).filter(([key, value]) => {
@@ -99,23 +103,49 @@ const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal, s
         })
     }
 
+    const getConverted = (origin, type) => {
+        const pageType = type;
+        let existedIndex;
+
+        switch (pageType) {
+            case "detail" :
+                existedIndex = allItemCategory.findIndex(v => v.name === origin);
+                if (existedIndex > -1) {return allItemCategory[existedIndex].convert;}
+                else {return "세부카테고리";}
+            case "category" :
+                existedIndex = dogItemCategory.findIndex(v => v.main.name === origin);
+                if (existedIndex > -1) {return dogItemCategory[existedIndex].main.convert;}
+                else {return "카테고리";}
+            case "status" :
+                existedIndex = sellStatusCategory.findIndex(v => v.name === origin.toUpperCase());
+                if (existedIndex > -1) {return sellStatusCategory[existedIndex].convert;}
+                else {return "";}
+        }
+    }
+
     const mapFilterToOption = (key, value) => {
         const index = parseInt(value, 10);
+        let originName;
+
         switch (key) {
             case "searchBy":
                 return searchByOptions[index];
             case "status":
-                return statusOptions[index];
+                originName = statusOptions[index];
+                return getConverted(originName, "status");
             case "species":
-                return speciesOptions[index];
+                return speciesOptions[index] === "dog" ? "강아지" : "고양이";
             case "category":
-                return categoryOptions[index];
+                originName = categoryOptions[index];
+                return getConverted(originName, "category");
             case "detailedCategory":
                 if (searchQueryData.species === "1") {
-                    return detailedCatCategoryOptions[searchQueryData.category]?.[index] || "세부카테고리";
+                    const originName = detailedCatCategoryOptions[searchQueryData.category]?.[index];
+                    return getConverted(originName, "detail") || "세부카테고리";
                 }
                 if (searchQueryData.species === "2") {
-                    return detailedDogCategoryOptions[searchQueryData.category]?.[index] || "세부카테고리";
+                    const originName = detailedDogCategoryOptions[searchQueryData.category]?.[index];
+                    return getConverted(originName, "detail") || "세부카테고리";
                 }
                 return "세부카테고리";
             default:
@@ -123,6 +153,33 @@ const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal, s
         }
     };
 
+    const trimOptionText = (option, type) => {
+        let existedIndex;
+
+        // type = priceTrimmer
+        switch(type){
+            case "species":
+                return option === "dog" ? "강아지" : 
+                    option === "cat" ? "고양이" : "강아지/고양이";
+            case "category":
+                existedIndex = dogItemCategory.findIndex(v => v.main.name === option);
+                if (existedIndex > -1) {return dogItemCategory[existedIndex].main.convert;}
+                else {return "카테고리";}   
+            case "detail":
+                existedIndex = allItemCategory.findIndex(v => v.name === option);
+                if (existedIndex > -1) {return allItemCategory[existedIndex].convert;}
+                else {return "세부카테고리";}
+            case "status":
+                existedIndex = sellStatusCategory.findIndex(v => v.name === option.toUpperCase());
+                if (existedIndex > -1) {return sellStatusCategory[existedIndex].convert;}
+                else {return "판매상태";}
+            case "search":
+                return option === "item" ? "상품" : "판매자"; 
+        }
+
+    }
+
+    console.log("searchQueryData.detailedCategory", searchQueryData.detailedCategory);
     return (
         <div className="product-search-header">
 
@@ -132,17 +189,23 @@ const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal, s
                     <Selector handleSelectChange={(name, e) => {
                         applySearchQuery({'species': e})
                     }}
+                              trimOptionText={trimOptionText}
+                              priceTrimmer="species"
                               selectedValue={searchQueryData.species}
                               optionItems={speciesOptions}/>
                     <Selector handleSelectChange={(name, e) => {
                         applySearchQuery({'category': e})
                     }}
+                              trimOptionText={trimOptionText}
+                              priceTrimmer="category"
                               selectedValue={searchQueryData.category}
                               optionItems={categoryOptions}/>
 
                     <Selector handleSelectChange={(name, e) => {
                         applySearchQuery({'detailedCategory': e})
                     }}
+                              trimOptionText={trimOptionText}
+                              priceTrimmer="detail"
                               selectedValue={searchQueryData.detailedCategory}
                               optionItems={searchQueryData.species !== "1" ?
                                   detailedDogCategoryOptions[searchQueryData.category] :
@@ -151,6 +214,8 @@ const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal, s
                     <Selector handleSelectChange={(name, e) => {
                         applySearchQuery({'status': e})
                     }}
+                              trimOptionText={trimOptionText}
+                              priceTrimmer="status"
                               selectedValue={searchQueryData.status}
                               optionItems={statusOptions}/>
                 </div>
@@ -159,6 +224,8 @@ const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal, s
                     <Selector handleSelectChange={(name, e) => {
                         applySearchQuery({'searchBy': e})
                     }}
+                              trimOptionText={trimOptionText}
+                              priceTrimmer="search"
                               selectedValue={searchQueryData.searchBy}
                               optionItems={searchByOptions}/>
 

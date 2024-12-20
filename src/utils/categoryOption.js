@@ -73,7 +73,7 @@ export const dogItemCategory = [
         { name: "fishing_rods/lasers", convert: "낚시대/레이저" },
         { name: "scratchers/boxes", convert: "스크래쳐/박스" },
         { name: "litter", convert: "모래" },
-        { name: "tunnels/hunting_instinct", convert: "터널/사냥_본능" },
+        { name: "tunnels/hunting_instinct", convert: "터널/사냥본능" },
         { name: "cat_towers/cat_wheels", convert: "캣타워/캣휠" },
         { name: "litter_boxes/bathroom_aids", convert: "화장실/배변보조" },
         { name: "balls/plush_toys", convert: "공/인형" }

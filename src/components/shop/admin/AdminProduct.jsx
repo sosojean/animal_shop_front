@@ -11,6 +11,8 @@ const AdminProduct = ({item, isEdited, setIsEdited}) => {
     const [comment, setComment] = useState("")
     const [editPendingText, setEditPendingText] = useState(false)
 
+    console.log("adminProduct item", item);
+
 
     function pendingHandler() {
         console.log(comment)
