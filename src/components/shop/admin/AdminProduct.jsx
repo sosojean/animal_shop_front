@@ -6,12 +6,39 @@ import "../../../assets/styles/shop/admin/adminProduct.scss"
 import InputField from "../../common/InputField";
 import instance from "../../../utils/axios";
 import DefaultButton from "../../common/DefaultButton";
+import { allItemCategory, dogItemCategory, sellStatusCategory } from '../../../utils/categoryOption';
+
 const AdminProduct = ({item, isEdited, setIsEdited}) => {
 
     const [comment, setComment] = useState("")
     const [editPendingText, setEditPendingText] = useState(false)
 
     console.log("adminProduct item", item);
+
+    const getConvertedName = (name, type) => {
+        let existedIndex;
+
+        // type = priceTrimmer
+        switch(type){
+            case "species":
+                return name === "dog" ? "강아지" : 
+                    name === "cat" ? "고양이" : "강아지/고양이";
+            case "category":
+                existedIndex = dogItemCategory.findIndex(v => v.main.name === name);
+                if (existedIndex > -1) {return dogItemCategory[existedIndex].main.convert;}
+                else {return "카테고리";}   
+            case "detail":
+                existedIndex = allItemCategory.findIndex(v => v.name === name);
+                if (existedIndex > -1) {return allItemCategory[existedIndex].convert;}
+                else {return "세부카테고리";}
+            case "status":
+                existedIndex = sellStatusCategory.findIndex(v => v.name === name.toUpperCase());
+                if (existedIndex > -1) {return sellStatusCategory[existedIndex].convert;}
+                else {return "판매상태";}
+            case "search":
+                return name === "item" ? "상품" : "판매자"; 
+        }
+    }
 
 
     function pendingHandler() {
@@ -47,13 +74,15 @@ const AdminProduct = ({item, isEdited, setIsEdited}) => {
                 <td className="detail">{item["item_detail"]}</td>
 
                 <td className="category">
-                    <span className="category-name">{item?.category}</span>
+                    <span className="category-name">{getConvertedName(item?.category,"category")}</span>
                     <span>{">"}</span>
-                    <span className="detail-category">{item["detailed_category"]}</span>
+                    <span className="detail-category">
+                        {getConvertedName(item["detailed_category"],"detail")}
+                    </span>
                 </td>
 
                 <td className="stock">{item?.["stock_number"]}</td>
-                <td className="status">{item?.["sell_status"]}</td>
+                <td className="status">{getConvertedName(item?.["sell_status"],"status")}</td>
 
                 <td className="brand">{item?.seller}</td>
                 <td className="price">{item?.options[0]?.price}원</td>
