@@ -14,10 +14,8 @@ import Title from "../../../common/Title";
 const SellerItemList = ({navigateUrl}) => {
 
     const [itemList, setItemList] = useState([]); // 아이템 리스트
-    console.log("itemList", itemList);
     const [totalCount, setTotalCount] = useState(0); // 아이템 개수
     const [params, setParams] = useState({}); // 검색 PARAMS
-    console.log("parent params", params);
 
     const location = useLocation();
     const navigate = useNavigate();

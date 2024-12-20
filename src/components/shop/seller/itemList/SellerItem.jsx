@@ -13,8 +13,6 @@ const SellerItem = (props) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [suspendOpen, setSuspendOpen] = useState(false);
 
-    console.log("SellerItem item", item);
-
     const getConvertedStatus = () => {
         const status = item.sell_status;
         const statusIndex = sellStatusCategory.findIndex(v => v.name === status);
