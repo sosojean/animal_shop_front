@@ -9,36 +9,94 @@
     width: 60%;
   }
 
+.pet-info-list{
+  width: calc(100% - 624px);
+    .load-more{
+        padding: 1rem;
+    }
+}
+
   .pet-profile-container{
     padding: 4px;
 
-    overflow: auto;
+    overflow-y: scroll;
     height: 880px;
     gap:1rem;
     display: flex;
-    width: 40%;
+    width: 100%;
     flex-direction: column;
+
 
     .pet-info{
       height: 160px;
       width: 100%;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      .info-image-container{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        gap: 0.5rem;
+
+      }
 
       .pet-profile{
+        min-width: 125px;
         width: 125px;
         height: 125px;
         object-fit: cover;
+        border-radius: 12px/12px;
+
       }
       .info-section{
+        //padding: 1rem;
         display: flex;
         flex-direction: column;
-        width: 125px;
-        .icon{
-          font-size: 24px;
-          color: #ffe003;
+        width: 100%;
+        .info-detail-section{
+          margin-top: 8px;
+          flex-direction: column;
+          display: flex;
+          gap: .7rem;
+
         }
 
+        .name-section{
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          .icon{
+            font-size: 24px;
+            color: #ffe003;
+          }
+
+          .pet-info-header{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            .age{
+              font-weight: 200;
+              font-size: 0.9rem;
+            }
+
+          }
+
+
+        }
+
+
+      }
+      .button-section{
+        height: 100%;
+        display: flex;
+        align-items: flex-start;
+        button{
+          color: var(--alpha-50);
+          background:none;
+          border: none;
+        }
       }
 
     }

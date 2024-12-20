@@ -3,12 +3,15 @@ import PetInfoDetail from "../../components/member/pet/PetInfoDetail";
 import PetInfoList from "../../components/member/pet/PetInfoList";
 import instance from "../../utils/axios";
 import axios from 'axios';
+import Title from "../../components/common/Title";
 
 const PetInfoPage = () => {
 
     const [selectedPet, setSelectedPet] = useState(0)
-    const [data, setData] = useState()
+    const [data, setData] = useState([])
     const [isEdited, setIsEdited] = useState(false)
+    const [totalCount, setTotalCount] = useState(0)
+    const [page, setPage] = useState(1)
 
     const [dogBreedOptions, setDogBreedOptions] = useState([]);
     const [catBreedOptions, setCatBreedOptions] = useState([]);
@@ -42,31 +45,44 @@ const PetInfoPage = () => {
         instance({
             url:"/pet/list",
             method:"get",
+            params:{page:page}
 
         }).then((response) => {
             console.log(response);
-            setData(response.data["petProfileList"]);
+            setSelectedPet(0)
+            setData((prevData) =>
+                [...prevData, ...response.data["petProfileList"]]);
+            setTotalCount(response.data["total_count"]);
         }).catch((error) => {
             console.log(error);
         });
 
         getBreedOptions();
 
-    },[isEdited])
+    },[isEdited,page])
+    useEffect(() => {
+        setData([])
+    }, [isEdited]);
+
+
 
 
 
     return (
-        <div className={"pet-info-container"}>
+        <>
+            <Title>나의 펫</Title>
+
+            <div className={"pet-info-container"}>
             {data && <>
-                <PetInfoList setSelectedPet={setSelectedPet} data={data} setIsEdited={setIsEdited} isEdited={isEdited}
+
+                <PetInfoList page={page} setPage={setPage} totalCount={totalCount} setSelectedPet={setSelectedPet} data={data} setIsEdited={setIsEdited} isEdited={isEdited}
                     dogBreedOptions={dogBreedOptions} catBreedOptions={catBreedOptions}
                 />
                 <PetInfoDetail item={data[selectedPet]}  setIsEdited={setIsEdited} isEdited={isEdited}
                     dogBreedOptions={dogBreedOptions} catBreedOptions={catBreedOptions}
                 />
                 </>}
-        </div>
+        </div></>
     );
 };
 

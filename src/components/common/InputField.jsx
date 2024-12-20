@@ -9,7 +9,8 @@ const InputField = (props) => {
         type = "text",
         input,
         value,
-        setInput
+        setInput,
+        inputClassname=""
 
 
     } = props;
@@ -18,7 +19,7 @@ const InputField = (props) => {
 
         <div className={"input" +" "+ className}>
             <label htmlFor={name}>{title}</label>
-            <input value={input} onChange={e=>{setInput(name,e.target.value)}}
+            <input className={inputClassname} value={input} onChange={e=>{setInput(name,e.target.value)}}
                    type={type} id={name} placeholder={placeholder}  />
         </div>
 

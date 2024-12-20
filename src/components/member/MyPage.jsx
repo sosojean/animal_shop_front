@@ -6,6 +6,7 @@ import {faArrowRight, faArrowRightFromBracket} from "@fortawesome/free-solid-svg
 import Card from "../common/Card";
 import {useEffect} from "react";
 import parseJwt from "../../utils/parseJwt";
+import Title from "../common/Title";
 
 
 const MyPage = () => {
@@ -26,6 +27,7 @@ const MyPage = () => {
     return (<>
 
         <div className="my-page">
+            <Title>마이 페이지</Title>
             <div className="user-profiles">
             <Card className="user-info default-card">
                 <img src={imgSrc} alt="" className="profile-img"/>

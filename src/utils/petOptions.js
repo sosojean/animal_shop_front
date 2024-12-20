@@ -1,4 +1,5 @@
 export const weightOptions = [
+    "무게를 선택해주세요.",
     "1kg 미만",
     "1~2kg",
     "2~5kg",

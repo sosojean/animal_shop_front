@@ -5,8 +5,9 @@ import {useNavigate} from "react-router-dom";
 import {weightOptions,catBreedOptions,dogBreedOptions,ageOptions} from "../../../utils/petOptions";
 import "../../../assets/styles/member/petInfo.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCrown} from "@fortawesome/free-solid-svg-icons";
+import {faCrown, faPen, faX} from "@fortawesome/free-solid-svg-icons";
 import animalPlaceholder from "../../../assets/img/animalPlaceholder.svg";
+import DefaultButton from "../../common/DefaultButton";
 
 const PetInfo = (props) => {
 
@@ -42,19 +43,50 @@ const PetInfo = (props) => {
 
     return (
         <Card onClick={handleSelect} className={"default-card pet-info"}>
-            <img className={"pet-profile"} src={url} alt=""/>
-            <div className={"info-section"}>
-                <h2>{item.isLeader&&<FontAwesomeIcon className="icon" icon={faCrown}/>}{" "+item.name}</h2>
-                <span>{item.age} 살</span>
-                <span>{item.breed}</span>
-                <span>{weightOptions[ parseInt(item.weight)]}</span>
-                <span>{item.gender==="FEMALE"?"여아":"남아"}</span>
-                <span>{item["is_neutered"]}</span>
-            </div>
-            <div className={"button-section"}>
+            <div className={"row info-image-container"}>
+                <img className={"pet-profile"} src={url} alt=""/>
+                <div className={"info-section"}>
+                    <h2 className={"name-section"}>
+                        {item.isLeader && <FontAwesomeIcon className="icon" icon={faCrown}/>}
+                        <div className={"row pet-info-header"}>
+                            <div>
+                                <span className={"name"}>{" " + item.name}</span>
+                                <span className={"age"}> {item.age} 살</span>
+                            </div>
 
-                <button className={"edit-btn"} onClick={handleEdit}>수정하기</button>
-                <button className={"delete-btn"} onClick={handleDelete}>삭제하기</button>
+
+                            <div className={"button-section"}>
+
+                                <button className={"edit-btn"} onClick={handleEdit}>
+                                    <FontAwesomeIcon icon={faPen}/>수정
+                                </button>
+                                <button className={"delete-btn"} onClick={handleDelete}>
+                                    <FontAwesomeIcon icon={faX}/> 삭제
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </h2>
+                    <div className={"info-detail-section"}>
+                        <p>
+                            <span className={"highlight"}>품종</span>
+                            <span>{item.breed}</span>
+
+                        </p>
+                        <p>
+                            <span className={"highlight"}>성별</span>
+                            <span>{item.gender === "FEMALE" ? "여아" : "남아"}</span>
+                        </p>
+                        <p>
+                            <span className={"highlight"}>체중</span>
+                            <span>{weightOptions[parseInt(item.weight)]}</span>
+                        </p>
+                    </div>
+
+                    {/*<span>{item["is_neutered"]}</span>*/}
+                </div>
 
             </div>
 

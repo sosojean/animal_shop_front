@@ -5,8 +5,9 @@ import "../../../assets/styles/member/PetInfoDetail.scss"
 import instance from "../../../utils/axios";
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCrown} from "@fortawesome/free-solid-svg-icons";
+import {faCrown, faQuoteLeft, faQuoteRight} from "@fortawesome/free-solid-svg-icons";
 import animalPlaceholder from "../../../assets/img/animalPlaceholder.svg"
+import DefaultButton from "../../common/DefaultButton";
 
 
 const PetInfoDetail = (props) => {
@@ -38,13 +39,18 @@ const PetInfoDetail = (props) => {
 
             {item ? <>
                     <img className={"pet-profile"} src={url} alt=""/>
+                    <p>
+                        <FontAwesomeIcon icon={faQuoteLeft}/>
+                        산책을 좋아해요
+                        <FontAwesomeIcon icon={faQuoteRight}/>
+                    </p>
                     <Card className="default-card detail-info-text">
                         <div className={"name-section"}>
                             {item?.isLeader && <FontAwesomeIcon className="icon" icon={faCrown}/>}
                             <h2>{item.name}</h2>
+                            <span>{item.age} 살</span>
                         </div>
 
-                        <span>{item.age} 살</span>
                         <span>{item.breed}</span>
                         <span>{weightOptions[parseInt(item.weight)]}</span>
                         <span>{item.gender === "FEMALE" ? "여아" : "남아"}</span>
@@ -52,8 +58,10 @@ const PetInfoDetail = (props) => {
                     </Card>
 
                     <div className="two-buttons">
-                        {!item?.isLeader && <button onClick={handleSetLeader}>대표펫 지정하기</button>}
-                        <button>정보 수정하기</button>
+                        {!item?.isLeader &&
+                            <DefaultButton className={"primary-border long"}
+                                           onClick={handleSetLeader}>대표펫 지정하기</DefaultButton>}
+                        {/*<button>정보 수정하기</button>*/}
                     </div>
                 </>
 

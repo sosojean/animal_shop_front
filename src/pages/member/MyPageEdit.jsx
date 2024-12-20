@@ -6,6 +6,7 @@ import instance from "../../utils/axios";
 import {Link, useNavigate} from "react-router-dom";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
+import Title from "../../components/common/Title";
 
 const MyPageEdit = (props) => {
     const navigate = useNavigate();
@@ -192,8 +193,11 @@ const MyPageEdit = (props) => {
         })
     }
 
-    return (
-        <div className="container">
+    return (<>
+            <Title>회원정보 수정</Title>
+
+            <div className="container">
+
             <div className="box">
                 {/*<FontAwesomeIcon className={"icon"} icon={faUserPen}/>*/}
 
@@ -251,7 +255,7 @@ const MyPageEdit = (props) => {
                 </form>
             </div>
 
-        </div>
+        </div></>
     )
 }
 

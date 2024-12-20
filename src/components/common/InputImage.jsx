@@ -4,10 +4,13 @@ import {useState} from "react";
 import axios from "axios";
 import "../../assets/styles/common/inputImage.scss"
 import animalPlaceholder from "../../../src/assets/img/animalPlaceholder.svg"
+import DefaultButton from "./DefaultButton";
 
 const InputImage = ({imageUploadPath, setImage,image,objName}) =>{
 
     const [file, setFile] = useState()
+    const [fileKey, setFileKey] = useState(Date.now());
+
     const imageUrl = "http://localhost:8080/file/image-print?filename=";
 
     const ImgUploadHandler = async (e) => {
@@ -38,6 +41,9 @@ const InputImage = ({imageUploadPath, setImage,image,objName}) =>{
 
     const deleteImage = (e) => {
         e.preventDefault();
+
+        setFileKey(Date.now()); // 고유한 key 값을 변경하여 리렌더링
+
         setImage(objName,"");
     }
 
@@ -47,29 +53,30 @@ const InputImage = ({imageUploadPath, setImage,image,objName}) =>{
             <div className="img-section">
 
                 <div className="images">
-                    {image ? (<div>
+                    {image ? <div>
                             <div className="image-container">
                                 <img className="review-image" src={imageUrl + image} alt=""/>
                             </div>
-                            <button className="delete-image"
-                                    onClick={(e) => deleteImage(e)}>x
-                            </button>
-                        </div>) :
-
-
-
-
+                            <DefaultButton className="default delete-image"
+                                    onClick={(e) => deleteImage(e)}>
+                                등록 사진 변경
+                            </DefaultButton>
+                        </div> :
                         <div className="image-container">
-                            <img className="review-image" src={animalPlaceholder} alt=""/>
+
+                            <div>
+                                <label className="input-file-button" htmlFor="input-file">
+                                    <img className="review-image" src={animalPlaceholder} alt=""/>
+                                    반려동물의 대표 사진을 등록하세요!
+                                </label>
+                                <input key={fileKey} id="input-file" className={"input-file"} onChange={(e) => ImgUploadHandler(e)} type="file"
+                                       accept="image/*"/>
+                            </div>
                         </div>
                     }
                 </div>
             </div>
-            <label className="input-file-button" htmlFor="input-file">
-                파일
-            </label>
-            <input id="input-file" onChange={(e) => ImgUploadHandler(e)} type="file"
-                   accept="image/*"/>
+
         </div>
     )
 }

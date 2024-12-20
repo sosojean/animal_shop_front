@@ -23,8 +23,10 @@ const NameAndSpecies = (props) => {
                 <span>고양이</span>
             </DefaultButton>
         </div>
-        <InputField name={"name"}
+        <InputField className={"info-input"}
+                    name={"name"}
                     title={" "}
+                    inputClassname={"info-input"}
                     placeholder={"이름을 입력해주세요"}
                     value={props.petInfo.name}
                     input={props.petInfo.name}

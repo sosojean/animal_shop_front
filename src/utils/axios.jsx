@@ -1,4 +1,5 @@
 import axios from "axios";
+import {toast} from "react-toastify";
 
 
 const instance = axios.create({
@@ -88,6 +89,7 @@ instance.interceptors.response.use(
                     processQueue(null, err);
 
                     localStorage.setItem("accessToken", "" );
+                    toast.warn("세션이 만료되었습니다. 다시 로그인 해주세요.")
                     window.location.href = "/login";
 
                     return Promise.reject(error);
