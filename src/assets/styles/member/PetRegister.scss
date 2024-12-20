@@ -17,7 +17,9 @@
       display:flex;
       flex-direction: column;
       //justify-content: space-between;
-
+      .prev{
+        margin-bottom: 8px;
+      }
       .pet-register-form{
         height: 100%;
         display: flex;
@@ -40,7 +42,7 @@
 
 
       }
-      input,label,select{
+      input,.info-input{
         width: 100%;
         height: 40px;
       }

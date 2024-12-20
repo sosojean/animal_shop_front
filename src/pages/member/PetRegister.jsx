@@ -13,7 +13,7 @@ import {weightOptions,catBreedOptions,dogBreedOptions,ageOptions} from "../../ut
 import axios from "axios";
 
 
-const PetRegister = () => {
+const PetRegister = ({setPetRegisterSuccess}) => {
 
     const step = {
         SelectMethod:0,
@@ -24,7 +24,7 @@ const PetRegister = () => {
     }
     const pet = {
         name : "",
-        species : "",
+        species : "DOG",
         breed : "",
         isNeutered : true,
         age : 0,
@@ -57,7 +57,8 @@ const PetRegister = () => {
             method: "get",
         }).then((res) => {
             console.log("getBreedOptions response", res.data);
-            setDogBreedOptions(res.data.breeds);
+            const breedsWithDefaultOption = ["강아지의 품종을 선택해주세요.", ...res.data.breeds];
+            setDogBreedOptions(breedsWithDefaultOption);
         })
         .catch((err) => {
             console.error("error", err);
@@ -67,8 +68,10 @@ const PetRegister = () => {
             url: `http://localhost:8080/pet/breed-list?species=CAT`,
             method: "get",
         }).then((res) => {
+            const breedsWithDefaultOption = ["고양이의 품종을 선택해주세요.", ...res.data.breeds];
+
             console.log("getBreedOptions response", res.data);
-            setCatBreedOptions(res.data.breeds);
+            setCatBreedOptions(breedsWithDefaultOption);
         })
         .catch((err) => {
             console.error("error", err);
@@ -143,7 +146,9 @@ const PetRegister = () => {
         <div className={"pet-register"}>
             <PetInfoInput setNext = {setNext} setPrev = {setPrev} isComplete = {completeForm}
                           isFirstPage={isFirstPage} isLastPage={isLastPage} petInfo={petInfo}
-                          dogBreedOptions={dogBreedOptions} catBreedOptions={catBreedOptions}>
+                          dogBreedOptions={dogBreedOptions} catBreedOptions={catBreedOptions}
+                          setPetRegisterSuccess={setPetRegisterSuccess}
+            >
                 <div className="pet-register-form">
                 {inputSelector()}
                 </div>

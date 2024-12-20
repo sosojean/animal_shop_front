@@ -1,0 +1,41 @@
+.more-info{
+  width: 100%;
+}
+
+.image-breed-age{
+  width: 100%;
+  .breed-age-selector{
+  margin-top: 20px;
+    .age-selector{
+      margin-bottom: 8px;
+    }
+  }
+}
+
+.gender-and-weight{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .two-buttons{
+    width: 100%;
+  }
+
+  .neutered-box-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .neutered-label{
+      height: 40px;
+      width: calc(100% - 40px);
+      display: flex;
+      align-items: center;
+      font-size: 1.2rem;
+    }
+    #isNeutered{
+      width: 40px
+    }
+  }
+}

@@ -55,6 +55,7 @@ import OAuthRedirect from "../../pages/member/OAuthRedirect";
 import Wiki from "../../pages/additional/Wiki";
 import WikiDetail from "../additional/wiki/WikiDetail";
 import AdminNoticeDetail from "../../pages/shop/admin/AdminNoticeDetail";
+import Confetti from "../member/pet/register/confetti";
 
 const Router = (props) => {
     const species = localStorage.getItem("species");
@@ -63,18 +64,8 @@ const Router = (props) => {
         speciesInitVal = true
     }
 
-    // if (localStorage.getItem("accessToken")){
-    //     instance({
-    //         url:"/leader",
-    //         method:"get"
-    //     }).then(res=>{
-    //         console.log(res)
-    //     }).catch(err=>{
-    //         console.log(err)
-    //     })
-    // }
-
     const [isDog, setIsDog] = useState(species==="dog")
+    const [petRegisterSuccess, setPetRegisterSuccess] = useState(false)
 
 
     return (
@@ -82,8 +73,12 @@ const Router = (props) => {
             <ScrollToTop/>
             <div className="outer-container">
                 <Header reload={props.reload} setReload={props.setReload} isDog={isDog} setIsDog={setIsDog}/>
+
                 <div className="inner-container">
+                    {petRegisterSuccess&&<Confetti/>}
+
                     <Routes>
+
                         <Route path="/" element={<Home isAuth={props.isAuth}/>}/>
                         <Route path="/:category" element={<Home isAuth={props.isAuth}/>}/>
 
@@ -100,7 +95,7 @@ const Router = (props) => {
                         <Route path="/mypage/edit" element={<MyPageEdit/>}/>
 
                         {/*회원-펫등록*/}
-                        <Route path="/pet/register" element={<PetRegister />}/>
+                        <Route path="/pet/register" element={<PetRegister setPetRegisterSuccess={setPetRegisterSuccess} />}/>
                         <Route path="/pet/info" element={<PetInfoPage />}/>
                         <Route path="/pet/edit/:petId" element={<PetInfoEdit />}/>
 
