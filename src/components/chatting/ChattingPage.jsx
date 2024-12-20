@@ -3,7 +3,7 @@ import Chat from "./Chat";
 import instance from "../../utils/axios";
 import parseJwt from "../../utils/parseJwt";
 
-const ChattingPage = ({ setIsConnected,stompClient, selectedRoom, setMessages, messages}) => {
+const ChattingPage = ({ currentUserProfile,setIsConnected,stompClient, selectedRoom, setMessages, messages}) => {
 
     const token = localStorage.getItem("accessToken");
 
@@ -109,12 +109,11 @@ const ChattingPage = ({ setIsConnected,stompClient, selectedRoom, setMessages, m
                 })}
                 {/*<Chat position={"right"}/>*/}
 
-
-
             </div>
             <div className="message-input-field">
                 <form action="">
-                    <input className="message-input" type="text" value={currentMessage} onChange={(e)=>setCurrentMessage(e.target.value)} />
+                    <input className="message-input" type="text" value={currentMessage}
+                           onChange={(e)=>setCurrentMessage(e.target.value)} />
                     <button onClick={(e)=>sendMessage(e)} className="message-send"></button>
                 </form>
             </div>

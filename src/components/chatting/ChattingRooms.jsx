@@ -4,14 +4,18 @@ import "../../assets/styles/chatting/chattingRooms.scss"
 import {Stomp} from "@stomp/stompjs";
 import instance from "../../utils/axios";
 import SockJS from 'sockjs-client';
+import parseJwt from "../../utils/parseJwt";
 
 
-const ChattingRooms = ({ isConnected, setIsConnected, stompClient,selectedRoom,setSelectedRoom, messages, setMessages}) => {
+const ChattingRooms = ({ setCurrentUserProfile,isConnected, setIsConnected, stompClient,selectedRoom,setSelectedRoom, messages, setMessages}) => {
 
     const token = localStorage.getItem("accessToken");
     const [id, setId] = useState("")
     const [roomInfos, setRoomInfos] = useState([])
     const [subscription, setSubscription] = useState(null)
+
+    const isAdmin = parseJwt(token).role === "ADMIN";
+    const chattingRoomsUrl = isAdmin?  "/chat-room/list-all":"/chat-room/mine"
 
 
 
@@ -19,7 +23,7 @@ const ChattingRooms = ({ isConnected, setIsConnected, stompClient,selectedRoom,s
 
     useEffect(() => {
         instance({
-            url: `${process.env.REACT_APP_API}/chat-room/mine`,
+            url: `${process.env.REACT_APP_API}${chattingRoomsUrl}`,
             method: "GET",
         }).then(res => {
             setRoomInfos(res.data);
@@ -148,17 +152,19 @@ const ChattingRooms = ({ isConnected, setIsConnected, stompClient,selectedRoom,s
                 roomInfos.map((roomInfo,index)=> {
                 return <ChattingRoom key={index} roomInfo={roomInfo}
                                      socketConnect={socketConnect}
+                                     isAdmin = {isAdmin}
                                      isConnected={isConnected}
                                      setIsConnected={setIsConnected}
                                      selectedRoom={selectedRoom}
                                      setSelectedRoom={setSelectedRoom}
                                      stompClient={stompClient}
                                      subscribeToChatRoom={subscribeToChatRoom}
+                                     setCurrentUserProfile={setCurrentUserProfile}
                 />})
         }
 
 
-            <button onClick={createChat} >새 채팅</button>
+            {!isAdmin && <button onClick={createChat}>관리자 상담</button>}
         </div>
     );
 };
