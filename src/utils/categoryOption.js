@@ -1,3 +1,8 @@
+export const sellStatusCategory = [
+  { name: "SELL", convert: "판매" }, { name: "DISCOUNT", convert: "할인" }, 
+  { name: "SOLD_OUT", convert: "품절" }, { name: "STOP", convert: "중지" }
+]
+
 export const dogItemCategory = [
     {
       main: { name: "food", convert: "사료" },

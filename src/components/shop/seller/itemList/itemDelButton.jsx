@@ -1,4 +1,5 @@
 import instance from "../../../../utils/axios";
+import DefaultButton from "../../../common/DefaultButton";
 import { useNavigate } from "react-router-dom";
 
 // delete api url에 사용할 itemId
@@ -31,7 +32,7 @@ const ItemDelButton = ({itemId, url, getItemList}) => {
 
     return (
         <div onClick={() => {handleDeleteItemData(itemId);}}>
-            <button>삭제</button>
+            <DefaultButton>삭제</DefaultButton>
         </div>
     )
 }

@@ -54,7 +54,7 @@ const AdminProduct = ({item, isEdited, setIsEdited}) => {
                 <td className="status">{item?.["sell_status"]}</td>
 
                 <td className="brand">{item?.seller}</td>
-                <td className="price">{item?.options[0].price}원</td>
+                <td className="price">{item?.options[0]?.price}원</td>
 
                 <td>
 {/*
