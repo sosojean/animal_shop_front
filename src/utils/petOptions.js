@@ -8,7 +8,7 @@ export const weightOptions = [
     "30~50kg",
     "50kg 이상",
 ];
-export const ageOptions = Array.from({ length: 20 }, (_, i) => i + 1);
+export const ageOptions = ["나이를 선택해주세요.", ...Array.from({ length: 20 }, (_, i) => i + 1)];
 
 export const catBreedOptions = [
     "코리안숏헤어", "페르시안", "러시안블루", "샴", "스코티시폴드",

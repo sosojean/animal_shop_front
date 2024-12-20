@@ -14,7 +14,7 @@ const CartOption = ({name, price, stock, setStock}) => {
     }
 
     return (
-        <div className="optionContainer">
+        <div className="cart-option-container">
             <div className="option-name">
                 <span>{name}</span>
             </div>
