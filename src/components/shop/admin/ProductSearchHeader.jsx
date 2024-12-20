@@ -4,7 +4,7 @@ import Selector from "../../common/Selector";
 import InputField from "../../common/InputField";
 import instance from "../../../utils/axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFileCsv, faTable} from "@fortawesome/free-solid-svg-icons";
+import {faFileCsv, faTable, faRotateRight} from "@fortawesome/free-solid-svg-icons";
 import DefaultButton from "../../common/DefaultButton";
 import { allItemCategory, dogItemCategory, sellStatusCategory } from '../../../utils/categoryOption';
 
@@ -179,6 +179,10 @@ const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal, s
 
     }
 
+    const handleAllResetFilter = () => {
+        setSearchQueryData(searchQuery);
+    }
+
     console.log("searchQueryData.detailedCategory", searchQueryData.detailedCategory);
     return (
         <div className="product-search-header">
@@ -243,13 +247,22 @@ const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal, s
             <div className="search-products-count">
                 <div className="filter-buttons row">
                     {activeFilters.length > 0 && (
-                        activeFilters.map(([key, value]) => (
-                            <button className="filter" key={key} onClick={() => handleResetFilter(key)}>
-                                {mapFilterToOption(key, value)} ✖
+                        <>
+                            {activeFilters.map(([key, value]) => (
+                                <button 
+                                    className="filter" 
+                                    key={key} 
+                                    onClick={() => handleResetFilter(key)}
+                                >
+                                    {mapFilterToOption(key, value)} ✖
+                                </button>
+                            ))}
+                            <button onClick={handleAllResetFilter}>
+                                <span><FontAwesomeIcon icon={faRotateRight}/></span>
+                                전체 초기화
                             </button>
-                        ))
+                        </>
                     )}
-
                 </div>
 
                 <div className="row result-control">

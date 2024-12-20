@@ -73,7 +73,7 @@ const SellerItemList = ({navigateUrl}) => {
         <SellerMenu/>
         <Title>상품관리</Title>
         <SellerItemSearch params={params} setParams={setParams}
-            getRefreshData={getRefreshData}/>
+            getRefreshData={getRefreshData} totalCount={totalCount}/>
         <div className="sellerItemListContainer">
             <div className='SellerItemListHeaderContainer'>
                 <div className='SellerItemId'>상품번호</div>
