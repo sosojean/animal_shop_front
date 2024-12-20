@@ -1,4 +1,5 @@
 import instance from "../../../utils/axios"
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import WikiItem from "./WikiItem";
@@ -16,9 +17,9 @@ const WikiList = () => {
 
     const getWikiData = (page = 1) => {
 
-        instance({
+        axios({
             method: 'get',
-            url: `/wiki/select?page=${page}`, // 페이징처리
+            url: `http://localhost:8080/wiki/select?page=${page}`, // 페이징처리
           })
           .then((res) => {
             // console.log("response", res.data);

@@ -1,3 +1,4 @@
+import Card from "../../common/Card";
 
 const WikiItem = (props) => {
 
@@ -6,17 +7,19 @@ const WikiItem = (props) => {
     console.log("WikiItem data ", data);
 
     return (
-        <div>
-            <img src={data?.attachmentUrl}/>
+        <Card className="default-card wiki-item">
+            <Card>
+                <img src={data?.attachmentUrl} className="wiki-img"/>    
+            </Card>
             <div>
-                <h3>{data?.breedName}</h3>
-                <div>
+                <Card className="light-card"><h3 className="item-header">{data?.breedName}</h3></Card>
+                <Card className="light-card">
                     <p>{data?.overview}</p>
                     <p>{data?.appearance}</p>
                     <p>{data?.temperament}</p>
-                </div>
+                </Card>
             </div>
-        </div>
+        </Card>
     )
 }
 

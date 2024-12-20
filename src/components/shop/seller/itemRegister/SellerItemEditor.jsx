@@ -23,7 +23,7 @@ const SellerItemEditor = () => {
     const [nameCount, setNameCount] = useState(0); // 글자수
 
     // SellerItemStock
-    const [itemStock, setItemStock] = useState(); // 상품재고
+    const [itemStock, setItemStock] = useState(); // 상품재고고
 
     // SellerItemStatus
     const [sellStatus, setSellStatus] = useState("SELL"); // 상품상태
@@ -31,7 +31,7 @@ const SellerItemEditor = () => {
     // SellerItemCategory
     const [itemSpecies, setItemSpecies] = useState("dog"); // 동물종류
     const [itemType, setItemType] = useState("food"); // 상품종류
-    const [detailedType, setDetailedType] = useState("");
+    const [detailedType, setDetailedType] = useState("adult");
 
     // SellerItemOption
     const [options, setOptions] = useState([{ name: 'default', price: '' }]); // 옵션
@@ -58,7 +58,7 @@ const SellerItemEditor = () => {
             option: options,
             name: itemName,
             item_detail: markdown,
-            stock_number: itemStock,
+            stock_number: itemStock ? itemStock : 0,
             sell_status: sellStatus,
             species: itemSpecies,
             category: itemType,
@@ -77,6 +77,10 @@ const SellerItemEditor = () => {
             getItemData();
         }
     }, [itemId]);
+
+    useEffect(() => {
+        console.log("thumnailsUrls updated:", thumnailsUrls);
+    }, [thumnailsUrls]);
 
     const getItemData = async () => {
         try {
@@ -117,7 +121,8 @@ const SellerItemEditor = () => {
             <SellerThumbnails thumnailsUrls={thumnailsUrls} setThumnailsUrls={setThumnailsUrls}/>
             <SellerDescription ref={editorRef}/>
 
-            <ItemRegButton getRegisterData={getRegisterData} itemId={itemId} options={options}/>
+            <ItemRegButton getRegisterData={getRegisterData} itemId={itemId} options={options}
+                nameCount={nameCount} thumnailsUrls={thumnailsUrls}/>
         </div>
     )
 }
