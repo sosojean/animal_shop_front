@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import "../../../assets/styles/shop/seller/sellerDiscount.scss"
-import instance from "../../../utils/axios"
-import Title from "../../common/Title";
+import "../../../assets/styles/shop/seller/sellerDiscount.scss";
+import instance from "../../../utils/axios";
+import DefaultButton from "../../common/DefaultButton";
+import { toast } from "react-toastify";
 
 const SellerDiscount = (props) => {
 
@@ -114,34 +115,72 @@ const SellerDiscount = (props) => {
 
     // state 제거 핸들러 (선택)
     const handleRemoveState = () => {
-
+        console.log("handleRemoveState");
+        let failCount = 0;
+      
         if (isDataFetched) {
-            const trueList = discountedItem.filter(item => item.select === true);
-        
-            trueList.forEach(item =>
-                instance({
-                    url: `/seller/discount/revoke`,
-                    method: "PATCH",
-                    data: item
-                }).then((res) => {
-                    console.log("할인율 삭제 성공", res);
-                    getRefreshData();
-                })
-                .catch((err) => {
-                    console.error("error", err);
-                })            
-            )
-
-            alert("적용한 할인율을 삭제했습니다");
+          const trueList = discountedItem.filter(item => item.select === true);
+          
+          const removeDiscounts = async () => {
+            for (const item of trueList) {
+              try {
+                await instance({
+                  url: `/seller/discount/revoke`,
+                  method: "PATCH",
+                  data: item
+                });
+              } catch (err) {
+                console.error("error", err);
+                failCount++;
+              }
+            }
+      
+            getRefreshData();
+      
+            if (failCount === 0 ) {toast.success("적용한 할인율을 삭제했습니다.");}
+            else {toast.error("할인율을 삭제하는 중에 오류가 발생했습니다.");} 
+          };
+      
+          removeDiscounts();
         }
-
+      
         setDiscountedItem((prevItem) => {
-            const newList = [...prevItem]
-            const falseList = newList.filter(item => item.select === false)
+          return prevItem.filter(item => item.select === false);
+        });
+      };
+    // const handleRemoveState = () => {
 
-            return falseList;
-        })
-    }
+    //     setIsSuccess(0);
+
+    //     if (isDataFetched) {
+    //         const trueList = discountedItem.filter(item => item.select === true);
+        
+    //         trueList.forEach(item =>
+    //             instance({
+    //                 url: `/seller/discount/revoke`,
+    //                 method: "PATCH",
+    //                 data: item
+    //             }).then((res) => {
+    //                 // console.log("할인율 삭제 성공", res);
+    //                 getRefreshData();
+    //                 setIsSuccess(isSuccess ++);
+    //             })
+    //             .catch((err) => {
+    //                 console.error("error", err);
+    //                 setIsSuccess(isSuccess --);
+    //             })            
+    //         )
+
+    //         toast.success("적용한 할인율을 삭제했습니다.");
+    //     }
+
+    //     setDiscountedItem((prevItem) => {
+    //         const newList = [...prevItem]
+    //         const falseList = newList.filter(item => item.select === false)
+
+    //         return falseList;
+    //     })
+    // }
 
     // 할인율 등록 핸들러 (선택)
     const handleApplyDiscount = () => {
@@ -161,7 +200,7 @@ const SellerDiscount = (props) => {
             })            
         )
 
-        alert("할인율을 적용했습니다");
+        toast.success("할인율을 적용했습니다.");
     }
 
     return (
@@ -199,10 +238,10 @@ const SellerDiscount = (props) => {
                         <input type="checkbox" onClick={handleCheckAll}/>
                         <span>전체선택</span>                        
                     </div>
-                    <button onClick={() => {
+                    <DefaultButton onClick={() => {
                         handleRemoveState();}}>
                         삭제
-                    </button>
+                    </DefaultButton>
                 </div>
                 <div className="header-container">
                     <span>선택</span>
@@ -227,14 +266,14 @@ const SellerDiscount = (props) => {
                                 </span>
                             </div>
                         )
-                    })}`
+                    })}
                 </div>
 
             </div>
             <div className="register-button">
-                <button onClick={() => {
+                <DefaultButton onClick={() => {
                     handleApplyDiscount();
-                }}>등록</button>
+                }}>등록</DefaultButton>
             </div>        
         </div>
     )
