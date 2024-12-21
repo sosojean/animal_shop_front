@@ -14,10 +14,8 @@ import Title from "../../../common/Title";
 const SellerItemList = ({navigateUrl}) => {
 
     const [itemList, setItemList] = useState([]); // 아이템 리스트
-    console.log("itemList", itemList);
     const [totalCount, setTotalCount] = useState(0); // 아이템 개수
     const [params, setParams] = useState({}); // 검색 PARAMS
-    console.log("parent params", params);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -75,7 +73,7 @@ const SellerItemList = ({navigateUrl}) => {
         <SellerMenu/>
         <Title>상품관리</Title>
         <SellerItemSearch params={params} setParams={setParams}
-            getRefreshData={getRefreshData}/>
+            getRefreshData={getRefreshData} totalCount={totalCount}/>
         <div className="sellerItemListContainer">
             <div className='SellerItemListHeaderContainer'>
                 <div className='SellerItemId'>상품번호</div>
@@ -84,9 +82,8 @@ const SellerItemList = ({navigateUrl}) => {
                 <div className='SellerItemPrice'>가격</div>
                 <div className='SellerItemSpecies'>동물</div>
                 <div className='SellerItemCategory'>상품</div>
-                {/* <div className='SellerItemCategory'>세부</div> */}
-                {/* <div>상태</div>
-                <div>할인중</div> */}
+                <div className='SellerItemCategory'>세부</div>
+                <div>상태</div>
                 <div>할인</div>
                 <div className='SellerItemUpdate'>수정</div>
                 <div className='SellerItemDelete'>삭제</div>

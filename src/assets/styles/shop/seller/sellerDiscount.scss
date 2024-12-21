@@ -1,21 +1,73 @@
-
+@mixin column-gap ($a: 0.1fr, $b: 1fr, $c: 0.5fr, $d: 0.6fr, $e: 0fr, $p: 0.7rem)  {
+    display: grid;
+    grid-template-columns: $a $b $c $d $e ; // 4개
+    padding: $p;
+    gap: 30px;
+    align-items: center;
+}
 
 .discount-modal-container {
     background-color: white;
 
-    width: 500px;
-    height: 500px;
+    width: 600px;
+    height: 700px;
     
-    padding: 1rem;
+    padding: 1rem 2rem 1rem 2rem;
+
+    .discount-header {
+        font-weight: 400;
+        font-size: 1.5rem;
+
+        margin: 2rem 0 2rem 0;
+    }
 
     .option-container {
 
         border-bottom: 1px solid black;
         padding-bottom: 1rem;
+
+        .option-header {
+            @include column-gap;
+            background-color: var(--point-background-color-20);
+            border-bottom: 2px solid var(--point-background-color-80);
+
+            .원가 {
+                text-align: right;
+            }
+        }
+
+        .option-list {
+            height: 200px;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                width: 5px;
+            }
         
-        .option-item {
-            display: flex;
-            gap: 1rem;
+            &::-webkit-scrollbar-thumb {
+                background: var(--alpha-30);
+                border-radius: 10px;
+            }
+        
+            &::-webkit-scrollbar-track {
+                background: var(--alpha-5);
+            }
+
+            .option-item {
+                @include column-gap;
+
+                &:hover {
+                    background-color: var(--point-background-color-10);
+                }
+
+                input {
+                    border: none;
+                    border-bottom: 2px solid #bbbbbb;
+                    width: 50%;
+                    padding-left: 5px;
+                    padding-bottom: 5px;
+                }
+            }            
         }
     }
 
@@ -23,23 +75,11 @@
 
         padding-top: 1rem;
 
-        .discount-option {
-            display: flex;
-            justify-content: space-between;
-            
-            span {
-                padding: 5px;
-            }
-
-            input {
-                margin-left: 1rem;
-            }
-        }
-
         .button-container {
             display: flex;
             justify-content: space-between;
             margin-bottom: 5px;
+            margin-left: 20px;
 
             .select-button {
                 display: flex;
@@ -52,10 +92,37 @@
         }
 
         .header-container {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            background-color: rgb(237,237,237);
+            @include column-gap($a: 0.2fr, $b: 1fr, $c: 0.5fr, $d: 0.5fr, $e: 0.5fr);
+            border-bottom: 2px solid var(--point-background-color-80);
+            background-color: var(--point-background-color-20);
+        }
+        
+        .option-list {
+
+            height: 200px;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                width: 5px;
+            }
+        
+            &::-webkit-scrollbar-thumb {
+                background: var(--alpha-30);
+                border-radius: 10px;
+            }
+        
+            &::-webkit-scrollbar-track {
+                background: var(--alpha-5);
+            }
+            
+            .discount-option {
+
+                @include column-gap($a: 0.2fr, $b: 1fr, $c: 0.5fr, $d: 0.5fr, $e: 0.5fr);
+                
+                &:hover {
+                    background-color: var(--point-background-color-10);
+                }
+            }
         }
     }
     
