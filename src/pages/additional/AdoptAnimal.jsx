@@ -33,9 +33,7 @@ const AdoptAnimal = () => {
             return v.name
         })
 
-        console.log("selectedItems", selectedItems);
-        console.log("subSelectedItems", subSelectedItems);
-        console.log("subSelectedItems.age", subSelectedItems.age);
+        console.log("breed", selectedItems.breed);
         
         let data = {
             species: selectedItems.species || "개",
@@ -69,7 +67,7 @@ const AdoptAnimal = () => {
 
     useEffect(()=>{
         getApiData(currentPage);
-    }, [currentPage, update]);
+    }, [currentPage, update, selectedItems.location, selectedItems.breed]);
 
     return (
         <div>

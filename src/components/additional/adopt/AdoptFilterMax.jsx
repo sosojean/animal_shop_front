@@ -31,15 +31,21 @@ const AdoptFilterMax = (props) => {
         })
     }
 
-    const handleAddSpecies = (species = "개", selectedKey = 'species') => {
+    const handleAddSpecies = (species = "개", selectedKey = 'species', reset = false) => {
         setSelectedItems((prevSelectedItems) => {
-              let newSpecies = species
-    
-              return {
-                [selectedKey]: newSpecies
-              }
-        })
-    }
+            if (reset) {
+                return {
+                    ...prevSelectedItems,
+                    breed: []
+                };
+            } else {
+                return {
+                    ...prevSelectedItems,
+                    [selectedKey]: species
+                };
+            }
+        });
+    };
 
     return (
         <div className="filter-container">
@@ -140,15 +146,14 @@ const AdoptFilterMax = (props) => {
                         {selectedItems.breed.map((item, index) => {
                             
                             return (
-                                <div className="filter-breed-item" key={item.key}>
-                                    <span>{item.name}</span>
-                                    <button onClick={() => handleDeleteItem(index)}>X</button>                
-                                </div>
+                                <span className="filter-breed-item" key={item.key} onClick={() => handleDeleteItem(index)}>
+                                    {item.name} ✖
+                                </span>  
                             )
 
                         })}
+                        <DefaultButton className="alert" onClick={() => handleAddSpecies(null, null, true)}>초기화</DefaultButton>
                     </div>
-                    <button onClick={() => setSelectedItems([])}>선택 초기화</button>
                 </>
                 )}
             </div>

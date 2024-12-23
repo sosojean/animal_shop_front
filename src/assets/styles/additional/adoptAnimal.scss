@@ -33,7 +33,9 @@
         padding: 15px;
         background-color: var(--point-background-color-20);
         border-radius: 10px;
-        z-index: 1;
+
+        position: relative; // 추가
+        z-index: 10; // 높은 값으로 설정
 
         // 강아지, 고양이 선택
         .kind-selector {
@@ -62,6 +64,37 @@
                 @include button-shape($w:100%, $f:1rem, $g:10px);
             }
         }
+    }
+
+    .filter-breed-container {
+
+        z-index: -100;
+
+        .filter-breed-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px; /* 아이템 사이의 간격 */
+            padding: 16px; /* 컨테이너 안쪽 여백 */
+    
+            position: relative;
+            z-index: 1;
+    
+            .filter-breed-item {
+                display: flex;
+                background-color: var(--point-background-color-20);
+                box-sizing: border-box;
+                padding: 8px;
+                border-radius: 4px;
+                justify-content: space-between;
+                align-items: center;
+
+                cursor: pointer;
+    
+                span {
+                    flex-grow: 1;
+                }
+            }
+        }     
     }
 }
 
@@ -107,7 +140,6 @@
             .select-item {
                 display: flex;
                 gap: 10px;
-                // margin-bottom: 10px;
                 padding: 8px;
 
                 input {
@@ -151,6 +183,8 @@
 
     .select-container {
 
+        margin-bottom: 10px;
+
         .select-label {
             font-weight: bold;
             margin-bottom: 5px;
@@ -158,33 +192,58 @@
 
         .button-box {
             display: flex;
+            margin-bottom: 10px;
+
+            .province-button {
+                background-color: white;
+                height: 30px;
+            }
+        }
+
+        .select-list {
+            background-color: white;
+            height: 150px;
+            overflow-y: scroll;
+    
+            padding: 10px;
+
+            .select-item {
+                display: flex;
+                gap: 10px;
+                padding: 8px;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: var(--point-background-color-20);
+                }
+            }
+        }
+
+        .select-list::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .select-list::-webkit-scrollbar-thumb {
+            background: var(--alpha-30); /* 스크롤바 색상 */
+            border-radius: 10px; /* 스크롤바 둥근 테두리 */
+        }
+        
+        .select-list::-webkit-scrollbar-track {
+            background: var(--alpha-5);  /*스크롤바 뒷 배경 색상*/
+        }
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            height: 30px;
         }
     }
 }
 
-// .filter-breed-container {
-//     position: absolute;
-//     top: -50px;
-//     left: 0;
-//     width: 100%;
-//     z-index: 3;
-    
-//     .filter-breed-list {
-//         display: flex;
-//         flex-wrap: wrap;
-//         gap: 8px;
-        
-//         .filter-breed-item {
-//             display: flex;
-//             align-items: center;
-//             gap: 5px;
-//             padding: 5px 10px;
-//             background-color: var(--point-background-color-20);
-//             border-radius: 15px;
-//         }
-//     }
-// }
-
+// 미니 필터
 
 .filter-mini-container {
 
@@ -214,23 +273,6 @@
     padding: 1rem 3rem 1rem 3rem;
     display: flex;
     gap: 1rem;
-}
-
-.filter-breed-container {
-
-    .filter-breed-list {
-
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 16px; /* 카드 사이의 간격 */
-        padding: 16px; /* 컨테이너 안쪽 여백 */
-
-        .filter-breed-item {
-            display: flex;
-        }        
-    }
-
-
 }
 
 .adopt-list-container {
