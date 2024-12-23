@@ -12,6 +12,8 @@ const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited, isMo
     const [newComment, setNewComment] = useState("")
     const [rating, setRating] = useState(5)
     const [images, setImages] = useState([]);
+    const inputRef = useRef(null);
+
     const [id, setId] = useState()
     const imageUrl = "http://localhost:8080/file/image-print?filename=";
 
@@ -136,7 +138,7 @@ const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited, isMo
 
                 <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
                 <div className="btn-section">
-                    <div className="img-section">
+                    <div className="img-upload-section">
                         <label className="input-file-button" htmlFor="input-file"><FontAwesomeIcon
                             icon={faImage}/></label>
                         <div className="images">
@@ -152,7 +154,7 @@ const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited, isMo
 
                         </div>
                     </div>
-                    <input id="input-file" onChange={(e) => ImgUploadHandler(e)} type="file"
+                    <input id="input-file" ref={inputRef} onChange={(e) => ImgUploadHandler(e)} type="file"
                            accept="image/*"/>
                     <div className="buttons">
                         <button className="submit-button" onClick={()=>setReviewWriting(false)}>취소</button>

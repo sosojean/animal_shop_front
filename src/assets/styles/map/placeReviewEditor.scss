@@ -68,13 +68,14 @@
   }
 
   .btn-section {
+    //height: 100px;
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
 
-    .img-section{
+    .img-upload-section{
       display: flex;
 
       .images{
@@ -106,20 +107,25 @@
         }
         .image {
           display: flex;
-          .review-image{
+          position: relative; /* 부모 컨테이너를 상대적으로 위치시킴 */
+
+          .review-image {
             width: 50px;
             height: 50px;
+            margin-right: 4px;
             object-fit: cover;
           }
-          .delete-image{
-            border: none;
-            position: relative;
-            left: -20px;
-            top:0px;
+
+          .delete-image {
+            position: absolute; /* 다른 요소의 레이아웃에 영향 주지 않음 */
+            top: 0; /* 부모 컨테이너 기준 상단 */
+            left: 30px; /* review-image의 오른쪽으로 적절히 위치 */
             width: 20px;
             height: 20px;
+            border: none;
+            z-index: 10; /* 다른 요소 위에 표시 */
+            //background-color: transparent; /* 필요에 따라 버튼 배경 설정 */
           }
-
         }
 
 
@@ -155,11 +161,12 @@
       align-self: center;
       background-color: var(--default-background-color);
       border-radius: 10px/10px;
-      margin: 10px;
-      width: 50px;
+      //margin: 10px;
+      width: 45px;
       height: 40px;
       cursor: pointer;
       border: none;
+      margin-right: 4px;
 
 
     }
