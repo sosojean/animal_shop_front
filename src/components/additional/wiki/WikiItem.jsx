@@ -61,7 +61,7 @@ const WikiItem = (props) => {
             {isAdmin &&
                         <div className="wiki-patch-button">
                             <Link to={`/admin/wiki/edit/${data?.id}`}>
-                                <DefaultButton>수정</DefaultButton>
+                                <DefaultButton className="primary small">수정</DefaultButton>
                             </Link>
                         </div>
             }  

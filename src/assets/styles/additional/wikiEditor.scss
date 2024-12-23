@@ -1,0 +1,63 @@
+.wiki-form-container {
+    max-width: 800px;
+    padding: 0 20px 20px 20px;
+
+    .form-section {
+        margin-bottom: 20px;
+
+        h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .select-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+
+            select {
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                background-color: white;
+                min-width: 150px;
+            }
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: none;
+            cursor: auto;
+        }
+
+        .image-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            cursor: auto;
+        }
+
+        .preview-image {
+            max-width: 200px;
+            border-radius: 4px;
+        }
+    }
+
+    .button-group {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+
+        .wiki-rg-button {
+            font-size: 1.2rem;
+        }
+    }
+}

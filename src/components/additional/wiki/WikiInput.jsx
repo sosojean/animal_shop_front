@@ -1,10 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import instance from "../../../utils/axios"
-import axios from "axios";
 import {dogWikiBreeds, catWikiBreeds} from "../../../utils/petOptions";
 import DefaultButton from "../../common/DefaultButton";
-import catIcon from "../../../assets/img/catIcon.svg"
 
 const WikiInput = (props) => {
     
@@ -86,30 +84,26 @@ const WikiInput = (props) => {
     };
 
     return (
-        <div>
-            <div>
+        <div className="wiki-form-container">
+            <div className="form-section">
                 <h2>종 선택</h2>
-                <div>
+                <div className="select-group">
                     <select value={species} onChange={(e) => setSpecies(e.target.value)}>
                         <option value="dog">강아지</option>
                         <option value="cat">고양이</option>
                     </select>
                     <select value={postData.breedName} onChange={(e) => handlePostData("breedName", e.target.value)}>
                         {species === "dog" ?
-                            dogBreeds.map((breed, index) => {
-                                return (
-                                    <option value={breed} key={index}>{breed}</option>
-                                )
-                            }) : catBreeds.map((breed, index) => {
-                                    return (
-                                        <option value={breed} key={index}>{breed}</option>
-                                    )
-                                })
+                            dogBreeds.map((breed, index) => (
+                                <option value={breed} key={index}>{breed}</option>
+                            )) : catBreeds.map((breed, index) => (
+                                <option value={breed} key={index}>{breed}</option>
+                            ))
                         }
                     </select>                      
                 </div>
             </div>
-            <div>
+            <div className="form-section">
                 <h2>개요</h2>
                 <textarea
                     placeholder="개요를 작성해주세요"
@@ -117,7 +111,7 @@ const WikiInput = (props) => {
                     onChange={(e) => handlePostData("overview", e.target.value)}
                 />
             </div>
-            <div>
+            <div className="form-section">
                 <h2>외모</h2>
                 <textarea
                     placeholder="외모를 작성해주세요"
@@ -125,7 +119,7 @@ const WikiInput = (props) => {
                     onChange={(e) => handlePostData("appearance", e.target.value)}
                 />
             </div>
-            <div>
+            <div className="form-section">
                 <h2>성격</h2>
                 <textarea
                     placeholder="성격을 작성해주세요"
@@ -133,32 +127,42 @@ const WikiInput = (props) => {
                     onChange={(e) => handlePostData("temperament", e.target.value)}
                 />
             </div>
-            <div>
+            <div className="form-section">
                 <h2>대표 이미지</h2>
                 <input 
+                    className="image-input"
                     value={postData?.attachmentUrl || ''}
                     onChange={(e) => handlePostData("attachmentUrl", e.target.value)}
+                    placeholder="예) https://placehold.co/250x250"
                 />
                 {postData?.id &&
-                    <img src={postData?.attachmentUrl || 'https://placehold.co/250x250'}
-                        style={{width: "200px"}}
+                    <img 
+                        className="preview-image"
+                        src={postData?.attachmentUrl || 'https://placehold.co/250x250'}
+                        alt="Preview"
                     />                
                 }
             </div>
-
-            {postData.id ? 
-                <div>
+    
+            <div className="button-group">
+                {postData.id ? (
+                    <>
+                        <Link to="/admin/seller">
+                            <DefaultButton onClick={handlePatch} className="primary long wiki-rg-button">
+                                수정</DefaultButton>
+                        </Link>
+                        <Link to="/admin/seller">
+                            <DefaultButton onClick={handleDelete} className="primary long wiki-rg-button">
+                                삭제</DefaultButton>
+                        </Link>                
+                    </>
+                ) : (
                     <Link to="/admin/seller">
-                        <DefaultButton onClick={handlePatch}>수정</DefaultButton>
-                    </Link>
-                    <Link to="/admin/seller">
-                        <DefaultButton onClick={handleDelete}>삭제</DefaultButton>
-                    </Link>                
-                </div> : 
-                <Link to="/admin/seller">
-                    <DefaultButton onClick={handleSubmit}>제출</DefaultButton>
-                </Link>                   
-            }
+                        <DefaultButton onClick={handleSubmit} className="primary long wiki-rg-button">
+                            제출</DefaultButton>
+                    </Link>                   
+                )}
+            </div>
         </div>
     )
 }
