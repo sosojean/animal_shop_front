@@ -25,7 +25,6 @@ const PlaceReviewList = ({mapId}) => {
             // console.log(res.data)
             setTotalCount(res.data.total_count)
             setPage(1)
-            setIsEdited(!isEdited)
         }).catch((error) => {
             console.log(error)
         })
@@ -82,7 +81,7 @@ const PlaceReviewList = ({mapId}) => {
 
             </div>}
 
-            {totalCount > 7 && (totalCount/7)>page&& <button onClick={loadMoreData}>더보기</button>}
+            {totalCount > 7 && (totalCount/7)>page&& <button onClick={()=>loadMoreData}>더보기</button>}
             {reviewWriting &&<PlaceReviewEditor setIsEdited={setIsEdited} isEdited={isEdited} mapId={mapId} setReviewWriting={setReviewWriting}/>
                }
 
