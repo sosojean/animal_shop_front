@@ -8,7 +8,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faA, faQ} from "@fortawesome/free-solid-svg-icons";
 import {toast} from "react-toastify";
 
-const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
+const ProductQnA = ({item,isEdited,setIsEdited,position, isMyPage}) => {
 
     const date = useModifyTime(item.createdDate)
     const [isEdit, setIsEdit] = useState(false)
@@ -93,7 +93,7 @@ const ProductQnA = ({item,isEdited,setIsEdited,position}) => {
                 !isEdit&&<p className="placeholder">아직 답변이 등록되지 않았습니다.</p>}
             {position != "seller" ?
                 <div className={"btn-container"}>
-                <DefaultButton className={"small default delete"} onClick={deleteHandler}>삭제</DefaultButton>
+                    {!isMyPage&&<DefaultButton className={"small default delete"} onClick={deleteHandler}>삭제</DefaultButton>}
                 </div>:
 
                 isEdit ? <>

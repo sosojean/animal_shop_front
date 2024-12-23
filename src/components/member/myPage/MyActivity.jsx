@@ -30,6 +30,9 @@ const MyActivity = () => {
                     <li className={selected === "interest-animal" ? "selected" : ""}>
                         <Link to={"?selected=interest-animal"}>나의 관심 동물</Link>
                     </li>
+                    <li className={selected === "animal-reply" ? "selected" : ""}>
+                        <Link to={"?selected=animal-reply"}>나의 동물 댓글</Link>
+                    </li>
                 </ul>
             </div>
             <div className={"info-container"}>
