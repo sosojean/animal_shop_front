@@ -61,18 +61,19 @@ const InterestAnimalList = () => {
         <div onMouseEnter={() => setIsHovered(true)}
              onMouseLeave={() => setIsHovered(false)}>
             <Card className={"default-card row interest-animal-list-container"}>
-                {data?.length === 0 && (
-                    <div className="no-contents">
-                        <span>등록된 관심 동물이 없습니다.</span>
-                    </div>
-                )}
-
                 {/* 왼쪽 버튼 */}
                 <button
                     className="left-right-control"
                     onClick={() => handleMove("left")}>
                     <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
+                {data?.length === 0 && (
+                    <div className="no-contents">
+                        <span>등록된 관심 동물이 없습니다.</span>
+                    </div>
+                )}
+
+
 
                 {/* 리스트 */}
                 <div className="interest-animal-list">

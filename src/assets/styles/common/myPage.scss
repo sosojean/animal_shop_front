@@ -51,6 +51,12 @@
           flex-direction: column;
           gap: 0.5rem;
         }
+        li.selected > a {
+          font-weight: bold;
+          color: var(--point-color);
+          border-bottom: 2px solid var(--point-shadow-color); /* 기본 상태에서 밑줄 숨김 */
+
+        }
         li {
           font-size: 1.2rem;
           a {

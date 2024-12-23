@@ -47,7 +47,7 @@ const AdoptItem = (props) => {
     return (
         <>
         <Card className="adopt-item-Container">
-            <Link to={`/adoption/detail/${data.id}`} key={data.id}>      
+            <Link to={`/adoption/detail/${data.id}`} key={data.id}>
                 <div className="img-container">
                     <img src={data.popfile} alt="강아지"/>
                 </div>

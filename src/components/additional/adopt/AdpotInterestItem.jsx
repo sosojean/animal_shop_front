@@ -46,7 +46,7 @@ const AdoptInterestItem = (props) => {
     return (
         <>
         <Card className="adopt-item-Container">
-            <Link to={`/adoption/detail/${data.id}`} key={data.id}>
+            <Link to={`/adoption/detail/${data.abandoned_animal_id}`} key={data.id}>
                 <div className="img-container">
                     <img src={data.attachmentUrl} alt="강아지"/>
                 </div>
