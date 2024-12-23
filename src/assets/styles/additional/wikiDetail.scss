@@ -1,0 +1,42 @@
+.wiki-detail-container {
+
+    .wiki-item {
+        display: flex;
+        background-color: var(--point-background-color-20);
+
+        .item-header {
+            text-align: center;
+        }
+
+        .wiki-img {
+            width: 150px;
+            border-radius: 10px;
+        }
+
+        .description-container {
+
+            .description {
+                display: flex;
+                border-bottom: 1px solid black;
+                padding: 10px 0 10px 0;
+
+                &:first-child {
+                    padding-top: 0;
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                    padding-bottom: 0;
+                }
+
+                .d-title {
+                    width: 5%;
+                    margin-right: 5px;
+                }
+                .d-content {
+                    width: 95%;
+                }
+            }
+        }
+    }
+}

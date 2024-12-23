@@ -8,15 +8,28 @@ const WikiItem = (props) => {
 
     return (
         <Card className="default-card wiki-item">
-            <Card>
-                <img src={data?.attachmentUrl} className="wiki-img"/>    
-            </Card>
             <div>
-                <Card className="light-card"><h3 className="item-header">{data?.breedName}</h3></Card>
+                <Card>
+                    <h3 className="item-header">{data?.breedName}</h3>
+                </Card>
+                <Card>
+                    <img src={data?.attachmentUrl} className="wiki-img"/>    
+                </Card>        
+            </div>
+            <div className="description-container">
                 <Card className="light-card">
-                    <p>{data?.overview}</p>
-                    <p>{data?.appearance}</p>
-                    <p>{data?.temperament}</p>
+                    <div className="description">
+                        <span className="d-title"><b>개요 </b></span>
+                        <span className="d-content">{data?.overview}</span>    
+                    </div>
+                    <div className="description">
+                        <span className="d-title"><b>외모 </b></span>
+                        <span className="d-content">{data?.appearance}</span>    
+                    </div>
+                    <div className="description">
+                        <span className="d-title"><b>성격 </b></span>
+                        <span className="d-content">{data?.temperament}</span>    
+                    </div>
                 </Card>
             </div>
         </Card>

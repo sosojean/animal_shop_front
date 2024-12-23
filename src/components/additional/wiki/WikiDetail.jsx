@@ -2,8 +2,8 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import instance from "../../../utils/axios";
 import WikiItem from "./WikiItem";
-import Comment from "../../comment/Comment";
 import WikiComment from "./WikiComment";
+import "../../../assets/styles/additional/wikiDetail.scss"
 
 const WikiDetail = () => {
 
@@ -28,7 +28,7 @@ const WikiDetail = () => {
       }, []);
 
     return (
-        <div>
+        <div className="wiki-detail-container">
             <WikiItem data={wikiData}/>
             <WikiComment id={id}/>
         </div>
