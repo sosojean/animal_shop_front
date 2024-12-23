@@ -109,7 +109,8 @@ const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , s
 
 
             const newMarkers = data.map((item) => {
-                const isSelected = selectedItemId === item["map_id"];
+                const isSelected = String(selectedItemId) === String(item["map_id"]);
+                console.log("isselected",isSelected,selectedItemId, item["map_id"])
 
                 const size = isSelected ? 40 : 30;
                 const offset = {x:isSelected?10:0 ,y:isSelected?10:0};
@@ -149,8 +150,7 @@ const Map = ({ selectedItemId,setSelectedItemId,currLocation,setCurrLocation , s
                     map.panTo(position);
                 }
 
-                // console.log("marker",marker)
-                // console.log(item);
+
                 return marker
 
             });

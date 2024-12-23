@@ -1,7 +1,10 @@
 .important{
   background: rgba(255, 207, 0, 0.14);
 }
+.list-container:last-child{
+  border-bottom: none;
 
+}
 .list-container {
   padding: 5px 10px 5px 10px;
   border-bottom: solid 1px var(--list-line);

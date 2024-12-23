@@ -1,0 +1,24 @@
+.favorite-places{
+  .favorite-place:last-child{
+    border-bottom: none;
+
+  }
+  .favorite-place{
+    border-bottom: 1px solid var(--alpha-5);
+    padding: 1rem;
+    .description{
+      color: var(--alpha-50);
+      font-size: 0.8rem;
+
+    }
+    .favorite-place-title{
+      svg{
+        font-size: 0.8rem;
+        color: #ffe003;
+        margin-left: 0.5rem;
+      }
+
+    }
+
+  }
+}

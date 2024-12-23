@@ -6,6 +6,7 @@ import Order from "./Order";
 import "../../../assets/styles/shop/order/order.scss"
 import OrderListMenu from "./OrderListMenu";
 import Card from "../../common/Card";
+import Title from "../../common/Title";
 
 const OrderedProductList = () => {
     const [data, setData] = useState()
@@ -52,17 +53,20 @@ const OrderedProductList = () => {
     }
 
 
-    return(<div className={"orders"}>
+    return(<>
+            <Title>주문 내역</Title>
+               <div className={"orders"}>
 
-        <OrderListMenu setUrl={setUrl}/>
+                <OrderListMenu url={url} setUrl={setUrl}/>
 
-        {data&&data.length < 1 &&<Card className="default-card no-contents" ><span>주문 내역이 없습니다.</span></Card>}
-        {data && data.map(item=>{
-            return(<Order key={item["orderId"]} item = {item} />)
-        })}
-        {totalCount>10 && (totalCount/10)>page && <button onClick={loadMoreData}>더보기</button>}
+                {data&&data.length < 1 &&<Card className="default-card no-contents" ><span>주문 내역이 없습니다.</span></Card>}
+                {data && data.map(item=>{
+                    return(<Order key={item["orderId"]} item = {item} />)
+                })}
+                {totalCount>10 && (totalCount/10)>page && <button onClick={loadMoreData}>더보기</button>}
 
-        </div>
+                </div>
+        </>
     )
 
 

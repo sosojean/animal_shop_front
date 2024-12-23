@@ -17,7 +17,7 @@ import SellerRegister from "../../pages/shop/admin/SellerRegister";
 import Information from "./Information";
 import AllProduct from "../../pages/shop/product/AllProduct";
 import SellerMain from "../../pages/shop/seller/SellerMain"
-import MyPage from "../member/MyPage";
+import MyPage from "../member/myPage/MyPage";
 import SellerQnA from "../shop/seller/sellerQna/SellerQnA";
 import ScrollToTop from "../../utils/ScrollToTop";
 import SellerItemRegister from "../../pages/shop/seller/SellerItemRegister";
@@ -92,6 +92,7 @@ const Router = (props) => {
                         <Route path="/password" element={<PasswordFinder/>} />
                         <Route path="/join/success" element={<Information case ="join" />}/>
                         <Route path="/mypage" element={<MyPage/>}/>
+
                         <Route path="/mypage/edit" element={<MyPageEdit/>}/>
 
                         {/*회원-펫등록*/}

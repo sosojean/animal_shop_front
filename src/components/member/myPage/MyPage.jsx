@@ -1,15 +1,25 @@
-import "../../assets/styles/common/myPage.scss";
-import {Link} from "react-router-dom";
-import OrderedProductList from "../shop/order/OrderedProductList";
+import "../../../assets/styles/common/myPage.scss";
+import {Link, useParams, useSearchParams} from "react-router-dom";
+import OrderedProductList from "../../shop/order/OrderedProductList";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRight, faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons";
-import Card from "../common/Card";
+import Card from "../../common/Card";
 import {useEffect} from "react";
-import parseJwt from "../../utils/parseJwt";
-import Title from "../common/Title";
+import parseJwt from "../../../utils/parseJwt";
+import Title from "../../common/Title";
+import MyActivity from "./MyActivity";
+import WrittenPosts from "./WrittenPosts";
+import WrittenComments from "./WrittenComments";
+import LikedComments from "./LikedComments";
+import FavoritePlaces from "./FavoritePlaces";
+import ProductReviews from "./ProductReviews";
+import Inquiries from "./Inquiries";
+import LikedPosts from "./LikedPosts";
 
 
 const MyPage = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const keyword = searchParams.get("selected");
     const token = localStorage.getItem("accessToken");
     const profileImg = parseJwt(token).profileImg || "https://placehold.co/250x250";
 
@@ -19,10 +29,22 @@ const MyPage = () => {
             profileImg : process.env.REACT_APP_IMG_PRINT + profileImg;
 
     useEffect(() => {
-        // if (token) {
-        //     console.log(parseJwt(token))
-        // }
+        console.log(keyword)
     }, []);
+
+    const shopSections = {
+        orders: <OrderedProductList />,
+        posts: <WrittenPosts />,
+        comments: <WrittenComments />,
+        likedPosts: <LikedPosts />,
+        likedComments: <LikedComments />,
+        inquiries: <Inquiries />,
+        reviews: <ProductReviews />,
+        favorites: <FavoritePlaces />,
+    };
+
+    // 선택된 섹션 또는 기본 섹션
+    const selectedSection = shopSections[keyword] || <OrderedProductList />;
 
     return (<>
 
@@ -44,10 +66,19 @@ const MyPage = () => {
                 </div>
 
             </Card>
+
             </div>
+            <div className="my-activity">
+                <Title>활동 이력</Title>
+
+                <Card className={"my-activity-container default-card"}>
+
+                    <MyActivity/>
+                </Card>
+            </div>
+
             <div className="shop">
-                <h2>주문 내역</h2>
-                <OrderedProductList></OrderedProductList>
+                {selectedSection}
             </div>
         </div>
 

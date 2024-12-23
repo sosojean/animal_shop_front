@@ -16,6 +16,8 @@ const FacilitiesMap = () => {
 
     const [totalPost, setTotalPost] = useState(0)
     const [page, setPage] = useState(1)
+    const params = new URLSearchParams(window.location.search);
+    const selected = params.get("selected");
 
 
     const [firstRender, setFirstRender] = useState(true)
@@ -36,9 +38,6 @@ const FacilitiesMap = () => {
 
     const [searchData, setSearchData] = useState({
         keyword: "",
-        // parking: false,
-        // indoor: false,
-        // outdoor: false,
         category: null,
 
     })
@@ -53,6 +52,20 @@ const FacilitiesMap = () => {
             document.body.style.overflow = "auto";
         };
     }, []);
+
+    useEffect(() => {
+        console.log("selected", selected);
+
+        if (selected) {
+            setSelectedItemId(selected);
+            console.log("selected", selected);
+        }
+        else {
+            console.log("selected is null");
+        }
+
+    }, [selected]); // selectedItemId가 변경될 때 실행
+
 
     useEffect(() => {
         console.log("Bounds",Bounds)
@@ -73,6 +86,7 @@ const FacilitiesMap = () => {
         }).then((res) => {
             setData(res.data.mapPositionDTOList);
             setTotalPost(res.data.total_count)
+            console.log(res.data)
             if (res.data.mapPositionDTOList.length === 0) {
                 if (firstRender) {
                     setFirstRender(false)
@@ -98,13 +112,11 @@ const FacilitiesMap = () => {
                     {!selectedItemId&&<PlaceFilter  searchData={searchData} setSearchData={setSearchData} />}
                     {!selectedItemId&&<SearchBar searchData={searchData} setSearchData={setSearchData}
                                                  search={search} setSearch={setSearch}
-                                                 page={page} setPage={setPage}
-                    />}
+                                                 page={page} setPage={setPage}/>}
 
                     <PlaceList page={page} setPage={setPage}
                                totalPost={totalPost} selectedItemId={selectedItemId}
-                               setSelectedItemId={setSelectedItemId} data={data}
-                    />
+                               setSelectedItemId={setSelectedItemId} data={data}/>
                 </>
                 }
                 {/*{data&&<PlaceList data={data}/>}*/}

@@ -4,9 +4,16 @@ import "../../../assets/styles/shop/order/orderListMenu.scss"
 import instance from "../../../utils/axios";
 import DefaultButton from "../../common/DefaultButton";
 
-const OrderListMenu = ({setUrl}) => {
+const OrderListMenu = ({url,setUrl}) => {
 
     const [data, setData] = useState()
+
+    const all = "/shop/orders";
+    const waiting = "/shop/orders?status=waiting";
+    const revoke = "/shop/orders?status=revoke";
+    const progress = "/delivery/progress-list";
+    const completed = "/delivery/completed-list";
+
 
     useEffect(() => {
         instance({
@@ -23,15 +30,34 @@ const OrderListMenu = ({setUrl}) => {
     return (
         data&&
 
-        <Card className="default-card order-list-menu">
-            <button onClick={()=>{setUrl("/shop/orders")}}> 전체 {data.entire}</button>
-            <button disabled={data.waiting===0} onClick={()=>{setUrl("/shop/orders?status=waiting")}}> 결제 승인{data.waiting}</button>
-            <button disabled={data.revoke===0} onClick={()=>{setUrl("/shop/orders?status=revoke")}}> 배송 취소{data.revoke}</button>
+        <div className=" order-list-menu">
+            <button className={`order-list-control ${url === all ? "selected" : ""}`}
+                    onClick={()=>{setUrl(all)}}>
+                전체 <span className="state-count">{data.entire}</span>
+            </button>
+            <button className={`order-list-control ${url === waiting ? "selected" : ""}`}
+                    disabled={data.waiting===0}
+                    onClick={()=>{setUrl(waiting)}}>
+                결제 승인 <span className="state-count">{data.waiting}</span>
+            </button>
+            <button className={`order-list-control ${url === revoke ? "selected" : ""}`}
+                    disabled={data.revoke===0}
+                    onClick={()=>{setUrl(revoke)}}>
+                배송 취소 <span className="state-count">{data.revoke}</span>
+            </button>
 
-            <button disabled={data.deliveryProgress===0} onClick={()=>{setUrl("/delivery/progress-list")}}> 배송 중{data.deliveryProgress}</button>
-            <button disabled={data.deliveryCompleted===0} onClick={()=>{setUrl("/delivery/completed-list")}}> 배송 완료{data.deliveryCompleted}</button>
+            <button className={`order-list-control ${url === progress ? "selected" : ""}`}
+                    disabled={data.deliveryProgress===0}
+                    onClick={()=>{setUrl(progress)}}>
+                배송 중  <span className="state-count">{data.deliveryProgress}</span>
+            </button>
+            <button className={`order-list-control ${url === completed ? "selected" : ""}`}
+                    disabled={data.deliveryCompleted === 0}
+                    onClick={() => {setUrl(completed)}}>
+                배송 완료<span className="state-count">{data.deliveryCompleted}</span>
+            </button>
 
-        </Card>
+        </div>
 
     );
 };

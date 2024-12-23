@@ -5,9 +5,7 @@ import DetailInfoWindow from "./DetailInfoWindow";
 import Pagination from "../board/Pagination";
 
 const PlaceList = ({page, setPage, totalPost, data, selectedItemId, setSelectedItemId}) => {
-// const PlaceList = ({data}) => {
 
-    // const [selectedItemId, setSelectedItemId] = useState(null)
     const [detailInfoWindow, setDetailInfoWindow] = useState(false)
     const [detailInfo, setDetailInfo] = useState(null)
     const [isEdited, setIsEdited] = useState(false)
@@ -43,7 +41,11 @@ const PlaceList = ({page, setPage, totalPost, data, selectedItemId, setSelectedI
                                           currentPage={page} itemPerPage={15}/>
 
             }
-            {selectedItemId&&detailInfo&&<DetailInfoWindow selectedItemId={selectedItemId} setSelectedItemId={setSelectedItemId} item={detailInfo} isEdited={isEdited} setIsEdited={setIsEdited}/>}
+            {selectedItemId&&detailInfo&&
+                <DetailInfoWindow selectedItemId={selectedItemId}
+                                  setSelectedItemId={setSelectedItemId}
+                                  item={detailInfo} isEdited={isEdited}
+                                  setIsEdited={setIsEdited}/>}
 
 
         </div>

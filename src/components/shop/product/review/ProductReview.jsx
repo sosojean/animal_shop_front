@@ -12,7 +12,6 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 
 const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit, isEdit}) => {
 
-    console.log("ProductReview item", item);
 
     const [isAuthor, setIsAuthor] = useState()
     const [isLiked, setIsLiked] = useState(item.heart)
@@ -98,38 +97,44 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit,
     return (
         <div className="productReviewContainer">
             <div className="reviewerInfoContainer">
-                <img className="reviewerImage" src="https://placehold.co/70x70" />
+                {/*<img className="reviewerImage" src="https://placehold.co/70x70" />*/}
                 <div className="reviewerInfoDetail">
-                    <div className="reviewerStars">
-                        <div>
-                            {[...Array(5)].map((_, i) => {
-                                return (
-                                    <span key={i} className={i < item.rating ? "selected" : "non-selected"}>
-                                        <FontAwesomeIcon icon={faStar}/>
-                                    </span>
-                                )
-                            })}
-                        </div>
-                        <p>{item.rating}</p>
-                    </div>
+
                     <div className="review-header">
+                        <div className={"row"}>
                         <div className="reviewerName">
                             <p>{item?.nickname}</p>
-                            <p>{modifiedTime}</p>
 
                         </div>
-                        <div className="review-control-buttons">
-                            {isLoggedIn &&<>
-                            {isLiked ?
+                            <div className="reviewerStars">
+                                <div>
+                                    {[...Array(5)].map((_, i) => {
+                                        return (
+                                            <span key={i} className={i < item.rating ? "selected" : "non-selected"}>
+                                        <FontAwesomeIcon icon={faStar}/>
+                                    </span>
+                                        )
+                                    })}
+                                </div>
+                                {/*<p>{item.rating}</p>*/}
+                                <p>{modifiedTime}</p>
 
-                                <button onClick={commentUnLikeHandler}><FontAwesomeIcon icon={solidHeart}/></button>
-                                : <button onClick={commentLikeHandler}><FontAwesomeIcon icon={regularHeart}/></button>
-                            }
-                            {isAuthor && <>
-                                {isEdit?
-                                    <button onClick={editConfirmHandler}>완료</button> :
-                                    <button onClick={() => setIsEdit(true)}> 수정 </button>}
-                                    <button onClick={deleteHandler}> 삭제</button></>}</>}
+                            </div>
+                        </div>
+                        <div className="review-control-buttons">
+                            {isLoggedIn && <>
+                                {isLiked ?
+
+                                    <button onClick={commentUnLikeHandler}><FontAwesomeIcon icon={solidHeart}/></button>
+                                    :
+                                    <button onClick={commentLikeHandler}><FontAwesomeIcon icon={regularHeart}/></button>
+                                }
+                                {isAuthor && <>
+                                    {isEdit ?
+                                        <button onClick={editConfirmHandler}>완료</button> :
+                                        <button onClick={() => setIsEdit(true)}> 수정 </button>}
+                                    <button onClick={deleteHandler}> 삭제</button>
+                                </>}</>}
                         </div>
                     </div>
                 </div>
@@ -137,12 +142,14 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit,
 
             {isEdit ?
                 <textarea value={newComment}
-                          onChange={e=>{setNewComment(e.target.value)}}
+                          onChange={e => {
+                              setNewComment(e.target.value)
+                          }}
                           className="edit-review" cols="30" rows="10"/> :
                 <div className="productReview">{item.contents}</div>
             }
 
-            {item.thumbnailUrl.length!=0 && <ReviewImages images ={item.thumbnailUrl}/>  }
+            {item.thumbnailUrl.length != 0 && <ReviewImages images={item.thumbnailUrl}/>}
         </div>
     )
 }

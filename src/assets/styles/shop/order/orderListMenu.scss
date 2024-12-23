@@ -1,5 +1,27 @@
 .order-list-menu{
-  padding-left: 100px;
+  padding : 1rem;
   display: flex;
   justify-content: space-between;
+  .order-list-control:not(:disabled):hover{
+    border-bottom: 4px solid var(--point-shadow-color-50); /* 호버 시 밑줄 표시 */
+    //width: 210px; /* 밑줄 확장 */    //background: none;
+  }
+  .order-list-control.selected {
+    border-bottom: 4px solid var(--point-shadow-color-50); /* 호버 시 밑줄 표시 */
+
+  }
+    .order-list-control{
+    width: 200px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    border-bottom: 4px solid transparent; /* 초기 상태에서 밑줄 숨김 */
+    transition: all 0.3s ease; /* 애니메이션 설정 */
+    padding-bottom: 16px;
+    .state-count{
+      margin-left: 0.5rem;
+      font-weight: 700;
+
+    }
+  }
 }

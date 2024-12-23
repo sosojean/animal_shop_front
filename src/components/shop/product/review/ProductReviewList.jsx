@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import instance from "../../../../utils/axios";
 import "../../../../assets/styles/shop/product/productReviewList.scss"
+import Pagination from "../../../board/Pagination";
 
 
 const ProductReviewList = ({itemId}) => {
@@ -11,30 +12,34 @@ const ProductReviewList = ({itemId}) => {
     const [isModified, setIsModified] = useState(true);
     const [isEdit, setIsEdit] = useState(false)
     const isLoggedIn = localStorage.getItem("accessToken")?true:false
+    const [page, setPage] = useState(1)
+    const [totalCount, setTotalCount] = useState(0)
+
 
     useEffect(() => {
-        let getFunc
+
         if (localStorage.getItem("accessToken")) {
             instance({
-                url:`item_comment/${itemId}?page=1`,
+                url:`item_comment/${itemId}?page=${page}`,
                 method:'get'
             }).then((res) => {
                 setData(res.data.comments);
-                // console.log(res.data)
+                setTotalCount(res.data.total_count);
+                console.log("item_comment/",res.data);
+
             })
 
         }else{
             axios({
-                url:`http://localhost:8080/item_comment/${itemId}?page=1`,
+                url:`http://localhost:8080/item_comment/${itemId}?page=${page}`,
                 method:'get'
             }).then((res) => {
                 setData(res.data.comments);
-                // console.log(res.data)
             })
 
         }
 
-    },[isModified, isEdit]);
+    },[isModified, isEdit,page]);
 
 
 
@@ -58,6 +63,8 @@ const ProductReviewList = ({itemId}) => {
                     />)
 
                 })}
+                {totalCount && totalCount.length>=20&&<Pagination currentPage={page} handlePageChange={setPage} totalPost={totalCount} itemPerPage={20} />}
+
 
 
             </div>

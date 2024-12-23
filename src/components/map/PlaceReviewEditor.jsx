@@ -14,16 +14,16 @@ const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited, isMo
     const [images, setImages] = useState([]);
     const [id, setId] = useState()
     const imageUrl = "http://localhost:8080/file/image-print?filename=";
-    useEffect(() => {
-        if (item){
-            console.log(item);
-            setNewComment(item.contents);
-            setRating(item.rating);
-            setImages(item.map_comment_thumbnail_url);
-            setId(item.id);
-        }
 
-    }, [])
+    useEffect(() => {
+        if (item) {
+            console.log(item);
+            setNewComment(item.contents || "");
+            setRating(item.rating || 5);
+            setImages(item.map_comment_thumbnail_url || []);
+            setId(item.id || null);
+        }
+    }, [item]);
 
 
 
@@ -41,7 +41,7 @@ const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited, isMo
         }).then((data) => {
             console.log(data);
             setReviewWriting(false)
-            setIsEdited(!isEdited);
+            setIsEdited((prev) => !prev);
 
         })
     }
@@ -124,7 +124,7 @@ const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited, isMo
                     )
                 })}
                 </div>
-                 <span className="rating-comment">{ratingComment()}</span>
+                 <span className="rating-comment">{ratingComment}</span>
 
 
             </div>

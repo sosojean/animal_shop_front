@@ -31,6 +31,30 @@
 
     //height: 100vh;
   }}}
+
+
+
+
+  .my-activity{
+    width: 100%;
+
+    .my-activity-container{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      .info-container{
+        width: 50%;
+
+        ul{
+          padding: 1rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.3rem;
+        }
+
+      }
+    }
+  }
   .shop{
     width: 100%;
     //border: solid 1px var(--alpha-50);
