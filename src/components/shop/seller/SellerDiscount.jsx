@@ -148,39 +148,6 @@ const SellerDiscount = (props) => {
           return prevItem.filter(item => item.select === false);
         });
       };
-    // const handleRemoveState = () => {
-
-    //     setIsSuccess(0);
-
-    //     if (isDataFetched) {
-    //         const trueList = discountedItem.filter(item => item.select === true);
-        
-    //         trueList.forEach(item =>
-    //             instance({
-    //                 url: `/seller/discount/revoke`,
-    //                 method: "PATCH",
-    //                 data: item
-    //             }).then((res) => {
-    //                 // console.log("할인율 삭제 성공", res);
-    //                 getRefreshData();
-    //                 setIsSuccess(isSuccess ++);
-    //             })
-    //             .catch((err) => {
-    //                 console.error("error", err);
-    //                 setIsSuccess(isSuccess --);
-    //             })            
-    //         )
-
-    //         toast.success("적용한 할인율을 삭제했습니다.");
-    //     }
-
-    //     setDiscountedItem((prevItem) => {
-    //         const newList = [...prevItem]
-    //         const falseList = newList.filter(item => item.select === false)
-
-    //         return falseList;
-    //     })
-    // }
 
     // 할인율 등록 핸들러 (선택)
     const handleApplyDiscount = () => {

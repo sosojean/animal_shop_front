@@ -1,7 +1,10 @@
 .wiki-detail-container {
 
+    margin-top: 3rem;
+
     .wiki-item {
         display: flex;
+        flex-direction: column;
         background-color: var(--point-background-color-20);
 
         .item-header {
@@ -13,30 +16,140 @@
             border-radius: 10px;
         }
 
-        .description-container {
+        .wiki-item-section {
+            
+            display: flex;
 
-            .description {
+            .wiki-item-header {
+                margin-right: 10px;
+            }
+
+            .description-container {
+
+                .description-header-card {
+                    display: none;
+                }
+
+                .description-list {
+                    height: 200px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+
+                .description {
+                    display: flex;
+                    border-bottom: 2px solid var(--point-background-color-20);
+                    padding: 10px 0 10px 0;
+                    line-height: normal;
+
+                    &:first-child {
+                        padding-top: 0;
+                    }
+
+                    &:nth-child(2) {
+                        padding-bottom: 15px;
+                    }
+
+                    &:last-child {
+                        border-bottom: none;
+                        padding-bottom: 0;
+                    }
+
+                    .d-title {
+                        width: 5%;
+                        margin-right: 5px;
+                    }
+                    .d-content {
+                        width: 95%;
+                    }
+                }
+            }            
+        }
+
+        .wiki-patch-button {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px; 
+        }
+    }
+
+    .wiki-comment-list {
+
+        padding: 3rem 20px 0 20px;
+        margin-top: 3rem;
+        border-top: 3px solid var(--point-background-color-10);
+
+        .wiki-comment-item {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        
+            .comment-main {
                 display: flex;
-                border-bottom: 1px solid black;
-                padding: 10px 0 10px 0;
-
-                &:first-child {
-                    padding-top: 0;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 8px;
+        
+                .comment-content {
+                    flex: 1;
+        
+                    .author {
+                        font-weight: bold;
+                        margin-bottom: 4px;
+                    }
+        
+                    .content {
+                        word-break: break-all;
+                    }
                 }
+        
+                .button-group {
+                    display: flex;
+                    gap: 8px;
 
-                &:last-child {
-                    border-bottom: none;
-                    padding-bottom: 0;
-                }
+                    .handle-button {
+                        background-color: transparent;
 
-                .d-title {
-                    width: 5%;
-                    margin-right: 5px;
-                }
-                .d-content {
-                    width: 95%;
+                        .button-text {
+                            margin-left: 3px;
+                        }
+                    }
                 }
             }
+        }
+    }
+
+    .comment-input-container {
+        display: flex;
+        gap: 10px;
+        padding: 15px;
+        background-color: #f1f1f1;
+        border-radius: 8px;
+    
+        .comment-textarea {
+            flex: 1;
+            min-height: 100px;
+            padding: 10px;
+            border: none;
+            background-color: transparent;
+            resize: none;
+            
+            &::placeholder {
+                color: #999;
+            }
+    
+            &:focus {
+                outline: none;
+            }
+        }
+    
+        .comment-submit-btn {
+            align-self: flex-end;
+            background-color: white;
+            width: 50px;
+            height: 30px;
         }
     }
 }

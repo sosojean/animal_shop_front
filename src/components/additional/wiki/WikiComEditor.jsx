@@ -66,13 +66,19 @@ const WikiComEditor = (props) => {
             setComment(updatedData.content);
       }, []);
     
-    return (
-        <div>
+      return (
+        <div className="comment-input-container">
             <textarea 
+                className="comment-textarea"
                 onChange={(e) => setComment(e.target.value)}
                 value={comment}
-                placeholder="댓글을 작성해주세요"/> 
-            <DefaultButton onClick={handleChooseApi}>등록</DefaultButton>
+            /> 
+            <DefaultButton 
+                className="comment-submit-btn"
+                onClick={handleChooseApi}
+            >
+                등록
+            </DefaultButton>
         </div>
     )
 }

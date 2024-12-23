@@ -7,6 +7,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import AdoptAnimalComment from "../../../pages/additional/AdoptAnimalComment"
+import DefaultButton from "../../common/DefaultButton";
+import parseJwt from "../../../utils/parseJwt";
+import { toast } from "react-toastify";
 
 const AdoptDetail = (props) => {
 
@@ -15,7 +18,18 @@ const AdoptDetail = (props) => {
     const { id } = useParams();
 
     const [data, setData] = useState();
+    const [isAdmin, setIsAdmin] = useState(false);
+
     const navigate = useNavigate();
+
+    const token = localStorage.getItem("accessToken");
+
+    const checkAdmin = () => {
+        const role = parseJwt(token).role;
+        if (role === "ADMIN")
+            setIsAdmin(true);
+        else setIsAdmin(false);
+    }
 
     const getApiData = () => {
         axios({
@@ -32,6 +46,7 @@ const AdoptDetail = (props) => {
 
     useEffect(()=>{
         getApiData();
+        checkAdmin();
     }, [id]);
 
     // data.kindCd 가공
@@ -109,12 +124,42 @@ const AdoptDetail = (props) => {
             url: `/abandoned_animal/register?desertionNo=${data.desertion_no}`,
             method: "get",
         }).then((res) => {
-            console.log("handleAddInterest response", res.data);
-            alert("관심동물에 등록됐습니다!");
+            // console.log("handleAddInterest response", res.data);
+            toast.success("관심동물에 등록됐습니다!");
         })
         .catch((err) => {
             console.error("handleAddInterest error", err);
+            toast.error("이미 관심동물에 등록 돼 있습니다!");
         })
+    }
+
+    const handleSendMail = () => {
+        const postData = {
+            desertionNo: data.desertion_no,
+            newState: "종료(입양)"
+        };
+
+        const sendMailPromise = instance({
+            url: `/abandoned_animal/manageStatus`,
+            method: "post",
+            data: postData
+        });
+    
+        toast.promise(
+            sendMailPromise,
+            {
+                pending: "메일을 전송 중입니다...",
+                success: "사용자에게 메일을 전송했습니다!",
+                error: "사용자에게 메일을 전송 중에 오류가 발생했습니다!"
+            }
+        )
+        .then(() => {
+            navigate("/adoption");
+        })
+        .catch((err) => {
+            console.error("handleSendMail error", err);
+            navigate("/adoption");
+        });
     }
 
     return (
@@ -159,6 +204,11 @@ const AdoptDetail = (props) => {
                             </div>
                         </div>
                     </div>
+                    {isAdmin &&
+                        <div>
+                            <DefaultButton onClick={handleSendMail}>입양 완료</DefaultButton>
+                        </div>                    
+                    }
                 </Card>
                 <AdoptAnimalComment id={id}/>            
             </>

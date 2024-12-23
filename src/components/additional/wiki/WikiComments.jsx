@@ -5,7 +5,7 @@ const WikiComments = (props) => {
     const {data, getRefresh} = props;
 
     return (
-        <div>
+        <div className="wiki-comment-list">
             {data?.map((d, i) => 
                 {return <WikiComItem data={d} key={i} getRefresh={getRefresh}/>})}
         </div>

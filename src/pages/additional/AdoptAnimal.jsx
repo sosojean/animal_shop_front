@@ -73,11 +73,6 @@ const AdoptAnimal = () => {
 
     return (
         <div>
-            <div>
-                <Link to="/adoption/interest">
-                    <span>관심동물</span>
-                </Link>
-            </div>
             <AdoptFilterMax
                 selectedItems={selectedItems}
                 setSelectedItems={setSelectedItems}
@@ -90,6 +85,11 @@ const AdoptAnimal = () => {
             />
             <div>
                 <p>{dataCount}마리의 아이들이 보호자를 기다리고 있어요</p>
+                <div>
+                    <Link to="/adoption/interest">
+                        <span>관심동물</span>
+                    </Link>
+                </div>
             </div>
             {data &&
                 <AdoptList data={data} className="adopt-list-container"/>

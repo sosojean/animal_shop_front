@@ -1,21 +1,77 @@
 .wiki-container {
 
     .wiki-header {
-        text-align: center;
-        margin: 2rem 0 2rem 0;
+        margin: 10px 0 0 20px;
+    }
+
+    .main-item {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px; /* 카드 사이의 간격 */
+        padding: 16px; /* 컨테이너 안쪽 여백 */
     }
 
     .wiki-item {
         display: flex;
         background-color: var(--point-background-color-20);
 
+        .wiki-item-section {
+            display: flex;
+
+            .wiki-item-header {
+                margin-right: 10px;
+            }
+        }
+
+        .wiki-item-title {
+            display: none;
+        }
+
+        .description-header-card {
+            margin-bottom: 10px;
+        }
+
         .item-header {
             text-align: center;
-        }
+        }    
 
         .wiki-img {
             width: 150px;
+            height: 200px;
             border-radius: 10px;
+        }
+
+        .description-container {
+
+            .description {
+                display: flex;
+                padding: 10px 0 10px 0;
+
+                &:nth-child(2) {
+                    display: none;
+                }
+
+                &:last-child {
+                    display: none;
+                }
+
+                .d-title {
+                    display: none;
+                }
+
+                .d-content {
+                    width: 95%;
+                    height: 100px;
+                    line-height: normal;
+                }
+            }
+        }
+
+        .wiki-patch-button {
+            display: none;
         }
     }
 }
+
+
+

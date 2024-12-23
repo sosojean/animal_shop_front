@@ -4,12 +4,12 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import AdminMenu from "../../components/shop/admin/AdminMenu";
 import Title from "../../components/common/Title";
+import "../../assets/styles/additional/wikiEditor.scss";
 
 const WikiEditor = () => {
     const { wikiId } = useParams();
 
-    const [postData, setPostData] = useState({});
-    // const [species, setSpecies] = useState("dog");
+    const [postData, setPostData] = useState({breedName: "치와와"});
     console.log("postData", postData);
 
     const getWikiData = (id) => {
