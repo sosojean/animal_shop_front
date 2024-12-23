@@ -49,7 +49,17 @@
           padding: 1rem;
           display: flex;
           flex-direction: column;
-          gap: 0.3rem;
+          gap: 0.5rem;
+        }
+        li {
+          font-size: 1.2rem;
+          a {
+            border-bottom: 2px solid transparent; /* 기본 상태에서 밑줄 숨김 */
+            transition: border-bottom-color 0.1s ease; /* 밑줄 색상만 애니메이션 */
+          }
+          a:hover {
+            border-bottom-color: var(--point-shadow-color); /* hover 상태에서 밑줄 색상 변경 */
+          }
         }
 
       }

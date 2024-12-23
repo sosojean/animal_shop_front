@@ -1,0 +1,23 @@
+.interest-animal-list-container{
+
+  .interest-animal-list{
+    overflow-x: hidden;
+
+    .list-wrapper{
+      transition: transform 0.3s ease-in-out;
+      display: flex;
+
+    }
+    .link-container{
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+  }
+  .left-right-control{
+    background: none;
+    border : none;
+    font-size: 2rem;
+  }
+}

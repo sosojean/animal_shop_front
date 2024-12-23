@@ -27,7 +27,7 @@ const LikedPosts = () => {
     }, [currentPage]);
     return (
         <>
-            <Title>좋아요한 게시물</Title>
+            <Title>좋아요한 게시글</Title>
             <Card>
                 {data && data.posts.map((data) => {
                     return (
@@ -35,7 +35,13 @@ const LikedPosts = () => {
                         <BoardItem key={data.id} data={data}/>
                     );
                 })}
-                {/*{totalCount == 0 && <Information case = "dataNan"/>}*/}
+
+                {totalCount === 0 ?
+                    <div className={"no-contents"}>
+                        <span>좋아요한 게시글이 없습니다.</span>
+                    </div> : ""}
+
+
                 { totalCount >= 15 &&
                     <Pagination
                         totalPost={totalCount}

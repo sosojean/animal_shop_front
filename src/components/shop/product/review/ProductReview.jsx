@@ -129,12 +129,12 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit,
                                     :
                                     <button onClick={commentLikeHandler}><FontAwesomeIcon icon={regularHeart}/></button>
                                 }
-                                {isAuthor && <>
+                                {isAuthor ? <>
                                     {isEdit ?
                                         <button onClick={editConfirmHandler}>완료</button> :
                                         <button onClick={() => setIsEdit(true)}> 수정 </button>}
                                     <button onClick={deleteHandler}> 삭제</button>
-                                </>}</>}
+                                </>:null}</>}
                         </div>
                     </div>
                 </div>
@@ -149,7 +149,7 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified, setIsEdit,
                 <div className="productReview">{item.contents}</div>
             }
 
-            {item.thumbnailUrl.length != 0 && <ReviewImages images={item.thumbnailUrl}/>}
+            {item.thumbnailUrl.length !== 0 ? <ReviewImages images={item.thumbnailUrl}/>:null}
         </div>
     )
 }

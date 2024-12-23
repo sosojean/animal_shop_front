@@ -36,8 +36,7 @@ const ProductReviews = () => {
             <Title>작성한 상품 리뷰</Title>
             <Card>
                     <div id="review-target">
-                        <h2>리뷰</h2>
-                        {data && data.length===0&&<div className="no-contents"><span>아직 작성된 리뷰가 없습니다.</span></div>}
+                        {(totalCount===0) &&<div className="no-contents"><span>작성한 상품 리뷰가 없습니다.</span></div>}
                         {data && data.map(item =>{
                             return (
                                 <ProductReview
@@ -52,7 +51,7 @@ const ProductReviews = () => {
                                 />)
 
                         })}
-                        {totalCount && totalCount>=15&&<Pagination currentPage={page} handlePageChange={setPage} totalPost={totalCount} itemPerPage={15} />}
+                        {totalCount>=15&&<Pagination currentPage={page} handlePageChange={setPage} totalPost={totalCount} itemPerPage={15} />}
 
 
 

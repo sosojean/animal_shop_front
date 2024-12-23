@@ -15,6 +15,7 @@ import FavoritePlaces from "./FavoritePlaces";
 import ProductReviews from "./ProductReviews";
 import Inquiries from "./Inquiries";
 import LikedPosts from "./LikedPosts";
+import InterestAnimalList from "./InterestAnimalList";
 
 
 const MyPage = () => {
@@ -36,11 +37,13 @@ const MyPage = () => {
         orders: <OrderedProductList />,
         posts: <WrittenPosts />,
         comments: <WrittenComments />,
-        likedPosts: <LikedPosts />,
-        likedComments: <LikedComments />,
+        "liked-posts": <LikedPosts />,
+        "liked-comments": <LikedComments />,
         inquiries: <Inquiries />,
         reviews: <ProductReviews />,
         favorites: <FavoritePlaces />,
+        "interest-animal": <InterestAnimalList />,
+
     };
 
     // 선택된 섹션 또는 기본 섹션
@@ -72,7 +75,6 @@ const MyPage = () => {
                 <Title>활동 이력</Title>
 
                 <Card className={"my-activity-container default-card"}>
-
                     <MyActivity/>
                 </Card>
             </div>

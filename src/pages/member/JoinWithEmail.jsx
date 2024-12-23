@@ -72,7 +72,7 @@ const JoinWithEmail = ({props}) => {
         console.log(response);
         if (response.message === "SignUp success") {
 
-                toast.success("Success Notcation !",
+                toast.success("회원가입이 완료되었습니다!",
                     {position: "top-right"});
             navigate("/join/success");
         }

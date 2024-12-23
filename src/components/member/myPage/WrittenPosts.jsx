@@ -40,7 +40,12 @@ const WrittenPosts = () => {
                 );
             })}
             {/*{totalCount == 0 && <Information case = "dataNan"/>}*/}
-            {totalCount && totalCount >= 15 &&
+            {totalCount === 0 ?
+                <div className={"no-contents"}>
+                    <span>작성한 게시물이 없습니다.</span>
+                </div> : ""}
+
+            {totalCount >= 15 &&
                 <Pagination
                 totalPost={totalCount}
                 currentPage={currentPage}

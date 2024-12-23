@@ -25,6 +25,9 @@ const MyActivity = () => {
                     <li>
                         <Link to={"?selected=favorites"}>나의 관심 장소</Link>
                     </li>
+                    <li>
+                        <Link to={"?selected=interest-animal"}>나의 관심 동물</Link>
+                    </li>
                 </ul>
             </div>
             <div className={"info-container"}>
@@ -37,10 +40,10 @@ const MyActivity = () => {
                         <Link to={"?selected=comments"}>작성한 댓글</Link>
                     </li>
                     <li>
-                        <Link to={"?selected=likedPosts"}>좋아요한 게시글</Link>
+                        <Link to={"?selected=liked-posts"}>좋아요한 게시글</Link>
                     </li>
                     <li>
-                        <Link to={"?selected=likedComments"}>좋아요한 댓글</Link>
+                        <Link to={"?selected=liked-comments"}>좋아요한 댓글</Link>
                     </li>
 
                 </ul>

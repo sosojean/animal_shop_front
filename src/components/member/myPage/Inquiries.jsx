@@ -26,14 +26,14 @@ const Inquiries = () => {
         }).catch((error) => {
             console.log(error);
         })
-    }, []);
+    }, [isEdited]);
     return (
         <div>
             <Title>작성한 문의사항</Title>
-
+            <Card>
 
             {data?.length===0&&<div className="no-contents"><span>작성된 문의가 없습니다.</span></div>}
-            <Card>
+
             {data?.map(item=>{
                 return(<ProductQnA key = {item['item_query_id']} item = {item} setIsEdited = {setIsEdited} isEdited = {isEdited}/>)
             })}
