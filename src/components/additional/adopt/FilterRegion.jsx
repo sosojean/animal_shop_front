@@ -1,5 +1,8 @@
 import Card from "../../common/Card";
 import { useState } from "react";
+import DefaultButton from "../../common/DefaultButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList } from "@fortawesome/free-solid-svg-icons";
 
 const FilterRegion = (props) => {
 
@@ -13,7 +16,8 @@ const FilterRegion = (props) => {
     const [currentSubName, setCurrentSubName] = useState();
 
     const filterArray = array;
-    const subFilterArray = array.find(value => value.name === currentName)?.subcategories ?? [];
+    const cityName = filterArray.find(value => value.name === currentName)?.name || "시/도 선택"
+    const subFilterArray = array.find(value => value.name === currentName)?.subcategories || [];
 
     const getLocationData = (reset, city, subCity = '', selectedKey = 'location') => {
         setSelectedItems((prevSelectedItems) => {
@@ -42,10 +46,15 @@ const FilterRegion = (props) => {
         {isClick &&
             <Card className={className}>
                 <div className="select-container">
-                    <p>시/도</p>
-                    <button onClick={() => setSecondClick(!secondClick)}>
-                        {filterArray.find(value => value.name === currentName)?.name ?? "시/도 선택"}
-                    </button>
+                    <p className="select-label">시/도</p>
+                    <div className="button-box">
+                        <DefaultButton className="wd100" onClick={() => setSecondClick(!secondClick)}>
+                            {cityName === "시/도 선택" ? "시/도 선택" : cityName}
+                        </DefaultButton>
+                        <DefaultButton className="primary">
+                            <FontAwesomeIcon icon={faList}/>
+                        </DefaultButton>
+                    </div>
                     {secondClick && 
                         <div className="select-list">
                             {filterArray?.map((value, index) => {
@@ -65,10 +74,10 @@ const FilterRegion = (props) => {
                 
                 </div>
                 <div className="select-container">
-                    <p>시/군/구</p>
-                    <button onClick={() => setThirdClick(!thirdClick)}>
+                    <p className="select-label">시/군/구</p>
+                    <DefaultButton className="primary" onClick={() => setThirdClick(!thirdClick)}>
                         {subFilterArray.find(value => value === currentSubName) ?? "시/군/구 선택"}
-                    </button>
+                    </DefaultButton>
                     {thirdClick && 
                         <div className="select-list">
                             {subFilterArray?.map((value, index) => {
@@ -87,8 +96,8 @@ const FilterRegion = (props) => {
                     }
                 </div>
                 <div>
-                    <button>적용</button>
-                    <button onClick={() => getLocationData(true)}>초기화</button>       
+                    <DefaultButton className="primary">적용</DefaultButton>
+                    <DefaultButton className="primary" onClick={() => getLocationData(true)}>초기화</DefaultButton>       
                 </div>
             </Card>            
         }

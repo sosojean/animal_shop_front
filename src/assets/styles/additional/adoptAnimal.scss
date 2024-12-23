@@ -9,57 +9,159 @@
     }
 }
 
-// .filter-container {
-//     position: relative;
-//     margin-top: 60px; // 선택된 태그들을 위한 공간 확보
+@mixin active ($v: --point-shadow-color) {
+    background-color: var($v);
+    font-weight: bold;
+}
+
+@mixin button-shape ($w:90px, $f:1rem, $g:5px) {
+    height: 50px;
+    width: $w;
+    font-size: $f;
     
-//     .filter-max-container {
-//         display: flex;
-//         gap: 20px;
-//         padding: 15px;
-//         background-color: white;
-//         border-radius: 10px;
-//         z-index: 1;
+    display: flex;
+    gap: $g;
+}
 
-//         .kind-selector {
-//             display: flex;
-//             gap: 10px;
-            
-//             button {
-//                 padding: 8px 16px;
-//                 border: none;
-//                 background-color: var(--background-color);
-//                 border-radius: 20px;
-//                 cursor: pointer;
-//             }
-//         }
+.filter-container {
+    position: relative;
+    margin-top: 60px; // 선택된 태그들을 위한 공간 확보
+    
+    .filter-max-container {
+        display: flex;
+        gap: 20px;
+        padding: 15px;
+        background-color: var(--point-background-color-20);
+        border-radius: 10px;
+        z-index: 1;
 
-//         .breed-selector, .region-selector {
-//             position: static; // 중요: static으로 설정
-//             min-width: 150px;
+        // 강아지, 고양이 선택
+        .kind-selector {
+            display: flex;
+            gap: 10px;
+            width: 20%;
 
-//             p {
-//                 padding: 8px 12px;
-//                 background-color: var(--background-color-light);
-//                 border-radius: 5px;
-//                 cursor: pointer;
-//             }
-//         }
-//     }
-// }
+            button {
+                @include button-shape;
+
+                &:hover {
+                    @include active($v:--point-shadow-color-30);
+                }
+            }
+
+            .active {
+                @include active;
+            }
+        }
+
+        .breed-selector, .region-selector {
+            position: static; // 중요: static으로 설정
+            width: 40%;
+
+            .selector-button {
+                @include button-shape($w:100%, $f:1rem, $g:10px);
+            }
+        }
+    }
+}
 
 // 드롭다운 메뉴를 컨테이너 위로 위치시킴
-// .default-card {
-//     position: absolute;
-//     top: -2px;
-//     left: 0;
-//     width: 100%;
-//     z-index: 2;
-//     background: white;
-//     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-// }
+.breed-filter {
+    position: absolute;
+    top: 93%;
+    left: 22%;
+    width: 37.5%;
+    z-index: 100;
 
-// 선택된 품종 태그들을 컨테이너 위에 위치시킴
+    height: auto;
+
+    background-color: rgb(231, 240, 230);
+    border: 2px solid rgb(133, 179, 128);
+    border-radius: 10px;
+
+    .filter-util-container {
+        height: 30px;
+
+        display: flex;
+        justify-content: space-between;
+
+        margin-bottom: 10px;
+
+        input {
+            width: 100%;
+            outline: none;
+            border: none;
+            padding: 0 10px 0 10px;
+        }
+    }
+
+    .select-container {
+        background-color: white;
+        height: 220px;
+        overflow-y: scroll;
+
+        padding: 10px;
+
+        .select-list {
+
+            .select-item {
+                display: flex;
+                gap: 10px;
+                // margin-bottom: 10px;
+                padding: 8px;
+
+                input {
+                    accent-color: var(--point-background-color-20);
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: var(--point-background-color-20);
+                }
+            }
+        }
+    }
+
+    .select-container::-webkit-scrollbar {
+        width: 5px;
+      }
+    
+    .select-container::-webkit-scrollbar-thumb {
+        background: var(--alpha-30); /* 스크롤바 색상 */
+        border-radius: 10px; /* 스크롤바 둥근 테두리 */
+      }
+    
+    .select-container::-webkit-scrollbar-track {
+        background: var(--alpha-5);  /*스크롤바 뒷 배경 색상*/
+        }
+}
+
+.region-filter {
+    position: absolute;
+    top: 93%;
+    left: 61%;
+    width: 37.5%;
+    z-index: 100;
+
+    height: auto;
+
+    background-color: rgb(231, 240, 230);
+    border: 2px solid rgb(133, 179, 128);
+    border-radius: 10px;
+
+    .select-container {
+
+        .select-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .button-box {
+            display: flex;
+        }
+    }
+}
+
 // .filter-breed-container {
 //     position: absolute;
 //     top: -50px;
@@ -83,81 +185,6 @@
 //     }
 // }
 
-
-
-.filter-max-container {
-    display: flex;
-
-    .kind-selector {
-        display: flex;
-
-        button {
-            border: none;
-            background-color: transparent;
-            font-size: 1rem;
-        }
-    }
-
-    .breed-selector {
-
-        @include selector-style;
-
-        .breed-filter {
-
-            .filter-util-container {
-                
-                display: flex;
-
-                .open-button {
-
-                    border: none;
-                    background-color: transparent;
-    
-                }
-            }
-
-            .select-container{
-
-                // height: 200px;
-
-                .select-list {
-
-                    height: 200px;
-                    overflow-y: auto;
-
-                    .select-item {
-                        display: flex;
-                    }                    
-                }
-                
-
-            }
-        }
-    }
-
-    .region-selector {
-
-        @include selector-style;
-
-        .region-filter {
-
-            .select-container{
-
-                .select-list {
-
-                    height: 100px;
-                    overflow-y: auto;
-
-                    .select-item {
-                        display: flex;
-                    }                    
-                }
-                
-
-            }
-        }
-    }
-}
 
 .filter-mini-container {
 
