@@ -8,6 +8,8 @@ import instance from "../../utils/axios";
 const ShopMain = ({isDog, setIsDog}) => {
 
     const [data, setData] = useState()
+    const selectedSpeceis = isDog ? "강아지" : "고양이";
+    const selectedIcon = isDog ? "🐕" : "🐈"
 
     // const [isDog, setIsDog] = useState(true)
 
@@ -46,12 +48,12 @@ const ShopMain = ({isDog, setIsDog}) => {
             <div>
 
                 <ToggleBtn setIsDog={setIsDog} isDog={isDog}/>
-                <span>{isDog?"강아지":"고양이"} 상품을 보여드려요</span>
+                <span>{selectedSpeceis} 상품을 보여드려요</span>
             </div>
             <Banner/>
 
             {data && <Products name={"✨ 새로 입고된 상품"} data={data["animal_new"]} url = {"/shop/new"}/>}
-            {data && <Products name={`🐕 인기 ${"강아지"} 상품`}  data={data["animal_hot"]} url = {"/shop/hot"}/>}
+            {data && <Products name={`${selectedIcon} 인기 ${selectedSpeceis} 상품`}  data={data["animal_hot"]} url = {"/shop/hot"}/>}
             {data && <Products name={"✨ 맞춤"}  data={data["animal_custom"]} url = {"/shop/all"}/>}
 
 
