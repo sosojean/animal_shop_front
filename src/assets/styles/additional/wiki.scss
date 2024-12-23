@@ -14,14 +14,17 @@
     .wiki-item {
         display: flex;
         background-color: var(--point-background-color-20);
-        height: 300px;
 
-        .wiki-item-header {
+        .wiki-item-section {
+            display: flex;
 
-            .item-header-card {
-                display: none;
+            .wiki-item-header {
+                margin-right: 10px;
             }
-        
+        }
+
+        .wiki-item-title {
+            display: none;
         }
 
         .description-header-card {

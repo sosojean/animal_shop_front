@@ -43,8 +43,8 @@ const WikiComment = (props) => {
 
     return (
         <div>
-            <WikiComEditor id={id} getRefresh={getCommentData}/>
             <WikiComments id={id} data={data} getRefresh={getCommentData}/>
+            <WikiComEditor id={id} getRefresh={getCommentData}/>
             <Pagination
                 currentPage={currentPage}
                 totalPost={dataCount}

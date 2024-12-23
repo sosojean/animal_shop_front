@@ -27,40 +27,44 @@ const WikiItem = (props) => {
 
     return (
         <Card className="default-card wiki-item">
-            <div className="wiki-item-header">
-                <Card className="default item-header-card">
-                    <h3 className="item-header">{data?.breedName}</h3>
-                </Card>
+            <div className="wiki-item-title">
                 <Card>
-                    <img src={data?.attachmentUrl} className="wiki-img"/>    
+                    <h3 className="item-header">{data?.breedName}</h3>   
                 </Card>        
             </div>
-            <div className="description-container">
-                <Card className="light-card description-header-card">
-                    <h3 className="item-header">{data?.breedName}</h3>
-                </Card>
-                <Card className="light-card">
-                    <div className="description">
-                        <span className="d-title"><b>개요 </b></span>
-                        <span className="d-content">{data?.overview}</span>    
-                    </div>
-                    <div className="description">
-                        <span className="d-title"><b>외모 </b></span>
-                        <span className="d-content">{data?.appearance}</span>    
-                    </div>
-                    <div className="description">
-                        <span className="d-title"><b>성격 </b></span>
-                        <span className="d-content">{data?.temperament}</span>    
-                    </div>
-                </Card>
-                {isAdmin &&
-                    <div className="wiki-patch-button">
-                        <Link to={`/admin/wiki/edit/${data?.id}`}>
-                            <DefaultButton>수정</DefaultButton>
-                        </Link>
-                    </div>            
-                }
-            </div>
+            <div className="wiki-item-section">
+                <div className="wiki-item-header">
+                    <Card>
+                        <img src={data?.attachmentUrl} className="wiki-img"/>    
+                    </Card>        
+                </div>
+                <div className="description-container">
+                    <Card className="light-card description-header-card">
+                        <h3 className="item-header">{data?.breedName}</h3>
+                    </Card>
+                    <Card className="light-card description-list">
+                        <div className="description">
+                            <span className="d-title"><b>개요 </b></span>
+                            <span className="d-content">{data?.overview}</span>    
+                        </div>
+                        <div className="description">
+                            <span className="d-title"><b>외모 </b></span>
+                            <span className="d-content">{data?.appearance}</span>    
+                        </div>
+                        <div className="description">
+                            <span className="d-title"><b>성격 </b></span>
+                            <span className="d-content">{data?.temperament}</span>    
+                        </div>
+                    </Card>
+                </div>                
+            </div>                    
+            {isAdmin &&
+                        <div className="wiki-patch-button">
+                            <Link to={`/admin/wiki/edit/${data?.id}`}>
+                                <DefaultButton>수정</DefaultButton>
+                            </Link>
+                        </div>
+            }  
         </Card>
     )
 }
