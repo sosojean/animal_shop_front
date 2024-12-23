@@ -9,6 +9,82 @@
     }
 }
 
+// .filter-container {
+//     position: relative;
+//     margin-top: 60px; // 선택된 태그들을 위한 공간 확보
+    
+//     .filter-max-container {
+//         display: flex;
+//         gap: 20px;
+//         padding: 15px;
+//         background-color: white;
+//         border-radius: 10px;
+//         z-index: 1;
+
+//         .kind-selector {
+//             display: flex;
+//             gap: 10px;
+            
+//             button {
+//                 padding: 8px 16px;
+//                 border: none;
+//                 background-color: var(--background-color);
+//                 border-radius: 20px;
+//                 cursor: pointer;
+//             }
+//         }
+
+//         .breed-selector, .region-selector {
+//             position: static; // 중요: static으로 설정
+//             min-width: 150px;
+
+//             p {
+//                 padding: 8px 12px;
+//                 background-color: var(--background-color-light);
+//                 border-radius: 5px;
+//                 cursor: pointer;
+//             }
+//         }
+//     }
+// }
+
+// 드롭다운 메뉴를 컨테이너 위로 위치시킴
+// .default-card {
+//     position: absolute;
+//     top: -2px;
+//     left: 0;
+//     width: 100%;
+//     z-index: 2;
+//     background: white;
+//     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+// }
+
+// 선택된 품종 태그들을 컨테이너 위에 위치시킴
+// .filter-breed-container {
+//     position: absolute;
+//     top: -50px;
+//     left: 0;
+//     width: 100%;
+//     z-index: 3;
+    
+//     .filter-breed-list {
+//         display: flex;
+//         flex-wrap: wrap;
+//         gap: 8px;
+        
+//         .filter-breed-item {
+//             display: flex;
+//             align-items: center;
+//             gap: 5px;
+//             padding: 5px 10px;
+//             background-color: var(--point-background-color-20);
+//             border-radius: 15px;
+//         }
+//     }
+// }
+
+
+
 .filter-max-container {
     display: flex;
 
