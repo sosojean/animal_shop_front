@@ -1,15 +1,34 @@
 import Card from "../../common/Card";
+import DefaultButton from "../../common/DefaultButton";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import parseJwt from "../../../utils/parseJwt";
 
 const WikiItem = (props) => {
 
     const {data} = props;
+    
+    const [isAdmin, setIsAdmin] = useState(false);
 
     console.log("WikiItem data ", data);
 
+    const token = localStorage.getItem("accessToken");
+
+    const checkAdmin = () => {
+        const role = parseJwt(token).role;
+        if (role === "ADMIN")
+            setIsAdmin(true);
+        else setIsAdmin(false);
+    }
+
+    useEffect(() => {
+        checkAdmin();
+    }, [])
+
     return (
         <Card className="default-card wiki-item">
-            <div>
-                <Card>
+            <div className="wiki-item-header">
+                <Card className="default item-header-card">
                     <h3 className="item-header">{data?.breedName}</h3>
                 </Card>
                 <Card>
@@ -17,6 +36,9 @@ const WikiItem = (props) => {
                 </Card>        
             </div>
             <div className="description-container">
+                <Card className="light-card description-header-card">
+                    <h3 className="item-header">{data?.breedName}</h3>
+                </Card>
                 <Card className="light-card">
                     <div className="description">
                         <span className="d-title"><b>개요 </b></span>
@@ -31,6 +53,13 @@ const WikiItem = (props) => {
                         <span className="d-content">{data?.temperament}</span>    
                     </div>
                 </Card>
+                {isAdmin &&
+                    <div className="wiki-patch-button">
+                        <Link to={`/admin/wiki/edit/${data?.id}`}>
+                            <DefaultButton>수정</DefaultButton>
+                        </Link>
+                    </div>            
+                }
             </div>
         </Card>
     )

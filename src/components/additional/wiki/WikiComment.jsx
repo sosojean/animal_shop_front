@@ -23,7 +23,7 @@ const WikiComment = (props) => {
             url: `http://localhost:8080/wiki/comment/${id}/list?page=${page}`,
             method: "get"
         }).then((res) => {
-            console.log("response", res.data.wikiCommentDTOList);
+            // console.log("response", res.data.wikiCommentDTOList);
             setData(res.data.wikiCommentDTOList)
             setDataCount(res.data.total_count)
         })

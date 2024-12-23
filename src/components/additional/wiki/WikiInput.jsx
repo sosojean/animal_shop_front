@@ -15,12 +15,8 @@ const WikiInput = (props) => {
     const catBreeds = catWikiBreeds;
 
     const [species, setSpecies] = useState("dog");
-    const [file, setFile] = useState(null);
-
-    // 이미지 미리보기
-    const [imgPath, setImgPath] = useState("");
-    console.log("imgPath", imgPath);
-    const imgRef = useRef(null);
+    const [file, setFile] = useState("");
+    console.log("file", file);
 
     const getSelect = () => {
         const findCatIndex = catBreeds.findIndex(cat => cat === postData?.breedName);
@@ -41,38 +37,19 @@ const WikiInput = (props) => {
         })
     }
 
-    const handleFileChange = () => {
-        setFile(imgRef.current.files[0]);
-    }
-
     const handleSubmit = async () => {
-        const formData = new FormData();
-        
-        // 파일 추가
-        if (file) {
-            formData.append('file', file);
-        }
     
         // JSON 데이터를 추가
         const wikiDTO = {
             breedName: postData.breedName,
             overview: postData.overview,
             appearance: postData.appearance,
-            temperament: postData.temperament
+            temperament: postData.temperament,
+            attachmentUrl: postData.attachmentUrl
         };
-    
-        // JSON 데이터를 Blob으로 변환하여 추가
-        const wikiDTOBlob = new Blob([JSON.stringify(wikiDTO)], {
-            type: 'application/json'
-        });
-        formData.append('wikiDTO', wikiDTOBlob);
 
         try {
-            const response = await instance.post('/wiki/register', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const response = await instance.post('/wiki/register', wikiDTO);
             console.log('handleSubmit 성공:', response.data);
         } catch (error) {
             console.error('handleSubmit Error:', error);
@@ -80,31 +57,21 @@ const WikiInput = (props) => {
     };
 
     const handlePatch = async () => {
-        const formData = new FormData();
-        
-        // 파일 추가
-        if (file) {
-            formData.append('file', file);
-        }
-    
+
         // JSON 데이터를 추가
-        const wikiDTO = postData;
-    
-        // JSON 데이터를 Blob으로 변환하여 추가
-        const wikiDTOBlob = new Blob([JSON.stringify(wikiDTO)], {
-            type: 'application/json'
-        });
-        formData.append('wikiDTO', wikiDTOBlob);
+        const wikiDTO = {
+            breedName: postData.breedName,
+            overview: postData.overview,
+            appearance: postData.appearance,
+            temperament: postData.temperament,
+            attachmentUrl: postData.attachmentUrl
+        };
 
         try {
-            const response = await instance.patch(`wiki/update/${postData.id}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            console.log('handlePatch 성공:', response.data);
+            const response = await instance.patch(`wiki/update/${postData.id}`, wikiDTO);
+            console.log('handlePatch', response.data);
         } catch (error) {
-            console.error('handlePatch Error:', error);
+            console.error('handleSubmit Error:', error);
         }
     };
 
@@ -117,29 +84,6 @@ const WikiInput = (props) => {
             console.error('handhandleDeletelePatch Error:', error);
         }
     };
-
-    const handlePreviewImage = async () => {
-        const file = imgRef.current.files[0];
-        console.log("file.name", file.name);
-
-        const formData = new FormData();
-        formData.append("image", file);
-
-        try {
-            const response = await axios.post('http://localhost:8080/file/item-image-upload', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-
-            // 업로드 후 서버에서 받은 파일명 출력
-            console.log('업로드 성공:', response.data);
-            const fileName = response.data;
-            setImgPath(`http://localhost:8080/file/image-print?filename=${fileName}`);
-        } catch (error) {
-            console.error('이미지 업로드 실패:', error);
-        }
-    }
 
     return (
         <div>
@@ -191,24 +135,15 @@ const WikiInput = (props) => {
             </div>
             <div>
                 <h2>대표 이미지</h2>
-                <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                        // 파일이 선택되지 않았을 경우 아무 작업도 하지 않음
-                        if (!e.target.files || e.target.files.length === 0) {return;}
-                        handleFileChange();
-                        handlePreviewImage();}}
-                    ref={imgRef}
-                    id="photo"
+                <input 
+                    value={postData?.attachmentUrl || ''}
+                    onChange={(e) => handlePostData("attachmentUrl", e.target.value)}
                 />
-                <label htmlFor="photo">
-                    <img
-                        src={imgPath ? imgPath : catIcon}
-                        alt="이미지 업로드"
-                        style={{width: "200px", height: "200px"}}
-                    />
-                </label>
+                {postData?.id &&
+                    <img src={postData?.attachmentUrl || 'https://placehold.co/250x250'}
+                        style={{width: "200px"}}
+                    />                
+                }
             </div>
 
             {postData.id ? 

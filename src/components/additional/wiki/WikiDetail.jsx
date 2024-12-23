@@ -15,7 +15,7 @@ const WikiDetail = () => {
             url: `/wiki/select/${id}`,
             method: "GET"
         }).then((res) => {
-            console.log("response", res.data.wikiDTOList);
+            // console.log("response", res.data.wikiDTOList);
             setWikiData(res.data.wikiDTOList[0]);
         })
         .catch((err) => {

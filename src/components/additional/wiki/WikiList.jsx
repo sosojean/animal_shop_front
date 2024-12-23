@@ -38,17 +38,20 @@ const WikiList = () => {
 
     return (
         <div>
-            {wikiData?.map(data =>
-                <Link to={`/wiki/${data.id}`} key={data.id}>
-                    <WikiItem data={data} key={data.id}/>   
-                </Link>
-            )}
+            <div className="main-item">
+                {wikiData?.map(data =>
+                    <Link to={`/wiki/${data.id}`} key={data.id}>
+                        <WikiItem data={data} key={data.id}/>   
+                    </Link>
+                )}
+            </div>
             <Pagination
-                currentPage={currentPage}
-                totalPost={wikiCount}
-                handlePageChange={handlePageChange}
-            />
+                    currentPage={currentPage}
+                    totalPost={wikiCount}
+                    handlePageChange={handlePageChange}
+            />            
         </div>
+
     )
 }
 
