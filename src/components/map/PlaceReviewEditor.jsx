@@ -15,7 +15,7 @@ const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited, isMo
     const inputRef = useRef(null);
 
     const [id, setId] = useState()
-    const imageUrl = "http://localhost:8080/file/image-print?filename=";
+    const imageUrl = `${process.env.REACT_APP_API}/file/image-print?filename=`;
 
     useEffect(() => {
         if (item) {
@@ -78,7 +78,7 @@ const PlaceReviewEditor = ({mapId, setReviewWriting, isEdited, setIsEdited, isMo
             formData.append('image', new Blob([file], {type: 'multipart/form-data'}), file.name);
 
             axios({
-                url: `http://localhost:8080/file/map-comment-image-upload`,
+                url: `${process.env.REACT_APP_API}/file/map-comment-image-upload`,
                 method: 'POST',
                 data: formData,
             }).then((response) => {

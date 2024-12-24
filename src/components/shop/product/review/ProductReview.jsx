@@ -11,6 +11,8 @@ import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import ReviewEditor from "../../order/reviewEditor";
 import {useSearchParams} from "react-router-dom";
+import DefaultButton from "../../../common/DefaultButton";
+import {toast} from "react-toastify";
 
 const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified}) => {
 
@@ -62,8 +64,8 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified}) => {
         }).then(res=>{
           // console.log("res", res)
             setIsLiked(true)
-
             setIsModified(!isModified)
+            toast.success("상품 리뷰를 좋아요 했습니다.")
         }).catch((error) => {
             console.log(error)
         })
@@ -78,6 +80,8 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified}) => {
             // console.log("res", res)
             setIsLiked(false)
             setIsModified(!isModified)
+            toast.info("상품 리뷰 좋아요를 취소 했습니다.")
+
 
         }).catch((error) => {
             console.log(error)
@@ -109,12 +113,9 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified}) => {
                                                 return (
                                                     <span key={i}
                                                           className={i < item.rating ? "selected" : "non-selected"}>
-                                        <FontAwesomeIcon icon={faStar}/>
-                                    </span>
-                                                )
-                                            })}
+                                                        <FontAwesomeIcon icon={faStar}/>
+                                                    </span>)})}
                                         </div>
-                                        {/*<p>{item.rating}</p>*/}
                                         <p>{modifiedTime}</p>
 
                                     </div>
@@ -122,17 +123,17 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified}) => {
                                 <div className="review-control-buttons">
                                     {isLoggedIn && <>
                                         {isLiked ?
-
-                                            <button onClick={commentUnLikeHandler}><FontAwesomeIcon icon={solidHeart}/>
+                                            <button className={"review-heart-button"} onClick={commentUnLikeHandler}>
+                                                <FontAwesomeIcon icon={solidHeart}/>
                                             </button>
                                             :
-                                            <button onClick={commentLikeHandler}><FontAwesomeIcon icon={regularHeart}/>
+                                            <button className={"review-heart-button"} onClick={commentLikeHandler}>
+                                                <FontAwesomeIcon icon={regularHeart}/>
                                             </button>
                                         }
                                         {isAuthor ? <>
-
-                                            <button onClick={() => setIsEdit(true)}> 수정</button>
-                                            <button onClick={deleteHandler}> 삭제</button>
+                                            <DefaultButton onClick={() => setIsEdit(true)}> 수정</DefaultButton>
+                                            <DefaultButton onClick={deleteHandler}> 삭제</DefaultButton>
                                         </> : null}</>}
                                 </div>
 

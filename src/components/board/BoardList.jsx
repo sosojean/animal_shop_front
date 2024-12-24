@@ -23,10 +23,10 @@ const BoardList = (props) => {
     // const [total, setData] = useState();
 
 
-    let url = `http://localhost:8080/${categoryValue}?page=${currentPage}`;
+    let url = `${process.env.REACT_APP_API}/${categoryValue}?page=${currentPage}`;
 
     if (props.keyword) {
-        url = `http://localhost:8080/search/title?keyword=${props.keyword}&page=${currentPage}`
+        url = `${process.env.REACT_APP_API}/search/title?keyword=${props.keyword}&page=${currentPage}`
     }
 
     useEffect(() => {

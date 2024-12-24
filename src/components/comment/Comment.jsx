@@ -31,7 +31,7 @@ const Comment = ({parentList, comment, commentSummited, setCommentSummited, idNi
     }, [edit, del, heart])
 
     if (comment.imageUrl) {
-        url = "http://localhost:8080/file/comment?filename=" + comment.imageUrl[0]
+        url = `${process.env.REACT_APP_API}/file/comment?filename=` + comment.imageUrl[0]
     }
 
     if (edit) {
@@ -44,7 +44,7 @@ const Comment = ({parentList, comment, commentSummited, setCommentSummited, idNi
     }
     const getAuthor = () => {
         instance({
-            url: `http://localhost:8080/comment/update/${comment.id}`,
+            url: `${process.env.REACT_APP_API}/comment/update/${comment.id}`,
             method: "GET"
         }).then((response) => {
                 if (response.data === true) {
@@ -59,7 +59,7 @@ const Comment = ({parentList, comment, commentSummited, setCommentSummited, idNi
 
     const deleteHandler = () => {
         instance({
-            url: `http://localhost:8080/comment/delete/${comment.id}`,
+            url: `${process.env.REACT_APP_API}/comment/delete/${comment.id}`,
             method: "DELETE"
         }).then(() => {
                 setDel(true)

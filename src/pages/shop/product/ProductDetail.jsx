@@ -19,7 +19,7 @@ const ProductDetail = () => {
 
     useEffect(() => {
         axios({
-            url:`http://localhost:8080/item/detail/${itemId}`,
+            url:`${process.env.REACT_APP_API}/item/detail/${itemId}`,
             method: "get",
 
         }).then(

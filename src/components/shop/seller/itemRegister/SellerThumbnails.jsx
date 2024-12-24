@@ -17,14 +17,14 @@ const SellerThumbnails = ({thumnailsUrls, setThumnailsUrls}) => {
     
         try {
           // 서버에 이미지 업로드 요청 (구체적인 API 엔드포인트에 맞게 수정)
-          const response = await axios.post("http://localhost:8080/file/item-image-upload", formData, {
+          const response = await axios.post(`${process.env.REACT_APP_API}/file/item-image-upload`, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
           });
     
           const fileName = response.data;
-          const imageUrl = `http://localhost:8080/file/image-print?filename=${fileName}`;
+          const imageUrl = `${process.env.REACT_APP_API}/file/image-print?filename=${fileName}`;
     
           // 이미지 업로드 후 상태 갱신
           if (id === undefined) {

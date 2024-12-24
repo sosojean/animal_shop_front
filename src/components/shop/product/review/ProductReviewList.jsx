@@ -31,7 +31,7 @@ const ProductReviewList = ({itemId}) => {
 
         }else{
             axios({
-                url:`http://localhost:8080/item_comment/${itemId}?page=${page}`,
+                url:`${process.env.REACT_APP_API}/item_comment/${itemId}?page=${page}`,
                 method:'get'
             }).then((res) => {
                 setData(res.data.comments);

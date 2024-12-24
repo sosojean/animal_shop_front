@@ -9,7 +9,7 @@ import {useModifyTime} from "../../utils/useModifyTime";
 const PlaceReview = ({item, mapId, setIsEdited, isEdited}) => {
     const ratingStar = [...Array(item.rating).keys()];
     const remainStar =[...Array(5-item.rating).keys()]
-    const imgurl = "http://localhost:8080/file/image-print?filename=";
+    const imgurl = `${process.env.REACT_APP_API}/file/image-print?filename=`;
     const [isAuthor, setIsAuthor] = useState(false)
     const [reviewWriting, setReviewWriting] = useState(false)
     const modifiedTime = useModifyTime(item.created_date);

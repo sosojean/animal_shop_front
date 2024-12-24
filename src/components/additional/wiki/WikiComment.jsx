@@ -20,7 +20,7 @@ const WikiComment = (props) => {
 
     const getCommentData = (page = currentPage) => {
         axios({
-            url: `http://localhost:8080/wiki/comment/${id}/list?page=${page}`,
+            url: `${process.env.REACT_APP_API}/wiki/comment/${id}/list?page=${page}`,
             method: "get"
         }).then((res) => {
             // console.log("response", res.data.wikiCommentDTOList);

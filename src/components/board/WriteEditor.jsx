@@ -19,12 +19,12 @@ const WriteEditor = forwardRef((props, ref) => {
             formData.append('image', blob);
 
             axios({
-                url: 'http://localhost:8080/file/post-image-upload',
+                url: `${process.env.REACT_APP_API}/file/post-image-upload`,
                 method: 'POST',
                 data: formData,
             }).then((response) => {
                 // console.log(response.data);
-                imageUrl = `http://localhost:8080/file/image-print?filename=${response.data}`;
+                imageUrl = `${process.env.REACT_APP_API}/file/image-print?filename=${response.data}`;
                 callback(imageUrl, 'image alt attribute');
             }).catch((error) => {
                 console.log(error)

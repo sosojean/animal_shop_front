@@ -18,7 +18,7 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
         // console.log(userQuestionInput)
 
         instance({
-            url:"http://localhost:8080/item/query/new",
+            url:`${process.env.REACT_APP_API}/item/query/new`,
             method:"POST",
             data:userQuestionInput
 

@@ -19,7 +19,7 @@ const WikiList = () => {
 
         axios({
             method: 'get',
-            url: `http://localhost:8080/wiki/select?page=${page}`, // 페이징처리
+            url: `${process.env.REACT_APP_API}/wiki/select?page=${page}`, // 페이징처리
           })
           .then((res) => {
             // console.log("response", res.data);

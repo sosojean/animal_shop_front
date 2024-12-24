@@ -30,7 +30,7 @@ const ShopMain = ({isDog, setIsDog}) => {
         })
         :
         axios({
-            url:"http://localhost:8080/shop/main",
+            url:`${process.env.REACT_APP_API}/shop/main`,
             method:"get",
             params:{species:isDog?"dog":"cat"}
         }).then(res => {

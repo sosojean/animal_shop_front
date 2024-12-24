@@ -3,7 +3,7 @@ import {toast} from "react-toastify";
 
 
 const instance = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: `${process.env.REACT_APP_API}`,
 });
 let isInvalidToken = false;
 let isTokenRefreshing = false; // 토큰 갱신 상태 플래그

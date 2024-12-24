@@ -32,7 +32,7 @@ const AuthSender = (props) => {
         updateResponseStatus("email", status[1]);
 
         axios({
-            url: 'http://localhost:8080/auth/findPassword',
+            url: `${process.env.REACT_APP_API}/auth/findPassword`,
             method: 'POST',
             data: {
                 toMailAddr: authEmail
@@ -53,7 +53,7 @@ const AuthSender = (props) => {
         updateResponseStatus("auth", status[1]);
 
         axios({
-            url: 'http://localhost:8080/auth/verify',
+            url: `${process.env.REACT_APP_API}/auth/verify`,
             method: 'POST',
             data: {
                 mail : authEmail,

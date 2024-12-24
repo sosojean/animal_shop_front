@@ -34,7 +34,7 @@ const JoinWithEmail = ({props}) => {
 
         axios({
             method: "POST",
-            url: "http://localhost:8080/auth/signup",
+            url: `${process.env.REACT_APP_API}/auth/signup`,
             data: {
                 "username": userId,
                 "password": password,

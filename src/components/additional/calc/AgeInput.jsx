@@ -68,7 +68,7 @@ const AgeInput = (props) => {
         console.log("postData", postData);
         
         axios({
-            url: `http://localhost:8080/calc/recommend/age`,
+            url: `${process.env.REACT_APP_API}/calc/recommend/age`,
             method: "POST",
             data: postData
         }).then((res) => {

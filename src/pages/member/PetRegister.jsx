@@ -53,7 +53,7 @@ const PetRegister = ({setPetRegisterSuccess}) => {
 
     const getBreedOptions = () => {
         axios({
-            url: `http://localhost:8080/pet/breed-list?species=DOG`,
+            url: `${process.env.REACT_APP_API}/pet/breed-list?species=DOG`,
             method: "get",
         }).then((res) => {
             console.log("getBreedOptions response", res.data);
@@ -65,7 +65,7 @@ const PetRegister = ({setPetRegisterSuccess}) => {
         })
 
         axios({
-            url: `http://localhost:8080/pet/breed-list?species=CAT`,
+            url: `${process.env.REACT_APP_API}/pet/breed-list?species=CAT`,
             method: "get",
         }).then((res) => {
             const breedsWithDefaultOption = ["고양이의 품종을 선택해주세요.", ...res.data.breeds];

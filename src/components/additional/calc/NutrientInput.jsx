@@ -55,7 +55,7 @@ const NutrientInput = (props) => {
         console.log("postData", postData);
         
         axios({
-            url: `http://localhost:8080/calc/recommend/food`,
+            url: `${process.env.REACT_APP_API}/calc/recommend/food`,
             method: "POST",
             data: postData
         }).then((res) => {

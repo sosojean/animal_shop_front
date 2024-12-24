@@ -19,7 +19,7 @@ const PetInfoPage = () => {
         // api 통신
     const getBreedOptions = () => {
         axios({
-            url: `http://localhost:8080/pet/breed-list?species=DOG`,
+            url: `${process.env.REACT_APP_API}/pet/breed-list?species=DOG`,
             method: "get",
         }).then((res) => {
             console.log("getBreedOptions response", res.data);
@@ -30,7 +30,7 @@ const PetInfoPage = () => {
         })
 
         axios({
-            url: `http://localhost:8080/pet/breed-list?species=CAT`,
+            url: `${process.env.REACT_APP_API}/pet/breed-list?species=CAT`,
             method: "get",
         }).then((res) => {
             console.log("getBreedOptions response", res.data);

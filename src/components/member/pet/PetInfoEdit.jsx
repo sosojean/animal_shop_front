@@ -19,7 +19,7 @@ const PetInfoEdit = () => {
     console.log(pet);
 
     const [petInfo, setPetInfo] = useState(pet)
-    // const url = `http://localhost:8080/file/image-print?filename=${petInfo.profileImageUrl}`
+    // const url = `${process.env.REACT_APP_API}/file/image-print?filename=${petInfo.profileImageUrl}`
 
     useEffect(() => {
         console.log(petInfo);

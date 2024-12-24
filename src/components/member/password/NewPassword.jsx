@@ -20,7 +20,7 @@ const NewPassword = (props) => {
     const authChangePassword = () => {
         console.log("authEmail", authEmail);
         axios({
-            url: 'http://localhost:8080/auth/changePassword',
+            url: `${process.env.REACT_APP_API}/auth/changePassword`,
             method: 'PATCH',
             data: {
                 mail : authEmail,

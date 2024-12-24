@@ -16,7 +16,7 @@ const ProductQnAList = ({data}) => {
 
      useEffect(() => {
         axios({
-            url:`http://localhost:8080/item/query/list/${data.id}`,
+            url:`${process.env.REACT_APP_API}/item/query/list/${data.id}`,
             method: "get",
             params:{page}
         }).then(res=>{

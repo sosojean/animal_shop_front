@@ -14,7 +14,7 @@ const AdoptAnimalComment = (props) => {
 
     const getCommentData = (page = currentPage) => {
         axios({
-            url: `http://localhost:8080/abandoned_animal/${id}/findAll?page=${page}`,
+            url: `${process.env.REACT_APP_API}/abandoned_animal/${id}/findAll?page=${page}`,
             method: "get"
         }).then((res) => {
             console.log("response", res.data.abandonedCommentDTOList);

@@ -33,7 +33,7 @@ const AdoptDetail = (props) => {
 
     const getApiData = () => {
         axios({
-            url: `http://localhost:8080/abandoned_animal/detail?animalId=${id}`,
+            url: `${process.env.REACT_APP_API}/abandoned_animal/detail?animalId=${id}`,
             method: "get",
         }).then((res) => {
             console.log("getApiData response", res.data);

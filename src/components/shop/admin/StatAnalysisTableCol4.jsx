@@ -2,8 +2,9 @@ import React from 'react';
 import "../../../assets/styles/shop/admin/statAnalysisTable.scss"
 import DefaultButton from "../../common/DefaultButton";
 import instance from "../../../utils/axios";
+import {toast} from "react-toastify";
 
-const StatAnalysisTableCol4 = ({data,colName1, colName2, colName3,colName4,disabled}) => {
+const StatAnalysisTableCol4 = ({data,colName1, colName2, colName3,colName4,disabled, isEdited, setIsEdited}) => {
     // console.log(data);
 
     const withdrawHandler = (item)=>{
@@ -17,6 +18,8 @@ const StatAnalysisTableCol4 = ({data,colName1, colName2, colName3,colName4,disab
             }
         }).then(res=>{
             console.log(res);
+            setIsEdited(!isEdited)
+            toast.success(`${item[colName2]}님의 정산이 완료되었습니다.`)
         }).catch((err)=>{
             console.log(err)
         })
@@ -51,10 +54,7 @@ const StatAnalysisTableCol4 = ({data,colName1, colName2, colName3,colName4,disab
                             {colName4}
                         </DefaultButton>
                     </td>
-
-
-                </tr>)
-            })}
+                </tr>)})}
             </tbody>
         </table>
 

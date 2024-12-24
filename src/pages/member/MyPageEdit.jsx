@@ -182,7 +182,7 @@ const MyPageEdit = (props) => {
         }
 
         axios({
-            url: 'http://localhost:8080/file/profile-image-upload',
+            url: `${process.env.REACT_APP_API}/file/profile-image-upload`,
             method: 'POST',
             data: formData,
         }).then((response) => {

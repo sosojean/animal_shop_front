@@ -81,7 +81,7 @@ const Header = (props) => {
                                 <Link onMouseEnter={hoverCategory} className="category">
                                     <li>유틸리티 <FontAwesomeIcon icon={faChevronDown}/></li>
                                 </Link>
-                                <ToggleBtn setIsDog={props.setIsDog} isDog={props.isDog}/>
+                                {/*<ToggleBtn setIsDog={props.setIsDog} isDog={props.isDog}/>*/}
 
                                 {parseJwt(token)?.role === "ADMIN" &&
                                     <Link onMouseEnter={leaveHeader} to="/admin/seller">

@@ -61,7 +61,7 @@ const CalorieInput = (props) => {
         console.log("postData", postData);
         
         axios({
-            url: `http://localhost:8080/calc/recommend/calorie`,
+            url: `${process.env.REACT_APP_API}/calc/recommend/calorie`,
             method: "POST",
             data: postData
         }).then((res) => {
@@ -75,7 +75,7 @@ const CalorieInput = (props) => {
 
     const getBreedOptions = () => {
         axios({
-            url: `http://localhost:8080/pet/breed-list?species=DOG`,
+            url: `${process.env.REACT_APP_API}/pet/breed-list?species=DOG`,
             method: "get",
         }).then((res) => {
             console.log("getBreedOptions response", res.data);
@@ -86,7 +86,7 @@ const CalorieInput = (props) => {
         })
 
         axios({
-            url: `http://localhost:8080/pet/breed-list?species=CAT`,
+            url: `${process.env.REACT_APP_API}/pet/breed-list?species=CAT`,
             method: "get",
         }).then((res) => {
             console.log("getBreedOptions response", res.data);

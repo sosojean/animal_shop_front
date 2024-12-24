@@ -48,6 +48,13 @@
 
                 .review-control-buttons{
                     display: flex;
+                    gap: 0.5rem;
+                    .review-heart-button{
+                        background: none;
+                        border: none;
+                        color: var(--point-color);
+                        font-size: 1.5rem;
+                    }
                 }
             }
         }

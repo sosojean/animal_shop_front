@@ -12,7 +12,7 @@ const ReviewEditor = ({item, setReviewWriting,  isEdit}) => {
     const [newComment, setNewComment] = useState("")
     const [rating, setRating] = useState(5)
     const [images, setImages] = useState([]);
-    const imageUrl = "http://localhost:8080/file/image-print?filename=";
+    const imageUrl = `${process.env.REACT_APP_API}/file/image-print?filename=`;
     useEffect(() => {
         console.log(item);
         if (isEdit){
@@ -67,7 +67,7 @@ const ReviewEditor = ({item, setReviewWriting,  isEdit}) => {
             formData.append('image', new Blob([file], {type: 'multipart/form-data'}), file.name);
 
             axios({
-                url: `http://localhost:8080/file/item-comment-image-upload`,
+                url: `${process.env.REACT_APP_API}/file/item-comment-image-upload`,
                 method: 'POST',
                 data: formData,
             }).then((response) => {

@@ -16,7 +16,7 @@ const PetInfo = (props) => {
     // console.log("petInfo", item);
     const navigate = useNavigate();
 
-    const url = item.profileImageUrl?`http://localhost:8080/file/image-print?filename=${item.profileImageUrl
+    const url = item.profileImageUrl?`${process.env.REACT_APP_API}/file/image-print?filename=${item.profileImageUrl
         }`:animalPlaceholder; // todo: default 이미지 지정
 
     const handleEdit = () => {

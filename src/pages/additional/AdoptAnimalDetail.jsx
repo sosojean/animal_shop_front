@@ -18,7 +18,7 @@ const AdoptAnimalDetail = () => {
         console.log("data", data)
 
         axios({
-            url: `http://localhost:8080/abandoned_animal/search`,
+            url: `${process.env.REACT_APP_API}/abandoned_animal/search`,
             method: "POST",
             data: data
         }).then((res) => {

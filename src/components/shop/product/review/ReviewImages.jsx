@@ -5,7 +5,7 @@ import {faAngleLeft, faAngleRight, faArrowLeft, faArrowRight} from "@fortawesome
 
 const ReviewImages = ({images})=>{
     // console.log(images);
-    const url = "http://localhost:8080/file/image-print?filename=";
+    const url = `${process.env.REACT_APP_API}/file/image-print?filename=`;
     const imageContainerLength = 10
     const [modal, setModal] = useState(false)
     const [imageIndex, setImageIndex] = useState(0)

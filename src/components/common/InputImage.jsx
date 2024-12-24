@@ -11,7 +11,7 @@ const InputImage = ({imageUploadPath, setImage,image,objName}) =>{
     const [file, setFile] = useState()
     const [fileKey, setFileKey] = useState(Date.now());
 
-    const imageUrl = "http://localhost:8080/file/image-print?filename=";
+    const imageUrl = `${process.env.REACT_APP_API}/file/image-print?filename=`;
 
     const ImgUploadHandler = async (e) => {
         console.log("img upload")
@@ -23,7 +23,7 @@ const InputImage = ({imageUploadPath, setImage,image,objName}) =>{
             formData.append('image', new Blob([file], {type: 'multipart/form-data'}), file.name);
 
             axios({
-                url: `http://localhost:8080/file/${imageUploadPath}`,
+                url: `${process.env.REACT_APP_API}/file/${imageUploadPath}`,
                 method: 'POST',
                 data: formData,
             }).then((response) => {

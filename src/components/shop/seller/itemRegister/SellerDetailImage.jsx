@@ -14,7 +14,7 @@ const SellerDetailImage = ({detailImageUrl, setDetailImageUrl}) => {
         formData.append("image", file);
 
         try {
-            const response = await axios.post('http://localhost:8080/file/item-image-upload', formData, {
+            const response = await axios.post(`${process.env.REACT_APP_API}/file/item-image-upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -23,7 +23,7 @@ const SellerDetailImage = ({detailImageUrl, setDetailImageUrl}) => {
             // 업로드 후 서버에서 받은 파일명 출력
             console.log('업로드 성공:', response.data);
             const fileName = response.data;
-            setDetailImageUrl(`http://localhost:8080/file/image-print?filename=${fileName}`);
+            setDetailImageUrl(`${process.env.REACT_APP_API}/file/image-print?filename=${fileName}`);
         } catch (error) {
             console.error('이미지 업로드 실패:', error);
         }

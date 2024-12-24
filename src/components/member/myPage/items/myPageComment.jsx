@@ -14,7 +14,7 @@ const MyPageComment = ({item ,setIsEdit ,isEdit, isWritten}) => {
     const modifiedTime = useModifyTime(item.createdDate)
     let url;
     if (item.imageUrl) {
-        url = "http://localhost:8080/file/comment?filename=" + item.imageUrl[0]
+        url = `${process.env.REACT_APP_API}/file/comment?filename=` + item.imageUrl[0]
     }
     const heartHandler = (method) => {
         instance({
@@ -30,7 +30,7 @@ const MyPageComment = ({item ,setIsEdit ,isEdit, isWritten}) => {
 
     const deleteHandler = () => {
         instance({
-            url: `http://localhost:8080/comment/delete/${item.id}`,
+            url: `${process.env.REACT_APP_API}/comment/delete/${item.id}`,
             method: "DELETE"
         }).then(() => {
             setIsEdit(!isEdit)

@@ -9,7 +9,6 @@ import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import DefaultButton from "../../common/DefaultButton";
 
 const Withdraw = () => {
-    const [isAvailable, setIsAvailable] = useState(true)
 
     const getToday = () => {
         const today = new Date();
@@ -37,6 +36,8 @@ const Withdraw = () => {
     const [startDate, setStartDate] = useState(getFirstDayOfMonth());
     const [endDate, setEndDate] = useState(getToday());
     const [data, setData] = useState([]);
+    const [isAvailable, setIsAvailable] = useState(true)
+    const [isEdited, setIsEdited] = useState(false)
 
     const isCurrentMonth = () => {
         const today = new Date();
@@ -87,7 +88,7 @@ const Withdraw = () => {
             .catch((err) => {
                 console.log(err);
             });
-    }, [startDate, endDate,isAvailable]);
+    }, [startDate, endDate,isAvailable,isEdited]);
 
 
 
@@ -134,6 +135,8 @@ const Withdraw = () => {
                             colName3={"point"}
                             colName4={"환급"}
                             disabled={!isAvailable}
+                            setIsEdited={setIsEdited}
+                            isEdited={isEdited}
 
                         />
                 </div>}
