@@ -22,7 +22,7 @@ const CalorieInput = (props) => {
     const puppyList = ["1-4개월", "4-12개월"];
     const kittenList = ["1-4개월", "4-6개월", "7-12개월"];
     const dogStatusList = [{main: "체중조절", sub: ["감량", "증량"]}, 
-        {main: "높은 활동성", sub: ["활동적", "매우 활동적", "극도로 활동적"]}, 
+        {main: "활동적", sub: ["활동적", "매우 활동적", "극도로 활동적"]}, 
         {main: "임신/수유", sub: ["임신 초기", "임신 후기", "수유"]}, {main: "해당없음", sub: []}];
     const catStatusList = [{main: "체중조절", sub: ["감량", "증량"]}, 
     {main: "활동적", sub: []}, {main: "임신/수유", sub: ["임신 초기", "임신 후기", "수유"]}, 
@@ -119,7 +119,7 @@ const CalorieInput = (props) => {
                 </div>
                 <select value={calcData?.breed} className="breed-selector"
                     onChange={(e) => {handleInputChange("breed", e.target.value)}}>
-                    <option key={100} value="default">--종 선택--</option>
+                    <option key={100} value="default">---종 선택---</option>
                     {breedOptions.map((breed, index) => {
                         return <option key={index} value={breed}>{breed}</option>
                     })}
@@ -217,14 +217,14 @@ const CalorieInput = (props) => {
                     :
                     calcData?.isPuppy ?
                         <div className="two-selector">
-                                <div className="span-box">
-                                    <span><b>월령</b></span>    
-                                </div>
+                            <div className="span-box">
+                                <span><b>월령</b></span>    
+                            </div>
                             <div className="two-detail-selector">
                                 {puppyList.map((age, index) => (
                                     <DefaultButton 
                                         key={index}
-                                        className={"long" + isButtonActive("month", age)}
+                                        className={"long " + isButtonActive("month", age)}
                                         onClick={() => handleInputChange("month", age)}>
                                         {age}
                                     </DefaultButton>
@@ -240,7 +240,7 @@ const CalorieInput = (props) => {
                                     {dogStatusList.map((status, index) => (
                                         <DefaultButton 
                                             key={index}
-                                            className={isButtonActive("status", status.main)}
+                                            className={"long " + isButtonActive("status", status.main)}
                                             onClick={() => handleInputChange("status", status.main)}>
                                             {status.main}
                                         </DefaultButton>
@@ -255,7 +255,7 @@ const CalorieInput = (props) => {
                                     {dogDetailList[0]?.sub?.map((detail, index) => (
                                         <DefaultButton 
                                             key={index}
-                                            className={"long" + isButtonActive("detail", detail)}
+                                            className={"long " + isButtonActive("detail", detail)}
                                             onClick={() => handleInputChange("detail", detail)}>
                                             {detail}
                                         </DefaultButton>
@@ -270,7 +270,7 @@ const CalorieInput = (props) => {
                                     {neuterList.map((neuter, index) => (
                                         <DefaultButton 
                                             key={index}
-                                            className={"long" + isButtonActive("neuter", neuter)}
+                                            className={"long " + isButtonActive("neuter", neuter)}
                                             onClick={() => handleInputChange("neuter", neuter)}>
                                             {neuter}
                                         </DefaultButton>
