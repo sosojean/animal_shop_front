@@ -5,9 +5,10 @@ import "../../../assets/styles/member/PetInfoDetail.scss"
 import instance from "../../../utils/axios";
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCrown, faQuoteLeft, faQuoteRight} from "@fortawesome/free-solid-svg-icons";
+import {faAngleRight, faCrown, faQuoteLeft, faQuoteRight} from "@fortawesome/free-solid-svg-icons";
 import animalPlaceholder from "../../../assets/img/animalPlaceholder.svg"
 import DefaultButton from "../../common/DefaultButton";
+import {Link} from "react-router-dom";
 
 
 const PetInfoDetail = (props) => {
@@ -45,16 +46,38 @@ const PetInfoDetail = (props) => {
                         <FontAwesomeIcon icon={faQuoteRight}/>
                     </p>
                     <Card className="default-card detail-info-text">
-                        <div className={"name-section"}>
-                            {item?.isLeader && <FontAwesomeIcon className="icon" icon={faCrown}/>}
-                            <h2>{item.name}</h2>
-                            <span>{item.age} 살</span>
-                        </div>
 
-                        <span>{item.breed}</span>
-                        <span>{weightOptions[parseInt(item.weight)]}</span>
-                        <span>{item.gender === "FEMALE" ? "여아" : "남아"}</span>
-                        <span>{item["is_neutered"]}</span>
+                        <div className={"row pet-info-content"}>
+                            <div className={"col detail-pet-info"}>
+                                <div className={"name-section"}>
+                                    {item?.isLeader && <FontAwesomeIcon className="icon" icon={faCrown}/>}
+                                    <h2>{item.name}</h2>
+                                    <span>{item.age} 살</span>
+                                </div>
+                                <span>{item.breed}</span>
+                                <span>{weightOptions[parseInt(item.weight)]}</span>
+                                <span>{item.gender === "FEMALE" ? "여아" : "남아"}</span>
+                                {/*<span>{item["is_neutered"]}</span>*/}
+                            </div>
+                            <div className={"link-container"}>
+                                <div className={"go-to-wiki"}>
+                                    <span>우리아이 특성 알아보기<FontAwesomeIcon icon={faAngleRight}/></span>
+
+                                    <Link to={`/wiki/${item.wikiId}`}>
+                                    <span>{item.breed}</span>
+
+                                </Link>
+                                <Link to={`/wiki/${item.wikiId}`}>
+                                    <span>{item.breed}</span>
+
+                                </Link>
+                                <Link to={`/wiki/${item.wikiId}`}>
+                                    <span>{item.breed}</span>
+
+                                </Link>
+                                </div>
+                            </div>
+                        </div>
                     </Card>
 
                     <div className="two-buttons">
