@@ -38,6 +38,9 @@ const FacilitiesMap = () => {
 
     const [searchData, setSearchData] = useState({
         keyword: "",
+        parking:false,
+        indoor:false,
+        outdoor:false,
         category: null,
 
     })
@@ -74,9 +77,9 @@ const FacilitiesMap = () => {
             method:"post",
             data:{
                 keyword: searchData.keyword,
-                // parking: false,
-                // indoor: false,
-                // outdoor: false,
+                parking: searchData.parking,
+                indoor: searchData.indoor,
+                outdoor: searchData.outdoor,
 
                 category:searchData.category,
                 swLatlng: Bounds.swLatlng,
