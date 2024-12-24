@@ -1,5 +1,13 @@
+.wiki-input{
+    width: 100%;
+    display: flex;
+    justify-content:center;
+
 .wiki-form-container {
     max-width: 800px;
+    width: 800px;
+
+
     padding: 0 20px 20px 20px;
 
     .form-section {
@@ -60,4 +68,4 @@
             font-size: 1.2rem;
         }
     }
-}
+}}

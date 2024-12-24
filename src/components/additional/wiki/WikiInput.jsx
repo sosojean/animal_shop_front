@@ -84,6 +84,7 @@ const WikiInput = (props) => {
     };
 
     return (
+        <div  className="wiki-input">
         <div className="wiki-form-container">
             <div className="form-section">
                 <h2>종 선택</h2>
@@ -163,6 +164,7 @@ const WikiInput = (props) => {
                     </Link>                   
                 )}
             </div>
+        </div>
         </div>
     )
 }
