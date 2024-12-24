@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import SellerMenu from "./SellerMenu";
 import AdminMenu from "../admin/AdminMenu";
 import instance from "../../../utils/axios";
-import WithdrawItem from "./WithdrawItem";
-import StatAnalysisTableCol3 from "../admin/StatAnalysisTableCol3";
+import StatAnalysisTableCol4 from "../admin/StatAnalysisTableCol4";
 import Title from "../../common/Title";
 import "../../../assets/styles/shop/seller/sellerWithdraw.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
+import DefaultButton from "../../common/DefaultButton";
 
 const Withdraw = () => {
+    const [isAvailable, setIsAvailable] = useState(true)
 
     const getToday = () => {
         const today = new Date();
@@ -71,8 +71,14 @@ const Withdraw = () => {
     useEffect(() => {
         setData([])
         instance({
-            url: `/point/entire-sum-seller?time=month&start=${startDate}&end=${endDate}`,
+            url: `/point/entire-sum-seller`,
             method: "get",
+            params:{
+                time:"month",
+                start:startDate,
+                end:endDate,
+                state:isAvailable?"AVAILABLE":"WITHDRAWN"
+            }
         })
             .then((res) => {
                 console.log(res);
@@ -81,7 +87,10 @@ const Withdraw = () => {
             .catch((err) => {
                 console.log(err);
             });
-    }, [startDate, endDate]);
+    }, [startDate, endDate,isAvailable]);
+
+
+
 
     return (
         <div>
@@ -89,27 +98,45 @@ const Withdraw = () => {
             <Title>판매자 정산</Title>
 
             {/* 날짜 조정 버튼 */}
-            <div className="row date-controls">
-                <button className="prev-next" onClick={() => adjustDate(-1)}>
-                    <FontAwesomeIcon icon={faAngleLeft}/>
-                </button>
-                <span>
-                    {startDate} ~ {endDate}
-                </span>
-                <button className="prev-next" onClick={() => adjustDate(1)} disabled={isCurrentMonth()}>
-                    <FontAwesomeIcon icon={faAngleRight}/>
-                </button>
+            <div className="with-draw-container">
 
-            </div>
+                <div className="row date-controls">
+                    <div className="row">
+                        <DefaultButton className={isAvailable ? "default lg" : "selected lg primary"}
+                                       onClick={() => setIsAvailable(false)}>정산완료</DefaultButton>
+                        <DefaultButton className={!isAvailable ? "default lg" : "selected lg primary"}
+                                       onClick={() => setIsAvailable(true)}>미정산</DefaultButton>
+                    </div>
+                    <button className="prev-next" onClick={() => adjustDate(-1)}>
+                        <FontAwesomeIcon icon={faAngleLeft}/>
+                    </button>
+                    <div className="date-container">
+                        <span>
+                            {startDate} ~ {endDate}
+                        </span>
+                    </div>
+                    <button className="prev-next" onClick={() => adjustDate(1)} disabled={isCurrentMonth()}>
+                        <FontAwesomeIcon icon={faAngleRight}/>
+                    </button>
 
-            {/* 데이터 테이블 */}
-            <div className="stat-analysis-table">
-            <StatAnalysisTableCol3
-                    data={data}
-                    colName1={"date"}
-                    colName2={"sellerNickname"}
-                    colName3={"point"}
-                />
+                </div>
+
+                {/* 데이터 테이블 */}
+                {data.length < 1 ? <div className="no-contents">
+                        <span>해당 월의 정산 데이터가 없습니다.</span>
+                    </div>
+
+                    : <div className="stat-analysis-table">
+                        <StatAnalysisTableCol4
+                            data={data}
+                            colName1={"date"}
+                            colName2={"sellerNickname"}
+                            colName3={"point"}
+                            colName4={"환급"}
+                            disabled={!isAvailable}
+
+                        />
+                </div>}
             </div>
         </div>
     );

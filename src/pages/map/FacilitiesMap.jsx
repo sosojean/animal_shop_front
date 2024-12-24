@@ -80,7 +80,6 @@ const FacilitiesMap = () => {
                 parking: searchData.parking,
                 indoor: searchData.indoor,
                 outdoor: searchData.outdoor,
-
                 category:searchData.category,
                 swLatlng: Bounds.swLatlng,
                 neLatlng: Bounds.neLatlng

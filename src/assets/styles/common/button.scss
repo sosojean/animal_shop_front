@@ -18,6 +18,12 @@
 
 }
 
+.primary.button:disabled,
+.primary-border.button:disabled {
+  opacity: 0.5;
+  pointer-events: none; /* 비활성화 상태에서 클릭 불가 */
+}
+
 .default.button {
   background: var(--alpha-5);
   color: black;

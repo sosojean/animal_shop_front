@@ -56,14 +56,18 @@ const Information = (props) => {
         case 'seller':
             message = "판매자 등록이 완료되었습니다." ;
             icon = faRegistered;
-
             break;
+
         case 'join':
             message = "회원가입이 완료 되었습니다." ;
             icon = faUser;
             break;
 
         case 'orderSuccess':
+            message = "결제가 완료 되었습니다." ;
+            icon = faMoneyBill;
+            break;
+        case 'refundSuccess':
             message = "결제가 완료 되었습니다." ;
             icon = faMoneyBill;
             break;

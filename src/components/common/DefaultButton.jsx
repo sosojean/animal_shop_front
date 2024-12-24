@@ -2,9 +2,9 @@ import React from 'react';
 import "../../assets/styles/common/button.scss"
 
 
-const DefaultButton = ({children, onClick, className}) => {
+const DefaultButton = ({children, onClick, className, disabled}) => {
     return (
-            <button className={`button ${className?" "+className:""}`} onClick={onClick}>{children}</button>
+            <button disabled={disabled} className={`button ${className?" "+className:""}`} onClick={onClick}>{children}</button>
     );
 };
 

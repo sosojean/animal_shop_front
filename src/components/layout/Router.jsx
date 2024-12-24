@@ -114,6 +114,8 @@ const Router = (props) => {
                         <Route path="/shop/detail/:itemId" element={<ProductDetail/>}/>
                         <Route path="/pay/success" element={<Information case ="orderSuccess" />}/>
                         <Route path="/cancel/success" element={<CancelSuccess/>}/>
+                        <Route path="/refund/success" element={<Information case ="refundSuccess" />}/>
+
 
                         {/*장바구니*/}
                         <Route path="/cart" element={<Cart/>}/>

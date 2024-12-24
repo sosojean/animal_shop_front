@@ -1,0 +1,21 @@
+.admin-stat-analysis{
+
+  .admin-table-controller{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .prev-next{
+    width: 60px;
+    height: 60px;
+    background: none;
+    border: none;
+  }
+  .date-container{
+    display: flex;
+    align-items: center;
+    height: 60px;
+  }
+}

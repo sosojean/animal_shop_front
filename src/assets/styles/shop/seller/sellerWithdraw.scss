@@ -1,4 +1,21 @@
-.prev-next{
-  background: none;
-  border: none;
+
+.with-draw-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .stat-analysis-table{
+    width: 500px;
+  }
+  .prev-next{
+    width: 60px;
+    height: 60px;
+    background: none;
+    border: none;
+  }
+  .date-container{
+    display: flex;
+    align-items: center;
+  }
 }

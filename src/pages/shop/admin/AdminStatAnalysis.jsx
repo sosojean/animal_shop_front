@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import Chart from "../../../components/common/Chart";
 import instance from "../../../utils/axios";
-import NextPrevButton from "../../../components/common/NextPrevButton";
 import StatAnalysisTable from "../../../components/shop/admin/StatAnalysisTable";
 import AdminMenu from "../../../components/shop/admin/AdminMenu";
 import "../../../assets/styles/shop/admin/statAnalysisTable.scss"
 import Title from "../../../components/common/Title";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
+import DefaultButton from "../../../components/common/DefaultButton";
+import "../../../assets/styles/shop/admin/adminStatAnalysis.scss"
 
 const AdminStatAnalysis = () => {
 
     const now = new Date();
-    const [year, setYear] = useState(now.getFullYear());
-    const [month, setMonth] = useState(now.getMonth());
+    const [currentDate, setCurrentDate] = useState(new Date(now.getFullYear(), now.getMonth())); // 현재 연도를 기준으로 초기화
 
     const [data, setData] = useState([])
     const [sellerData, setSellerData] = useState([])
@@ -22,7 +24,6 @@ const AdminStatAnalysis = () => {
     const [isDaySum, setIsDaySum] = useState(false)
     const [selectedIndex, setSelectedIndex] = useState(0)
 
-
     const dates=[];
     const points=[];
 
@@ -30,6 +31,8 @@ const AdminStatAnalysis = () => {
     const sellerNames=[];
 
     useEffect(() => {
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth() + 1;
         const url = isDaySum
             ? `/point/day-sum-total?year=${year}&&month=${month}`
             : `/point/month-sum-total?year=${year}`;
@@ -45,21 +48,26 @@ const AdminStatAnalysis = () => {
             setData(filledData);
             setFirstDate(res.data["first_date"]);
             trimData(filledData);
+            setSelectedIndex(filledData.length-1);
         });
-    }, [year, month, isDaySum]);
+    }, [currentDate, isDaySum]);
 
     useEffect(() => {
-        const url = isDaySum?`/point/day-sum-seller?year=${year}&month=${month}&day=${selectedIndex+1}`
-            :`/point/month-sum-seller?year=${year}&month=${selectedIndex+1}`;
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth() + 1;
+        const url = isDaySum
+            ? `/point/day-sum-seller?year=${year}&month=${month}&day=${selectedIndex + 1}`
+            : `/point/month-sum-seller?year=${year}&month=${selectedIndex + 1}`;
+
         instance({
-            url:url,
-            method:"GET",
+            url: url,
+            method: "GET",
         }).then((res) => {
-            console.log("point",res);
+            console.log("point", res);
             setSellerData(res.data);
             trimSellerData(res.data);
-        })
-    }, [selectedIndex]);
+        });
+    }, [selectedIndex, currentDate, isDaySum]);
 
     const fillMissingDates = (data, year, month) => {
         const now = new Date();
@@ -111,57 +119,91 @@ const AdminStatAnalysis = () => {
             points.push(item.point)
         })
         setTrimmedData({
-            data:points,
-            categories:dates
-        })
-    }
+            data: points,
+            categories: dates
+        });
+    };
 
     const trimSellerData = (data) => {
         data.sort(function (a, b) {
-            return  a.point > b.point ? -1 : 1;
-        })
+            return a.point > b.point ? -1 : 1;
+        });
 
         data.map((item) => {
-            sellerPoints.push(item.point)
-            sellerNames.push(item["sellerNickname"])
-        })
+            sellerPoints.push(item.point);
+            sellerNames.push(item["sellerNickname"]);
+        });
 
-        console.log("pas",sellerPoints,sellerNames)
+        console.log("pas", sellerPoints, sellerNames);
         setTrimmedSellerData({
-            series:sellerPoints,
-            labels:sellerNames
-        })
-    }
+            series: sellerPoints,
+            labels: sellerNames
+        });
+    };
 
+    const handlePrev = () => {
+        const newDate = new Date(currentDate);
+        if (isDaySum) {
+            newDate.setMonth(currentDate.getMonth() - 1);
+        } else {
+            newDate.setFullYear(currentDate.getFullYear() - 1);
+        }
+        setCurrentDate(newDate);
+    };
 
+    const handleNext = () => {
+        const now = new Date();
+        const newDate = new Date(currentDate);
+        if (isDaySum) {
+            newDate.setMonth(currentDate.getMonth() + 1);
+        } else {
+            newDate.setFullYear(currentDate.getFullYear() + 1);
+        }
+        if (isDaySum) {
+            if (newDate <= new Date(now.getFullYear(), now.getMonth())) {
+                setCurrentDate(newDate);
+            }
+        } else {
+            if (newDate.getFullYear() <= now.getFullYear()) {
+                setCurrentDate(newDate);
+            }
+        }
+    };
 
     return (
-        <div>
+        <div className="admin-stat-analysis">
             <AdminMenu/>
             <Title>사이트 통계</Title>
 
-            <div>
-                <NextPrevButton value={year} setValue={setYear} start ={2024} stop={2024}/>
-                <NextPrevButton value={month} setValue={setMonth} start ={1} stop={12}/>
-
-                <button onClick={()=>setIsDaySum(false)}>월별</button>
-                <button onClick={()=>setIsDaySum(true)}>일별</button>
+            <div className="admin-table-controller">
+                <div className="row">
+                    <DefaultButton className={isDaySum?"default lg":"selected lg primary"} onClick={() => setIsDaySum(false)}>연간</DefaultButton>
+                    <DefaultButton className={!isDaySum?"default lg":"selected lg primary"} onClick={() => setIsDaySum(true)}>월간</DefaultButton>
+                </div>
+                <div className="row">
+                    <button className={"prev-next"} onClick={handlePrev}><FontAwesomeIcon icon={faAngleLeft}/></button>
+                    <div className="date-container">
+                    <span>{isDaySum ? `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월` : `${currentDate.getFullYear()}년`}</span>
+                    </div>
+                    <button className={"prev-next"} onClick={handleNext}><FontAwesomeIcon icon={faAngleRight}/></button>
+                </div>
             </div>
-
             {trimmedData && trimmedSellerData.series &&
                 <Chart data={trimmedData?.data} categories={trimmedData?.categories}
                        series={trimmedSellerData?.series} labels={trimmedSellerData?.labels}
                        setSelectedIndex={setSelectedIndex}/>}
 
-            {data &&sellerData&& <div className="stat-analysis-table">
+            {data && sellerData && <div className="stat-analysis-table">
                 <StatAnalysisTable data={data} colName1="date" colName2="point"/>
-                <StatAnalysisTable data={sellerData} colName1="sellerNickname" colName2="point"/>
+                {sellerData.length<1?
+                    <div className={"table-contents"} >
+                        <span className={"no-contents"}>
+                            선택 시점의 데이터가 없습니다.
+                        </span>
+                    </div>
+                    :<StatAnalysisTable data={sellerData} colName1="sellerNickname" colName2="point"/>}
             </div>
             }
-
-
-
-
 
         </div>
     );

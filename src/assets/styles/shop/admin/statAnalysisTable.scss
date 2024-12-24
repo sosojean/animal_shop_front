@@ -4,6 +4,9 @@
   gap: 1rem;
   width: 100%;
   justify-content: space-between;
+  .table-contents{
+    width: 50%;
+  }
 
 .table-container{
   width: 500px;
@@ -36,6 +39,10 @@
         vertical-align: middle;
       }
 
+      .with-draw{
+        display: flex;
+        justify-content: center ;
+      }
     }
 
   }
