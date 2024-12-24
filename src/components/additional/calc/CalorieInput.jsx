@@ -104,12 +104,12 @@ const CalorieInput = (props) => {
 
     return (
         <Card className="default-card calrorie-input">
-            <Card className="default-card">
-                <h2>반려동물 종류</h2>
-                <div>
+            <Card className="default-card two-selector-card">
+                <h3 className="calc-secondary-header">반려동물 종류</h3>
+                <div className="two-selector">
                     {speciesList.map((species, index) => {
                         return <DefaultButton 
-                        key={index} className={isButtonActive("species", species)} 
+                        key={index} className={"long " + isButtonActive("species", species)}
                         onClick={() => {
                             handleInputChange("species", species)
                             handleInputChange("breed", "")
@@ -117,141 +117,188 @@ const CalorieInput = (props) => {
                             {species}</DefaultButton>
                     })}
                 </div>
-                <select value={calcData?.breed} onChange={(e) => {handleInputChange("breed", e.target.value)}}>
+                <select value={calcData?.breed} className="breed-selector"
+                    onChange={(e) => {handleInputChange("breed", e.target.value)}}>
                     <option key={100} value="default">--종 선택--</option>
                     {breedOptions.map((breed, index) => {
                         return <option key={index} value={breed}>{breed}</option>
                     })}
                 </select>
             </Card>
-            <Card className="default-card">
-                <h2>반려동물 몸무게</h2>
-                <input type="number" value={calcData?.weight} 
+            <Card className="default-card input-card">
+                <h3 className="calc-secondary-header">반려동물 몸무게</h3>
+                <div className="input-box">
+                    <input type="number" value={calcData?.weight} 
                     onChange={(e) => {handleInputChange("weight", e.target.value)}}/>
+                    <div>
+                        <p>kg</p>     
+                    </div>             
+                </div>
             </Card>
-            <Card className="default-card">
-                <h2>반려동물 나이</h2>
-                <div>
+            <Card className="default-card two-selector-card">
+                <h3 className="calc-secondary-header">반려동물 나이</h3>
+                <div className="two-selector">
                     {ageList.map((age, index) => {
                         return <DefaultButton 
-                            key={index} 
-                            className={isButtonActive("isPuppy", age === "1살미만")}
+                            key={index}
+                            className={"long " + isButtonActive("isPuppy", age === "1살미만")}
                             onClick={() => {handleInputChange("isPuppy", age === "1살미만")}}>
                             {age}
                         </DefaultButton>
                     })}
                 </div>
             </Card>
-            <Card className="default-card detail-selector">
-                <h2>세부 선택</h2>
+            <Card className="default-card two-selector-card detail-selector-card">
+                <h3 className="calc-secondary-header">세부선택</h3>
                 {calcData?.species === "고양이" ? 
                     calcData?.isPuppy ?
-                        <div className="buttons">
-                            <span><b>월령</b></span>
-                            {kittenList.map((age, index) => (
-                                <DefaultButton 
-                                    key={index}
-                                    className={isButtonActive("month", age)}
-                                    onClick={() => handleInputChange("month", age)}>
-                                    {age}
-                                </DefaultButton>
-                            ))}
+                        <div className="two-selector">
+                            <div className="span-box">
+                                <span><b>월령</b></span>    
+                            </div>
+                            <div className="two-detail-selector">
+                                {kittenList.map((age, index) => (
+                                    <DefaultButton 
+                                        key={index}
+                                        className={"long " + isButtonActive("month", age)}
+                                        onClick={() => handleInputChange("month", age)}>
+                                        {age}
+                                    </DefaultButton>
+                                ))}                                
+                            </div>
                         </div> : 
                         <div>
-                            <div className="buttons">
-                                <span><b>상태</b></span>
-                                {catStatusList.map((status, index) => (
-                                    <DefaultButton 
-                                        key={index}
-                                        className={isButtonActive("status", status.main)}
-                                        onClick={() => handleInputChange("status", status.main)}>
-                                        {status.main}
-                                    </DefaultButton>
-                                ))}
+                            <div className="two-selector">
+                                <div className="span-box">
+                                    <span><b>상태</b></span>    
+                                </div>
+                                <div className="two-detail-selector">
+                                    {catStatusList.map((status, index) => (
+                                        <DefaultButton
+                                            key={index}
+                                            className={"long " + isButtonActive("status", status.main)}
+                                            onClick={() => handleInputChange("status", status.main)}>
+                                            {status.main}
+                                        </DefaultButton>
+                                    ))}                                    
+                                </div>
                             </div>
-                            <div className="buttons">
-                                <span><b>세부</b></span>
-                                {catDetailList[0]?.sub?.map((detail, index) => (
-                                    <DefaultButton 
-                                        key={index}
-                                        className={isButtonActive("detail", detail)}
-                                        onClick={() => handleInputChange("detail", detail)}>
-                                        {detail}
-                                    </DefaultButton>
-                                ))}
+                            <div className="two-selector">
+                                <div className="span-box">
+                                    <span><b>세부</b></span>
+                                </div>
+                                <div className="two-detail-selector">
+                                    {catDetailList[0]?.sub?.map((detail, index) => (
+                                        <DefaultButton 
+                                            key={index}
+                                            className={"long " + isButtonActive("detail", detail)}
+                                            onClick={() => handleInputChange("detail", detail)}>
+                                            {detail}
+                                        </DefaultButton>
+                                    ))}
+                                </div>
                             </div>
-                            <div className="buttons">
-                                <span><b>중성화</b></span>
-                                {neuterList.map((neuter, index) => (
-                                    <DefaultButton 
-                                        key={index}
-                                        className={isButtonActive("neuter", neuter)}
-                                        onClick={() => handleInputChange("neuter", neuter)}>
-                                        {neuter}
-                                    </DefaultButton>
-                                ))}
+                            <div className="two-selector">
+                                <div className="span-box">
+                                    <span><b>중성화</b></span>    
+                                </div>
+                                <div className="two-detail-selector">
+                                    {neuterList.map((neuter, index) => (
+                                        <DefaultButton 
+                                            key={index}
+                                            className={"long " + isButtonActive("neuter", neuter)}
+                                            onClick={() => handleInputChange("neuter", neuter)}>
+                                            {neuter}
+                                        </DefaultButton>
+                                    ))}                                    
+                                </div>
                             </div>
                         </div>
                     :
                     calcData?.isPuppy ?
-                        <div className="buttons">
-                            <span><b>월령</b></span>
-                            {puppyList.map((age, index) => (
-                                <DefaultButton 
-                                    key={index}
-                                    className={isButtonActive("month", age)}
-                                    onClick={() => handleInputChange("month", age)}>
-                                    {age}
-                                </DefaultButton>
-                            ))}
+                        <div className="two-selector">
+                                <div className="span-box">
+                                    <span><b>월령</b></span>    
+                                </div>
+                            <div className="two-detail-selector">
+                                {puppyList.map((age, index) => (
+                                    <DefaultButton 
+                                        key={index}
+                                        className={"long" + isButtonActive("month", age)}
+                                        onClick={() => handleInputChange("month", age)}>
+                                        {age}
+                                    </DefaultButton>
+                                ))}                                
+                            </div>
                         </div> : 
                         <div>
-                            <div className="buttons">
-                                <span><b>상태</b></span>
-                                {dogStatusList.map((status, index) => (
-                                    <DefaultButton 
-                                        key={index}
-                                        className={isButtonActive("status", status.main)}
-                                        onClick={() => handleInputChange("status", status.main)}>
-                                        {status.main}
-                                    </DefaultButton>
-                                ))}
+                            <div className="two-selector">
+                                <div className="span-box">
+                                    <span><b>상태</b></span>    
+                                </div>
+                                <div className="two-detail-selector">
+                                    {dogStatusList.map((status, index) => (
+                                        <DefaultButton 
+                                            key={index}
+                                            className={isButtonActive("status", status.main)}
+                                            onClick={() => handleInputChange("status", status.main)}>
+                                            {status.main}
+                                        </DefaultButton>
+                                    ))}                                    
+                                </div>
                             </div>
-                            <div className="buttons">
-                                <span><b>세부</b></span>
-                                {dogDetailList[0]?.sub?.map((detail, index) => (
-                                    <DefaultButton 
-                                        key={index}
-                                        className={isButtonActive("detail", detail)}
-                                        onClick={() => handleInputChange("detail", detail)}>
-                                        {detail}
-                                    </DefaultButton>
-                                ))}
+                            <div className="two-selector">
+                                <div className="span-box">
+                                    <span><b>세부</b></span>    
+                                </div>
+                                <div className="two-detail-selector">
+                                    {dogDetailList[0]?.sub?.map((detail, index) => (
+                                        <DefaultButton 
+                                            key={index}
+                                            className={"long" + isButtonActive("detail", detail)}
+                                            onClick={() => handleInputChange("detail", detail)}>
+                                            {detail}
+                                        </DefaultButton>
+                                    ))}                                    
+                                </div>
                             </div>
-                            <div className="buttons">
-                                <span><b>중성화</b></span>
-                                {neuterList.map((neuter, index) => (
-                                    <DefaultButton 
-                                        key={index}
-                                        className={isButtonActive("neuter", neuter)}
-                                        onClick={() => handleInputChange("neuter", neuter)}>
-                                        {neuter}
-                                    </DefaultButton>
-                                ))}
+                            <div className="two-selector">
+                                <div className="span-box">
+                                    <span><b>중성화</b></span>    
+                                </div>
+                                <div className="two-detail-selector">
+                                    {neuterList.map((neuter, index) => (
+                                        <DefaultButton 
+                                            key={index}
+                                            className={"long" + isButtonActive("neuter", neuter)}
+                                            onClick={() => handleInputChange("neuter", neuter)}>
+                                            {neuter}
+                                        </DefaultButton>
+                                    ))}
+                                </div>
                             </div>
                         </div>                           
                 }
             </Card>
-            <Card className="default-card">
-                <h2>사료 kcal(/kg)</h2>
-                <input type="number" defaultValue={0} onChange={(e) => setAmount(e.target.value)}/>
-                <p>사료의 kcal(kg당)을 작성해주세요</p>                   
+            <Card className="default-card input-card">
+                <h3 className="calc-secondary-header">사료 kcal(/kg)</h3>
+                <div className="input-box">
+                    <input className = "feed-input"
+                        type="number" defaultValue={0} onChange={(e) => setAmount(e.target.value)}/>
+                    <div>
+                        <p>kcal(/kg)</p>          
+                    </div>                
+                </div>
             </Card>
-            <DefaultButton onClick={() => {
-                handleRecommend();
-                setShowResult(!showResult)}}>
-                    결과 확인
-            </DefaultButton> 
+            <div className="result-button-container">
+                <DefaultButton
+                    className="default-button result-button wd100"
+                    onClick={() => {
+                        handleRecommend();
+                        setShowResult(!showResult)}}>
+                        {showResult ? "결과 닫기" : "결과 확인"}
+                </DefaultButton>                 
+            </div>
         </Card>
     )
 }

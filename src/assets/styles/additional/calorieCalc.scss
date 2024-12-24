@@ -17,26 +17,149 @@
 
         .calrorie-input {
             width: 500px;
-            background-color: var(--point-color);
-            // height: 500px;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--point-background-color-80);
+
+            .two-selector-card {
+                
+                .two-selector {
+                    display: flex;
+
+                    margin-top: 20px;
+                    gap: 1rem;
+
+                    button {
+                        font-size: 1rem;
+                    }
+                }
+
+                .breed-selector {
+                    margin-top: 10px;
+
+                    width: 64%;
+                    padding: 8px;
+                    border: 1px solid #ddd;
+                    border-radius: 6px;
+                }
+            }
+
+            .input-card {
+
+                .calc-secondary-header {
+                    margin-bottom: 10px;
+                }
+
+                .input-box {
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;         
+                    
+                    input {
+                        width: 18%;
+                        height: 30px;
+                        padding: 0 22px 0 22px;
+                        border: none;
+                        border-bottom: 3px solid var(--point-shadow-color);
+                        font-size: 16px;
+                        background: #FFFFFF;
+                        margin-right: 2px;
+                        cursor: auto;
+                        text-align: center;
+                    }
+
+                    div {
+                        font-weight: bold;
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                    }
+
+                    .feed-input {
+                        width: 22%;
+                    }
+                }
+
+            }
+
+            .two-detail-selector {
+                display: flex;
+                gap: 0.5rem;
+
+                button {
+                    width: 80px;
+                }
+            }
+
+            .detail-selector-card {
+                .span-box {
+                    width: 45px;
+                    min-height: 40px;
+                    background-color: var(--point-background-color-20);
+                    border-radius: 10px;
+                    font-size: 0.9rem;
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
 
             .active {
                 background-color: var(--point-background-color-80);
+                color: #FFF;
+                font-weight: bold;
             }
 
-            .detail-selector {
-                // .button-list {
-                //     display: flex;
-                // }
+            .result-button-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                margin-top: 1rem;
+
+                .result-button:hover {
+                    background-color: var(--point-shadow-color);
+                    color: var(--reverse-font-color);
+                }
             }
+
         }
 
         .calorie-result {
-            background-color: var(--point-color);
+            background-color: var(--point-background-color-80);
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
+
+            .age-result-container {
+                font-size: 1.2rem;
+                line-height: 30px;
+
+                .age-result-box {
+                    padding: 10px 0 10px 0;
+                    border-bottom: 3px solid var(--point-background-color-80);
+
+                    .result-title {
+                        text-align: left;
+                    }
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .calc-goods {
+        margin-top: 5rem;
+
+        h3 {
+            margin-left: 1rem;
+            margin-bottom: 1rem;
         }
     }
 }

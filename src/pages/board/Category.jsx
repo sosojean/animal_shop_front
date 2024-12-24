@@ -20,7 +20,7 @@ const Category = (props) => {
                         <Link to="/wiki">
                             <li>🐰 반려동물 백과</li>
                         </Link>
-                        <Link to="/calculator">
+                        <Link to="/calculator/age">
                             <li>🐹 건강 계산기</li>
                         </Link>
                         <Link to="/graduate">

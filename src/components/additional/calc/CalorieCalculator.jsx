@@ -4,6 +4,9 @@ import CalorieInput from "./CalorieInput";
 import CalorieResult from "./CalorieResult";
 import "../../../assets/styles/additional/calorieCalc.scss"
 import CalcGoods from "./CalcGoods";
+import CalcNav from "./CalcNav";
+import Title from "../../common/Title";
+import Card from "../../common/Card";
 
 const CalorieCalculator = () => {
 
@@ -44,7 +47,8 @@ const CalorieCalculator = () => {
 
     return (
         <div className="calrorie-calc">
-            <h1 className="calrorie-calc-header">칼로리 계산기</h1>
+            <CalcNav/>
+            <Title>권장 칼로리 계산기</Title>
             <div className="calrorie-calc-section">
                 <CalorieInput calcData={calcData} setCalcData={setCalcData}
                     showResult={showResult} setShowResult={setShowResult}
@@ -53,9 +57,12 @@ const CalorieCalculator = () => {
                     <CalorieResult calcData={calcData} amount={amount} showFeeding={showFeeding}/>   
                 }
             </div>
-            <div>
-                <CalcGoods goods={goods}/>
-            </div>
+            {showResult && 
+                <Card className="calc-goods">
+                    <h3>상품 추천</h3>
+                    <CalcGoods goods={goods}/>
+                </Card>            
+            }
         </div>
     )
 }

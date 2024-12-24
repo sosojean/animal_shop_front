@@ -8,36 +8,86 @@
 .age-calc {
     @include settingCenter;
 
-    .age-calc-header {
-        margin: 2rem 0 2rem 0;
-    }
-
     .age-calc-section {
         display: flex;
 
         .age-input {
             width: 500px;
+            display: flex;
+            flex-direction: column;
             background-color: var(--point-background-color-80);
-            // height: 500px;
-
-            // .calc-secondary-header {
-            //     padding-bottom: 3px;
-            //     border-bottom: 5px dashed #76a970c8;
-            // }
 
             .two-selector-card {
                 
                 .two-selector {
                     display: flex;
 
-                    margin-top: 0.5rem;
+                    margin-top: 20px;
                     gap: 1rem;
+
+                    button {
+                        font-size: 1rem;
+                    }
+                }
+            }
+
+            .input-card {
+
+                .calc-secondary-header {
+                    margin-bottom: 10px;
+                }
+
+                .input-box {
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;         
+                    
+                    input {
+                        width: 30%;
+                        height: 40px;
+                        padding: 0 22px 0 22px;
+                        border: none;
+                        border-bottom: 3px solid var(--point-shadow-color);
+                        font-size: 16px;
+                        background: #FFFFFF;
+                        margin-right: 10px;
+                        cursor: auto;
+                        text-align: center;
+                    }
+
+                    div {
+                        background-color: var(--point-background-color-20);
+                        font-weight: bold;
+                        
+                        height: 40px;
+                        padding: 0 22px 0 22px;
+                        border-radius: 10px;
+                        
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+
+            }
+
+            .three-selector-card {
+                
+                .three-selector {
+                    display: flex;
+
+                    margin-top: 20px;;
+                    gap: 1rem;
+
+                    button {
+                        font-size: 1rem;
+                    }
                 }
             }
 
             .active {
                 background-color: var(--point-background-color-80);
                 color: #FFF;
+                font-weight: bold;
             }
 
             .result-button-container {
@@ -60,6 +110,24 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+
+            .age-result-container {
+                font-size: 1.2rem;
+                line-height: normal;
+            }
         }
+    }
+
+    .calc-goods {
+        margin-top: 5rem;
+
+        h3 {
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        // .recommend-card {
+        //     background-color: var(--point-background-color-20);
+        // }
     }
 }

@@ -161,10 +161,9 @@ const CalorieResult = (props) => {
     return (
         <Card className="default-card calorie-result">
             <Card className="default-card">
-                {/* <h1>칼로리 계산</h1> */}
-                <div>
-                    <div>
-                        <p><b>1일 권장 칼로리</b></p>
+                <div className="age-result-container">
+                    <div className="age-result-box">
+                        <p className="result-title"><b>✔️1일 권장 칼로리</b></p>
                         {calcData?.species === "강아지" ?
                             <p>{calculateDogMER(calcData?.isPuppy, calcData?.month, calcData?.status, 
                                 calcData?.detail, calcData?.neuter)}</p> :
@@ -173,15 +172,14 @@ const CalorieResult = (props) => {
                                     calcData?.detail, calcData?.neuter)} kcal</p> :
                                 <p>0 kcal</p>
                         }
-
                     </div>
-                    <div>
-                        <p><b>1일 기초대사량</b></p>
+                    <div className="age-result-box">
+                        <p className="result-title"><b>✔️1일 기초 대사량</b></p>
                         <p>{calculateDogRER(calcData?.weight || 0)} kcal</p>
                     </div>
                     {showFeeding &&
-                        <div>
-                            <p><b>1일 급여량</b></p>
+                        <div className="age-result-box">
+                            <p className="result-title"><b>✔️1일 사료 급여량</b></p>
                             <p>{(() => { const result = Math.round((calculateDogRER(calcData?.weight || 0) * 1000) / amount);
                                 return isFinite(result) && !isNaN(result) ? `${result} g` : '올바른 값을 입력해주세요';})()}</p>
                         </div>                    

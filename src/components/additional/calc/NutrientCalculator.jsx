@@ -4,6 +4,7 @@ import "../../../assets/styles/additional/nutrientCalc.scss"
 import NutrientInput from "./NutrientInput";
 import NutrientResult from "./NutrientResult";
 import CalcGoods from "./CalcGoods";
+import CalcNav from "./CalcNav";
 
 const NutrientCalculator = () => {
 
@@ -39,6 +40,7 @@ const NutrientCalculator = () => {
 
     return (
         <div className="nutrient-calc">
+            <CalcNav/>
             <h1 className="nutrient-calc-header">사료 영양성분 계산기</h1>
             <div className="nutrient-calc-section">
                 <NutrientInput petData={petData} setPetData={setPetData}
