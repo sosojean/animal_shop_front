@@ -166,49 +166,55 @@ const AdoptDetail = (props) => {
         <>
         {data &&
             <>
-                <Card className="adopt-detail-container">
-                    <div className="img-container">
+                <Card className="adopt-detail-container default-card">
+                    <Card className="img-container default-card">
                         <img src={data.popfile}/>
-                    </div>
+                    </Card>
                     <div className="info-container">
-                        <div className="basic-container">
-                            <span>{getConvertedKind("species")}</span>
-                            <span>{" "}{getConvertedKind()}</span>
-                            <span>{" / "}{getConvertedAge() + "세"}</span>
-                            <span onClick={handleAddInterest}><FontAwesomeIcon icon={faPlus}/></span>
-                        </div>
-                        <div className="feature-container">
+                        <Card className="info-item basic-container default-card">
+                            <div className="basic-box">
+                                <div>
+                                    <span><b>{getConvertedKind("species")}</b></span>
+                                    <span>{" "}{getConvertedKind()}</span>
+                                    <span>{" · "}{getConvertedAge() + "세"}</span>                                    
+                                </div>
+                                <div className="button-box">
+                                    {isAdmin &&
+                                        <DefaultButton className="alert detail-button" onClick={handleSendMail}>입양 완료</DefaultButton>                  
+                                    }
+                                    <DefaultButton className="primary detail-button" onClick={handleAddInterest}><FontAwesomeIcon icon={faPlus}/></DefaultButton>      
+                                </div>                   
+                            </div>
+                        </Card>
+                        <Card className="info-item feature-container default-card">
                             <div>
                                 <span>
-                                    {data.sexCd === 'F' ? "여아" : 
+                                    <b>
+                                        {data.sexCd === 'F' ? "여아" : 
                                         data.sexCd === 'M' ? "남아" : "성별미상"}
+                                    </b>
                                 </span>
-                                <span>{" / "}<b>중성화</b> {getConvertedNeuter()}</span>
-                                <span>{" / "}<b>무게</b> {getConvertedWeight()}</span>
+                                <span>{" · "}<b>중성화</b> {getConvertedNeuter()}</span>
+                                <span>{" · "}<b>무게</b> {getConvertedWeight()}</span>
                             </div>
                             <div>
                                 <p><b>특이사항</b> {data.specialMark}</p>
                             </div>
-                        </div>
-                        <div className="period-container">
+                        </Card>
+                        <Card className="info-item period-container default-card">
                             <p><b>공고번호</b> {data.noticeNo}</p>
                             <p><b>공고기간</b> {getConvertedNoticeDate()}</p>
-                        </div>
-                        <div>
+                        </Card>
+                        <Card className="info-item default-card">
                             <div>
-                                <span>보호소 {data.careNm}</span>
-                                <span>{" / "}보호소 연락처 {data.careTel}</span>
+                                <span><b>보호소</b> {data.careNm}</span>
+                                <span>{" · "}<b>보호소 연락처</b> {data.careTel}</span>
                             </div>
                             <div> 
-                                <p>보호주소 {data.careAddr} </p>
+                                <p><b>보호주소</b> {data.careAddr} </p>
                             </div>
-                        </div>
+                        </Card>
                     </div>
-                    {isAdmin &&
-                        <div>
-                            <DefaultButton onClick={handleSendMail}>입양 완료</DefaultButton>
-                        </div>                    
-                    }
                 </Card>
                 <AdoptAnimalComment id={id}/>            
             </>

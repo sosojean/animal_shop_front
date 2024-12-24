@@ -1,4 +1,4 @@
-
+import classNames from "classnames";
 
 const FilterMiniAge = (props) => {
     const {data, keyName, selectedItems, setSelectedItems, getRefreshData} = props;
@@ -34,15 +34,17 @@ const FilterMiniAge = (props) => {
     };
       
     return (
-        <ul>
+        <ul className="filter-mini-age">
             {data.map((value, index) => {
+                const isActive = selectedItems[keyName]?.includes(value.code);
 
                 return (
-                    <div key={index}>
+                    <div key={index} className={classNames('mini-item', { 'active': isActive })}>
                         <li onClick={() => {
                               getRefreshData();
                               handleAddItem(value.code);}}>
-                                {value.name}</li>                        
+                                {value.name}
+                        </li>                        
                     </div>
                 )
             })}

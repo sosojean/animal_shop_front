@@ -5,8 +5,10 @@
 .adopt-detail-container{
     display: flex;
     margin-top: 5rem;
-    font-size: 1.5rem;
-    // @include container-gap;
+    font-size: 1.0rem;
+    height: 500px;
+
+    background-color: var(--point-background-color-10);
 
     .img-container {
         
@@ -23,16 +25,36 @@
     
     .info-container {
 
+        height: 450px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .info-item {
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; // 세로 방향 가운데 정렬
+            padding: 10px 20px 10px 20px; // 내용이 너무 가장자리에 붙지 않도록 패딩 추가
+        }
+
         .basic-container {
-            margin: 0 0 1rem 0;
-        }
+            height: 70px;
 
-        .feature-container {
-            margin: 1rem 0 1rem 0;
-        }
+            .basic-box {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
 
-        .period-container {
-            margin: 1rem 0 1rem 0;
+                .button-box {
+                    display: flex;
+                    gap:5px;
+
+                    .detail-button {
+                        padding: 5px 10px 5px 10px
+                    }
+                }
+            }
         }
         
     }

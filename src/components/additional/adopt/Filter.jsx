@@ -2,6 +2,7 @@ import { useState } from "react";
 import Card from "../../common/Card";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import DefaultButton from "../../common/DefaultButton"
 
 const Filter = (props) => {
   const { className, placeholder, array, isClick,
@@ -49,7 +50,7 @@ const Filter = (props) => {
   return (
     <>
       {isClick && (
-        <Card className="default-card">
+        <Card className="default-card breed-filter">
           <div className="filter-util-container">
             <input
                 type="text"
@@ -57,12 +58,12 @@ const Filter = (props) => {
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)} // 검색어 상태 업데이트
             />
-            <button
+            <DefaultButton
                 onClick={() => setSecondClick(!secondClick)}
-                className="open-button"
+                className="primary open-button"
             >
                 <FontAwesomeIcon icon={faList}/>   
-            </button>            
+            </DefaultButton>            
           </div>
           {secondClick && (
             <div className="select-container">
@@ -74,7 +75,6 @@ const Filter = (props) => {
 
                         return (
                         <div key={key} className="select-item">
-                            <p>{value}</p>
                             <input
                             type="checkbox"
                             checked={isChecked}
@@ -82,6 +82,7 @@ const Filter = (props) => {
                               handleCheckboxChange(key, value);
                               getRefreshData();}}
                             />
+                            <span>{value}</span>
                         </div>
                         );
                     })}
