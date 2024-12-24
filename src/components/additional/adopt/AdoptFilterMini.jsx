@@ -1,7 +1,9 @@
 import { useState } from "react"
 import FilterMini from "./FilterMini";
 import FilterMiniAge from "./FilterMiniAge";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import DefaultButton from "../../common/DefaultButton";
 
 const AdoptFilterMini = (props) => {
 
@@ -10,7 +12,7 @@ const AdoptFilterMini = (props) => {
     } = props;
 
     const sex = [{code: "M", name: "남아"}, {code:"F", name:"여아"}, 
-        {code:"Q", name:"알수없음"}];
+        {code:"Q", name:"알 수 없음"}];
 
     const age = [{code: 1, name: "1살 미만"}, {code: 5, name: "1살 ~ 5살"}, 
         {code: 9, name: "6살 ~ 9살"}, {code: 10, name: "10살 이상"}]
@@ -18,7 +20,7 @@ const AdoptFilterMini = (props) => {
     const neuter = [
         { code: "Y", name: "완료" },
         { code: "N", name: "미완료" },
-        { code: "U", name: "알수없음" }
+        { code: "U", name: "알 수 없음" }
     ]
 
     const petAttributes = [
@@ -98,46 +100,54 @@ const AdoptFilterMini = (props) => {
     return (
         <>
         <div className="filter-mini-container">
-            <button onClick={() => setAllShow(!allShow)}>필터</button>
-            {allShow &&
-                <ul className="filter-att-list">
-                    {petAttributes.map((att, index) => {
+            <DefaultButton className="primary filter-button" onClick={() => setAllShow(!allShow)}>
+                <span><FontAwesomeIcon icon={faList}/></span><sapn>필터</sapn>
+            </DefaultButton>
+            {allShow && (
+                <>
+                    <ul className="filter-att-list">
+                        {petAttributes.map((att, index) => {
 
-                        return (
-                            <li key={index} onClick={() => toggleShow(att.code)}>
-                                {att.name}
-                            </li>
-                        )
-                    })}
-                </ul>            
-            }
-            {showState.age &&
-                <FilterMiniAge
-                    data = {age}
-                    keyName = "age"
-                    selectedItems = {subSelectedItems}
-                    setSelectedItems = {setSubSelectedItems}
-                    getRefreshData = {getRefreshData}
-                />
-            }
-            {showState.sex && 
-                <FilterMini
-                    data = {sex}
-                    keyName = "sex"
-                    selectedItems = {subSelectedItems}
-                    setSelectedItems = {setSubSelectedItems}
-                    getRefreshData = {getRefreshData}
-                />            
-            }
-            {showState.neuter &&
-                <FilterMini
-                    data = {neuter}
-                    keyName = "neuter"
-                    selectedItems = {subSelectedItems}
-                    setSelectedItems = {setSubSelectedItems}
-                    getRefreshData = {getRefreshData}
-                />     
-            }
+                            return (
+                                <li className="att-item"
+                                    key={index} onClick={() => toggleShow(att.code)}>
+                                    <span>{att.name}</span>
+                                    <span><FontAwesomeIcon icon={faAngleDown}/></span>
+                                </li>
+                            )
+                        })}
+                    </ul>                
+                    {showState.age &&
+                        <FilterMiniAge
+                            data = {age}
+                            keyName = "age"
+                            selectedItems = {subSelectedItems}
+                            setSelectedItems = {setSubSelectedItems}
+                            getRefreshData = {getRefreshData}
+                        />
+                    }
+                    {showState.sex && 
+                        <FilterMini
+                            data = {sex}
+                            keyName = "sex"
+                            selectedItems = {subSelectedItems}
+                            setSelectedItems = {setSubSelectedItems}
+                            getRefreshData = {getRefreshData}
+                            className = "filter-mini-gender"
+                        />            
+                    }
+                    {showState.neuter &&
+                        <FilterMini
+                            data = {neuter}
+                            keyName = "neuter"
+                            selectedItems = {subSelectedItems}
+                            setSelectedItems = {setSubSelectedItems}
+                            getRefreshData = {getRefreshData}
+                            className = "filter-mini-neuter"
+                        />     
+                    }                    
+                </>
+            )}
         </div>
         {subSelectedItems && 
             <div className="sub-select-list">
@@ -150,34 +160,35 @@ const AdoptFilterMini = (props) => {
                         const type = typeof(item);
 
                         return value[1].map((v, i) => (
-                            <div key={`${i} + 10`}>
-                                <span>{getConvertedString(key, v)}</span>
-                                <button onClick={() => {
+                            <DefaultButton key={`${i} + 10`}>
+                                <span onClick={() => {
                                     getRefreshData();
                                     handleDeleteItem(key, v, type)
-                                    }}>x</button>
-                            </div>
+                                    }}>{getConvertedString(key, v)} ✖️</span>
+                            </DefaultButton>
                         ));
                     } else {
                         const key = value[0]
                         const item = value[1]
                         const cs = getConvertedString(key, item)
                         return (
-                            <div key={index}>
-                                <span>{cs}</span>
-                                <button onClick={() => {
+                            <DefaultButton key={index}>
+                                <span onClick={() => {
                                     handleDeleteItem(key, item);
                                     getRefreshData();
-                                    }}>x</button>
-                            </div>
+                                    }}>{cs} ✖️</span>
+                            </DefaultButton>
                         );
                     }
                 })}
                 {extractedData.length > 0 && 
-                    <button onClick={() => {
-                        setSubSelectedItems({})
-                        getRefreshData();
-                    }}>전체 초기화</button>}
+                    <DefaultButton 
+                        className="alert"
+                        onClick={() => {
+                            setSubSelectedItems({})
+                            getRefreshData();
+                        }}>초기화</DefaultButton>
+                }
             </div>      
         }
         </>

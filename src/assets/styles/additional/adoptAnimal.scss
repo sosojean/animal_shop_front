@@ -9,171 +9,281 @@
     }
 }
 
-// .filter-container {
-//     position: relative;
-//     margin-top: 60px; // 선택된 태그들을 위한 공간 확보
+@mixin active ($v: --point-shadow-color) {
+    background-color: var($v);
+    color: white;
+    font-weight: bold;
+}
+
+@mixin button-shape ($w:90px, $f:1rem, $g:5px) {
+    height: 50px;
+    width: $w;
+    font-size: $f;
     
-//     .filter-max-container {
-//         display: flex;
-//         gap: 20px;
-//         padding: 15px;
-//         background-color: white;
-//         border-radius: 10px;
-//         z-index: 1;
+    display: flex;
+    gap: $g;
+}
 
-//         .kind-selector {
-//             display: flex;
-//             gap: 10px;
-            
-//             button {
-//                 padding: 8px 16px;
-//                 border: none;
-//                 background-color: var(--background-color);
-//                 border-radius: 20px;
-//                 cursor: pointer;
-//             }
-//         }
+@mixin list-shape ($t:120%, $l:6.3%) {
+    position: absolute;
+    top: $t;
+    left: $l;
 
-//         .breed-selector, .region-selector {
-//             position: static; // 중요: static으로 설정
-//             min-width: 150px;
+    background-color: rgb(231, 240, 230);
 
-//             p {
-//                 padding: 8px 12px;
-//                 background-color: var(--background-color-light);
-//                 border-radius: 5px;
-//                 cursor: pointer;
-//             }
-//         }
-//     }
-// }
+    display: flex;
+    flex-direction: column;
+
+    border: 2px solid rgb(133, 179, 128);
+    border-radius: 10px;
+}
+
+.filter-container {
+    position: relative;
+    margin-top: 60px; // 선택된 태그들을 위한 공간 확보
+    
+    .filter-max-container {
+        display: flex;
+        gap: 20px;
+        padding: 15px;
+        background-color: var(--point-background-color-20);
+        border-radius: 10px;
+
+        position: relative; // 추가
+        z-index: 10; // 높은 값으로 설정
+
+        // 강아지, 고양이 선택
+        .kind-selector {
+            display: flex;
+            gap: 10px;
+            width: 20%;
+
+            button {
+                @include button-shape;
+
+                &:hover {
+                    @include active($v:--point-shadow-color-30);
+                }
+            }
+
+            .active {
+                @include active;
+            }
+        }
+
+        .breed-selector, .region-selector {
+            position: static; // 중요: static으로 설정
+            width: 40%;
+
+            .selector-button {
+                @include button-shape($w:100%, $f:1rem, $g:10px);
+            }
+        }
+    }
+
+    .filter-breed-container {
+
+        z-index: -100;
+
+        .filter-breed-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px; /* 아이템 사이의 간격 */
+            padding: 16px; /* 컨테이너 안쪽 여백 */
+    
+            position: relative;
+            z-index: 1;
+    
+            .filter-breed-item {
+                display: flex;
+                background-color: var(--reverse-font-color);
+                box-sizing: border-box;
+                padding: 8px;
+                border-radius: 4px;
+                justify-content: space-between;
+                align-items: center;
+
+                cursor: pointer;
+    
+                span {
+                    flex-grow: 1;
+                }
+            }
+        }     
+    }
+}
 
 // 드롭다운 메뉴를 컨테이너 위로 위치시킴
-// .default-card {
-//     position: absolute;
-//     top: -2px;
-//     left: 0;
-//     width: 100%;
-//     z-index: 2;
-//     background: white;
-//     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-// }
+.breed-filter {
+    position: absolute;
+    top: 93%;
+    left: 22%;
+    width: 37.5%;
+    z-index: 100;
 
-// 선택된 품종 태그들을 컨테이너 위에 위치시킴
-// .filter-breed-container {
-//     position: absolute;
-//     top: -50px;
-//     left: 0;
-//     width: 100%;
-//     z-index: 3;
-    
-//     .filter-breed-list {
-//         display: flex;
-//         flex-wrap: wrap;
-//         gap: 8px;
-        
-//         .filter-breed-item {
-//             display: flex;
-//             align-items: center;
-//             gap: 5px;
-//             padding: 5px 10px;
-//             background-color: var(--point-background-color-20);
-//             border-radius: 15px;
-//         }
-//     }
-// }
+    height: auto;
 
+    background-color: rgb(231, 240, 230);
+    border: 2px solid rgb(133, 179, 128);
+    border-radius: 10px;
 
+    .filter-util-container {
+        height: 30px;
 
-.filter-max-container {
-    display: flex;
-
-    .kind-selector {
         display: flex;
+        justify-content: space-between;
+
+        margin-bottom: 10px;
+
+        input {
+            width: 100%;
+            outline: none;
+            border: none;
+            padding: 0 10px 0 10px;
+        }
+    }
+
+    .select-container {
+        background-color: white;
+        height: 220px;
+        overflow-y: scroll;
+
+        padding: 10px;
+
+        .select-list {
+
+            .select-item {
+                display: flex;
+                gap: 10px;
+                padding: 8px;
+
+                input {
+                    accent-color: var(--point-background-color-20);
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: var(--point-background-color-20);
+                }
+            }
+        }
+    }
+
+    .select-container::-webkit-scrollbar {
+        width: 5px;
+      }
+    
+    .select-container::-webkit-scrollbar-thumb {
+        background: var(--alpha-30); /* 스크롤바 색상 */
+        border-radius: 10px; /* 스크롤바 둥근 테두리 */
+      }
+    
+    .select-container::-webkit-scrollbar-track {
+        background: var(--alpha-5);  /*스크롤바 뒷 배경 색상*/
+        }
+}
+
+.region-filter {
+    position: absolute;
+    top: 93%;
+    left: 61%;
+    width: 37.5%;
+    z-index: 100;
+
+    height: auto;
+
+    background-color: rgb(231, 240, 230);
+    border: 2px solid rgb(133, 179, 128);
+    border-radius: 10px;
+
+    .select-container {
+
+        margin-bottom: 10px;
+
+        .select-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .button-box {
+            display: flex;
+            margin-bottom: 10px;
+
+            .province-button {
+                background-color: white;
+                height: 30px;
+            }
+        }
+
+        .select-list {
+            background-color: white;
+            height: 150px;
+            overflow-y: scroll;
+    
+            padding: 10px;
+
+            .select-item {
+                display: flex;
+                gap: 10px;
+                padding: 8px;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: var(--point-background-color-20);
+                }
+            }
+        }
+
+        .select-list::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .select-list::-webkit-scrollbar-thumb {
+            background: var(--alpha-30); /* 스크롤바 색상 */
+            border-radius: 10px; /* 스크롤바 둥근 테두리 */
+        }
+        
+        .select-list::-webkit-scrollbar-track {
+            background: var(--alpha-5);  /*스크롤바 뒷 배경 색상*/
+        }
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: space-between;
 
         button {
-            border: none;
-            background-color: transparent;
-            font-size: 1rem;
-        }
-    }
-
-    .breed-selector {
-
-        @include selector-style;
-
-        .breed-filter {
-
-            .filter-util-container {
-                
-                display: flex;
-
-                .open-button {
-
-                    border: none;
-                    background-color: transparent;
-    
-                }
-            }
-
-            .select-container{
-
-                // height: 200px;
-
-                .select-list {
-
-                    height: 200px;
-                    overflow-y: auto;
-
-                    .select-item {
-                        display: flex;
-                    }                    
-                }
-                
-
-            }
-        }
-    }
-
-    .region-selector {
-
-        @include selector-style;
-
-        .region-filter {
-
-            .select-container{
-
-                .select-list {
-
-                    height: 100px;
-                    overflow-y: auto;
-
-                    .select-item {
-                        display: flex;
-                    }                    
-                }
-                
-
-            }
+            height: 30px;
         }
     }
 }
 
+// 미니 필터
 .filter-mini-container {
 
     display: flex;
     margin: 2rem 0 1rem 2rem;
+    position: relative;
+
+    .filter-button {
+        display: flex;
+        gap: 5px;
+    }
 
     .filter-att-list {
         margin-left: 10px;
         display: flex;
-        gap: 5px;
-        border: 1px solid rgb(0, 0, 0);
+        border: 2px solid var(--point-background-color-80);
 
         li {
-            border-left: 1px solid rgb(0, 0, 0);
+            border-left: 2px solid var(--point-background-color-80);
             padding: 10px 20px 10px 20px;
             text-align: center;
+            background-color: var(--point-background-color-20);
+
+            
+            display: flex;
+            gap: 5px;
         }
 
         li:first-child {
@@ -181,6 +291,40 @@
         }
     }
 
+    .filter-mini-age {
+        @include list-shape;
+    }
+
+    .filter-mini-gender {
+        @include list-shape($l:14.7%);
+    }
+
+    .filter-mini-neuter {
+        @include list-shape($l:24%);
+    }
+
+    .mini-item {
+        border-bottom: 1px solid rgb(133, 179, 128);
+        padding: 10px;
+        text-align: center;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    .active {
+        @include active;
+    }
+}
+
+// count card
+.count-card {
+    display: flex;
+    justify-content: space-between;
+
+    border-radius: 10px;
+    background-color: var(--point-background-color-20);
 }
 
 .sub-select-list {
@@ -189,28 +333,13 @@
     gap: 1rem;
 }
 
-.filter-breed-container {
-
-    .filter-breed-list {
-
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 16px; /* 카드 사이의 간격 */
-        padding: 16px; /* 컨테이너 안쪽 여백 */
-
-        .filter-breed-item {
-            display: flex;
-        }        
-    }
-
-
-}
-
 .adopt-list-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px; /* 카드 사이의 간격 */
+    gap: 20px; /* 카드 사이의 간격 */
     padding: 16px; /* 컨테이너 안쪽 여백 */
+
+    margin-top: 10px;
 }
 
 .adopt-item-Container {
@@ -232,15 +361,15 @@
         margin: 10px 0 10px 0;
         display: flex;
         justify-content: space-between;
+        font-weight: bold;
+        padding: 10px 10px 10px 10px;
+        border-radius: 5px;
 
-        .process-container {
-            // background-color: #d9d9d9;
-            // width: 70px;
-            // color: rgb(0, 0, 0);
-            // padding: 7px;
-            // text-align: center;
-            // border-radius: 10px;
-            // margin-bottom: 10px;
+        background-color: var(--point-background-color-10);
+
+        .info {
+
+            line-height: normal;
         }
     }
 

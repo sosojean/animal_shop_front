@@ -1,4 +1,5 @@
 import axios from "axios";
+import Card from "../../components/common/Card";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import "../../assets/styles/additional/adoptAnimal.scss"
@@ -6,6 +7,7 @@ import AdoptList from "../../components/additional/adopt/AdoptList";
 import AdoptFilterMax from "../../components/additional/adopt/AdoptFilterMax";
 import AdoptFilterMini from "../../components/additional/adopt/AdoptFilterMini";
 import Pagination from "../../components/board/Pagination";
+import DefaultButton from "../../components/common/DefaultButton";
 
 const AdoptAnimal = () => {
 
@@ -33,9 +35,7 @@ const AdoptAnimal = () => {
             return v.name
         })
 
-        console.log("selectedItems", selectedItems);
-        console.log("subSelectedItems", subSelectedItems);
-        console.log("subSelectedItems.age", subSelectedItems.age);
+        console.log("breed", selectedItems.breed);
         
         let data = {
             species: selectedItems.species || "개",
@@ -69,7 +69,7 @@ const AdoptAnimal = () => {
 
     useEffect(()=>{
         getApiData(currentPage);
-    }, [currentPage, update]);
+    }, [currentPage, update, selectedItems.location, selectedItems.breed]);
 
     return (
         <div>
@@ -83,14 +83,14 @@ const AdoptAnimal = () => {
                 setSubSelectedItems={setSubSelectedItems}
                 getRefreshData={getRefreshData}
             />
-            <div>
-                <p>{dataCount}마리의 아이들이 보호자를 기다리고 있어요</p>
-                <div>
+            <Card className="light-card count-card">
+                <p><b>{dataCount}마리</b>의 아이들이 보호자를 기다리고 있어요</p>
+                <DefaultButton className="primary">
                     <Link to="/adoption/interest">
                         <span>관심동물</span>
                     </Link>
-                </div>
-            </div>
+                </DefaultButton>
+            </Card>
             {data &&
                 <AdoptList data={data} className="adopt-list-container"/>
             }

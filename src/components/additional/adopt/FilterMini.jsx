@@ -1,27 +1,10 @@
-
+import classNames from "classnames";
 
 const FilterMini = (props) => {
 
-    const {data, keyName, selectedItems, setSelectedItems, getRefreshData } = props;
-
-    // console.log("FilterMini", keyName);
-
-    // const handleAddItem = (status, selectedKey = keyName) => {
-    //     setSelectedItems((prevSelectedItems) => {
-
-    //         const keyIndex = prevSelectedItems.findIndex(item => 
-    //             selectedKey in item); // 없으면 -1
-
-    //           if (keyIndex > -1) {
-    //             let updatedItems = [...prevSelectedItems];
-    //             updatedItems[keyIndex] = { [selectedKey]: status };
-
-    //             return updatedItems;          
-    //           } else {
-    //             return {...prevSelectedItems, [selectedKey]: status };
-    //           }
-    //     })
-    // }
+    const {data, keyName, selectedItems, setSelectedItems, getRefreshData, 
+        className
+    } = props;
 
     const handleAddItem = (status, selectedKey = keyName) => {
         setSelectedItems((prevSelectedItems) => {
@@ -32,19 +15,29 @@ const FilterMini = (props) => {
           };
         });
     };
+
+    const addClassName = () => {
+        
+    }
       
     return (
-        <ul>
+        <ul className={className}>
             {data.map((value, index) => {
+                const isActive = selectedItems[keyName] === value.code;
+
                 return (
-                    <li key={index}
-                        onClick={() => {
-                            handleAddItem(value.code);
-                            getRefreshData();
-                        }}
-                    >
-                        {value.name}
-                    </li>
+                    <div key={index}
+                        className={classNames('mini-item', { 'active': isActive })}>
+                        <li
+                            onClick={() => {
+                                handleAddItem(value.code);
+                                getRefreshData();
+                            }}
+                        >
+                            {value.name}
+                        </li>                        
+                    </div>
+
                 )
             })}
         </ul>

@@ -4,7 +4,9 @@ import { catBreedSelector, dogBreedSelector} from "../../../utils/petOptions";
 import { regionOptions } from "../../../utils/regionOptions";
 import { useState } from "react";
 import FilterRegion from "../adopt/FilterRegion";
-
+import DefaultButton from "../../common/DefaultButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons";
 
 const AdoptFilterMax = (props) => {
 
@@ -29,52 +31,65 @@ const AdoptFilterMax = (props) => {
         })
     }
 
-    const handleAddSpecies = (species = "dog", selectedKey = 'species') => {
+    const handleAddSpecies = (species = "개", selectedKey = 'species', reset = false) => {
         setSelectedItems((prevSelectedItems) => {
-    
-              let newSpecies = species
-
-    
-              return {
-                [selectedKey]: newSpecies
-              }
-        })
-    }
+            if (reset) {
+                return {
+                    ...prevSelectedItems,
+                    breed: []
+                };
+            } else {
+                return {
+                    ...prevSelectedItems,
+                    [selectedKey]: species
+                };
+            }
+        });
+    };
 
     return (
         <div className="filter-container">
             <Card className="default-card filter-max-container">
                 <div className="kind-selector">
-                    <Card>
-                        <button onClick={() => {
+                    <DefaultButton 
+                        className={`default-button kind-button primary ${selectedItems.species === '개' ? 'active' : ''}`}
+                        onClick={() => {
                             setIsCat(false);
                             getRefreshData();
                             handleAddSpecies("개");
                         }}>
-                            강아지
-                        </button>
-                    </Card>
-                    <Card>
-                        <button onClick={() => {
+                        <span>🐶</span>
+                        <span>강아지</span>
+                    </DefaultButton>    
+                    <DefaultButton 
+                        className={`default-button kind-button primary ${selectedItems.species === '고양이' ? 'active' : ''}`}
+                        onClick={() => {
                             setIsCat(true);
                             getRefreshData();
                             handleAddSpecies("고양이");
                         }}>
-                            고양이
-                        </button>
-                    </Card>
+                        <span>🐱</span>
+                        <span>고양이</span>
+                    </DefaultButton>    
                 </div>
                 <div className="breed-selector">
-                    <p onClick={() => {setClick(prevState => ({
+                    <DefaultButton
+                        className="primary selector-button"
+                        onClick={() => {setClick(prevState => ({
                             ...prevState,
                             breed: !prevState.breed}))
                     }}>
-                        {selectedItems.breed?.length > 0 
-                            ? selectedItems.breed?.length === 1 ?
-                                `${selectedItems.breed[0].name}` :
-                                `${selectedItems.breed[0].name} 외 ${selectedItems.breed?.length - 1}건`
-                            : "품종 선택"}
-                    </p>
+                        <span>
+                            {selectedItems.breed?.length > 0 
+                                ? selectedItems.breed?.length === 1 ?
+                                    `${selectedItems.breed[0].name}` :
+                                    `${selectedItems.breed[0].name} 외 ${selectedItems.breed?.length - 1}건`
+                                : "품종 선택"}                            
+                        </span>
+                        <span>
+                            <FontAwesomeIcon icon={faAngleDoubleDown}/>
+                        </span>
+                    </DefaultButton>
                     {isCat ?
                         <Filter
                             className="breed-filter"
@@ -97,16 +112,23 @@ const AdoptFilterMax = (props) => {
                     }
                 </div>
                 <div className="region-selector">
-                    <p onClick={() => {setClick(prevState => ({
+                    <DefaultButton 
+                        className="primary selector-button" 
+                        onClick={() => {setClick(prevState => ({
                                 ...prevState,
                                 region: !prevState.region}))
                         }}>
-                        {selectedItems.location?.length > 0 
-                            ? selectedItems.location[1] ? 
-                                `${selectedItems.location[0]} ${" " + selectedItems.location[1]}` : 
-                                `${selectedItems.location[0]}`
-                            : "지역 선택"}
-                    </p>
+                        <span>
+                            {selectedItems.location?.length > 0 
+                                ? selectedItems.location[1] ? 
+                                    `${selectedItems.location[0]} ${" " + selectedItems.location[1]}` : 
+                                    `${selectedItems.location[0]}`
+                                : "지역 선택"}                            
+                        </span>
+                        <span>
+                            <FontAwesomeIcon icon={faAngleDoubleDown}/>
+                        </span>
+                    </DefaultButton>
                     <FilterRegion
                         className="region-filter"
                         array={regionOptions}
@@ -124,15 +146,14 @@ const AdoptFilterMax = (props) => {
                         {selectedItems.breed.map((item, index) => {
                             
                             return (
-                                <div className="filter-breed-item" key={item.key}>
-                                    <span>{item.name}</span>
-                                    <button onClick={() => handleDeleteItem(index)}>X</button>                
-                                </div>
+                                <span className="filter-breed-item" key={item.key} onClick={() => handleDeleteItem(index)}>
+                                    {item.name} ✖
+                                </span>  
                             )
 
                         })}
+                        <DefaultButton className="alert" onClick={() => handleAddSpecies(null, null, true)}>초기화</DefaultButton>
                     </div>
-                    <button onClick={() => setSelectedItems([])}>선택 초기화</button>
                 </>
                 )}
             </div>
