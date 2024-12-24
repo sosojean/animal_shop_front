@@ -4,6 +4,9 @@ import AgeInput from "./AgeInput";
 import AgeResult from "./AgeResult";
 import "../../../assets/styles/additional/ageCalc.scss"
 import CalcGoods from "./CalcGoods";
+import CalcNav from "./CalcNav";
+import Title from "../../common/Title";
+import Card from "../../common/Card";
 
 const AgeCalculator = () => {
 
@@ -64,23 +67,30 @@ const AgeCalculator = () => {
       }, []);
 
     return (
-        <div className="age-calc">
-            <h1 className="age-calc-header">나이 계산기</h1>
-            <div className="age-calc-section">
-                <AgeInput
-                    calcData={calcData} setCalcData={setCalcData}
-                    setGoods={setGoods} showResult={showResult} setShowResult={setShowResult}
-                />
-                {showResult &&
-                    <AgeResult
+        <>
+            <CalcNav/>
+            <div className="age-calc">
+                <Title>나이 계산기</Title>
+                <div className="age-calc-section">
+                    <AgeInput
                         calcData={calcData} setCalcData={setCalcData}
-                    />                     
+                        setGoods={setGoods} showResult={showResult} setShowResult={setShowResult}
+                    />
+                    {showResult &&
+                        <AgeResult
+                            calcData={calcData} setCalcData={setCalcData}
+                        />                     
+                    }
+                </div>
+                {showResult &&
+                    <Card className="calc-goods">
+                        <h3>상품 추천</h3>
+                        <CalcGoods goods={goods}/>
+                    </Card>                
                 }
-            </div>
-            <div>
-                <CalcGoods goods={goods}/>
-            </div>
-        </div>
+            </div>        
+        </>
+
     )
 }
 

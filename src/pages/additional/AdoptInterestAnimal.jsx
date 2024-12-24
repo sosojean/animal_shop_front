@@ -5,7 +5,7 @@ import "../../assets/styles/additional/adoptAnimal.scss"
 import instance from "../../utils/axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import Title from "../../components/common/Title"
 
 const AdoptInterestAnimal = () => {
 
@@ -47,12 +47,10 @@ const AdoptInterestAnimal = () => {
     }, [currentPage]);
 
     return (
-        <div>
-            <Link to="/adoption/commented">
-                <p>댓글 동물</p>
-            </Link>
-            <Card>
-                <p>총 {dataCount} 마리의 아이들을 눈여겨 보고 있어요!</p>
+        <div className="adopt-interest-container">
+            <Title>관심 유기동물</Title>
+            <Card className="default-card count-card">
+                <p><b>{dataCount}마리</b>의 아이들을 눈여겨 보고 있어요!</p>
             </Card>
             <AdoptInterestList data={data} getRefreshData={getRefreshData}/>
             <Pagination

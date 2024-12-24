@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import '../../assets/styles/additional/calcSelector.scss'
 import Card from "../../components/common/Card"
+import Title from "../../components/common/Title"
 
 const CalculatorSelector = () => {
 
     return (
         <div className="calc-selector">
-            <h1>건강계산기</h1>
+            <Title>건강계산기</Title>
             <Card className="default-card selector-container">
                 <Link to="/calculator/age">
                     <Card>나이 계산기</Card>

@@ -8,12 +8,14 @@ import AdoptFilterMax from "../../components/additional/adopt/AdoptFilterMax";
 import AdoptFilterMini from "../../components/additional/adopt/AdoptFilterMini";
 import Pagination from "../../components/board/Pagination";
 import DefaultButton from "../../components/common/DefaultButton";
+import Title from "../../components/common/Title"
 
 const AdoptAnimal = () => {
 
     const [data, setData] = useState();
     const [dataCount, setDataCount] = useState(0);
-    const [selectedItems, setSelectedItems] = useState([]);
+    const [selectedItems, setSelectedItems] = useState({species: "개"});
+    console.log("selectedItems", selectedItems);
     const [subSelectedItems, setSubSelectedItems] = useState([]);
     const [update, setUpdate] = useState(false);
 
@@ -73,6 +75,7 @@ const AdoptAnimal = () => {
 
     return (
         <div>
+            <Title>유기동물 입양정보</Title>
             <AdoptFilterMax
                 selectedItems={selectedItems}
                 setSelectedItems={setSelectedItems}
@@ -85,7 +88,7 @@ const AdoptAnimal = () => {
             />
             <Card className="light-card count-card">
                 <p><b>{dataCount}마리</b>의 아이들이 보호자를 기다리고 있어요</p>
-                <DefaultButton className="primary">
+                <DefaultButton className="primary link-button">
                     <Link to="/adoption/interest">
                         <span>관심동물</span>
                     </Link>

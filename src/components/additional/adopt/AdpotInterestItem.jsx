@@ -45,7 +45,7 @@ const AdoptInterestItem = (props) => {
 
     return (
         <>
-        <Card className="adopt-item-Container">
+        <Card className="adopt-item-Container default-card">
             <Link to={`/adoption/detail/${data.abandoned_animal_id}`} key={data.id}>
                 <div className="img-container">
                     <img src={data.attachmentUrl} alt="강아지"/>
@@ -56,13 +56,13 @@ const AdoptInterestItem = (props) => {
                     <div>
                         <div>
                             <span>{getConvertedKind("species") + " " + 
-                                getConvertedKind() + "/"}</span>
-                            <span>{data.age}세</span>
+                                getConvertedKind() + " · "}</span>
+                            <span>{data.age === 0 ? '1살 미만' : data.age + "세"}</span>
                         </div>
                         <div>
                             <span>{data.sex_cd === 'F' ? "여아" : 
                                     data.sex_cd === 'M' ? "남아" : "성별미상"}</span>
-                            <span>{" / "} 중성화 {" "}
+                            <span>{" · "} 중성화 {" "}
                                 {data.neuter_yn === 'Y' ? "완료" :
                                     data.neuter_yn === 'N' ? "미완료" : "알수없음"}
                             </span>
@@ -71,7 +71,7 @@ const AdoptInterestItem = (props) => {
                 </Link>
                 <div className="process-container" onClick={() => {
                         handleDeleteInterest();}}>
-                        <DefaultButton><FontAwesomeIcon icon={faMinus}/></DefaultButton>
+                        <DefaultButton className="primary"><FontAwesomeIcon icon={faMinus}/></DefaultButton>
                 </div>
             </div>
             <div className="addr-container">

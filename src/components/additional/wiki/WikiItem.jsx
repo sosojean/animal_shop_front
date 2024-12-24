@@ -15,7 +15,7 @@ const WikiItem = (props) => {
     const token = localStorage.getItem("accessToken");
 
     const checkAdmin = () => {
-        const role = parseJwt(token).role;
+        const role = parseJwt(token)?.role || "unlogined";
         if (role === "ADMIN")
             setIsAdmin(true);
         else setIsAdmin(false);

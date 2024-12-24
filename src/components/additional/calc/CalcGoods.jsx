@@ -7,7 +7,7 @@ const CalcGoods = (props) => {
     const {goods} = props;
 
     return (
-        <Card>
+        <Card className="default-card recommend-card">
             <div className="products">
                 {goods?.map(data=>{
                     return ( <Product key={data.id} data = {data} position="product"/>)

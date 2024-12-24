@@ -50,7 +50,6 @@ const AdoptItem = (props) => {
         <>
         <Card className="default-card adopt-item-Container">
             <Link to={`/adoption/detail/${data.id}`} key={data.id}>      
-
                 <div className="img-container">
                     <img src={data.popfile} alt="강아지"/>
                 </div>
@@ -61,7 +60,7 @@ const AdoptItem = (props) => {
                         <div className="info">
                             <span>{getConvertedKind("species") + " " + 
                                 getConvertedKind() + " · "}</span>
-                            <span>{data.age}세</span>
+                            <span>{data.age === 0 ? '1살 미만' : data.age + "세"}</span>
                         </div>
                         <div className="info">
                             <span>{data.sex === 'F' ? "여아" : 
