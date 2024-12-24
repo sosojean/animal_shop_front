@@ -2,6 +2,8 @@ import "../../assets/styles/layout/login.scss";
 import {Link, useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import kakaoSignup from "../../assets/img/kakao_login.png";
+
 
 const Login = (props) => {
 
@@ -89,13 +91,24 @@ const Login = (props) => {
                         <button>회원가입</button>
                     </Link>
 
+
+
+                    <button onClick={(e)=>
+                    {e.preventDefault(); window.location.href = kakaoURL;}}
+                    style={{
+                            backgroundImage: `url(${kakaoSignup})`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center"}}>
+                    </button>
+
                     <Link to="/password">
                         <div>
                             <span>비밀번호 찾기</span>
                         </div>
                     </Link>
 
-                    <button onClick={(e)=>{   e.preventDefault(); window.location.href = kakaoURL;}}>카카오 로그인</button>
+
+
 
                 </form>
             </div>

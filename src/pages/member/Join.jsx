@@ -1,6 +1,9 @@
 import React from 'react';
 import "../../assets/styles/layout/login.scss";
 import {Link} from "react-router-dom";
+import kakaoSignup from "../../assets/img/kakao_signup.png";
+
+
 const Join = () => {
 
   const K_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_KEY;
@@ -16,15 +19,25 @@ const Join = () => {
 
 
             {/*<Link to="/join/oAuth">*/}
-            <button onClick={(e)=>{   e.preventDefault(); window.location.href = kakaoURL;}}>카카오로 시작하기</button>
+            <button className={"kakao-signup"}
+                    onClick={(e)=>
+                    {e.preventDefault(); window.location.href = kakaoURL;}}
+                    style={{
+                      backgroundImage: `url(${kakaoSignup})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center" /* 이미지 가운데 정렬 */
+
+                    }}
+            >
+            </button>
             {/*</Link>*/}
 
             <Link to="/join/email">
-              <button>이메일 회원가입</button>
+              <button className={"main-button"}>이메일 회원가입</button>
             </Link>
 
             <Link to="/login">
-              <button>로그인</button>
+              <button >로그인</button>
             </Link>
 
 
