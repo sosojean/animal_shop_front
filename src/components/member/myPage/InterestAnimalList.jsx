@@ -60,12 +60,19 @@ const InterestAnimalList = () => {
         <Title>나의 관심 동물</Title>
         <div onMouseEnter={() => setIsHovered(true)}
              onMouseLeave={() => setIsHovered(false)}>
-            <Card className={"default-card row interest-animal-list-container"}>
+            <Card className={"default-card interest-animal-list-container"}>
+                <div className="link-container">
+                    <Link to={"/adoption/interest"}>
+                        <span>관심동물 더보기 <FontAwesomeIcon icon={faAngleRight}/></span>
+                    </Link>
+
+                </div>
+                <div className="row">
                 {/* 왼쪽 버튼 */}
                 <button
                     className="left-right-control"
                     onClick={() => handleMove("left")}>
-                    <FontAwesomeIcon icon={faAngleLeft} />
+                    <FontAwesomeIcon icon={faAngleLeft}/>
                 </button>
                 {data?.length === 0 && (
                     <div className="no-contents">
@@ -74,22 +81,18 @@ const InterestAnimalList = () => {
                 )}
 
 
-
                 {/* 리스트 */}
-                <div className="interest-animal-list">
-                        <div className="link-container">
-                            <Link to={"/adoption/interest"}>
-                            <span>관심동물 더보기 <FontAwesomeIcon icon={faAngleRight} /></span>
-                            </Link>
 
-                        </div>
+
+                <div className="interest-animal-list">
 
                     <div className="list-wrapper"
                          style={{
                              transform: `translateX(-${currentIndex * itemWidth}px)`,
-                            width: `${itemWidth * data.length}px` }}>
+                             width: `${itemWidth * data.length}px`
+                         }}>
                         {data?.map((item, index) => (
-                            <InterestAnimal key={index} data={item} />
+                            <InterestAnimal key={index} data={item}/>
                         ))}
 
                     </div>
@@ -100,10 +103,12 @@ const InterestAnimalList = () => {
                     className="left-right-control"
                     onClick={() => handleMove("right")}
                 >
-                    <FontAwesomeIcon icon={faAngleRight} />
+                    <FontAwesomeIcon icon={faAngleRight}/>
                 </button>
+                </div>
             </Card>
-        </div></>
+        </div>
+        </>
     );
 };
 

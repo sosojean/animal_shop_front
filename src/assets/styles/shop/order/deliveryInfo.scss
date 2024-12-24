@@ -1,50 +1,100 @@
-.buttons{
-  display: flex;
-  flex-direction: row;
-  *{
-    width: 160px;
-    height: 48px;
-  }
-}
+//.buttons{
+//  display: flex;
+//  flex-direction: row;
+//  *{
+//    width: 160px;
+//    height: 48px;
+//  }
+//}
+.delivery-info-container {
+  width: 100%;
 
-.delivery-info{
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  .delivery-info-form-container{
+    display: flex;
+    justify-content: center;
 
-  .input-address{
+    .delivery-info {
+    margin: 2rem;
+    width: 500px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    .input-post-number{
+    align-items: flex-start;
+
+    .title {
+      width: 150px;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-address {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 16px;
+      input{
+        border: 1px solid #dbdbdb;
+        color: #767676;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 100%;
+
+        border-radius: 6px;
+        padding: 5px 10px;
+       }
+
+      .input-post-number {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        #address1 {
+          width: 200px;
+        }
+
+        .address-search-button {
+          width: 110px;
+          //background: none;
+          //border: none;
+
+        }
+      }
+    }
+
+    .input-phone-number {
+      width: 320px;
+      //gap: 8px;
       display: flex;
       flex-direction: row;
-      justify-content: space-between ;
-      #address1{
-        width: 200px;
-      }
-      button{
-        width: 110px;
-      }
-    }
-  }
+      align-items: flex-end;
+      justify-content: space-between;
 
-  .input-phone-number{
-    gap: 8px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    input{
-      width: 100px
+      .hyphen {
+        display: flex;
+        justify-content: center;
+        //height: 100%;
+        padding-bottom: 1rem;
+      }
+
+      input {
+        width: 100px
+      }
+
+
     }
 
+    input, select {
+      height: 40px;
+      width: 320px;
+    }
 
+      .purchase-button-container{
+        width: 100%;
+        justify-content: flex-end;
+        display: flex;
 
+      }
   }
-  input,select{
-    height: 40px;
-    width: 320px;
-  }
-
-
+}
 }

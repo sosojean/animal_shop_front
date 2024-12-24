@@ -1,5 +1,5 @@
 import instance from "../../../utils/axios";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import SellerItem from "../../../components/shop/seller/itemList/SellerItem";
 import SellerAcceptItem from "../../../components/shop/seller/sellerAcceptItem";
 import SellerMenu from "../../../components/shop/seller/SellerMenu";
@@ -38,7 +38,14 @@ const SellerOrderAccept = () => {
                 )}
             )}
             </div>
-            {data&&totalCount&&totalCount>0&&<Pagination  page={page} totalPost={totalCount} handlePageChange={setPage} currentPage={page}/>}
+            {totalCount>0&&
+                <Pagination  page={page} totalPost={totalCount}
+                             handlePageChange={setPage} currentPage={page}/>}
+            {totalCount <= 0 ?
+                <div className={"no-contents"}>
+                    <span>주문된 상품이 없습니다.</span>
+                </div>
+            :""}
         </div>
     );
 };

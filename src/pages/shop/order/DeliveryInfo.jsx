@@ -8,6 +8,8 @@ import Selector from "../../../components/common/Selector";
 import {deliveryOptions} from "../../../utils/deliveryOption";
 import InputField from "../../../components/common/InputField";
 import instance from "../../../utils/axios";
+import Title from "../../../components/common/Title";
+import DefaultButton from "../../../components/common/DefaultButton";
 
 const DeliveryInfo = (props) => {
     const [paymentData, setPaymentData] = useState()
@@ -133,67 +135,81 @@ const DeliveryInfo = (props) => {
 
     return(
         <div>
-          <div>
-              <span>left</span>
-              {/*<input type="text"/>*/}
-              <div className="buttons">
-                  <button>기존 배송지</button>
-                  <button>신규 배송지</button>
-
-              </div>
+            <Title>주문 정보 입력</Title>
+          <div className="delivery-info-container">
 
 
+
+              <div className="delivery-info-form-container">
               <form className="delivery-info">
-                  <InputField name={"recipient"} title={"수령인"}
-                              input={deliveryInfo["recipient"]}
-                              setInput = {applyDeliveryInfo}
-                  />
-
-
-
-                  <AddressInput  deliveryInfo={deliveryInfo} applyDeliverInfo={applyDeliverInfos}/>
-                  <InputField name={"detailAddress"}
-                              input={deliveryInfo["detailAddress"]}
-                              setInput = {applyDeliveryInfo}
-                  />
-
-                  <div className="input-phone-number">
-
-                      <InputField name={"phone1"} title={"전화번호"}
-                                  input={deliveryInfo["phone1"]}
-                                  setInput = {applyDeliveryInfo}
-                      />
-                      <span>-</span>
-                      <InputField name={"phone2"}
-                                  input={deliveryInfo["phone2"]}
-                                  setInput = {applyDeliveryInfo}
-                      />
-                      <span>-</span>
-                      <InputField name={"phone3"}
-                                  input={deliveryInfo["phone3"]}
-                                  setInput = {applyDeliveryInfo}
-                      />
+                  <div className="row">
+                      <label htmlFor={"recipient"} className="title">
+                          수령인
+                      </label>
+                      <InputField name={"recipient"}
+                                  input={deliveryInfo["recipient"]}
+                                  className="row"
+                                  setInput={applyDeliveryInfo}/>
                   </div>
 
 
-                  <label htmlFor="requirements"/>
-                  <Selector selectedValue = {deliveryInfo.requirements}
-                            optionItems={deliveryOptions}
-                            handleSelectChange={applyDeliveryInfo}
-                            name={"requirements"}/>
+                  <div className="row">
+                      <label htmlFor={"detailAddress"} className="title">
+                          주소지
+                      </label>
 
-                  {/* <button onClick={e =>purchaseProducts(e)}>  구 매 하 기 </button>
-                  <button onClick={e => purchaseCart(e)}>장바구니 구매</button> */}
-                  <button onClick={e => purchaseSelector(e)}>  구 매 하 기 </button>
+                      <div>
+                          <AddressInput deliveryInfo={deliveryInfo} applyDeliverInfo={applyDeliverInfos}/>
+                          <InputField name={"detailAddress"}
+                                      input={deliveryInfo["detailAddress"]}
+                                      setInput={applyDeliveryInfo}/>
+                      </div>
+                  </div>
+
+                  <div className="row">
+                      <label className="title">
+                          전화번호
+                      </label>
+                      <div className="input-phone-number">
+
+                          <InputField name={"phone1"}
+                                      input={deliveryInfo["phone1"]}
+                                      setInput={applyDeliveryInfo}/>
+                          <div className="hyphen">
+                              <span>-</span>
+                          </div>
+                          <InputField name={"phone2"}
+                                      input={deliveryInfo["phone2"]}
+                                      setInput={applyDeliveryInfo}/>
+                          <div className="hyphen">
+                              <span>-</span>
+                          </div>
+                          <InputField name={"phone3"}
+                                      input={deliveryInfo["phone3"]}
+                                      setInput={applyDeliveryInfo}/>
+                      </div>
+                  </div>
+
+
+                  <div className={"row"}>
+                      <label htmlFor="requirements" className="title">
+                          배송 메시지
+                      </label>
+
+                      <Selector selectedValue={deliveryInfo.requirements}
+                                optionItems={deliveryOptions}
+                                handleSelectChange={applyDeliveryInfo}
+                                name={"requirements"}/>
+                  </div>
+                  <div className={"purchase-button-container"}>
+                  <DefaultButton className={"primary-border long "} onClick={e => purchaseSelector(e)}> 구매하기</DefaultButton>
+                  </div>
               </form>
-
-          </div>
-
-          <div>
-              <span>right</span>
+              </div>
           </div>
 
 
-  </div>)
+        </div>
+    )
 }
 export default DeliveryInfo

@@ -1,4 +1,10 @@
 .interest-animal-list-container{
+  .link-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
 
   .interest-animal-list{
     overflow-x: hidden;
@@ -8,11 +14,7 @@
       display: flex;
 
     }
-    .link-container{
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
-    }
+
 
   }
   .left-right-control{
