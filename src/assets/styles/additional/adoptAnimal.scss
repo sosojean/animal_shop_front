@@ -40,7 +40,7 @@
 
 .filter-container {
     position: relative;
-    margin-top: 60px; // 선택된 태그들을 위한 공간 확보
+    // margin-top: 60px; // 선택된 태그들을 위한 공간 확보
     
     .filter-max-container {
         display: flex;
@@ -262,12 +262,13 @@
 .filter-mini-container {
 
     display: flex;
-    margin: 2rem 0 1rem 2rem;
+    margin: 2rem 0 1rem 0;
     position: relative;
 
     .filter-button {
         display: flex;
         gap: 5px;
+        height: 40px;
     }
 
     .filter-att-list {
@@ -322,13 +323,29 @@
 .count-card {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     border-radius: 10px;
     background-color: var(--point-background-color-20);
+
+    .link-button {
+        padding: 5px;
+
+        &:hover {
+            background-color: var(--point-background-color-80);
+            font-weight: bold;
+        }
+    }
+
+    span {
+        color: white;
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
 }
 
 .sub-select-list {
-    padding: 1rem 3rem 1rem 3rem;
+    padding: 0 1rem 1rem 1rem;
     display: flex;
     gap: 1rem;
 }
@@ -346,6 +363,10 @@
 
     width: 300px;
 
+    &:hover {
+        background-color: var(--point-background-color-10);
+    }
+
     .img-container {
         
         img {
@@ -361,20 +382,28 @@
         margin: 10px 0 10px 0;
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        
         font-weight: bold;
         padding: 10px 10px 10px 10px;
         border-radius: 5px;
-
         background-color: var(--point-background-color-10);
 
         .info {
-
             line-height: normal;
+        }
+
+        button {
+            height: 25px;
+
+            &:hover {
+                background-color: var(--point-background-color-80);
+            }
         }
     }
 
     .addr-container {
-        border-top: 1px solid rgb(182, 182, 182);
+        border-top: 2px solid var(--point-shadow-color-30);
         padding-top: 10px;
     }
 

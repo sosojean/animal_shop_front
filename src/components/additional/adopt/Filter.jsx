@@ -57,6 +57,7 @@ const Filter = (props) => {
                 placeholder={placeholder}
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)} // 검색어 상태 업데이트
+                onClick={() => setSecondClick(!secondClick)}
             />
             <DefaultButton
                 onClick={() => setSecondClick(!secondClick)}
