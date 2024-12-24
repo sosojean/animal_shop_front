@@ -3,6 +3,8 @@ import instance from "../../../utils/axios"
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import AdoptComEditor from "./AdooptComEditor";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark, faReply } from "@fortawesome/free-solid-svg-icons";
 
 const AdoptComItem = (props) => {
 
@@ -10,8 +12,6 @@ const AdoptComItem = (props) => {
     const isUpdate = true;
     const [showEditor, setShowEditor] = useState(false);
     const [isMine, setIsMine] = useState(false);
-
-    console.log("adoptcomitem data", data);
 
     // 댓글 삭제 API
     const handleDeleteComment = () => {
@@ -47,27 +47,38 @@ const AdoptComItem = (props) => {
       }, []);
 
     return (
-        <div>
-            {showEditor ? 
-                <AdoptComEditor updatedData={data} update={isUpdate} 
-                    setShowEditor={setShowEditor} getRefresh={getRefresh}/> : 
+        <div className="wiki-comment-item">
+            {showEditor ? (
+                <AdoptComEditor 
+                    updatedData={data} 
+                    update={isUpdate} 
+                    setShowEditor={setShowEditor} 
+                    getRefresh={getRefresh}
+                /> 
+            ) : (
                 <>
-                    <div>
-                        <p><b>{data.author}</b></p>
-                        <p>{data.content}</p>                
+                    <div className="comment-main">
+                        <div className="comment-content">
+                            <p className="author">{data.author}</p>
+                            <p className="content">{data.content}</p>
+                        </div>
+                        {isMine && (
+                            <div className="button-group">
+                                <DefaultButton onClick={handleDeleteComment} className="default-button handle-button">
+                                    <FontAwesomeIcon icon={faXmark} /> <span className="button-text">삭제</span>
+                                </DefaultButton>
+                                <DefaultButton onClick={() => setShowEditor(!showEditor)} className="default-button handle-button">
+                                    {!showEditor && (
+                                        <>
+                                            <FontAwesomeIcon icon={faReply} /> <span className="button-text">수정</span>
+                                        </>
+                                    )}
+                                </DefaultButton>
+                            </div>
+                        )}
                     </div>
-                    {isMine &&
-                        <div>
-                            <DefaultButton onClick={handleDeleteComment}>삭제</DefaultButton>
-                        </div>                         
-                    }
-                </>           
-            }
-            {isMine &&
-                <DefaultButton onClick={() => setShowEditor(!showEditor)}>
-                    {showEditor ? "수정 취소" : "댓글 수정"}
-                </DefaultButton>            
-            }
+                </>
+            )}
         </div>
     )
 }

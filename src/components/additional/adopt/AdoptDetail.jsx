@@ -20,12 +20,14 @@ const AdoptDetail = (props) => {
     const [data, setData] = useState();
     const [isAdmin, setIsAdmin] = useState(false);
 
+    console.log("adopt detail data", data);
+
     const navigate = useNavigate();
 
     const token = localStorage.getItem("accessToken");
 
     const checkAdmin = () => {
-        const role = parseJwt(token).role;
+        const role = parseJwt(token)?.role || "unlogined";
         if (role === "ADMIN")
             setIsAdmin(true);
         else setIsAdmin(false);
@@ -216,7 +218,7 @@ const AdoptDetail = (props) => {
                         </Card>
                     </div>
                 </Card>
-                <AdoptAnimalComment id={id}/>            
+                <AdoptAnimalComment id={data.id}/>            
             </>
 
         }  

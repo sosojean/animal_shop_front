@@ -60,6 +60,86 @@
     }
 }
 
+// 댓글
+.adopt-comment-list {
+
+    padding: 3rem 20px 0 20px;
+    margin-top: 3rem;
+    border-top: 3px solid var(--point-background-color-10);
+
+    .wiki-comment-item {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    
+        .comment-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+    
+            .comment-content {
+                flex: 1;
+    
+                .author {
+                    font-weight: bold;
+                    margin-bottom: 4px;
+                }
+    
+                .content {
+                    word-break: break-all;
+                }
+            }
+    
+            .button-group {
+                display: flex;
+                gap: 8px;
+
+                .handle-button {
+                    background-color: transparent;
+
+                    .button-text {
+                        margin-left: 3px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.comment-input-container {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+
+    .comment-textarea {
+        flex: 1;
+        min-height: 100px;
+        padding: 10px;
+        border: none;
+        background-color: transparent;
+        resize: none;
+        
+        &::placeholder {
+            color: #999;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .comment-submit-btn {
+        align-self: flex-end;
+        background-color: white;
+        width: 50px;
+        height: 30px;
+    }
+}
+
 .adopt-inside-list {
     display: flex;
     gap: 2rem;

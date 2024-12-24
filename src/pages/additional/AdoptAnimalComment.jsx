@@ -37,8 +37,8 @@ const AdoptAnimalComment = (props) => {
 
     return (
         <div>
-            <AdoptComEditor id={id} getRefresh={getCommentData}/>
             <AdoptComments id={id} data={data} getRefresh={getCommentData}/>
+            <AdoptComEditor id={id} getRefresh={getCommentData}/>
             <Pagination
                 currentPage={currentPage}
                 totalPost={dataCount}

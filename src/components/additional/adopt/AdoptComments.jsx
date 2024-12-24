@@ -5,7 +5,7 @@ const AdoptComments = (props) => {
     const {data, getRefresh} = props;
 
     return (
-        <div>
+        <div className="adopt-comment-list">
             {data?.map((d, i) => 
                 {return <AdoptComItem data={d} key={i} getRefresh={getRefresh}/>})}
         </div>
