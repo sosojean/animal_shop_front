@@ -12,6 +12,8 @@ const AdoptItem = (props) => {
     const {data} = props;
     const navigate = useNavigate();
 
+    console.log("adopt item data", data);
+
     // data.kindCd 가공
     const getConvertedKind = (type) => {
         const kind = data.species;
@@ -46,7 +48,7 @@ const AdoptItem = (props) => {
 
     return (
         <>
-        <Card className="adopt-item-Container">
+        <Card className="default-card adopt-item-Container">
             <Link to={`/adoption/detail/${data.id}`} key={data.id}>      
                 <div className="img-container">
                     <img src={data.popfile} alt="강아지"/>
@@ -55,27 +57,27 @@ const AdoptItem = (props) => {
             <div className="info-container">
                 <Link to={`/adoption/detail/${data.id}`}>
                     <div>
-                        <div>
+                        <div className="info">
                             <span>{getConvertedKind("species") + " " + 
-                                getConvertedKind() + "/"}</span>
+                                getConvertedKind() + " · "}</span>
                             <span>{data.age}세</span>
                         </div>
-                        <div>
+                        <div className="info">
                             <span>{data.sex === 'F' ? "여아" : 
                                     data.sex === 'M' ? "남아" : "성별미상"}</span>
-                            <span>{" / "} 중성화 {" "}
+                            <span>{" · "} 중성화 {" "}
                                 {data.neuterYn === 'Y' ? "완료" :
                                     data.neuterYn === 'N' ? "미완료" : "알수없음"}
                             </span>
                         </div>                    
                     </div>                
                 </Link>
-                <DefaultButton className="default-button" onClick={handleAddInterest}>
+                <DefaultButton className="primary" onClick={handleAddInterest}>
                     <span><FontAwesomeIcon icon={faPlus}/></span>
                 </DefaultButton>
             </div>
             <div className="addr-container">
-                <p>{data.location}</p>
+                <p>{data.org_nm}</p>
             </div>
         </Card>        
         </>

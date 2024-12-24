@@ -11,6 +11,7 @@
 
 @mixin active ($v: --point-shadow-color) {
     background-color: var($v);
+    color: white;
     font-weight: bold;
 }
 
@@ -21,6 +22,20 @@
     
     display: flex;
     gap: $g;
+}
+
+@mixin list-shape ($t:120%, $l:6.3%) {
+    position: absolute;
+    top: $t;
+    left: $l;
+
+    background-color: rgb(231, 240, 230);
+
+    display: flex;
+    flex-direction: column;
+
+    border: 2px solid rgb(133, 179, 128);
+    border-radius: 10px;
 }
 
 .filter-container {
@@ -81,7 +96,7 @@
     
             .filter-breed-item {
                 display: flex;
-                background-color: var(--point-background-color-20);
+                background-color: var(--reverse-font-color);
                 box-sizing: border-box;
                 padding: 8px;
                 border-radius: 4px;
@@ -244,22 +259,31 @@
 }
 
 // 미니 필터
-
 .filter-mini-container {
 
     display: flex;
     margin: 2rem 0 1rem 2rem;
+    position: relative;
+
+    .filter-button {
+        display: flex;
+        gap: 5px;
+    }
 
     .filter-att-list {
         margin-left: 10px;
         display: flex;
-        gap: 5px;
-        border: 1px solid rgb(0, 0, 0);
+        border: 2px solid var(--point-background-color-80);
 
         li {
-            border-left: 1px solid rgb(0, 0, 0);
+            border-left: 2px solid var(--point-background-color-80);
             padding: 10px 20px 10px 20px;
             text-align: center;
+            background-color: var(--point-background-color-20);
+
+            
+            display: flex;
+            gap: 5px;
         }
 
         li:first-child {
@@ -267,6 +291,40 @@
         }
     }
 
+    .filter-mini-age {
+        @include list-shape;
+    }
+
+    .filter-mini-gender {
+        @include list-shape($l:14.7%);
+    }
+
+    .filter-mini-neuter {
+        @include list-shape($l:24%);
+    }
+
+    .mini-item {
+        border-bottom: 1px solid rgb(133, 179, 128);
+        padding: 10px;
+        text-align: center;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    .active {
+        @include active;
+    }
+}
+
+// count card
+.count-card {
+    display: flex;
+    justify-content: space-between;
+
+    border-radius: 10px;
+    background-color: var(--point-background-color-20);
 }
 
 .sub-select-list {
@@ -278,8 +336,10 @@
 .adopt-list-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px; /* 카드 사이의 간격 */
+    gap: 20px; /* 카드 사이의 간격 */
     padding: 16px; /* 컨테이너 안쪽 여백 */
+
+    margin-top: 10px;
 }
 
 .adopt-item-Container {
@@ -301,15 +361,15 @@
         margin: 10px 0 10px 0;
         display: flex;
         justify-content: space-between;
+        font-weight: bold;
+        padding: 10px 10px 10px 10px;
+        border-radius: 5px;
 
-        .process-container {
-            // background-color: #d9d9d9;
-            // width: 70px;
-            // color: rgb(0, 0, 0);
-            // padding: 7px;
-            // text-align: center;
-            // border-radius: 10px;
-            // margin-bottom: 10px;
+        background-color: var(--point-background-color-10);
+
+        .info {
+
+            line-height: normal;
         }
     }
 
