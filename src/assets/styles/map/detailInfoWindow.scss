@@ -43,10 +43,15 @@ margin-top: 5px;
 
 
     }
+
+  }
+  .review-write-btn-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
     .review-write-btn{
 
-    }
-  }
+    }}
   .place-review-item:last-child{
     border-bottom: none;
 

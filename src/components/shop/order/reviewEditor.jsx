@@ -8,15 +8,39 @@ import instance from "../../../utils/axios";
 import axios from "axios";
 
 
-const ReviewEditor = ({item, setReviewWriting}) => {
+const ReviewEditor = ({item, setReviewWriting,  isEdit}) => {
     const [newComment, setNewComment] = useState("")
     const [rating, setRating] = useState(5)
     const [images, setImages] = useState([]);
     const imageUrl = "http://localhost:8080/file/image-print?filename=";
     useEffect(() => {
+        console.log(item);
+        if (isEdit){
+            setNewComment(item.contents)
+            setRating(item.rating)
+            setImages(item.thumbnailUrl)
+
+        }
 
     }, [])
 
+    const editConfirmHandler = (e) => {
+        e.preventDefault();
+
+        instance({
+            url:`/item_comment/update/${item.id}`,
+            method:'patch',
+            data:{
+                contents:newComment,
+                rating: rating,
+                thumbnailUrls:images
+            }
+        }).then(res=>{
+            setReviewWriting(false)
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
 
 
     const onSubmitHandler = (e) => {
@@ -94,11 +118,11 @@ const ReviewEditor = ({item, setReviewWriting}) => {
 
             <span className="rating-comment">{ratingComment()}</span>
 
-            <form className="input-comment" onSubmit={(e) => onSubmitHandler(e)}>
+            <form className="input-comment" onSubmit={(e) => isEdit?editConfirmHandler(e):onSubmitHandler(e)}>
 
                 <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
                 <div className="btn-section">
-                    <div className="img-section">
+                    <div className="img-upload-section">
                         <label className="input-file-button" htmlFor="input-file"><FontAwesomeIcon
                             icon={faImage}/></label>
                         <div className="images">
@@ -111,7 +135,13 @@ const ReviewEditor = ({item, setReviewWriting}) => {
                     </div>
                     <input id="input-file" onChange={(e) => ImgUploadHandler(e)} type="file"
                            accept="image/*"/>
-                    <button className="submit-button">등록</button>
+                    <div className="row">
+                    <button type="reset" className="submit-button" onClick={()=>setReviewWriting(false)}>취소</button>
+
+                    {isEdit ?
+                        <button className="submit-button">등록</button>:
+                        <button className="submit-button">수정</button>}
+                    </div>
                 </div>
             </form>
 

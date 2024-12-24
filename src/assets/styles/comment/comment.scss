@@ -1,14 +1,17 @@
-.comment {
-  svg{
-    color : var(--point-shadow-color)
-  }
+.comment:last-child {
+  border-bottom: none;
+}
+  .comment {
+  border-bottom: 1px solid var(--alpha-3);
   padding: 20px;
   min-height: 64px;
   justify-content: space-between;
   flex-direction: row;
   display: flex;
   align-items: center;
-
+  svg{
+    color : var(--point-shadow-color)
+  }
   image {
     padding: 4px;
   }

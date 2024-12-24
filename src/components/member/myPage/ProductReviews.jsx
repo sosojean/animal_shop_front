@@ -8,7 +8,7 @@ import Pagination from "../../board/Pagination";
 const ProductReviews = () => {
     const [data, setData] = useState()
     const [isModified, setIsModified] = useState(true);
-    const [isEdit, setIsEdit] = useState(false)
+    // const [isEdit, setIsEdit] = useState(false)
     const isLoggedIn = localStorage.getItem("accessToken")?true:false
 
 
@@ -44,8 +44,8 @@ const ProductReviews = () => {
                                     item = {item}
                                     isModified = {isModified}
                                     setIsModified = {setIsModified}
-                                    isEdit = {isEdit}
-                                    setIsEdit = {setIsEdit}
+                                    // isEdit = {isEdit}
+                                    // setIsEdit = {setIsEdit}
                                     isLoggedIn = {isLoggedIn}
 
                                 />)

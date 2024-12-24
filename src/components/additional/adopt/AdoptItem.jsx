@@ -50,6 +50,7 @@ const AdoptItem = (props) => {
         <>
         <Card className="default-card adopt-item-Container">
             <Link to={`/adoption/detail/${data.id}`} key={data.id}>      
+
                 <div className="img-container">
                     <img src={data.popfile} alt="강아지"/>
                 </div>

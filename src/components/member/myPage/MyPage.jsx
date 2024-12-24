@@ -16,6 +16,7 @@ import ProductReviews from "./ProductReviews";
 import Inquiries from "./Inquiries";
 import LikedPosts from "./LikedPosts";
 import InterestAnimalList from "./InterestAnimalList";
+import AnimalCommentList from "./AnimalCommentList";
 
 
 const MyPage = () => {
@@ -43,6 +44,8 @@ const MyPage = () => {
         reviews: <ProductReviews />,
         favorites: <FavoritePlaces />,
         "interest-animal": <InterestAnimalList />,
+        "animal-reply": <AnimalCommentList/>,
+
 
     };
 

@@ -4,6 +4,7 @@ import instance from "../../../utils/axios";
 import ProductQnA from "../../shop/product/QnA/ProductQnA";
 import Pagination from "../../board/Pagination";
 import Card from "../../common/Card";
+import {Link} from "react-router-dom";
 
 const Inquiries = () => {
     const [data, setData] = useState()
@@ -33,9 +34,12 @@ const Inquiries = () => {
             <Card>
 
             {data?.length===0&&<div className="no-contents"><span>작성된 문의가 없습니다.</span></div>}
-
             {data?.map(item=>{
-                return(<ProductQnA key = {item['item_query_id']} item = {item} setIsEdited = {setIsEdited} isEdited = {isEdited}/>)
+                return(
+                    <Link to={`/shop/detail/${item.item_id}`}>
+                        <ProductQnA isMyPage = {true} key = {item['item_query_id']} item = {item} setIsEdited = {setIsEdited} isEdited = {isEdited}/>
+                    </Link>
+                )
             })}
             {totalCount>10&&<Pagination currentPage={page} handlePageChange={setPage} totalPost={totalCount} />}
             </Card>

@@ -58,10 +58,7 @@ const PlaceReviewList = ({mapId}) => {
                                 <span>리뷰</span>
                                 <span>{totalCount}</span>
                             </div>
-                            <DefaultButton className={"primary  review-write-btn"} onClick={() => setReviewWriting(true)}>
-                                리뷰작성
-                                <FontAwesomeIcon icon={faPen}/>
-                            </DefaultButton>
+
                         </h3>
 
 
@@ -82,8 +79,12 @@ const PlaceReviewList = ({mapId}) => {
             </div>}
 
             {totalCount > 7 && (totalCount/7)>page&& <button onClick={()=>loadMoreData}>더보기</button>}
-            {reviewWriting &&<PlaceReviewEditor setIsEdited={setIsEdited} isEdited={isEdited} mapId={mapId} setReviewWriting={setReviewWriting}/>
-               }
+            {reviewWriting ?<PlaceReviewEditor setIsEdited={setIsEdited} isEdited={isEdited} mapId={mapId} setReviewWriting={setReviewWriting}/>
+             :<div className={"review-write-btn-container"}>
+                <DefaultButton className={"primary  review-write-btn long"} onClick={() => setReviewWriting(true)}>
+                    리뷰작성
+                    <FontAwesomeIcon icon={faPen}/>
+                </DefaultButton></div>  }
 
 
         </div>
