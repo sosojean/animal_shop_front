@@ -2,6 +2,7 @@ import React from 'react';
 import "../../assets/styles/layout/login.scss";
 import {Link} from "react-router-dom";
 import kakaoSignup from "../../assets/img/kakao_signup.png";
+import Title from "../../components/common/Title";
 
 
 const Join = () => {
@@ -12,7 +13,8 @@ const Join = () => {
 
 
 
-  return (
+  return (<>
+    <Title>회원가입</Title>
       <div className={"container"}>
         <div className={"box"}>
           <form className={"login-form"} >
@@ -48,9 +50,14 @@ const Join = () => {
             </Link>
 
 
+            <Link className="seller-register-link" to={"/seller/join"} >
+              판매자이신가요? 판매자 회원가입{">"}
+            </Link>
+
+
           </form>
         </div>
-      </div>
+      </div></>
   );
 };
 

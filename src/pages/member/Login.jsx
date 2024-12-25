@@ -3,6 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import kakaoSignup from "../../assets/img/kakao_login.png";
+import Title from "../../components/common/Title";
 
 
 const Login = (props) => {
@@ -69,7 +70,8 @@ const Login = (props) => {
 
     }
 
-    return (
+    return (<>
+            <Title>로그인</Title>
         <div className={"container"}>
             <div className={"box"}>
                 <form className={"login-form"} onSubmit={handleLogin}>
@@ -112,7 +114,7 @@ const Login = (props) => {
 
                 </form>
             </div>
-        </div>
+        </div></>
     )
 }
 
