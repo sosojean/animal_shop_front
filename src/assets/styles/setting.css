@@ -59,6 +59,23 @@
     --header-height: 76px;
     --category-height: 300px;
 
+
+    --glass-bg-color: rgba(255, 255, 255, 0.15); /* 투명 유리 느낌 */
+    --glass-border-color: rgba(255, 255, 255, 0.2); /* 부드러운 테두리 */
+    --glass-shadow-color: rgba(0, 0, 0, 0.1); /* 은은한 그림자 */
+    --menu-item-hover-bg: rgba(118, 169, 112, 0.3); /* 호버 상태 */
+    --menu-item-active-bg: rgba(118, 169, 112, 0.5); /* 선택 상태 */
+    --navbar-blur: 10px; /* 블러 효과 */
+
+    --button-bg-color: rgba(255, 255, 255, 0.15); /* 투명 유리 느낌 */
+    --button-border-color: rgba(255, 255, 255, 0.3); /* 부드러운 테두리 */
+    --button-shadow-light: rgba(0, 0, 0, 0.1); /* 은은한 그림자 */
+    --button-shadow-hover: rgba(0, 0, 0, 0.2); /* 호버 시 강조 그림자 */
+    --button-selected-bg: rgba(118, 169, 112, 0.4); /* 선택 상태 배경 */
+    --button-text-color: #ffffff; /* 기본 텍스트 색상 */
+    --button-hover-bg: rgba(118, 169, 112, 0.3); /* 호버 시 배경 */
+    --button-selected-text: #ffffff; /* 선택된 텍스트 색상 */
+
 }
 
 

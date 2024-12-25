@@ -1,0 +1,48 @@
+
+.products-comment{
+  margin-bottom: 4px;
+  color: var(--alpha-50);
+}
+
+
+.pet-select-button{
+  border-radius: 24px/24px;
+  //background: var(--point-background-color);
+  background:#e0e0e0;
+  transform: translateY(0);
+
+
+  transition: all 0.3s ease;
+
+  box-shadow: 0 4px 6px var(--glass-shadow-color);
+  border: 1px solid var(--glass-border-color);
+
+  background: var(--glass-bg-color);
+
+
+  .pet-profile{
+    width: 40px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border-radius: 20px/20px;
+    //margin: 4px;
+  }
+  .pet-name{
+    font-size: 1.2rem;
+    padding-left:4px ;
+    padding-right:4px ;
+
+  }
+
+}
+
+.selected {
+  background: linear-gradient(
+          145deg,
+          rgba(118, 169, 112, 0.2),
+          rgba(118, 169, 112, 0.4)
+  );
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}

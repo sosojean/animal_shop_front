@@ -63,7 +63,7 @@ const ProductReviewList = ({itemId}) => {
                     />)
 
                 })}
-                {totalCount && totalCount.length>=20&&<Pagination currentPage={page} handlePageChange={setPage} totalPost={totalCount} itemPerPage={20} />}
+                {totalCount.length>=20&&<Pagination currentPage={page} handlePageChange={setPage} totalPost={totalCount} itemPerPage={20} />}
 
 
 
