@@ -13,7 +13,7 @@ import ShopMain from "../../pages/shop/ShopMain";
 import Cart from "../../pages/shop/order/Cart";
 import ProductDetail from "../../pages/shop/product/ProductDetail";
 import DeliveryInfo from "../../pages/shop/order/DeliveryInfo";
-import SellerRegister from "../../pages/shop/admin/SellerRegister";
+import SellerRegister from "../../pages/shop/seller/SellerRegister";
 import Information from "./Information";
 import AllProduct from "../../pages/shop/product/AllProduct";
 import SellerMain from "../../pages/shop/seller/SellerMain"
@@ -56,6 +56,7 @@ import Wiki from "../../pages/additional/Wiki";
 import WikiDetail from "../additional/wiki/WikiDetail";
 import AdminNoticeDetail from "../../pages/shop/admin/AdminNoticeDetail";
 import Confetti from "../member/pet/register/confetti";
+import SellerJoin from "../../pages/shop/seller/SellerJoin";
 
 const Router = (props) => {
     const species = localStorage.getItem("species");
@@ -110,7 +111,11 @@ const Router = (props) => {
 
                         {/*스토어*/}
                         <Route path="/shop" element={<ShopMain isDog={isDog} setIsDog={setIsDog}/>}/>
-                        <Route path="/shop/:category" element={<AllProduct/>}/>
+                        <Route path="/shop/list" element={<AllProduct/>}/>
+                        <Route path="/shop/list/:category" element={<AllProduct/>}/>
+                        <Route path="/shop/list/:category/:detail" element={<AllProduct/>}/>
+
+
                         <Route path="/shop/detail/:itemId" element={<ProductDetail/>}/>
                         <Route path="/pay/success" element={<Information case ="orderSuccess" />}/>
                         <Route path="/cancel/success" element={<CancelSuccess/>}/>
@@ -135,6 +140,8 @@ const Router = (props) => {
 
                         <Route path="/seller/orders/detail/:orderId" element={<SellerOrderDetail/>}/>
                         <Route path="/seller/register" element={<SellerRegister/>}/>
+                        <Route path="/seller/join" element={<SellerJoin/>}/>
+
                         <Route path="/seller/register/success" element={<Information case ="seller" />}/>
                         <Route path="/seller/point/history" element={<SellerPointHistory/>}/>
 

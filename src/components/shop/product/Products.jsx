@@ -5,7 +5,7 @@ import ProductsLabel from "./ProductsLabel";
 const Products = (props) => {
 
     return(
-        <>{props?.name&&<ProductsLabel name={props.name} url={props.url}/>}
+        <>{props?.name&&<ProductsLabel name={props.name} url={props.url} isCustom={props.isCustom} />}
 
           <div className="products">
               {props.data&&props.data?.map(data=>{
