@@ -5,6 +5,8 @@ import NutrientInput from "./NutrientInput";
 import NutrientResult from "./NutrientResult";
 import CalcGoods from "./CalcGoods";
 import CalcNav from "./CalcNav";
+import Title from "../../common/Title";
+import Card from "../../common/Card";
 
 const NutrientCalculator = () => {
 
@@ -41,18 +43,21 @@ const NutrientCalculator = () => {
     return (
         <div className="nutrient-calc">
             <CalcNav/>
-            <h1 className="nutrient-calc-header">사료 영양성분 계산기</h1>
+            <Title>사료 영양성분 계산기</Title>
             <div className="nutrient-calc-section">
                 <NutrientInput petData={petData} setPetData={setPetData}
                     nutrientData={nutrientData} setNutrientData={setNutrientData}
                     showResult={showResult} setShowResult={setShowResult} setGoods={setGoods}/>
                 {showResult &&
-                    <NutrientResult petData={petData} nutrientData={nutrientData}/>    
+                    <NutrientResult petData={petData} nutrientData={nutrientData}/>
                 }  
             </div>
-            <div>
-                <CalcGoods goods={goods}/>
-            </div>
+            {showResult && 
+                <Card className="calc-goods">
+                    <h3>상품 추천</h3>
+                    <CalcGoods goods={goods}/>
+                </Card>            
+            }
         </div>
     )
 }

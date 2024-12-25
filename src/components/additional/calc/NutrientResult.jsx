@@ -4,9 +4,7 @@ import ReactApexChart from "react-apexcharts";
 const NutrientResult = (props) => {
 
     const {petData, nutrientData} = props;
-    // state {name: 조단백질, convert: ??, isTargetMet: true, 기준치 기입 필요}
 
-    let test = false;
     const getEliminateWater = (value, water) => {
         const result = value / (1 - water/100);
         return Math.round(result * 100) / 100;
@@ -188,9 +186,11 @@ const NutrientResult = (props) => {
         plotOptions: {
             bar: {
               horizontal: true,
+            },
+            fill: {
+                colors: ['#FF0000']     
             }
         },
-        colors: ['#008FFB'],
         yaxis: {
             min: 0,
             max: 35
@@ -215,42 +215,42 @@ const NutrientResult = (props) => {
                     y: results.find(item => item.name === "칼슘")?.convert,
                     goals: [
                         {
-                            name: '기준치',
-                            value: results.find(item => item.name === "칼슘")?.targetValue,
-                            strokeHeight: 30,
-                            strokeColor: '#FEB019'
+                          name: '기준치',
+                          value: results.find(item => item.name === "칼슘")?.targetValue,
+                          strokeHeight: 20,
+                          strokeColor: '#FEB019'
                         },
-                        {
-                            name: '최대치',
-                            value: results.find(item => item.name === "칼슘")?.maxValue,
-                            strokeHeight: 30,
-                            strokeColor: '#FF4560'
-                        }
-                    ]
-                },
-                {
-                    x: '인',
-                    y: results.find(item => item.name === "인")?.convert,
-                    goals: [
+                        ...(results.find(item => item.name === "칼슘")?.maxValue !== null ? [{
+                          name: '최대치',
+                          value: results.find(item => item.name === "칼슘")?.maxValue,
+                          strokeHeight: 20,
+                          strokeColor: '#FF4560'
+                        }] : [])
+                      ]
+                    },
+                    {
+                        x: '인',
+                        y: results.find(item => item.name === "인")?.convert,
+                        goals: [
                         {
                             name: '기준치',
                             value: results.find(item => item.name === "인")?.targetValue,
-                            strokeHeight: 30,
+                            strokeHeight: 20,
                             strokeColor: '#FEB019'
                         },
-                        {
+                        ...(results.find(item => item.name === "인")?.maxValue !== null ? [{
                             name: '최대치',
                             value: results.find(item => item.name === "인")?.maxValue,
-                            strokeHeight: 30,
+                            strokeHeight: 20,
                             strokeColor: '#FF4560'
-                        }
-                    ]
-                },
+                        }] : [])
+                        ]
+                    },
             ...(petData.species === "고양이" ? [{
                     x: '타우린',
                     y: results.find(item => item.name === "타우린")?.convert,
                     goals: [
-                      { name: '기준치', value: results.find(item => item.name === "타우린")?.targetValue, strokeHeight: 30, strokeColor: '#FEB019' }
+                      { name: '기준치', value: results.find(item => item.name === "타우린")?.targetValue, strokeHeight: 20, strokeColor: '#FEB019' }
                     ]
                 }] : [])
             ]
@@ -273,14 +273,13 @@ const NutrientResult = (props) => {
 
     return (
         <Card className="default-card nutrient-result">
-            <div>
                 {/* 기존 결과 표시 부분 */}
                 <Card style={{ marginBottom: '20px'}}>
                     <ReactApexChart 
                         options={macroOptions} 
                         series={macroOptions.series} 
                         type="bar" 
-                        height={250} 
+                        height={200} 
                     />
                 </Card>
                 <Card>
@@ -288,7 +287,7 @@ const NutrientResult = (props) => {
                         options={microOptions} 
                         series={microOptions.series} 
                         type="bar" 
-                        height={250} 
+                        height={200} 
                     />
                 </Card>
                 <Card>
@@ -307,20 +306,18 @@ const NutrientResult = (props) => {
                                     <td>{result.name}</td>
                                     <td>{result.targetValue}</td>
                                     <td>{result.convert}</td>
-                                    <td>{result.isTargetMet ? "충족" : "미충족"}</td>
+                                    <td className={!result.isTargetMet && "red-td"}>{result.isTargetMet ? "충족" : "미충족"}</td>
                                 </tr>
                             ))}
                             <tr key={10}>
                                 <td>{getRate().name}</td>
                                 <td>{getRate().targetValue}</td>
                                 <td>{getRate().convert}</td>
-                                <td>{getRate().isTargetMet ? "충족" : "미충족"}</td> 
+                                <td className={!getRate().isTargetMet && "red-td"}>{getRate().isTargetMet ? "충족" : "미충족"}</td> 
                             </tr>
                         </tbody>
                     </table>
                 </Card>        
-
-            </div>
         </Card>
     )
 }
