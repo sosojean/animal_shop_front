@@ -19,6 +19,7 @@ const Header = (props) => {
     const [isAuth, setIsAuth] = useState(false)
     const [keyword, setKeyword] = useState()
     const [hover, setHover] = useState(false)
+    const [menuName, setMenuName] = useState("")
 
     const navigate = useNavigate();
 
@@ -54,14 +55,15 @@ const Header = (props) => {
 
     }
 
-    const hoverCategory = () => {
+    const hoverCategory = (e) => {
         // console.log("hoverCategory");
         setHover(true);
+        setMenuName(e.target.id)
+        console.log(e.target.id)
     }
 
     const leaveHeader = () => {
-        setHover(false);
-
+            setHover(false);
     }
 
     return (<>
@@ -72,14 +74,16 @@ const Header = (props) => {
                             <Link to="/"><h1 className="logo" onMouseEnter={leaveHeader}>ANIMALPING</h1></Link>
 
                             <ul className="headerCatecoryContainer">
-                                <Link onMouseEnter={leaveHeader} to="/shop">
-                                    <li>스토어</li>
+                                <Link id="store" onMouseEnter={(e)=>hoverCategory(e)} to="/">
+                                    <li id="store">스토어 <FontAwesomeIcon id="store" icon={faChevronDown}/></li>
+
                                 </Link>
-                                <Link onMouseEnter={leaveHeader} to="/">
-                                    <li>커뮤니티</li>
+                                <Link id="social" onMouseEnter={(e)=>hoverCategory(e)} to="/board">
+                                <li id="social">커뮤니티 <FontAwesomeIcon id="social" icon={faChevronDown}/></li>
+
                                 </Link>
-                                <Link onMouseEnter={hoverCategory} className="category">
-                                    <li>유틸리티 <FontAwesomeIcon icon={faChevronDown}/></li>
+                                <Link id="util" onMouseEnter={(e)=>hoverCategory(e)} className="category">
+                                <li id="util">유틸리티 <FontAwesomeIcon id="util" icon={faChevronDown}/></li>
                                 </Link>
                                 {/*<ToggleBtn setIsDog={props.setIsDog} isDog={props.isDog}/>*/}
 
@@ -98,18 +102,7 @@ const Header = (props) => {
                             </ul>
                         </div>
 
-                        {/*<form onMouseEnter={leaveHeader} className="searchBar" action="/search"*/}
-                        {/*      onSubmit={(e) => {*/}
-                        {/*          searchHandler(e)*/}
-                        {/*      }}>*/}
-                        {/*    <input id="searchInput" type="text"*/}
-                        {/*           name="keyword" maxLength="50"*/}
-                        {/*           placeholder="글 제목, 본문 검색"*/}
-                        {/*           onChange={(e) => {*/}
-                        {/*               setKeyword(e.target.value)*/}
-                        {/*           }}/>*/}
-                        {/*    /!* <button onClick={searchHandler}>검색</button> *!/*/}
-                        {/*</form>*/}
+
 
                         <div className="headerRegisterContainer" onMouseEnter={leaveHeader}>
                             {isAuth ? <>
@@ -134,7 +127,7 @@ const Header = (props) => {
                     </div>
 
                 </div>
-                {hover ? <Category></Category> : null}
+                {hover ? <Category menuName={menuName}></Category> : null}
 
             </div>
             {hover ? <div className="background-blocker"></div> : null}
