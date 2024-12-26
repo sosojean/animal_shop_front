@@ -50,20 +50,13 @@ const ShopMain = ({isDog, setIsDog}) => {
     return(
         <>
 
-            <div>
-
-                <ToggleBtn setIsDog={setIsDog} isDog={isDog}/>
-                <span>{selectedSpeceis} 상품을 보여드려요</span>
-            </div>
-            <Banner  isDog={isDog}/>
-            <ProductSearchBar/>
-
+            <Banner isDog={isDog}/>
 
             <CategorySelector isDog={isDog} setIsDog={setIsDog}/>
             {data && <Products name={"✨ 새로 입고된 상품"} data={data["animal_new"]}
                                url={"/shop/new"}/>}
             {data && <Products name={`${selectedIcon} 인기 ${selectedSpeceis} 상품`}
-                               data={data["animal_hot"]} url={"/shop/hot"}/>}
+                               data={data["animal_hot"]} url={"/shop/best"}/>}
 
             {data && <Products name={"✨ 맞춤"} data={data["animal_custom"]}
                                url={"/shop/all"} isCustom={true}

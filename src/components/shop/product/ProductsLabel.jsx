@@ -1,5 +1,7 @@
 import {Link} from "react-router-dom";
 import PetSelector from "../petSelector";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faAngleRight} from "@fortawesome/free-solid-svg-icons";
 
 const ProductsLabel = (props) => {
 
@@ -11,7 +13,7 @@ const ProductsLabel = (props) => {
                 <PetSelector />}
         </div>
        {props?.url&&
-        <Link to={props.url} ><span>더보기</span></Link>}
+        <Link to={props.url} ><span>더보기 <FontAwesomeIcon icon={faAngleRight}/> </span></Link>}
         </div>
     )
 }

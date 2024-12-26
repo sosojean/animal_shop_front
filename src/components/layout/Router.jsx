@@ -58,6 +58,8 @@ import AdminNoticeDetail from "../../pages/shop/admin/AdminNoticeDetail";
 import Confetti from "../member/pet/register/confetti";
 import SearchProduct from "../../pages/shop/product/SearchProduct";
 import SellerJoin from "../../pages/shop/seller/SellerJoin";
+import NewItems from "../../pages/shop/product/NewItems";
+import BestProduct from "../../pages/shop/product/BestProduct";
 
 const Router = (props) => {
     const species = localStorage.getItem("species");
@@ -115,11 +117,14 @@ const Router = (props) => {
                         <Route path="/" element={<ShopMain isDog={isDog} setIsDog={setIsDog}/>}/>
                         <Route path="/shop/product/search" element={<SearchProduct/>}/>
 
-                        <Route path="/shop/:category" element={<AllProduct/>}/>
                         <Route path="/shop" element={<ShopMain isDog={isDog} setIsDog={setIsDog}/>}/>
-                        <Route path="/shop/list" element={<AllProduct/>}/>
-                        <Route path="/shop/list/:category" element={<AllProduct/>}/>
-                        <Route path="/shop/list/:category/:detail" element={<AllProduct/>}/>
+                        <Route path="/shop/new" element={<NewItems isDog={isDog}/>}/>
+                        <Route path="/shop/best" element={<BestProduct isDog={isDog}/>}/>
+                        <Route path="/shop/:category" element={<AllProduct/>}/>
+
+                        <Route path="/shop/list" element={<AllProduct isDog={isDog}/>}/>
+                        <Route path="/shop/list/:category" element={<AllProduct isDog={isDog}/>}/>
+                        <Route path="/shop/list/:category/:detail" element={<AllProduct isDog={isDog}/>}/>
 
 
                         <Route path="/shop/detail/:itemId" element={<ProductDetail/>}/>

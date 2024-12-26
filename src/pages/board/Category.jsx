@@ -16,18 +16,18 @@ const Category = ({menuName}) => {
                                 <h3>스토어</h3>
                                 <span className={"description"}> 반려동물용품이 다 모여있어요.</span>
                             </li>
-                            <Link to="/map">
-                                <li>📍 반려동물 시설찾기</li>
+                            <Link to="/shop/list/food">
+                                <li>📍 사료</li>
                             </Link>
-                            <Link to="/adoption">
-                                <li>🏠 유기동물 입양정보</li>
+                            <Link to="/shop/list/treats">
+                                <li>🏠 간식</li>
                             </Link>
-                            <Link to="/wiki">
-                                <li>📖 반려동물 백과</li>
+                            <Link to="/shop/list/supplies">
+                                <li>📖 용품</li>
                             </Link>
-                            <Link to="/calculator/age">
-                                <li>🩺 건강 계산기</li>
-                            </Link>
+                            {/*<Link to="/calculator/age">*/}
+                            {/*    <li>🩺 건강 계산기</li>*/}
+                            {/*</Link>*/}
 
                         </ul>}
                     {menuName==="social"&&

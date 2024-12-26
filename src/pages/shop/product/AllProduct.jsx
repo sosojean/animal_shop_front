@@ -7,6 +7,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import ToggleBtn from "../../../components/common/ToggleBtn";
 import "../../../assets/styles/shop/allproducts.scss"
+import {catItemCategory, dogItemCategory} from "../../../utils/categoryOption";
 
 const AllProduct = (props) => {
 
@@ -17,11 +18,38 @@ const AllProduct = (props) => {
 
     const navigate = useNavigate();
 
+    const itemCategory = props.isDog?dogItemCategory:catItemCategory;
+    const categoryList = extractMainNames(itemCategory);
 
-    const categoryList = ["food","treat","supp"];
 
+    function extractMainNames(categories) {
+        return categories.map(category => category.main.name);
+    }
 
-    const detailCategories = {food:["dry","wet"], treat:["b","a","c"], supp:["e","f"]};
+    function getKoreanName(categories, name) {
+        for (const category of categories) {
+            if (category.main.name === name) return category.main.convert;
+            for (const subcategory of category.subcategories) {
+                if (subcategory.name === name) return subcategory.convert;
+            }
+        }
+        return null; // 이름이 없으면 null 반환
+    }
+
+// 특정 main 카테고리에 대한 subcategories의 name을 추출하는 함수
+    function getSubcategoriesByMainName(categories, mainName) {
+        const category = categories.find(category => category.main.name === mainName);
+        return category ? category.subcategories.map(subcategory => subcategory.name) : [];
+    }
+    const categoryTrimmer = (category, detail) => {
+        return Object.fromEntries(
+            Object.entries({
+                category,
+                detailed_category: detail // detail을 detailed_category로 매핑
+            }).filter(([_, value]) => value !== "")
+        );
+    };
+
 
 
     useEffect(() => {
@@ -40,15 +68,6 @@ const AllProduct = (props) => {
         }
     }, [selectedDetailItem, category, detail, navigate]);
 
-
-    const categoryTrimmer = (category, detail) => {
-        return Object.fromEntries(
-            Object.entries({
-                category,
-                detailed_category: detail // detail을 detailed_category로 매핑
-            }).filter(([_, value]) => value !== "")
-        );
-    };
 
     useEffect(() => {
         console.log(category, detail)
@@ -75,11 +94,11 @@ const AllProduct = (props) => {
         {data&& <>
             <Title>
                 <Link to={`/shop/${category}`}>
-                    <span>{category}</span>
+                    {getKoreanName(itemCategory,category)}
                 </Link>
                 {detail && <FontAwesomeIcon icon={faAngleRight}/>}
                 <Link to={`/shop/${category}/${detail}`}>
-                    <span>{detail}</span>
+                    {getKoreanName(itemCategory,detail)}
                 </Link>
 
             </Title>
@@ -92,16 +111,16 @@ const AllProduct = (props) => {
                                     setSelectedItem(item);
                                     setSelectedDetailItem(null);
                                 }}>
-                                {item}
+                                {getKoreanName(itemCategory,item)}
                             </li>)}
                     </ul>
                 </nav>
                 <nav className="navbar">
                     <ul className=" navbar-menu">
-                        {selectedItem&&detailCategories[selectedItem].map(item=>
+                        {selectedItem&&getSubcategoriesByMainName(itemCategory,selectedItem).map(item=>
                             <li className={selectedDetailItem === item ? "menu-item selected" : "menu-item"}
                                 onClick={() => setSelectedDetailItem(selectedDetailItem === item ? null : item)}>
-                                {item}
+                                {getKoreanName(itemCategory,item)}
                             </li>)}
                     </ul>
                 </nav>

@@ -84,19 +84,19 @@ const InterestAnimalList = () => {
                 {/* 리스트 */}
 
 
-                <div className="interest-animal-list">
+                    {data?.length >0&& <div className="interest-animal-list">
 
-                    <div className="list-wrapper"
-                         style={{
-                             transform: `translateX(-${currentIndex * itemWidth}px)`,
-                             width: `${itemWidth * data.length}px`
-                         }}>
-                        {data?.map((item, index) => (
-                            <InterestAnimal key={index} data={item}/>
-                        ))}
+                        <div className="list-wrapper"
+                             style={{
+                                 transform: `translateX(-${currentIndex * itemWidth}px)`,
+                                 width: `${itemWidth * data.length}px`
+                             }}>
+                            {data?.map((item, index) => (
+                                <InterestAnimal key={index} data={item}/>
+                            ))}
 
-                    </div>
-                </div>
+                        </div>
+                    </div>}
 
                 {/* 오른쪽 버튼 */}
                 <button
