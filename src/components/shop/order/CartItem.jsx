@@ -3,6 +3,10 @@ import "../../../assets/styles/shop/order/cartItem.scss";
 import instance from "../../../utils/axios";
 import Modal from "../../common/Modal";
 import CartModal from "./CartModal";
+import DefaultButton from "../../common/DefaultButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import Card from "../../common/Card";
 
 const cartItem = (props) => {
 
@@ -111,19 +115,12 @@ const cartItem = (props) => {
   return (
     <>
       <div className="cart-item-outer">
-
-        <button onClick={() => {
-          handleDeleteItemData();
-          props.setDataUpdate(true);}}>X</button>
-
         <div className="cart-item-inner">
-
           <input
             type="checkbox"
             checked={!!props.selectedItems[props.data.cartItemId]} // 선택 여부 반영
             onChange={handleSelectCartItem} // 클릭 시 선택 상태 토글
           />
-
           {/* <Product data = {props.data} position="cart"/> */}
           <div className="cart-item-info">
             <div>
@@ -132,12 +129,11 @@ const cartItem = (props) => {
                 style={{ width: "100px", height: "100px" }}
               />
             </div>
-
             <div>
               <div className="cart-item-name">{props.data.itemNm}</div>
               <div>
                 옵션: {props.data.option_name} / {props.data.count}개 /{" "}
-                {props.data.option_price}원
+                {props.data.option_price.toLocaleString()}원
               </div>
               <button onClick={() => {
                 props.handleModalOpen();
@@ -145,13 +141,16 @@ const cartItem = (props) => {
                 주문수정
               </button>
             </div>
-
             <div>
-              <p>{props.data.option_price * props.data.count}원</p>
+              <p>{(props.data.option_price * props.data.count).toLocaleString()}원</p>
             </div>
-
           </div>
         </div>
+        <DefaultButton className={"default-button delete-btn"} onClick={() => {
+          handleDeleteItemData();
+          props.setDataUpdate(true);}}>
+            <FontAwesomeIcon icon={faXmark} />
+        </DefaultButton>
 
         <Modal modalOpen={props.modalOpen} setModalOpen={props.setModalOpen}>
           <CartModal

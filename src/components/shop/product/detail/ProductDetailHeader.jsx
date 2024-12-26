@@ -5,7 +5,7 @@ import Option from "../option/Option";
 import Thumbnails from "./Thumbnails";
 import Selector from "../../../common/Selector";
 import instance from "../../../../utils/axios";
-
+import { dogItemCategory } from "../../../../utils/categoryOption";
 import {toast} from "react-toastify";
 import DefaultButton from "../../../common/DefaultButton";
 import CartButton from "./CartButton";
@@ -96,7 +96,6 @@ const ProductDetailHeader = ({data}) => {
         setSession(newSession);
     }
 
-
     //선택옵션 삭제핸들러
     const handleOptionDelete = (index) => {
         setOption((prevOption) => {
@@ -170,6 +169,11 @@ const ProductDetailHeader = ({data}) => {
 
     }
 
+    const convertCategory = (name) => {
+        const existedIndex = dogItemCategory.findIndex(v => v.main.name === name);
+        return dogItemCategory[existedIndex].main.convert;
+    }
+
     return (
     <>
         {data&& (
@@ -196,9 +200,9 @@ const ProductDetailHeader = ({data}) => {
             <div className="detailTextContainer">
 
                 <div className="detail-category-container">
-                    <span>{data.species}</span>
+                    <span>{data.species === "dog" ? "강아지" : "고양이"}</span>
                     <span> > </span>
-                    <span>{data.category}</span>
+                    <span>{convertCategory(data.category)}</span>
 
                 </div>
 

@@ -4,6 +4,9 @@ import {useEffect, useState} from "react";
 import Card from "../../../components/common/Card";
 import { Link, useNavigate } from "react-router-dom";
 import instance from "../../../utils/axios";
+import { toast } from "react-toastify";
+import DefaultButton from "../../../components/common/DefaultButton";
+import Title from "../../../components/common/Title";
 
 const Cart = (props) => {
     const [dataList, setDataList] = useState([]);
@@ -134,7 +137,7 @@ const Cart = (props) => {
             });
         }
 
-        alert("선택한 상품이 삭제되었습니다.");
+        toast.success("선택한 상품이 삭제되었습니다.");
 
     }
 
@@ -158,14 +161,14 @@ const Cart = (props) => {
                 }
             })
 
-            alert("전체 삭제 했습니다");
+            toast.success("전체 삭제 했습니다");
         } else{
             let storageCart = [];
             localStorage.setItem("cart", JSON.stringify(storageCart));
 
             setDataUpdate(true);
 
-            alert("전체 삭제 했습니다");
+            toast.success("전체 삭제 했습니다");
         }
     };
 
@@ -183,21 +186,22 @@ const Cart = (props) => {
     return (
       <>
           <Card className="cart-item-container">
+              <Title>장바구니</Title>
               <div className="cart-delete-button">
-                    <button onClick={() => {
+                    <DefaultButton onClick={() => {
                         if(totalPrice) {handleDeleteSelectedItem();}
-                        else {alert("장바구니에 상품을 담아주세요")}
+                        else {toast.error("장바구니에 상품을 담아주세요")}
                     }}>
                         선택삭제
-                    </button>
-                    <button onClick={() => {
+                    </DefaultButton>
+                    <DefaultButton onClick={() => {
                         if (totalPrice) {handleDeleteAllItem()} 
-                        else {alert("장바구니에 상품을 담아주세요")}}
+                        else {toast.error("장바구니에 상품을 담아주세요")}}
                     }>
                             전체삭제
-                    </button>
+                    </DefaultButton>
               </div>
-              <div className="cart-item-outer-container">
+              <Card className="default-card cart-item-outer-container">
                 {dataList && dataList?.map((data, index)=>{
                     return (
                         <CartItem 
@@ -211,25 +215,25 @@ const Cart = (props) => {
                             isSession = {isSession} setDataUpdate={setDataUpdate}
                         />)
                 })}                
-              </div>
-              <div className="cart-price-container">
-                <div>
-                    <p>선택 상품 금액 {selectPrice.toLocaleString()}원</p>
-                    <p>전체 상품 금액 {totalPrice.toLocaleString()}원</p>
+              </Card>
+              <Card className="default-card cart-price-container">
+                <div className="cart-price-box">
+                    <p><b>선택 금액</b> {selectPrice.toLocaleString()}원</p>
+                    <p><b>전체 금액</b> {totalPrice.toLocaleString()}원</p>
                 </div>
-                <div>
+                <div className="order-btn-container">
                     {accessToken !== null ?
                         <>
-                            <button onClick={purchaseSelectedHandler}>
+                            <DefaultButton onClick={purchaseSelectedHandler}>
                                 선택주문
-                            </button>
-                            <button onClick={purchaseAllHandler}>
+                            </DefaultButton>
+                            <DefaultButton onClick={purchaseAllHandler}>
                                 전체주문
-                            </button>
+                            </DefaultButton>
                         </> : <p>주문은 로그인이 필요합니다</p>
                     }
                 </div>
-              </div>
+              </Card>
           </Card>
       </>
   )
