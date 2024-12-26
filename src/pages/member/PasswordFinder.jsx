@@ -2,7 +2,7 @@ import { useState } from "react";
 import '../../assets/styles/member/passwordFinder.scss'
 import AuthSender from "../../components/member/password/AuthSender";
 import NewPassword from "../../components/member/password/NewPassword";
-
+import Title from "../../components/common/Title";
 
 const PasswordFinder = () => {
 
@@ -15,9 +15,7 @@ const PasswordFinder = () => {
 
     return (
         <div className="password-finder-container">
-            <div className="title-container">
-                <h1>비밀번호 찾기</h1>
-            </div>
+            <Title>비밀번호 찾기</Title>
             <div className="auth-container">
                 <AuthSender authEmail={authEmail} setAuthEmail={setAuthEmail}
                 authText={authText} setAuthText={setAuthText}
