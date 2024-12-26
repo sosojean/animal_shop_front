@@ -5,33 +5,162 @@
     align-items: center;
 }
 
+.active {
+    background-color: var(--point-background-color-80);
+    color: #FFF;
+    font-weight: bold;
+}
+
 .nutrient-calc {
     @include settingCenter;
-
-    .nutrient-calc-header {
-        margin: 2rem 0 2rem 0;
-    }
 
     .nutrient-calc-section {
         display: flex;
 
         .nutrient-input {
             width: 500px;
-            background-color: var(--point-color);
-            // height: 500px;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--point-background-color-80);
+            height
 
             .active {
                 background-color: var(--point-background-color-80);
+                color: #FFF;
+                font-weight: bold;
+            }
+
+            .two-selector-card {
+                
+                .two-selector {
+                    display: flex;
+
+                    margin-top: 20px;
+                    gap: 1rem;
+
+                    button {
+                        font-size: 1rem;
+                    }
+                }
+
+                .breed-selector {
+                    margin-top: 10px;
+
+                    width: 64%;
+                    padding: 8px;
+                    border: 1px solid #ddd;
+                    border-radius: 6px;
+                }
+            }
+
+            .input-card {
+
+                .input-grid-container {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 5px;
+
+                    margin-top: 20px;
+                
+                    .input-box {
+                        display: flex;
+                        gap: 10px;
+                        align-items: center;
+                        
+                        input {
+                            width: 30%;
+                            height: 30px;
+                            border: none;
+                            border-bottom: 3px solid var(--point-shadow-color);
+                            font-size: 16px;
+                            background: transparent;
+                            margin-right: 2px;
+                            cursor: auto;
+                            text-align: center;
+                        }
+
+                        .span-box {
+                            width: 55px;
+                            min-height: 40px;
+                            background-color: var(--point-background-color-20);
+                            border-radius: 10px;
+                            font-size: 0.9rem;
+        
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                    }                
+                }
+            }
+
+            .result-button-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                margin-top: auto; // 상단 여백을 자동으로 설정하여 버튼을 아래로 밀어냄
+
+                .result-button:hover {
+                    background-color: var(--point-shadow-color);
+                    color: var(--reverse-font-color);
+                }
             }
 
         }
 
         .nutrient-result {
-            background-color: var(--point-color);
+            background-color: var(--point-background-color-80);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+
+            .apexcharts-yaxis-label {
+                font-size: 13px;
+                font-weight: bold;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                height: auto;
+                
+                th, td {
+                  padding: 12px;
+                  text-align: left;
+                  border-bottom: 1px solid var(--point-background-color-20);
+                }
+                
+                th {
+                  background-color: var(--point-background-color-20);
+                  font-weight: bold;
+                  color: var(--point-color);
+                }
+
+                .red-td {
+                    color: var(--warning-color);
+                    font-weight: bold;
+                }
+                
+                tr:nth-child(even) {
+                  background-color: var(--point-background-color-10);
+                }
+                
+                tr:hover {
+                  background-color: var(--point-background-color-20);
+                }
+              }
         }
+    }
+}
+
+.calc-goods {
+    margin-top: 5rem;
+
+    h3 {
+        margin-left: 1rem;
+        margin-bottom: 1rem;
     }
 }
