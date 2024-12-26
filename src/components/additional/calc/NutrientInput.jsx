@@ -7,8 +7,8 @@ const NutrientInput = (props) => {
     const {petData, setPetData, nutrientData, setNutrientData, setGoods,
         showResult, setShowResult} = props;
 
-    console.log("nutrientData", nutrientData);
-    console.log("petData", petData);
+    // console.log("nutrientData", nutrientData);
+    // console.log("petData", petData);
 
     const speciesList = ["강아지", "고양이"];
     const ageList = ["성견/성묘", "1살미만"];
@@ -41,7 +41,7 @@ const NutrientInput = (props) => {
     // 버튼 활성화
     const isButtonActive = (field, value) => {
         if (petData)
-            return petData[field] === value ? 'active' : '';
+            return petData[field] === value ? 'long active' : 'long';
     };
 
     const handleRecommend = () => {
@@ -69,67 +69,86 @@ const NutrientInput = (props) => {
 
     return (
         <Card className="default-card nutrient-input">
-            <Card>
-                <h2>반려동물 종류</h2>
-                <div>
+            <Card className="default-card two-selector-card">
+                <h3>반려동물 종류</h3>
+                <div className="two-selector">
                     {speciesList.map((species, index) => {
-                        return (<DefaultButton key={index} className={isButtonActive("species", species)} 
+                        return (<DefaultButton key={index} className={"long " + isButtonActive("species", species)} 
                             onClick={() => handlePetDataChange("species", species)}>
                                 {species}</DefaultButton>)
                     })}                  
                 </div>
             </Card>
-            <Card>
-                <h2>반려동물 나이</h2>
-                {ageList.map((age, index) => {
-                    return <DefaultButton key={index} className={isButtonActive("age", age)} 
-                        onClick={(e) => handlePetDataChange("age", age)}>
-                        {age}</DefaultButton>
-                })}
+            <Card className="default-card two-selector-card">
+                <h3>반려동물 나이</h3>
+                <div className="two-selector">
+                    {ageList.map((age, index) => {
+                        return <DefaultButton key={index} className={"long " + isButtonActive("age", age)} 
+                            onClick={(e) => handlePetDataChange("age", age)}>
+                            {age}</DefaultButton>
+                    })}                    
+                </div>
             </Card>
             {petData?.species === "강아지" &&
-                <Card>
-                    <h2>대형견</h2>
-                    <DefaultButton className={isButtonActive("isLarge", true)} onClick={() => handlePetDataChange("isLarge", true)}>네</DefaultButton>
-                    <DefaultButton className={isButtonActive("isLarge", false)} onClick={() => handlePetDataChange("isLarge", false)}>아니오</DefaultButton>
+                <Card className="default-card two-selector-card">
+                    <h3>대형견</h3>
+                    <div className="two-selector">
+                        <DefaultButton className={"long " + isButtonActive("isLarge", true)} onClick={() => handlePetDataChange("isLarge", true)}>네</DefaultButton>
+                        <DefaultButton className={"long " + isButtonActive("isLarge", false)} onClick={() => handlePetDataChange("isLarge", false)}>아니오</DefaultButton>                        
+                    </div>
                 </Card>            
             }
             {petData?.species === "고양이" &&
-                <Card>
-                    <h2>사료 종류</h2>
-                    <DefaultButton className={isButtonActive("isDry", true)} onClick={() => handlePetDataChange("isDry", true)}>건식</DefaultButton>
-                    <DefaultButton className={isButtonActive("isDry", false)} onClick={() => handlePetDataChange("isDry", false)}>습식</DefaultButton>
+                <Card className="default-card two-selector-card">
+                    <h3>사료 종류</h3>
+                    <div className="two-selector">
+                        <DefaultButton className={"long " + isButtonActive("isDry", true)} onClick={() => handlePetDataChange("isDry", true)}>건식</DefaultButton>
+                        <DefaultButton className={"long " + isButtonActive("isDry", false)} onClick={() => handlePetDataChange("isDry", false)}>습식</DefaultButton>
+                    </div>
                 </Card>            
             }
-            <Card>
-                <h2>영양성분</h2>
-                {nutrientList.map((nutrient, index) => {
-                    if (petData?.species === "고양이") {
-                        return (
-                            <div key={index}>
-                                <span>{nutrient}</span>
-                                <input type="number" defaultValue={0}
-                                    onChange={(e) => {handleNutrientChange(nutrient, e.target.value)}}/>
-                            </div>
-                        )}
-                    else {
-                        if (index < nutrientList.length - 1) {
+            <Card className="default-card input-card">
+                <h3>영양성분</h3>
+                <div className="input-grid-container">
+                    {nutrientList.map((nutrient, index) => {
+                        if (petData?.species === "고양이") {
                             return (
-                                <div key={index}>
-                                    <span>{nutrient}</span>
+                                <div key={index} className="input-box">
+                                    <span className="span-box"><b>{nutrient}</b></span>
                                     <input type="number" defaultValue={0}
                                         onChange={(e) => {handleNutrientChange(nutrient, e.target.value)}}/>
+                                    <div>
+                                        <span><b>%</b></span>
+                                    </div>
                                 </div>
-                            )
+                            )}
+                        else {
+                            if (index < nutrientList.length - 1) {
+                                return (
+                                    <div key={index}  className="input-box">
+                                        <span className="span-box"><b>{nutrient}</b></span>
+                                        <input type="number" defaultValue={0}
+                                            onChange={(e) => {handleNutrientChange(nutrient, e.target.value)}}/>
+                                        <div>
+                                            <span><b>%</b></span>
+                                        </div>
+                                    </div>
+                                )
+                            }
                         }
-                    }
-                })}
+                    })}                    
+                </div>
+
             </Card>
-            <DefaultButton onClick={() => { 
-                setShowResult(!showResult);
-                handleRecommend();}}>
-                결과 확인
-            </DefaultButton>
+            <div className="result-button-container">
+                <DefaultButton
+                    className="default-button result-button wd100"
+                    onClick={() => { 
+                    setShowResult(!showResult);
+                    handleRecommend();}}>
+                    {showResult ? "결과 닫기" : "결과 확인"}
+                </DefaultButton>
+            </div>
         </Card>
     )
 }

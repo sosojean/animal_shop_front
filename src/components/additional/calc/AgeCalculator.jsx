@@ -7,6 +7,7 @@ import CalcGoods from "./CalcGoods";
 import CalcNav from "./CalcNav";
 import Title from "../../common/Title";
 import Card from "../../common/Card";
+import axios from "axios";
 
 const AgeCalculator = () => {
 
@@ -62,9 +63,37 @@ const AgeCalculator = () => {
         });
     };
 
+    const getRecommend = () => {
+        // 데이터 가공
+        const originData = {...calcData};
+        let postData = {};
+    
+        postData.species = originData.species === '강아지' ? 'DOG' :
+            originData.species === '고양이' ? 'CAT' : ''
+        postData.humanAge = originData.humanAge || 0;
+        
+        console.log("postData", postData);
+        
+        axios({
+            url: `${process.env.REACT_APP_API}/calc/recommend/age`,
+            method: "POST",
+            data: postData
+        }).then((res) => {
+            console.log("handleRecommend", res.data);
+            setGoods(res.data.goods);
+        })
+        .catch((err) => {
+            console.error("error", err);
+        });
+    };
+
     useEffect(() => {
         getMyPetData();
       }, []);
+
+    useEffect(() => {
+        getRecommend();
+    }, [calcData.species, calcData.humanAge]);
 
     return (
         <>
