@@ -2,8 +2,9 @@ import { useState } from 'react';
 import '../../../assets/styles/shop/order/cartModal.scss'
 import CartOption from './CartOption';
 import instance from '../../../utils/axios';
+import { toast } from 'react-toastify';
 
-const CartModal = ({modalData, refreshCartList, setModalOpen}) => {
+const CartModal = ({modalData, refreshCartList, setModalOpen, modalOpen}) => {
 
     console.log("CartModal", modalData);
 
@@ -28,7 +29,7 @@ const CartModal = ({modalData, refreshCartList, setModalOpen}) => {
           })
             .then((res) => {
               console.log("handleUpdateCart 성공 ", res.data);
-              alert("장바구니가 수정됐습니다");
+              toast.success("장바구니가 수정됐습니다");
 
               // 부모 컴포넌트 데이터 갱신
               refreshCartList();
@@ -38,7 +39,7 @@ const CartModal = ({modalData, refreshCartList, setModalOpen}) => {
               console.log("handleUpdateCart 실패 ", err);
               handleUpdateSession();
 
-              alert("장바구니가 수정됐습니다");
+              toast.success("장바구니가 수정됐습니다");
 
               // 부모 컴포넌트 데이터 갱신
               refreshCartList();
@@ -83,7 +84,7 @@ const CartModal = ({modalData, refreshCartList, setModalOpen}) => {
                             return (
                                 <option value={index}>
                                     {option.name === "default" ? "기본" : option.name}
-                                    {" " + option.price + "원"}
+                                    {" " + option.price.toLocaleString() + "원"}
                                 </option>
                             )
                         })}
@@ -103,6 +104,7 @@ const CartModal = ({modalData, refreshCartList, setModalOpen}) => {
                     
                 </div>
                 <div className='buttons'>
+                    <button onClick={() => setModalOpen(false)}>닫기</button>
                     <button onClick={handleUpdateCart}>수정</button>
                 </div>
             </div>

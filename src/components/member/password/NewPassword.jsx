@@ -64,15 +64,19 @@ const NewPassword = (props) => {
         <>
         {authCheck &&
             <Card>
-                <label htmlFor="newPassword">새 비밀번호</label>
-                <input onChange={e=>{passwordValidChecker(e.target.value)}}
-                    type="password" id="newPassword" placeholder="새 비밀번호" />
-                {pwdInvalid ? <span style={{color:"red"}}> 영문/숫자를 조합하여 8~20자 이내로 작성해주세요. </span> : ""}
+                <div>
+                    <label htmlFor="newPassword"><b>새 비밀번호</b></label>
+                    <input onChange={e=>{passwordValidChecker(e.target.value)}}
+                        type="password" id="newPassword" placeholder="새 비밀번호" />
+                    {pwdInvalid ? <p className="error pwd"><b>영문/숫자를 조합하여 8~20자 이내로 작성해주세요</b></p> : ""}                    
+                </div>
 
-                <label htmlFor="checkPassword">새 비밀번호 확인</label>
-                <input onChange={e=>{passwordEqualChecker(e.target.value)}}
-                    type="password" id="checkPassword" placeholder="비밀번호 확인" />
-                {pwdDiff ? <span style={{color:"red"}}> 패스워드가 일치 하지 않습니다</span> : ""}
+                <div>
+                    <label htmlFor="checkPassword"><b>새 비밀번호 확인</b></label>
+                    <input onChange={e=>{passwordEqualChecker(e.target.value)}}
+                        type="password" id="checkPassword" placeholder="비밀번호 확인" />
+                    {pwdDiff ? <p className="error pwd"><b>패스워드가 일치 하지 않습니다</b></p> : ""}  
+                </div>
 
                 <button onClick={() => {
                     authChangePassword();

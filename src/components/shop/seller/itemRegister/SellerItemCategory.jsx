@@ -42,7 +42,9 @@ const SellerItemCategory = ({itemSpecies, setItemSpecies, itemType, setItemType,
                         <option value="dog">강아지</option>
                         <option value="cat">고양이</option>
                     </select>
-                    <p>{itemSpecies === "dog" ? "강아지" : "고양이"}</p>
+                    <div className="selected">
+                        <p>{itemSpecies === "dog" ? "강아지" : "고양이"}</p>    
+                    </div>
                 </div>
                 <div>
                     <select value={itemType} onChange={(e) => { setItemType(e.target.value) }}>
@@ -60,7 +62,9 @@ const SellerItemCategory = ({itemSpecies, setItemSpecies, itemType, setItemType,
                         }
 
                     </select>
-                    <p>{getConvertedName()}</p>
+                    <div className="selected">
+                        <p>{getConvertedName()}</p>    
+                    </div>
                 </div>
                 <div>
                     <select value={detailedType} onChange={(e) => { setDetailedType(e.target.value) }}>
@@ -77,7 +81,9 @@ const SellerItemCategory = ({itemSpecies, setItemSpecies, itemType, setItemType,
                             })             
                         }
                     </select>
-                    <p>{getConvertedSubcategory()}</p>
+                    <div className="selected">
+                        <p>{getConvertedSubcategory()}</p>    
+                    </div>
                 </div>
             </div>
         </div>

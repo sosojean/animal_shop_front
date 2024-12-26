@@ -1,22 +1,61 @@
 .cart-option-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 1rem;
     margin-top: 1rem;
-
+  
     .option-name {
-
+      font-weight: 600;
+      color: #333;
     }
-
+  
     .stock-price-container {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+  
+      .stock-controller {
         display: flex;
-        gap: 1rem;
-
-        .stock-controller {
-            display: flex;
+        align-items: center;
+        background-color: white;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+        button {
+          background-color: #f0f0f0;
+          border: none;
+          color: #333;
+          font-size: 1.2rem;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          transition: background-color 0.2s ease;
+  
+          &:hover {
+            background-color: #e0e0e0;
+          }
         }
-
-        .price {
-
+  
+        p {
+          margin: 0;
+          padding: 0 10px;
+          font-weight: 600;
+          min-width: 30px;
+          text-align: center;
         }
+      }
+  
+      .price {
+        font-weight: 600;
+        color: var(--point-background-color-80);
+      }
     }
-}
+  }
+  
