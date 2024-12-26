@@ -27,9 +27,6 @@ const cartItem = (props) => {
 
         alert("상품이 삭제되었습니다.");
 
-        // 삭제 후 부모 상태 새로고침
-        props.refreshCartList();
-
       } catch (error) {
         // 삭제 실패 시
         console.error("삭제 에러 발생:", error);
@@ -115,7 +112,9 @@ const cartItem = (props) => {
     <>
       <div className="cart-item-outer">
 
-        <button onClick={handleDeleteItemData}>X</button>
+        <button onClick={() => {
+          handleDeleteItemData();
+          props.setDataUpdate(true);}}>X</button>
 
         <div className="cart-item-inner">
 

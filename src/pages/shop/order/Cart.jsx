@@ -176,9 +176,7 @@ const Cart = (props) => {
 
     useEffect(() => {
         // 로컬스토레지에서 받아오는 데이터
-
         handleGetCartList();
-
         setDataUpdate(false);
     },[dataUpdate])
 
@@ -210,7 +208,7 @@ const Cart = (props) => {
                             modalOpen={modalOpen} setModalOpen={setModalOpen} handleModalOpen={handleModalOpen}
                             postData={postData}
                             modalData={modalData} setModalData={setModalData}
-                            isSession = {isSession}
+                            isSession = {isSession} setDataUpdate={setDataUpdate}
                         />)
                 })}                
               </div>
