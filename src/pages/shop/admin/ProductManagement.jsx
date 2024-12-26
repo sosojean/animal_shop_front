@@ -58,11 +58,7 @@ const ProductManagement = () => {
             <Title>판매상품관리</Title>
 
             <ProductSearchHeader setQueryData={setQueryData} setQueryDataTotal={setQueryDataTotal}
-                                 queryDataTotal={queryDataTotal} saveToCsv={saveToCsv}/>
-
-
-
-
+                                 queryDataTotal={queryDataTotal} saveToCsv={saveToCsv} isAdmin={true}/>
 
             <a ref={linkRef} style={{display: "none"}}>Download</a>
 

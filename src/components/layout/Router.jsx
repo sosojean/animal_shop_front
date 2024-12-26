@@ -56,6 +56,7 @@ import Wiki from "../../pages/additional/Wiki";
 import WikiDetail from "../additional/wiki/WikiDetail";
 import AdminNoticeDetail from "../../pages/shop/admin/AdminNoticeDetail";
 import Confetti from "../member/pet/register/confetti";
+import SearchProduct from "../../pages/shop/product/SearchProduct";
 
 const Router = (props) => {
     const species = localStorage.getItem("species");
@@ -78,9 +79,13 @@ const Router = (props) => {
                     {petRegisterSuccess&&<Confetti/>}
 
                     <Routes>
+                        {/*게시판*/}
+                        <Route path="/board" element={<Home isAuth={props.isAuth}/>}/>
+                        <Route path="/board/:category" element={<Home isAuth={props.isAuth}/>}/>
+                        <Route path="/board/:category/:post_id" element={<ContentsViewer/>}/>
+                        <Route path="/board/search" element={<Search/>}/>
+                        <Route path="/board/post/write" element={<PostWrite/>}/>
 
-                        <Route path="/" element={<Home isAuth={props.isAuth}/>}/>
-                        <Route path="/:category" element={<Home isAuth={props.isAuth}/>}/>
 
                         {/*회원*/}
                         <Route path="/join/email" element={<JoinWithEmail/>}/>
@@ -102,14 +107,13 @@ const Router = (props) => {
 
 
 
-                        {/*게시판*/}
-                        <Route path="/:category/:post_id" element={<ContentsViewer/>}/>
-                        <Route path="/search" element={<Search/>}/>
-                        <Route path="/post/write" element={<PostWrite/>}/>
+
 
 
                         {/*스토어*/}
-                        <Route path="/shop" element={<ShopMain isDog={isDog} setIsDog={setIsDog}/>}/>
+                        <Route path="/" element={<ShopMain isDog={isDog} setIsDog={setIsDog}/>}/>
+                        <Route path="/shop/product/search" element={<SearchProduct/>}/>
+
                         <Route path="/shop/:category" element={<AllProduct/>}/>
                         <Route path="/shop/detail/:itemId" element={<ProductDetail/>}/>
                         <Route path="/pay/success" element={<Information case ="orderSuccess" />}/>
