@@ -11,6 +11,11 @@ const Product = (props) => {
     let cart = [];
     const optionCount = props.data?.option_count;
     let storageCart = localStorage.getItem("cart");
+    const price = ( (props.data?.price ?? props.data?.options?.[0]?.price) || 0);
+    const discountRate = (props.data?.discount_rate ?? props.data?.options?.[0]?.discount_rate);
+    const imgUrl =  Array.isArray(props?.data["thumbnail_url"])
+            ? props?.data["thumbnail_url"][0]
+            : props?.data["thumbnail_url"]
 
     const handlePostCart = async (item) => {
 
@@ -113,20 +118,24 @@ const Product = (props) => {
     return(
 
           <div className={props.position}>
-              <Link to={`http://localhost:3000/shop/detail/${props.data?.id}`}>
+              <Link to={`/shop/detail/${props.data?.id}`}>
 
-              <img src={props?.data["thumbnail_url"]} alt=""/>
+              <img src={imgUrl} alt=""/>
               <div className="product-info">
                   <span className="brand">{props.data?.nickname}</span>
                   <span className="title">{props.data?.name}</span>
                   {props.data?.discount_rate > 0 ?
                     <div>
-                        <p className="origin-price">{(props.data?.price).toLocaleString()}원</p>
-                        <span className="discount-rate">{props.data?.discount_rate}%</span>
-                        <span className="price">{((props.data?.price) * (1 - props.data?.discount_rate/100)).toLocaleString()}</span>
+                        <p className="origin-price">
+                            {price.toLocaleString()}원
+                        </p>
+                        <span className="discount-rate">
+                             {(discountRate || 0)}%
+                        </span>
+                        <span className="price">{(price * (1 - discountRate/100)).toLocaleString()}</span>
                     </div> :
                       <div>
-                          <span className="price">{(props.data?.price).toLocaleString()}원</span>
+                          <span className="price">{(price).toLocaleString()}원</span>
                           <p className="origin-price no-decoration">{"ㅤ"}</p>
 
                       </div>
@@ -144,7 +153,7 @@ const Product = (props) => {
               {props.position==="product" && (
                   <div>
                       {optionCount > 1 ?
-                          <Link to={`http://localhost:3000/shop/detail/${props.data?.id}`}>
+                          <Link to={`${process.env.REACT_APP}/shop/detail/${props.data?.id}`}>
                               <DefaultButton className="cart-button wd100">옵션선택</DefaultButton>
                           </Link> :
                           ( <DefaultButton

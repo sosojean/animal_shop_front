@@ -41,7 +41,7 @@ const ReviewImages = ({images})=>{
     }
 
     return(<div className="review-images">
-        <Modal modalOpen={modal} setModalOpen={setModal}>
+        <Modal modalOpen={modal} setModalOpen={setModal} easyClose={true}>
             <div className="modal-images-controller">
                 <button className="image-switch" onClick={getPrevImage} disabled={imageIndex==0} ><FontAwesomeIcon icon={faAngleLeft}/></button>
                 <img src={url + images[imageIndex]} className="modal-image" alt=""/>

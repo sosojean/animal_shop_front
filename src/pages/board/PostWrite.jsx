@@ -1,26 +1,26 @@
 import {useCallback, useEffect, useRef, useState} from "react"
 import WriteEditor from "../../components/board/WriteEditor"
 import '../../assets/styles/board/postWrite.scss'
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import instance from "../../utils/axios";
+import {toast} from "react-toastify";
 
 
 export default function PostWrite(props) {
     const navigate = useNavigate();
     // 작성 내용(contents), 제목(title), 카테고리(category) 저장
     const editorRef = useRef(null);
+    const {post_id}=useParams();
     const {state} = useLocation();
 
     const [title, setTitle] = useState('');
     // 카테고리 선택 최상단에 자유가 있으므로 디폴트 값으로 자유
-    const [category, setCategory] = useState('free');
+    const [category, setCategory] = useState('fashion');
     const [isEdit, setIsEdit] = useState(false);
 
 
     useEffect(() => {
         if (state) {
-            // console.log("수정");
-            // console.log(state);
             setIsEdit(true);
             setTitle(state.title);
             setCategory(state.category);
@@ -37,6 +37,15 @@ export default function PostWrite(props) {
         setCategory(e.target.value);
     }
 
+    const editSuccess = () => {
+        navigate(`/board/${state.category}/${state.id}`);
+        toast.success("수정이 완료되었습니다.")
+    }
+    const postSuccess = () => {
+        navigate('/board');
+        toast.success("작성이 완료되었습니다.")
+    }
+
     // 제출할 때 db에 post
     const onClickEnrollBtn = useCallback(async () => {
         const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
@@ -47,7 +56,7 @@ export default function PostWrite(props) {
 
         } else {
             const token = localStorage.getItem('accessToken'); // 토큰 가져오기
-            const url = isEdit ? `/${state.category}/${state.id}/edit` : "/post/write"
+            const url = isEdit ? `/post/${state.category}/${state.id}/edit` : "/post/write"
             const method = isEdit ? "PUT" : "POST";
             // const finalTitle = isEdit ? state.title : title;
             // const url = "";
@@ -64,7 +73,7 @@ export default function PostWrite(props) {
                 data: data,
             })
                 .then(() => {
-                    navigate('/');
+                    isEdit?editSuccess():postSuccess()
                 })
                 .catch(error => console.error(error));
         }
@@ -75,13 +84,18 @@ export default function PostWrite(props) {
             <select name='category' value={category}
                     onChange={(e) => onSelectCategory(e)}
                     className="selectorCategory">
-                <option value='free'>자유</option>
-                <option value='question'>강사님께 질문</option>
-                <option value='ootd'>강사님 OOTD</option>
-                <option value='fanart'>강사님 팬아트</option>
-                <option value='comment'>강사님께 한마디</option>
-                <option value='graduate'>졸업생 커뮤니티</option>
-                <option value='daily'>데일리 코테</option>
+
+                <option value='fashion'>힙멍 힙냥</option>
+                <option value='tips'>함께 키우는 꿀팁</option>
+                <option value='daily'>반려동물과 함께한 하루</option>
+                <option value='diy'>손으로 만드는 행복</option>
+                <option value='growth'>건강하게 자라길</option>
+                <option value='adoption'>새 가족 찾아요</option>
+                <option value='must-try'>이건 써보셔야 해요!</option>
+                <option value='memories'>걸으며 쌓는 추억</option>
+                <option value='talk'>맘 속 이야기 나눠요</option>
+                <option value='daily-photo'>우리 아이 사진 자랑</option>
+
             </select>
             <input placeholder='제목' name='title'
                    className="inputTitle"

@@ -68,7 +68,7 @@ const Information = (props) => {
             icon = faMoneyBill;
             break;
         case 'refundSuccess':
-            message = "결제가 완료 되었습니다." ;
+            message = "주문취소가 완료 되었습니다." ;
             icon = faMoneyBill;
             break;
     }

@@ -9,10 +9,10 @@ import DefaultButton from "../../common/DefaultButton";
 import { allItemCategory, dogItemCategory, sellStatusCategory } from '../../../utils/categoryOption';
 
 
-const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal, saveToCsv}) => {
+const ProductSearchHeader = ({keyword,setQueryData, setQueryDataTotal, queryDataTotal, saveToCsv, isAdmin}) => {
     const searchQuery = {
         searchBy:"0",
-        searchTerm:"",
+        searchTerm:keyword||"",
         status:"0",
         species:"0",
         category:"0",
@@ -267,8 +267,11 @@ const ProductSearchHeader = ({setQueryData, setQueryDataTotal, queryDataTotal, s
 
                 <div className="row result-control">
                     <span> {queryDataTotal && `검색결과 ${queryDataTotal.toLocaleString()}건`}</span>
-                    <DefaultButton className={"primary"} onClick={saveToCsv}>파일저장 (.csv) <FontAwesomeIcon
-                        className="csv-icon" icon={faTable}/></DefaultButton>
+                    {isAdmin&&
+                        <DefaultButton className={"primary"} onClick={saveToCsv}>파일저장 (.csv) <FontAwesomeIcon
+                            className="csv-icon" icon={faTable}/></DefaultButton>
+                    }
+
                 </div>
             </div>
 

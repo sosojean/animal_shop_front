@@ -3,6 +3,11 @@ import Selector from "../../../common/Selector";
 import instance from "../../../../utils/axios";
 import {useParams} from "react-router-dom";
 import Modal from "../../../common/Modal";
+import "../../../../assets/styles/shop/product/qnaModal.scss";
+import {toast} from "react-toastify";
+
+
+
 
 const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
 
@@ -15,8 +20,6 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
     })
 
     const handleSubmit = () => {
-        // console.log(userQuestionInput)
-
         instance({
             url:`${process.env.REACT_APP_API}/item/query/new`,
             method:"POST",
@@ -24,6 +27,7 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
 
         }).then((res) => {
             setIsEdited(!isEdited);
+            toast.success("문의를 등록하였습니다.")
             modalClose()
         }).catch((err) => {
             console.log(err)
@@ -68,25 +72,32 @@ const QnAModal = ({data,modalOpen, setModalOpen,isEdited, setIsEdited}) => {
 
     return (
         <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
-            <form action="">
-                <Selector optionItems={data.options}
-                          handleSelectChange={handleSelectChange}
-                          trimOptionText={trimOptionText}
-                          value={data.option_name}
-                          name={data.option_name}
-                          // selectedValue =
-                />
+            <div className={'qna-form-container'}>
+                <form action="">
+                    <Selector optionItems={data.options}
+                              handleSelectChange={handleSelectChange}
+                              trimOptionText={trimOptionText}
+                              value={data.option_name}
+                              name={data.option_name}
+                        // selectedValue =
+                    />
 
 
-
-                <textarea cols="30" rows="10"
-                          onChange={e => handleInputChange({contents: e.target.value})}>
+                    <textarea cols="30" rows="10"
+                              onChange={e => handleInputChange({contents: e.target.value})}>
                 </textarea>
-            </form>
+                </form>
+                <div className={"buttons"}>
+                <button onClick={handleSubmit}>
+                    등록
+                </button>
+                <button className="modal-close" onClick={() => setModalOpen(false)}>
+                    닫기
+                </button>
+                </div>
+            </div>
 
-            <button onClick={handleSubmit}>
-                등록
-            </button>
+
         </Modal>
 
     );

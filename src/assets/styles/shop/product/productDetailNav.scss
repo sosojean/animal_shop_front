@@ -1,54 +1,90 @@
-.fixed{
-    position: fixed;
-    top: 0px; // 헤더 사이즈 만큼 추가
-    width: 1080px;
-
-
-
-
-}
-
+//.fixed{
+//    position: fixed;
+//    top: 0px; // 헤더 사이즈 만큼 추가
+//    width: 1080px;
+//
+//}
+//
+//
+//.productDetailNavContainer {
+//    display: flex;
+//    justify-content: space-between;
+//    //margin: 3rem 0 1rem 0;
+//
+//
+//        li {
+//            border-top: 1px solid #dddddd;
+//            border-bottom: 1px solid #dddddd;
+//            border-left: 1px solid #dddddd;
+//
+//            width: 25%;
+//            display: flex;
+//            justify-content: center;
+//            align-items: center;
+//            text-align: center;
+//            height: 100%;
+//            background-color: #eeeeee;
+//            button{
+//                height: 60px;
+//                width: 100%;
+//                border: none;
+//                background:rgba(0,0,0,0);
+//
+//            }
+//
+//        }
+//
+//        .active {
+//            //border-bottom: 1px solid var(--alpha-10);
+//            background-color: #FFFFFF;
+//            border-bottom : none;
+//        }
+//
+//
+//
+//
+//    li:last-child {
+//        border-right:  1px solid #dddddd;
+//
+//    }
+//
+//}
 
 .productDetailNavContainer {
+    position: sticky; /* 스크롤 시 상단에 고정 */
+    top: 76px; /* 고정된 헤더 높이와 동일하게 설정 */
+    z-index: 10; /* 헤더 바로 아래에 위치하도록 조정 */
     display: flex;
     justify-content: space-between;
-    //margin: 3rem 0 1rem 0;
+    background-color: #ffffff; /* 배경색 지정 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03); /* 그림자 추가 */
 
+    li {
+        border-top: 1px solid #dddddd;
+        border-bottom: 1px solid #dddddd;
+        border-left: 1px solid #dddddd;
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+        background-color: #eeeeee;
 
-        li {
-            border-top: 1px solid #dddddd;
-            border-bottom: 1px solid #dddddd;
-            border-left: 1px solid #dddddd;
-
-            width: 25%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            height: 100%;
-            background-color: #eeeeee;
-            button{
-                height: 60px;
-                width: 100%;
-                border: none;
-                background:rgba(0,0,0,0);
-
-            }
-
+        button {
+            height: 60px;
+            width: 100%;
+            border: none;
+            background: rgba(0, 0, 0, 0);
         }
-
-        .active {
-            //border-bottom: 1px solid var(--alpha-10);
-            background-color: #FFFFFF;
-            border-bottom : none;
-        }
-
-
-
-
-    li:last-child {
-        border-right:  1px solid #dddddd;
-
     }
 
+    .active {
+        background-color: #FFFFFF;
+        border-bottom: none;
+    }
+
+    li:last-child {
+        border-right: 1px solid #dddddd;
+    }
 }

@@ -47,13 +47,13 @@ const FacilitiesMap = () => {
     let markerList = [];
 
     useEffect(() => {
-        // 페이지 로드 시 스크롤 막기
-        document.body.style.overflow = "hidden";
-
-        return () => {
-            // 페이지 벗어날 때 스크롤 복원
-            document.body.style.overflow = "auto";
-        };
+        // // 페이지 로드 시 스크롤 막기
+        // document.body.style.overflow = "hidden";
+        //
+        // return () => {
+        //     // 페이지 벗어날 때 스크롤 복원
+        //     document.body.style.overflow = "auto";
+        // };
     }, []);
 
     useEffect(() => {

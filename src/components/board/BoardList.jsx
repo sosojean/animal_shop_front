@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import Information from "../layout/Information";
+import Title from "../common/Title";
 
 const BoardList = (props) => {
 
@@ -23,10 +24,10 @@ const BoardList = (props) => {
     // const [total, setData] = useState();
 
 
-    let url = `${process.env.REACT_APP_API}/${categoryValue}?page=${currentPage}`;
+    let url = `${process.env.REACT_APP_API}/post/${categoryValue}?page=${currentPage}`;
 
     if (props.keyword) {
-        url = `${process.env.REACT_APP_API}/search/title?keyword=${props.keyword}&page=${currentPage}`
+        url = `${process.env.REACT_APP_API}/post/search/title?keyword=${props.keyword}&page=${currentPage}`
     }
 
     useEffect(() => {
@@ -62,6 +63,7 @@ const BoardList = (props) => {
     }
 
     return (<>
+            <Title>커뮤니티</Title>
             {data && data.posts.map((data) => {
                 return (
                     // <BoardItem key={data.id} id={data.id} userId={data.userId} itemTitle={data.title}/>

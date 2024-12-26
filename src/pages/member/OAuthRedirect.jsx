@@ -49,7 +49,15 @@ const OAuthRedirect = () => {
             if (state === "signin"){
             localStorage.setItem("accessToken",res.data.accessToken)
             localStorage.setItem("refreshToken",res.data.refreshToken)
+                toast.success("로그인 되었습니다!")
+                navigate("/")
             }
+            if (state == "signup"){
+                toast.success("회원가입이 완료 되었습니다! 로그인 해주세요.")
+                navigate("/login")
+            }
+
+
 
             navigate("/")
         }).catch((err) => {

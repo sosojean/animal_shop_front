@@ -189,7 +189,7 @@ const CalorieResult = (props) => {
                         <div className="age-result-box">
                             <p className="result-title"><b>✔️1일 사료 급여량</b></p>
                             <p>{(() => { const result = Math.round((calculateDogRER(calcData?.weight || 0) * 1000) / amount);
-                                return isFinite(result) && !isNaN(result) ? `${result} g` : '올바른 값을 입력해주세요';})()}</p>
+                                return isFinite(result) && !isNaN(result) ? `${result} g` : '0 g';})()}</p>
                         </div>                    
                     }
                 </div>

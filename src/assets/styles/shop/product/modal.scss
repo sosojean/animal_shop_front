@@ -1,0 +1,47 @@
+.modal-container{
+  z-index: 20;
+  background: var(--alpha-70);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+    .modal-content{
+      .image-switch{
+        width: 100px;
+        height: 100px;
+
+        color: #FFFFFF;
+      }
+      .modal-images-controller{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        button{font-size: 3rem;
+        }
+
+      .modal-image{
+        justify-self: center;
+        width: 480px;
+
+      }
+
+      //height: 480px;
+      //background: #FFFFFF;
+}
+
+    form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      flex-direction: column;
+
+          }
+        }
+}

@@ -3,6 +3,7 @@ import Card from "../../common/Card";
 import React from "react";
 import instance from "../../../utils/axios";
 import DefaultButton from "../../common/DefaultButton";
+import {toast} from "react-toastify";
 
 const OrderedProduct = ({item, index, setIsEdited, isEdited}) => {
     const isDelivered = item["delivery_approval"];
@@ -21,6 +22,8 @@ const OrderedProduct = ({item, index, setIsEdited, isEdited}) => {
 
         }).then(res=>{
             setIsEdited(!isEdited)
+            toast.success(`${item["optionName"]}의 배송처리가 완료되었습니다!`)
+
             console.log(res)
         }).catch((error) => {
             console.log(error)

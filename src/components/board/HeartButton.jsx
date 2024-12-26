@@ -22,7 +22,7 @@ export default function HeartButton({heartStatus, setHeartStatus, setCountHeart,
         if (haveToken === null) return;
 
         const url = heartStatus ? `/heart/delete/${post_id}` : `/heart/add/${post_id}`;
-        const successMessage = heartStatus ? '추천 취소 했습니다' : '추천 했습니다';
+        const successMessage = heartStatus ? '게시물을 추천 취소 했습니다' : '게시물을 추천 했습니다';
 
         instance({
             method: "GET",
