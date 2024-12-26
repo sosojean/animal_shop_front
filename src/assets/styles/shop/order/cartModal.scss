@@ -1,47 +1,94 @@
-@mixin element-gap ($t: 1rem, $b: 1rem, $c: black ) {
+@mixin element-gap($t: 1rem, $b: 1rem, $c: #e0e0e0) {
     padding: $t 0 $b 0;
     border-bottom: 1px solid $c;
-}
-
-
-.cart-modal-container {
-    padding: 1rem;
-    height: 400px; width: 500px;
+  }
+  
+  .cart-modal-container {
+    padding: 1.5rem;
+    width: 150%;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    // font-size: 1.5rem;
-    
     background-color: white;
-
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
     .header-container {
-        .header {
-            display: flex;
-            @include element-gap (0);
-
-            img {
-                width: 100px;
-                height: 100px;
-                margin-right: 1rem;
-            }
+      .header {
+        display: flex;
+        align-items: center;
+        @include element-gap(0, 1rem);
+  
+        img {
+          width: 100px;
+          height: 100px;
+          margin-right: 1rem;
+          object-fit: cover;
+          border-radius: 8px;
         }
-    
-        .option {
-            @include element-gap($c: transparent);
+  
+        div {
+          h1 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+          }
         }
+      }
+  
+      .option {
+        @include element-gap(1rem, 1rem);
+  
+        select {
+          width: 100%;
+          padding: 0.5rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          font-size: 1rem;
+          margin-bottom: 1rem;
+        }
+      }
     }
-
+  
     .footer-container {
-        .total-price {
-            @include element-gap;
+      .total-price {
+        font-size: 1.1rem;
+        font-weight: bold;
+      }
+  
+      .buttons {
+        @include element-gap(1rem, 0, transparent);
+        display: flex;
+        justify-content: space-between;
+  
+        button {
+          padding: 0.75rem 1.5rem;
+          border: none;
+          border-radius: 4px;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+  
+          &:first-child {
+            background-color: #f0f0f0;
+            color: #333;
+  
+            &:hover {
+              background-color: var(--warning-color);
+              color: white;
+            }
+          }
+  
+          &:last-child {
+            background-color: var(--point-background-color-80);
+            color: white;
+  
+            &:hover {
+              background-color: var(--point-shadow-color);
+            }
+          }
         }
-    
-        .buttons {
-            @include element-gap($c:transparent);
-
-            display: flex;
-            justify-content: center;
-        }
+      }
     }
-
-}
+  }
+  

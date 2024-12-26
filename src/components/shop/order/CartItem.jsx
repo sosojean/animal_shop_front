@@ -156,7 +156,7 @@ const cartItem = (props) => {
           <CartModal
             modalData = {props.modalData}
             refreshCartList = {props.refreshCartList}
-            setModalOpen={props.setModalOpen}
+            setModalOpen={props.setModalOpen} modalOpen={props.modalOpen}
           />
         </Modal>
 

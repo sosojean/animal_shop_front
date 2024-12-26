@@ -25,7 +25,7 @@ const CartOption = ({name, price, stock, setStock}) => {
                     <p>{stock}</p>
                     <button onClick={handlePlusClick}>+</button>
                 </div>
-                <span className="price"> {price * stock + " 원"}</span>
+                <span className="price"> {(price * stock).toLocaleString() + " 원"}</span>
             </div>
 
         </div>
