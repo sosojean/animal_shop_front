@@ -3,6 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faRotateRight} from "@fortawesome/free-solid-svg-icons";
 import { dogItemCategory, catItemCategory, allItemCategory, 
     sellStatusCategory } from "../../../../utils/categoryOption";
+import DefaultButton from "../../../common/DefaultButton";
 
 const SellerItemSearch = (props) => {
 
@@ -138,9 +139,11 @@ const SellerItemSearch = (props) => {
                     <option value="true">할인판매</option>
                     <option value="false">정가판매</option>
                 </select>
-                <input type="search" placeholder="상품명을 입력해주세요" onChange={(e) => {setTerm(e.target.value);}}/>
-                <button onClick={() => {
-                    handleAddParam();}}>검색</button>
+                <div className="search-input">
+                    <input type="search" placeholder="상품명을 입력해주세요" onChange={(e) => {setTerm(e.target.value);}}/>
+                    <button onClick={() => {
+                        handleAddParam();}}>검색</button>                    
+                </div>
             </div>
             <div className="filter-list">
                 <div className="filter-buttons row">
@@ -151,8 +154,8 @@ const SellerItemSearch = (props) => {
                                 {getConvertedName(param, paramsMap[param])} ✖</button> }
                     })}
                     {paramsList.some(param => param !== "total") &&
-                        <button onClick={handleAllResetFilter}>
-                            <span><FontAwesomeIcon icon={faRotateRight}/></span>전체 초기화</button>                
+                        <button onClick={handleAllResetFilter} className="reset-button">
+                            <span style={{marginRight: "5px"}}><FontAwesomeIcon icon={faRotateRight}/></span>전체 초기화</button>                
                     }
                 </div>          
                 <p>검색결과 {totalCount}건</p>     

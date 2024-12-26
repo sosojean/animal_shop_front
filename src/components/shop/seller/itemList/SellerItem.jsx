@@ -78,7 +78,7 @@ const SellerItem = (props) => {
                 </div>
                 <Link to={`/seller/item/edit/${item.id}`}>
                     <div className="SellerItemDelete">
-                        <DefaultButton style={{marginRight: '10px'}}>수정</DefaultButton>
+                        <DefaultButton>수정</DefaultButton>
                     </div>
                 </Link>
                 <ItemDelButton itemId={item.id} url={navigateUrl} getItemList={() => getItemList(currentPage)}/>
