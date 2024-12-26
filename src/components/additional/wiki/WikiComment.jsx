@@ -12,13 +12,11 @@ const WikiComment = (props) => {
     const [data, setData] = useState();
     const [dataCount, setDataCount] = useState();
     const [currentPage, setCurrentPage] = useState(1);
-
-    const location = useLocation();
-    const navigate = useNavigate();
-    // const queryParams = new URLSearchParams(location.search);
-    // const currentPage = parseInt(queryParams.get("page")) || 1; // 현재 페이지 확인
+    const itemsPerPage = 20;
 
     const getCommentData = (page = currentPage) => {
+        console.log("comment page", page);
+
         axios({
             url: `${process.env.REACT_APP_API}/wiki/comment/${id}/list?page=${page}`,
             method: "get"
@@ -33,8 +31,8 @@ const WikiComment = (props) => {
     }
 
     const handlePageChange = (newPage) => {
-        getCommentData(newPage);
         setCurrentPage(newPage);
+        getCommentData(newPage);
     };
 
     useEffect(() => {
@@ -49,6 +47,7 @@ const WikiComment = (props) => {
                 currentPage={currentPage}
                 totalPost={dataCount}
                 handlePageChange={handlePageChange}
+                itemPerPage={itemsPerPage}
             />
         </div>
     )

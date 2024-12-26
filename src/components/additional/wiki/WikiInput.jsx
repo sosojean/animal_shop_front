@@ -148,17 +148,17 @@ const WikiInput = (props) => {
             <div className="button-group">
                 {postData.id ? (
                     <>
-                        <Link to="/admin/seller">
+                        <Link to={`/wiki/${postData.id}`}>
                             <DefaultButton onClick={handlePatch} className="primary long wiki-rg-button">
                                 수정</DefaultButton>
                         </Link>
-                        <Link to="/admin/seller">
+                        <Link to={`/admin/seller`}>
                             <DefaultButton onClick={handleDelete} className="primary long wiki-rg-button">
                                 삭제</DefaultButton>
                         </Link>                
                     </>
                 ) : (
-                    <Link to="/admin/seller">
+                    <Link to="/wiki">
                         <DefaultButton onClick={handleSubmit} className="primary long wiki-rg-button">
                             제출</DefaultButton>
                     </Link>                   
