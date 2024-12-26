@@ -7,8 +7,10 @@ import Comments from "../comment/Comments";
 import {useModifyTime} from '../../utils/useModifyTime.jsx';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFaceGrinTears, faPenToSquare} from "@fortawesome/free-regular-svg-icons";
-import {faShare, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {faHeart, faShare, faXmark} from "@fortawesome/free-solid-svg-icons";
 import "../../assets/styles/board/contentViewer.scss"
+import {categoryTrimmer} from "../../utils/categoryTrimmer";
+import CopyUrlButton from "../common/CopyUrlButton";
 
 const ContentsViewer = ({props}) => {
 
@@ -34,7 +36,7 @@ const ContentsViewer = ({props}) => {
 
         instance({
             method: "GET",
-            url: `/${category}/${post_id}/edit`
+            url: `/post/${category}/${post_id}/edit`
         })
             .then(response => {
                 // console.log(response.data);
@@ -57,16 +59,16 @@ const ContentsViewer = ({props}) => {
     // console.log('데이터: ', contentInfo);
 
     const editHandler = () => {
-        navigate("/post/write", {state: contentInfo});
+        navigate("/board/post/write", {state: contentInfo});
     }
 
     const deleteHandler = () => {
         instance({
             method: "DELETE",
-            url: `/${category}/${post_id}/delete`
+            url: `/post/${category}/${post_id}/delete`
 
         }).then(response => {
-            navigate("/");
+            navigate("/post");
         }).catch(error => console.error(error));
 
     }
@@ -76,12 +78,12 @@ const ContentsViewer = ({props}) => {
             <div className="content-info-container">
                 <div className="info-box">
                     <div className="content-info">
-                        <h2> {contentInfo.category}</h2>
+                        <h2> {categoryTrimmer(contentInfo.category)}</h2>
                         <h1> {contentInfo.title}</h1>
                     </div>
                     <div className="content-author-info">
                         <span className="user-name">{contentInfo.nickname}{" "}</span>
-                        <FontAwesomeIcon icon={faFaceGrinTears} className="faFaceGrinTears"/><span
+                        <FontAwesomeIcon icon={faHeart} className="faFaceGrinTears"/><span
                         className="hearts">{countHeart}</span>
                         <span className="modified-time"> {modifiedTime}{" "}·{" "}</span>
                         <span className="hits">조회 {contentInfo.hits}</span>
@@ -93,7 +95,7 @@ const ContentsViewer = ({props}) => {
                         <button onClick={deleteHandler}><FontAwesomeIcon className="fa-xmark" icon={faXmark}/>삭제
                         </button>
                     </>) : null}
-                    <button><FontAwesomeIcon icon={faShare}/>공유</button>
+                    <CopyUrlButton/>
                 </div>
 
             </div>

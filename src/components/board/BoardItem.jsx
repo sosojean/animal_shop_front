@@ -3,34 +3,16 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCommentDots, faHeart} from "@fortawesome/free-regular-svg-icons";
 import {Link} from "react-router-dom";
 import {useModifyTime} from "../../utils/useModifyTime";
+import {categoryTrimmer} from "../../utils/categoryTrimmer";
 
 const BoardItem = ({data}) => {
     const modifiedTime = useModifyTime(data.createdDate)
 
-    const categoryTrimmer = (category) => {
-        switch (category) {
-            case "free":
-                return "자유"
-            case "question":
-                return "질문"
-            case "ootd":
-                return "ootd"
-            case "fanart":
-                return "팬아트"
-            case "graduate":
-                return "졸업생"
-            case "comment":
-                return "한마디"
-            case "daily":
-                return "데일리코테"
-            default:
-                return "-"
-        }
-    }
+
 
     return (
         <div className={"list-container"}>
-            <Link to={`/${data.category}/${data.id}`}>
+            <Link to={`/board/${data.category}/${data.id}`}>
                 <div className={"info"}>
                     <div className={"title"}>
                         <span> {data.title} </span>
