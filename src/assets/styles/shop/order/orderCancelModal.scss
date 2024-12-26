@@ -1,0 +1,48 @@
+.order-cancel-section,.delivery-confirm-section {
+  background-color: var(--body-background-color);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--point-shadow-color-30);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+
+    button {
+      flex: 1; // Ensure buttons are evenly sized
+      padding: 10px 16px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+
+      &:first-of-type {
+        background-color: var(--point-color);
+        color: var(--header-font-color);
+
+        &:hover {
+          background-color: var(--point-background-color-90);
+          box-shadow: 0 2px 6px var(--point-shadow-color-50);
+        }
+      }
+
+      &:last-of-type {
+        background-color: var(--point-background-color-20);
+        color: var(--point-shadow-color);
+
+        &:hover {
+          background-color: var(--point-background-color-80);
+          color: var(--header-font-color);
+          box-shadow: 0 2px 4px var(--point-shadow-color-50);
+        }
+      }
+    }
+  }
+}

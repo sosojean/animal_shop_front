@@ -1,12 +1,12 @@
 
-import "../../assets/styles/shop/product/qnaModal.scss"
+import "../../assets/styles/shop/product/modal.scss"
 import {useRef} from "react";
-const Modal = ({modalOpen, setModalOpen ,children}) => {
+const Modal = ({modalOpen, setModalOpen ,children, easyClose}) => {
 
     const content = useRef(null);
 
     const modalClose = (e)=>{
-        if (!content.current.contains(e.target)){
+        if (easyClose&&!content.current.contains(e.target)){
              setModalOpen(false);
         }
     }
@@ -19,8 +19,6 @@ const Modal = ({modalOpen, setModalOpen ,children}) => {
                 <div ref={content} className={'modal-content'} id = {"content"}>
                     {children}
                 </div>
-
-                <button  onClick={modalClose}>x</button>
             </div>
         }</>
     );

@@ -7,6 +7,7 @@ import "../../../assets/styles/shop/seller/sellerAcceptItem.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
 import OrderProduct from "../order/OrderProduct";
+import {toast} from "react-toastify";
 const SellerAcceptItem = ({item, setIsEdited, isEdited}) => {
 
 
@@ -46,6 +47,7 @@ const SellerAcceptItem = ({item, setIsEdited, isEdited}) => {
         }).then((response) => {
             console.log(response);
             setIsEdited(!isEdited)
+            toast.success("전체 상품 배송처리가 완료되었습니다!")
         }).catch((error) => {
             console.log(error);
         })

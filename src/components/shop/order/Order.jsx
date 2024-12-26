@@ -9,10 +9,11 @@ import OrderCancelModal from "./OrderCancelModal";
 import DeliveryConfirmModal from "./DeliveryConfirmModal";
 
 
-const Order = ({item}) => {
+const Order = ({item,isEdited,setIsEdited}) => {
     const [isOpened, setIsOpened] = useState(false)
     const [cancelModalOpen, setCancelModalOpen] = useState(false)
     const [confirmModalOpen, setConfirmModalOpen] = useState(false)
+    // const [isEdited, setIsEdited] = useState(false)
 
     const isSingle = item["orderItemDTOList"].length == 1 ? true : false;
     const countMessage = `총 ${item["orderItemDTOList"].length} 건 주문 `;
@@ -36,8 +37,19 @@ const Order = ({item}) => {
         setConfirmModalOpen(true)
     }
     return(
-        <><OrderCancelModal item={item} setModalOpen={setCancelModalOpen} modalOpen={cancelModalOpen}/>
-            <DeliveryConfirmModal item={item} setModalOpen={setConfirmModalOpen} modalOpen={confirmModalOpen}/>
+        <>
+            <OrderCancelModal item={item}
+                              setModalOpen={setCancelModalOpen}
+                              modalOpen={cancelModalOpen}
+                              isEdited={isEdited}
+                              setIsEdited={setIsEdited}
+            />
+            <DeliveryConfirmModal item={item}
+                                  setModalOpen={setConfirmModalOpen}
+                                  modalOpen={confirmModalOpen}
+                                  isEdited={isEdited}
+                                  setIsEdited={setIsEdited}
+            />
 
             <Card className={"order"}>
 

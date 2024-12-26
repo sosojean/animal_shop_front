@@ -56,7 +56,7 @@ const AdminProduct = ({item, isEdited, setIsEdited}) => {
     }
 
     return (<>
-            {/*<Link to={`http://localhost:3000/shop/detail/${item?.id}`}>*/}
+            {/*<Link to={`${process.env.REACT_APP}/shop/detail/${item?.id}`}>*/}
 
             <tr className="product">
                 <td className="no">{item?.id}</td>
@@ -81,9 +81,7 @@ const AdminProduct = ({item, isEdited, setIsEdited}) => {
                 <td className="price">{item?.options[0]?.price}원</td>
 
                 <td>
-{/*
-                    <div>
-*/}
+
                         {/*<button>옵션 보기</button>*/}
                         <button className="revoke button" onClick={() => setEditPendingText(!editPendingText)}>중단</button>
                     {/*</div>*/}

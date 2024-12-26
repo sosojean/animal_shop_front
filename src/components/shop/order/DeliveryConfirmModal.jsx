@@ -4,8 +4,11 @@ import {useEffect, useState} from "react";
 import petInfo from "../../member/pet/PetInfo";
 import instance from "../../../utils/axios";
 import {useNavigate} from "react-router-dom";
+import "../../../assets/styles/shop/order/orderCancelModal.scss"
+import {toast} from "react-toastify";
 
-const DeliveryConfirmModal = ({setModalOpen, modalOpen,item}) => {
+
+const DeliveryConfirmModal = ({setModalOpen, modalOpen,item, setIsEdited, isEdited}) => {
     // console.log(item.orderItemDTOList);
     const [checkedItems, setCheckedItems] = useState([])
     const [cancelData, setCancelData] = useState()
@@ -24,10 +27,6 @@ const DeliveryConfirmModal = ({setModalOpen, modalOpen,item}) => {
         console.log(checkedItems);
     }, [checkedItems]);
 
-    // useEffect(() => {
-    //     cancelData&&navigate("/cancel/success",{state:cancelData})
-    //
-    // }, [cancelData]);
 
 
     const applyConfirm = ()=> {
@@ -40,6 +39,9 @@ const DeliveryConfirmModal = ({setModalOpen, modalOpen,item}) => {
         }).then(res=>{
             console.log("delivery-check",res.data)
             setCancelData(res.data)
+            setModalOpen(false)
+            setIsEdited(!isEdited)
+            toast.success("배송이 확정되었습니다!")
 
 
         }).catch(err=>{
@@ -52,9 +54,16 @@ const DeliveryConfirmModal = ({setModalOpen, modalOpen,item}) => {
 
     return (
         <Modal setModalOpen={setModalOpen} modalOpen={modalOpen}>
-            {item&&item.orderItemDTOList.map( (orderItem, index) => {
-                return <OrderProduct key={orderItem["itemNm"] + index} item={orderItem} position={"confirm"} applyCheck={applyCheck} subCheck={subCheck}/>})}
-            <button onClick={applyConfirm}> 확정 </button>
+            <div className="delivery-confirm-section">
+            {item && item.orderItemDTOList.map((orderItem, index) => {
+                return <OrderProduct key={orderItem["itemNm"] + index} item={orderItem} position={"confirm"}
+                                     applyCheck={applyCheck} subCheck={subCheck}/>
+            })}
+                <div className={"buttons"}>
+                    <button onClick={applyConfirm}> 확정</button>
+                    <button onClick={()=>{setModalOpen(false)}}> 닫기</button>
+                </div>
+            </div>
 
 
         </Modal>

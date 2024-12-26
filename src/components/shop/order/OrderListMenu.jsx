@@ -4,7 +4,7 @@ import "../../../assets/styles/shop/order/orderListMenu.scss"
 import instance from "../../../utils/axios";
 import DefaultButton from "../../common/DefaultButton";
 
-const OrderListMenu = ({url,setUrl}) => {
+const OrderListMenu = ({url,setUrl, isEdited, setIsEdited}) => {
 
     const [data, setData] = useState()
 
@@ -25,7 +25,7 @@ const OrderListMenu = ({url,setUrl}) => {
         }).catch(err=>{
             console.log(err)
         })
-    }, []);
+    }, [isEdited]);
 
     return (
         data&&

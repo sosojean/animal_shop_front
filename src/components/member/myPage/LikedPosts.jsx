@@ -18,6 +18,8 @@ const LikedPosts = () => {
             params:{page:currentPage}
         }).then((res) => {
             setData(res.data)
+            setTotalCount(res.data.totalCount)
+
             console.log(res.data)
 
 

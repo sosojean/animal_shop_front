@@ -4,10 +4,13 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import ToggleBtn from "../../components/common/ToggleBtn";
 import instance from "../../utils/axios";
+import SearchBar from "../../components/map/SearchBar";
+import ProductSearchBar from "../../components/shop/product/ProductSearchBar";
 
 const ShopMain = ({isDog, setIsDog}) => {
 
     const [data, setData] = useState()
+
     const selectedSpeceis = isDog ? "강아지" : "고양이";
     const selectedIcon = isDog ? "🐕" : "🐈"
 
@@ -50,7 +53,9 @@ const ShopMain = ({isDog, setIsDog}) => {
                 <ToggleBtn setIsDog={setIsDog} isDog={isDog}/>
                 <span>{selectedSpeceis} 상품을 보여드려요</span>
             </div>
-            <Banner/>
+            <Banner  isDog={isDog}/>
+            <ProductSearchBar/>
+
 
             {data && <Products name={"✨ 새로 입고된 상품"} data={data["animal_new"]} url = {"/shop/new"}/>}
             {data && <Products name={`${selectedIcon} 인기 ${selectedSpeceis} 상품`}  data={data["animal_hot"]} url = {"/shop/hot"}/>}
