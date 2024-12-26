@@ -13,6 +13,8 @@
 
         .wiki-img {
             width: 150px;
+            object-fit: cover;
+            height: 150px;
             border-radius: 10px;
         }
 
@@ -71,6 +73,15 @@
             display: flex;
             justify-content: flex-end;
             margin-top: 10px; 
+
+            button {
+                transition: all 0.3s ease;
+            }
+
+            button:hover {
+                background-color: var(--point-background-color-80);
+                font-weight: bold;
+            }
         }
     }
 
@@ -135,6 +146,7 @@
             border: none;
             background-color: transparent;
             resize: none;
+            cursor: auto;
             
             &::placeholder {
                 color: #999;
@@ -147,9 +159,15 @@
     
         .comment-submit-btn {
             align-self: flex-end;
-            background-color: white;
+            background-color: var(--point-color);
+            color: white;
             width: 50px;
             height: 30px;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: var(--point-background-color-80);
+            }
         }
     }
 }

@@ -28,7 +28,7 @@ const WikiItem = (props) => {
     return (
         <Card className="default-card wiki-item">
             <div className="wiki-item-title">
-                <Card>
+                <Card className={"default-card item-header-card"}>
                     <h3 className="item-header">{data?.breedName}</h3>   
                 </Card>        
             </div>

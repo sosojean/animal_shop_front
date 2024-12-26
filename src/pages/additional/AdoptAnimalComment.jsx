@@ -11,6 +11,7 @@ const AdoptAnimalComment = (props) => {
     const [data, setData] = useState();
     const [dataCount, setDataCount] = useState();
     const [currentPage, setCurrentPage] = useState(1);
+    const itemPerPage = 21;
 
     const getCommentData = (page = currentPage) => {
         axios({
@@ -43,6 +44,7 @@ const AdoptAnimalComment = (props) => {
                 currentPage={currentPage}
                 totalPost={dataCount}
                 handlePageChange={handlePageChange}
+                itemPerPage={itemPerPage}
             />
         </div>
     )

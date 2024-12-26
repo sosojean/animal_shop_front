@@ -1,6 +1,7 @@
 import instance from "../../../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import DefaultButton from "../../../common/DefaultButton";
 
 const ItemRegButton = ({getRegisterData, itemId, options, nameCount, thumnailsUrls}) => {
 
@@ -101,16 +102,16 @@ const ItemRegButton = ({getRegisterData, itemId, options, nameCount, thumnailsUr
         <div className='ItemRegButton'>
             {itemId ?
                 <div>
-                    <button onClick={() => {
+                    <DefaultButton className="long primary" onClick={() => {
                         if (validatePostData()){handlePatchItemData();}}}>
                             수정
-                    </button>
-                    <button onClick={handleDeleteItemData}>단종(품절)</button>
+                    </DefaultButton>
+                    <DefaultButton className="long primary" onClick={handleDeleteItemData}>단종(품절)</DefaultButton>
                 </div>
-                : <button onClick={() => {
+                : <DefaultButton className="long primary" onClick={() => {
                     if (validatePostData()){handleItemRegister();}}}>
                         등록
-                  </button>
+                  </DefaultButton>
             }
         </div>
     )

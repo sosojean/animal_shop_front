@@ -4,8 +4,6 @@ import '../../../../assets/styles/shop/sellerItemList.scss'
 import Pagination from "../../../board/Pagination";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import SellerItem from "./SellerItem";
-import Modal from "../../../common/Modal";
-import SellerDiscount from "../SellerDiscount";
 import SellerMenu from "../SellerMenu";
 import SellerItemSearch from "./SellerItemSearch";
 import Title from "../../../common/Title";
