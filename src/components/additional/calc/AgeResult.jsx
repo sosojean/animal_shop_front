@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../../common/Card";
 
 const AgeResult = (props) => {
@@ -35,17 +35,34 @@ const AgeResult = (props) => {
 
     // 나이 환산
     const getHumanAge = (birthDate, size, species) => {
+        let converted;
         if (!birthDate || !size || !species) return "입력값 누락";
         
         const age = getOriginalAge(birthDate)?.decimal;
         if (!age) return "입력값 오류";
         
-        if (species === "강아지")
-            return getCalculateDogAge(age, size);
-        else if (species === "고양이")
-            return getCalculateCatAge(age, size);
+        if (species === "강아지"){
+            converted = getCalculateDogAge(age, size);
+            return converted;
+        } else if (species === "고양이"){
+            converted = getCalculateCatAge(age, size);
+            return converted;
+        }
+            
         return "입력값 오류";
     }
+
+    useEffect(() => {
+        if (calcData.birth && calcData.size && calcData.species) {
+            const humanAge = getHumanAge(calcData.birth, calcData.size, calcData.species);
+            if (typeof humanAge === 'number') {
+                setCalcData(prevData => ({
+                    ...prevData,
+                    humanAge: humanAge
+                }));
+            }
+        }
+    }, [calcData.birth]);
 
     // 강아지 나이 계산기
     const getCalculateDogAge = (dogAge, size) => {

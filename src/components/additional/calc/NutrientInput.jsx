@@ -126,7 +126,7 @@ const NutrientInput = (props) => {
                             if (index < nutrientList.length - 1) {
                                 return (
                                     <div key={index}  className="input-box">
-                                        <span className="span-box">{nutrient}</span>
+                                        <span className="span-box"><b>{nutrient}</b></span>
                                         <input type="number" defaultValue={0}
                                             onChange={(e) => {handleNutrientChange(nutrient, e.target.value)}}/>
                                         <div>
@@ -146,7 +146,7 @@ const NutrientInput = (props) => {
                     onClick={() => { 
                     setShowResult(!showResult);
                     handleRecommend();}}>
-                    결과 확인
+                    {showResult ? "결과 닫기" : "결과 확인"}
                 </DefaultButton>
             </div>
         </Card>
