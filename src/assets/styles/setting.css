@@ -8,7 +8,7 @@
 
     --header-font-color: #FFF;
     --header-background-color: var(--point-color);
-    --point-color: #76a970;
+    --point-color: rgba(16, 119, 0, 0.51);
     --point-background-color: #76a970;
     --point-background-color-10: #76a9701a;
     --point-background-color-20: #76a97033;

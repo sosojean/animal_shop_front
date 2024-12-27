@@ -5,12 +5,13 @@ $logo-suit-margin: 1.6rem;
   position: sticky; /* 상단에 고정되도록 설정 */
   top: 0; /* 화면 상단에 붙이기 */
   z-index: 1000; /* 다른 요소 위에 위치하도록 설정 */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* 그림자 추가 */
 
 
   width: 100%;
-  background-color: var(--point-color);
-  color: var(--header-font-color);
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(100px);
+  color: var(--point-color);
   display: flex;
   justify-content: center;
   height: 76px;
@@ -18,8 +19,8 @@ $logo-suit-margin: 1.6rem;
   border-bottom: 1px solid var(--alpha-10);
 
   .headerContentsContainer {
-    background-color: var(--point-color);
-    color: var(--header-font-color);
+    //background-color: var(--alpha-5);
+    color: var(--point-color);
 
     display: flex;
     justify-content: space-between;
@@ -27,14 +28,14 @@ $logo-suit-margin: 1.6rem;
     width: var(--site-width);
 
     h1 {
-      color: var(--header-font-color);
+      color: var(--point-color);
 
       font-size: 1.5rem;
       font-weight: bold;
     }
 
     li {
-      color: var(--header-font-color);
+      color: var(--point-color);
 
       &:hover {
         text-decoration: underline;
@@ -47,7 +48,7 @@ $logo-suit-margin: 1.6rem;
   .headerLnCContainer {
     display: flex;
     .logo{
-      color: var(--header-font-color);
+      color: var(--point-color);
     }
 
 
@@ -69,8 +70,8 @@ $logo-suit-margin: 1.6rem;
 
     a {
       font-size: 1.3rem;
-      color: var(--header-font-color);
-      background: var(--point-color);
+      color: var(--point-color);
+      //background: var(--point-color);
       width: 2.5rem;
       height: 2.5rem;
       border-radius: 20px/20px;
@@ -105,7 +106,7 @@ $logo-suit-margin: 1.6rem;
     }
 
     p, link {
-      background-color: #cdecee1a;
+      color: var(--point-color);
       //padding: 1rem;
       border-radius: 20px;
       //margin-bottom: 0.8rem;

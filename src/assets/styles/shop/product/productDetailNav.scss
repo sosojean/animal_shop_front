@@ -56,20 +56,21 @@
     z-index: 10; /* 헤더 바로 아래에 위치하도록 조정 */
     display: flex;
     justify-content: space-between;
-    background-color: #ffffff; /* 배경색 지정 */
+    background-color: rgba(255, 255, 255, 0.5); /* 배경색 지정 */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03); /* 그림자 추가 */
+    backdrop-filter: blur(70px);
 
     li {
-        border-top: 1px solid #dddddd;
-        border-bottom: 1px solid #dddddd;
-        border-left: 1px solid #dddddd;
+        border-top: 1px solid rgba(221, 221, 221, 0.50);
+        border-bottom: 1px solid rgba(221, 221, 221, 0.50);
+        border-left: 1px solid rgba(221, 221, 221, 0.50);
         width: 25%;
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
         height: 100%;
-        background-color: #eeeeee;
+        background-color: rgba(238, 238, 238, 0.47);
 
         button {
             height: 60px;
@@ -80,7 +81,7 @@
     }
 
     .active {
-        background-color: #FFFFFF;
+        background-color: rgba(255, 255, 255, 0.8); /* 배경색 지정 */
         border-bottom: none;
     }
 
