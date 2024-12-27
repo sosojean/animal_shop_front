@@ -6,9 +6,11 @@ import {Link} from "react-router-dom";
 import "../../../assets/styles/shop/order/orderItem.scss"
 
 
-const OrderProduct = ({item, position, applyCheck, subCheck}) => {
+const OrderProduct = ({url,item, position, applyCheck, subCheck}) => {
     const [reviewWriting, setReviewWriting] = useState(false);
     console.log(item)
+
+    // const isDeliver = url.includes("delivery");
 
     const checkHandler = (e) => {
         const itemId  = position === "confirm"? item.itemId:item.orderItemId
@@ -28,6 +30,7 @@ const OrderProduct = ({item, position, applyCheck, subCheck}) => {
     }
     return(<>
             <div className={"order-item"}>
+
 
                 <Link to={`/shop/detail/${item.itemId}`}>
                     <div className={"product-info"}>

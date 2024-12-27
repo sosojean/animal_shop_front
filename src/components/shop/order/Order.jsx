@@ -9,11 +9,14 @@ import OrderCancelModal from "./OrderCancelModal";
 import DeliveryConfirmModal from "./DeliveryConfirmModal";
 
 
-const Order = ({item,isEdited,setIsEdited}) => {
+const Order = ({url,item,isEdited,setIsEdited}) => {
     const [isOpened, setIsOpened] = useState(false)
     const [cancelModalOpen, setCancelModalOpen] = useState(false)
     const [confirmModalOpen, setConfirmModalOpen] = useState(false)
-    // const [isEdited, setIsEdited] = useState(false)
+    const isAll = url === "/shop/orders";
+    const isRevoke = url === "/shop/orders?status=revoke";
+
+
 
     const isSingle = item["orderItemDTOList"].length == 1 ? true : false;
     const countMessage = `총 ${item["orderItemDTOList"].length} 건 주문 `;
@@ -79,9 +82,9 @@ const Order = ({item,isEdited,setIsEdited}) => {
 
                         return (
                             index == 0 ?
-                                <OrderProduct key={orderItem["itemNm"] + index} item={orderItem} position={"order"}/> :
+                                <OrderProduct url={url} key={orderItem["itemNm"] + index} item={orderItem} position={"order"}/> :
                                 isOpened &&
-                                <OrderProduct key={orderItem["itemNm"] + index} item={orderItem} position={"order"}/>);
+                                <OrderProduct url={url} key={orderItem["itemNm"] + index} item={orderItem} position={"order"}/>);
                     })}
                 {!isSingle &&
                     <button className="open-order order-list-btn"
@@ -91,9 +94,9 @@ const Order = ({item,isEdited,setIsEdited}) => {
                         {countMessage}
                         {isOpened ? open : close}
                     </button>}
-                {isProgress && <button className="order-list-btn" onClick={deliveryConfirm}>배송 확정</button>
+                {isProgress&&!isAll && <button className="order-list-btn" onClick={deliveryConfirm}>배송 확정</button>
                 }
-                {isOrderComplete &&
+                {isOrderComplete &&!isAll&&!isRevoke&&
                     <button className="cancel-order order-list-btn" onClick={orderCancelHandler}>주문 취소</button>
                 }
             </Card>

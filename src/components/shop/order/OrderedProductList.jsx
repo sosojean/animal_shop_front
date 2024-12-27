@@ -63,7 +63,7 @@ const OrderedProductList = () => {
 
                 {data&&data.length < 1 &&<Card className="default-card no-contents" ><span>주문 내역이 없습니다.</span></Card>}
                 {data && data.map(item=>{
-                    return(<Order setIsEdited={setIsEdited} isEdited={isEdited} key={item["orderId"]} item = {item} />)
+                    return(<Order url={url} setIsEdited={setIsEdited} isEdited={isEdited} key={item["orderId"]} item = {item} />)
                 })}
                 {totalCount>10 && (totalCount/10)>page && <DefaultButton onClick={loadMoreData}>더보기</DefaultButton>}
 
