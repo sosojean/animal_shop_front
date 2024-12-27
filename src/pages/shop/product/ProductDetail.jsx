@@ -18,10 +18,8 @@ const ProductDetail = () => {
     const targetRef = useRef(null);
 
     function updateOptionName(data) {
-        if (data.options && data.options.length === 1) {
-            data.options[0].name = "단일옵션";
-        }
-        return data;
+             data.options[0].name = "기본 옵션";
+         return data;
     }
 
     useEffect(() => {

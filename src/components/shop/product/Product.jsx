@@ -125,7 +125,7 @@ const Product = (props) => {
               <div className="product-info">
                   <span className="brand">{props.data?.nickname}</span>
                   <span className="title">{props.data?.name}</span>
-                  {props.data?.discount_rate > 0 ?
+                  {discountRate > 0 ?
                     <div>
                         <p className="origin-price">
                             {price.toLocaleString()}원
@@ -133,7 +133,7 @@ const Product = (props) => {
                         <span className="discount-rate">
                              {(discountRate || 0)}%
                         </span>
-                        <span className="price">{(price * (1 - discountRate/100)).toLocaleString()}</span>
+                        <span className="price">{(price * (100 - discountRate)/100).toLocaleString()}</span>
                     </div> :
                       <div>
                           <span className="price">{(price).toLocaleString()}원</span>

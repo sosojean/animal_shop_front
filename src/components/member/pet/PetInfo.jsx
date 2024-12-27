@@ -7,7 +7,6 @@ import "../../../assets/styles/member/petInfo.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCrown, faPen, faX} from "@fortawesome/free-solid-svg-icons";
 import animalPlaceholder from "../../../assets/img/animalPlaceholder.svg";
-import DefaultButton from "../../common/DefaultButton";
 
 const PetInfo = (props) => {
 
@@ -17,7 +16,7 @@ const PetInfo = (props) => {
     const navigate = useNavigate();
 
     const url = item.profileImageUrl?`${process.env.REACT_APP_API}/file/image-print?filename=${item.profileImageUrl
-        }`:animalPlaceholder; // todo: default 이미지 지정
+        }`:animalPlaceholder;
 
     const handleEdit = () => {
         navigate(`/pet/edit/${item.id}` ,{state : item});
@@ -50,7 +49,7 @@ const PetInfo = (props) => {
                         {item.isLeader && <FontAwesomeIcon className="icon" icon={faCrown}/>}
                         <div className={"row pet-info-header"}>
                             <div>
-                                <span className={"name"}>{" " + item.name}</span>
+                                <h2 className={"name"}>{" " + item.name}</h2>
                                 <span className={"age"}> {item.age} 살</span>
                             </div>
 
@@ -58,10 +57,10 @@ const PetInfo = (props) => {
                             <div className={"button-section"}>
 
                                 <button className={"edit-btn"} onClick={handleEdit}>
-                                    <FontAwesomeIcon icon={faPen}/>수정
+                                    <FontAwesomeIcon icon={faPen}/>
                                 </button>
                                 <button className={"delete-btn"} onClick={handleDelete}>
-                                    <FontAwesomeIcon icon={faX}/> 삭제
+                                    <FontAwesomeIcon icon={faX}/>
                                 </button>
 
                             </div>

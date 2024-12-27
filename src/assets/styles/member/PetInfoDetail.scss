@@ -27,7 +27,7 @@
     gap: 8px;
   }
   .link-container {
-    width: 50%;
+    //width: 30%;
     display: flex;
     justify-content: flex-end; // 부모 컨테이너를 오른쪽 정렬
 
@@ -58,8 +58,15 @@
 
     .pet-info-content{
       display: flex;
+      justify-content: space-between;
       .detail-pet-info{
-        width: 50%;
+        h2 {
+          max-width: 200px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+        //width: 50%;
       }
     }
   }

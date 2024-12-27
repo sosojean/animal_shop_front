@@ -67,8 +67,11 @@ const InputImage = ({imageUploadPath, setImage,image,objName}) =>{
                             <div>
                                 <label className="input-file-button" htmlFor="input-file">
                                     <img className="review-image" src={animalPlaceholder} alt=""/>
+                                    <span className="img-comment">
                                     반려동물의 대표 사진을 등록하세요!
+                                    </span>
                                 </label>
+
                                 <input key={fileKey} id="input-file" className={"input-file"} onChange={(e) => ImgUploadHandler(e)} type="file"
                                        accept="image/*"/>
                             </div>

@@ -5,6 +5,8 @@ import InputField from "../../common/InputField";
 import Selector from "../../common/Selector";
 import {weightOptions,catBreedOptions,dogBreedOptions,ageOptions} from "../../../utils/petOptions";
 import InputImage from "../../common/InputImage";
+import "../../../assets/styles/member/petInfoEdit.scss"
+import Title from "../../common/Title";
 
 
 const PetInfoEdit = () => {
@@ -52,7 +54,9 @@ const PetInfoEdit = () => {
 
 // 이름 중성화 여부 나이 몸무게 동물 등록 번호 프로필 사진
     return (
-        <div>
+        <>
+            <Title>반려동물 정보 수정</Title>
+        <div className={"pet-info-edit"}>
             {/*<img src={url} alt=""/>*/}
 
             <InputImage imageUploadPath={"pet-image-upload"} objName="profileImageUrl" setImage={applyPetInfo}
@@ -62,17 +66,25 @@ const PetInfoEdit = () => {
             <InputField name={"name"} title={"이름"}
                         input={petInfo.name} setInput={applyPetInfo}/>
 
+            <InputField name={"description"} title={"설명"}
+                        input={petInfo.description} setInput={applyPetInfo}/>
+
             <Selector selectedValue={petInfo.weight} optionItems={weightOptions} name={"weight"}
                       handleSelectChange={applyPetInfo}/>
 
             <Selector selectedValue={petInfo.age} optionItems={ageOptions} name={"age"}
                       handleSelectChange={applyPetInfo}/>
 
-            <input checked={petInfo.isNeutered} onChange={(e)=>{ applyPetInfo("isNeutered",e.target.checked)} } type="checkbox"/>
-
+            <div>
+                <label htmlFor="isNeutered">
+                    <span>중성화 여부</span>
+                    <input id={"isNeutered"} checked={petInfo.isNeutered} onChange={(e)=>{ applyPetInfo("isNeutered",e.target.checked)} } type="checkbox"/>
+                </label>
+            </div>
             <button onClick={editConfirmHandler}>수정 완료</button>
 
         </div>
+        </>
     );
 };
 
