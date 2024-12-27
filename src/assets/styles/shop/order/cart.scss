@@ -145,8 +145,21 @@
 
   .cart-price-box {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    gap: 10px;
+
+    .discount {
+      color: #d65032;
+    }
+
+    .total-price-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+        .total {
+        font-size: 1.2rem;
+      }
+    }
+
   }
 
   .order-btn-container {

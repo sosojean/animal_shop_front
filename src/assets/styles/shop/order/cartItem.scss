@@ -11,6 +11,18 @@
                 font-weight: bold;
             }
         }
+
+        .item-price-box {
+            display: flex;
+            flex-direction: column;
+
+            .origin {
+                color: var(--alpha-20);
+                text-decoration: line-through;
+                font-size: 1rem;
+                margin-bottom: 3px;
+            }
+        }
     }
 
 }

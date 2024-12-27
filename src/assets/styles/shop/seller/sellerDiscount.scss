@@ -125,5 +125,18 @@
             }
         }
     }
+
+    .register-button {
+        display: flex;
+        justify-content: space-between;
+
+        .close-button {
+            background-color: var(--alpha-10);
+
+            &:hover {
+                color: black;
+            }
+        }
+    }
     
 }

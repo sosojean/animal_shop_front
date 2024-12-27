@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 const SellerDiscount = (props) => {
 
-    const {data, getRefreshData} = props;
+    const {data, getRefreshData, modalOpen, setModalOpen} = props;
     
     const [discountedItem, setDiscountedItem] = useState([]);
     const [isDataFetched, setIsDataFetched] = useState(false);
@@ -238,9 +238,13 @@ const SellerDiscount = (props) => {
 
             </div>
             <div className="register-button">
+
                 <DefaultButton onClick={() => {
                     handleApplyDiscount();
                 }}>등록</DefaultButton>
+                <DefaultButton className={"default-button close-button"} onClick={() => {setModalOpen(false)}}>
+                    닫기
+                </DefaultButton>
             </div>        
         </div>
     )

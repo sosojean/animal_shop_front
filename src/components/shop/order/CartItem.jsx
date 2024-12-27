@@ -141,8 +141,14 @@ const cartItem = (props) => {
                 주문수정
               </button>
             </div>
-            <div>
-              <p>{(props.data.option_price * props.data.count).toLocaleString()}원</p>
+            <div className="item-price-box">
+              <p className={props.data.discount_rate > 0 ? "origin" : ""}>
+                {(props.data.option_price * props.data.count).toLocaleString()}원</p>
+              {props.data.discount_rate > 0 &&
+                <p className="discount">
+                  {Math.round(props.data.option_price * props.data.count * (1-props.data.discount_rate/100)).toLocaleString()}원
+                </p>
+              }
             </div>
           </div>
         </div>

@@ -7,11 +7,14 @@ import instance from "../../../utils/axios";
 import { toast } from "react-toastify";
 import DefaultButton from "../../../components/common/DefaultButton";
 import Title from "../../../components/common/Title";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMinus, faEquals } from "@fortawesome/free-solid-svg-icons";
 
 const Cart = (props) => {
     const [dataList, setDataList] = useState([]);
     const [isSession, setIsSession] = useState(false);
-    const [selectedItems, setSelectedItems] = useState({}); 
+    const [selectedItems, setSelectedItems] = useState({});
+    console.log("selectedItems", selectedItems); 
     const [orderItems, setOrderItems] = useState([]);
 
     const [modalOpen, setModalOpen] = useState(false);
@@ -19,7 +22,6 @@ const Cart = (props) => {
 
     const [dataUpdate, setDataUpdate] = useState(false); // 페이지 업데이트 상태관리
     const postData = { cartDetailDTOList: dataList }; // 수정, 전체 구매 데이터
-    console.log("postData", postData);
     const accessToken = localStorage.getItem("accessToken"); // 없으면 null
     const navigate = useNavigate();
 
@@ -37,6 +39,18 @@ const Cart = (props) => {
             }
             return totalPrice;
         }, 0) : 0;
+    
+    const discountPrice = selectedItems ? 
+        Object.keys(selectedItems)
+        .filter(key => selectedItems[key])
+        .reduce((totalPrice, key) => {
+            // const id = Number(key);
+            const data = dataList.find(data => String(data.cartItemId) === key);
+            if (data) {
+                totalPrice += Math.round(data.option_price * data.count * (1-data.discount_rate/100))
+            }
+            return totalPrice;
+        }, 0) : 0;    
 
     // Get 통신
     const handleGetCartList = () => {
@@ -85,12 +99,18 @@ const Cart = (props) => {
         const dataToOrder = idsToOrder.map(id => dataList.find(data => data.cartItemId === id));
         console.log("dataToOrder", dataToOrder);
 
+        // discount_rate가 0이면 곱하면 안됨 예외처리 필요
+        // const test = dataToOrder.forEach(v => v.option_price = Math.round(v.option_price * v.discount_rate))
+        // console.log("dataToOrder", test);
+
         const postData = {
             cartDetailDTOList: dataToOrder
         };
 
         const purchaseData = postData;
         const isCart = true;
+
+        console.log("purchaseData", purchaseData);
         navigate("/order/delivery", {
             state: {
               cart: { type: 'cart', items: purchaseData },
@@ -157,7 +177,7 @@ const Cart = (props) => {
                 } catch (error) {
                     // 삭제 실패 시
                     console.error('삭제 에러 발생:', error);
-                    alert('상품 삭제에 실패했습니다.');
+                    // alert('상품 삭제에 실패했습니다.');
                 }
             })
 
@@ -219,7 +239,12 @@ const Cart = (props) => {
               <Card className="default-card cart-price-container">
                 <div className="cart-price-box">
                     <p><b>선택 금액</b> {selectPrice.toLocaleString()}원</p>
-                    <p><b>전체 금액</b> {totalPrice.toLocaleString()}원</p>
+                    <p><FontAwesomeIcon icon={faMinus} /></p>
+                    <p className="discount"><b>할인</b> {(selectPrice-discountPrice).toLocaleString()}원</p>
+                    <p><FontAwesomeIcon icon={faEquals} /></p>
+                    <div className="total-price-box">
+                        <p className="total"><b>결제 금액</b> {discountPrice.toLocaleString()}원</p>    
+                    </div>
                 </div>
                 <div className="order-btn-container">
                     {accessToken !== null ?
