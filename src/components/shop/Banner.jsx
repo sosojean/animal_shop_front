@@ -53,8 +53,8 @@ const Banner = ({ isDog }) => {
 
     const handleClick = () => {
         const links = isDog
-            ? ["/dog/1", "/dog/2", "/dog/3", "/dog/4", "/common/1", "/common/2", "/common/3", "/common/4"]
-            : ["/cat/1", "/cat/2", "/cat/3", "/cat/4", "/common/1", "/common/2", "/common/3", "/common/4"];
+            ? ["/wiki", "/shop/list/treats/homemade_treats", "/shop/list/supplies/toys", "/shop/list/supplies/clothing-accessories", "/", "/adoption", "/adoption", "/"]
+            : ["/wiki", "/shop/list/supplies/fishing_rods-lasers", "/shop/list/treats/homemade_treats", "/wiki", "/", "/adoption", "/adoption", "/"];
         navigate(links[currentIndex] || "/");
     };
 
