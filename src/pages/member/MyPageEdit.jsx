@@ -201,15 +201,23 @@ const MyPageEdit = (props) => {
             <div className="box">
                 {/*<FontAwesomeIcon className={"icon"} icon={faUserPen}/>*/}
 
-                {imgUrl ? <img
-                    src={imgUrl.includes("http://k.kakaocdn.net")?imgUrl:
-                    process.env.REACT_APP_IMG_PRINT + imgUrl}
-                    alt=""/>: <>
+                {imgUrl ? <>
+                    <label className="edit-profile" htmlFor="profile">
+                        <img
+                        src={imgUrl.includes("http://k.kakaocdn.net") ? imgUrl :
+                            process.env.REACT_APP_IMG_PRINT + imgUrl}
+                        alt=""/>
+                    </label>
+                    <input onChange={imageUploadHandler} accept="image/*"
+                           id="profile" type="file"
+                           style={{display: "none"}}/>
+                </> : <>
                     <label className="edit-profile-image" htmlFor="profile">
                         <FontAwesomeIcon className={"icon"} icon={faUser}/>
                         <FontAwesomeIcon icon={faPen}/>
                     </label>
-                    <input onChange={imageUploadHandler} accept="image/*" id="profile" type="file"
+                    <input onChange={imageUploadHandler} accept="image/*"
+                           id="profile" type="file"
                            style={{display: "none"}}/>
 
                 </>
