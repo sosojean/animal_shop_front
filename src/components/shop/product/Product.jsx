@@ -3,6 +3,7 @@ import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
 import instance from "../../../utils/axios";
 import DefaultButton from "../../common/DefaultButton";
+import { toast } from "react-toastify";
 
 const Product = (props) => {
 
@@ -112,7 +113,7 @@ const Product = (props) => {
         }
 
         handlePostCart(item);
-        alert("장바구니에 담았습니다!");
+        toast.success("장바구니에 담았습니다!");
     }
 
     return(
