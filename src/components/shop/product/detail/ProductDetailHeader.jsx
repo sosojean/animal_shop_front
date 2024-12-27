@@ -9,6 +9,8 @@ import { dogItemCategory } from "../../../../utils/categoryOption";
 import {toast} from "react-toastify";
 import DefaultButton from "../../../common/DefaultButton";
 import CartButton from "./CartButton";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faAngleRight} from "@fortawesome/free-solid-svg-icons";
 
 
 const ProductDetailHeader = ({data}) => {
@@ -39,10 +41,6 @@ const ProductDetailHeader = ({data}) => {
     useEffect(() => {
         handleSelectChange("","0")
     },[])
-
-    useEffect(() => {
-        console.log("option",option)
-    },[option])
 
 
     //선택옵션 추가핸들러
@@ -211,7 +209,7 @@ const ProductDetailHeader = ({data}) => {
 
                 <div className="detail-category-container">
                     <span>{data.species === "dog" ? "강아지" : "고양이"}</span>
-                    <span> > </span>
+                    <span><FontAwesomeIcon icon={faAngleRight}/> </span>
                     <span>{convertCategory(data.category)}</span>
 
                 </div>
