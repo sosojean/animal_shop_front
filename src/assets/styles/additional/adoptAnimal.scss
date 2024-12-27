@@ -36,6 +36,8 @@
 
     border: 2px solid rgb(133, 179, 128);
     border-radius: 10px;
+
+    cursor:pointer;
 }
 
 .filter-container {
@@ -275,16 +277,16 @@
         margin-left: 10px;
         display: flex;
         border: 2px solid var(--point-background-color-80);
-
+        
         li {
             border-left: 2px solid var(--point-background-color-80);
             padding: 10px 20px 10px 20px;
             text-align: center;
             background-color: var(--point-background-color-20);
 
-            
             display: flex;
             gap: 5px;
+            cursor: pointer;
         }
 
         li:first-child {

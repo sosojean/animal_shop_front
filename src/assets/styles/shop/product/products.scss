@@ -17,10 +17,13 @@
   place-items: center;
   justify-content: center;
 
+  margin: 0.5rem 0 3rem 0;
+
 
   .product{
   width: 250px;
   height: 400px;
+
   img{
     width: 250px;
     height: 250px;
@@ -33,7 +36,6 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-
 
     .brand{
       font-size: 0.8rem;

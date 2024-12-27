@@ -52,7 +52,7 @@ const NutrientCalculator = () => {
                     <NutrientResult petData={petData} nutrientData={nutrientData}/>
                 }  
             </div>
-            {showResult && 
+            {(showResult && goods.length > 0)  && 
                 <Card className="calc-goods">
                     <h3>상품 추천</h3>
                     <CalcGoods goods={goods}/>

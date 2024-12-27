@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const SellerItem = (props) => {
     
-    const { item ,navigateUrl,getItemList, currentPage, getRefreshData, pageType} = props
+    const { item ,navigateUrl, getItemList, currentPage, getRefreshData, pageType} = props
     
     const [modalOpen, setModalOpen] = useState(false);
     const [suspendOpen, setSuspendOpen] = useState(false);
@@ -81,7 +81,9 @@ const SellerItem = (props) => {
                         <DefaultButton>수정</DefaultButton>
                     </div>
                 </Link>
-                <ItemDelButton itemId={item.id} url={navigateUrl} getItemList={() => getItemList(currentPage)}/>
+                <ItemDelButton itemId={item.id} url={navigateUrl} getItemList={() => getItemList(currentPage)}
+                    getRefreshData={getRefreshData}    
+                />
             </li>
 
             <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
