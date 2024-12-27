@@ -253,8 +253,8 @@ const ProductDetailHeader = ({data}) => {
                     {stocks[0] ? <span className="price">총 상품 금액 {priceCalculator()} 원</span>:<span></span>}
 
                     <div className={"buttons-container row"}>
-                    <CartButton data={data} session={session} stocks={stocks}/>
-                    <DefaultButton className={"primary long"} onClick={purchaseHandler}>구매하기</DefaultButton>
+                        <CartButton data={data} session={session} stocks={stocks}/>
+                        <DefaultButton className={"primary long"} onClick={purchaseHandler}>구매하기</DefaultButton>
                     </div>
                 </div>
             </div>

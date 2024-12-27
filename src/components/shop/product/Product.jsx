@@ -147,8 +147,10 @@ const Product = (props) => {
                       <hr className="vertical"/>
                       <span className="count">{props.data?.count}</span>
                   </div>
-
-                  <span className="star"><FontAwesomeIcon icon={faStar}/>{props.data?.rating}</span>
+                  <div className="star-box">
+                    <span className="star"><FontAwesomeIcon icon={faStar}/>{props.data?.rating}</span>  
+                  </div>
+                  
               </div>
               </Link>
               {props.position==="product" && (
