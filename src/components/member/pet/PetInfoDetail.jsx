@@ -40,11 +40,11 @@ const PetInfoDetail = (props) => {
 
             {item ? <>
                     <img className={"pet-profile"} src={url} alt=""/>
-                    <p>
+                    <h2>
                         <FontAwesomeIcon icon={faQuoteLeft}/>
-                        산책을 좋아해요
+                        {item.description}
                         <FontAwesomeIcon icon={faQuoteRight}/>
-                    </p>
+                    </h2>
                     <Card className="default-card detail-info-text">
 
                         <div className={"row pet-info-content"}>
@@ -64,17 +64,22 @@ const PetInfoDetail = (props) => {
                                     <span>우리아이 특성 알아보기<FontAwesomeIcon icon={faAngleRight}/></span>
 
                                     <Link to={`/wiki/${item.wikiId}`}>
-                                    <span>{item.breed}</span>
+                                        {/*<span>{item.breed}</span>*/}
+                                        <span> 우리아이 동물백과</span>
 
-                                </Link>
-                                <Link to={`/wiki/${item.wikiId}`}>
-                                    <span>{item.breed}</span>
 
-                                </Link>
-                                <Link to={`/wiki/${item.wikiId}`}>
-                                    <span>{item.breed}</span>
+                                    </Link>
+                                    <Link to={`/calculator/age`}>
+                                        {/*<span>{item.breed}</span>*/}
+                                        <span> 나이 계산기</span>
 
-                                </Link>
+                                    </Link>
+                                    <Link to={`/calculator/calorie`}>
+                                        {/*<span>{item.breed}</span>*/}
+                                        <span>칼로리 계산기</span>
+
+
+                                    </Link>
                                 </div>
                             </div>
                         </div>
