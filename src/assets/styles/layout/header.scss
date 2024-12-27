@@ -1,57 +1,86 @@
 $logo-suit-margin: 1.6rem;
 
-
 .headerContainer {
   position: sticky; /* 상단에 고정되도록 설정 */
   top: 0; /* 화면 상단에 붙이기 */
   z-index: 1000; /* 다른 요소 위에 위치하도록 설정 */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* 그림자 추가 */
-
-
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(100px);
-  color: var(--point-color);
+  height: 76px;
   display: flex;
   justify-content: center;
-  height: 76px;
   align-items: center;
   border-bottom: 1px solid var(--alpha-10);
 
-  .headerContentsContainer {
-    //background-color: var(--alpha-5);
-    color: var(--point-color);
+  &.admin-seller-styles {
+    background-color: var(--point-color);
+    color: var(--header-font-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
 
+  &.user-styles {
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(100px);
+    color: var(--point-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+    .headerContentsContainer {
+      h1 {
+        color: var(--point-color);
+      }
+
+      li {
+        color: var(--point-color);
+      }
+    }
+
+    .headerLnCContainer {
+      .logo {
+        color: var(--point-color);
+      }
+    }
+
+    .headerRegisterContainer {
+      a {
+        color: var(--point-color);
+      }
+
+      .logout {
+        color: var(--point-color);
+      }
+
+      p, link {
+        color: var(--point-color);
+      }
+    }
+  }
+
+  .headerContentsContainer {
+    //background-color: var(--point-color);
+    color: var(--header-font-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: var(--site-width);
 
     h1 {
-      color: var(--point-color);
-
+      color: var(--header-font-color);
       font-size: 1.5rem;
       font-weight: bold;
     }
 
     li {
-      color: var(--point-color);
-
+      color: var(--header-font-color);
       &:hover {
         text-decoration: underline;
       }
     }
   }
 
-
-
   .headerLnCContainer {
     display: flex;
-    .logo{
-      color: var(--point-color);
+    .logo {
+      color: var(--header-font-color);
     }
-
-
   }
 
   .headerCatecoryContainer {
@@ -59,7 +88,6 @@ $logo-suit-margin: 1.6rem;
     padding-left: 1rem;
     gap: var(--banner-gap);
     align-items: center;
-    //margin-top: $logo-suit-margin;
   }
 
   .headerRegisterContainer {
@@ -70,30 +98,26 @@ $logo-suit-margin: 1.6rem;
 
     a {
       font-size: 1.3rem;
-      color: var(--point-color);
-      //background: var(--point-color);
+      color: var(--header-font-color);
+      background: var(--point-shadow-color);
       width: 2.5rem;
       height: 2.5rem;
-      border-radius: 20px/20px;
+      border-radius: 50%;
       align-items: center;
       justify-content: center;
       display: flex;
-      .profile-image{
+      .profile-image {
         width: 100%;
-        border-radius: 50px;
+        border-radius: 50%;
       }
-
     }
 
-    //margin-top: 1rem;
     .logout {
       color: black;
       font-size: 0.9rem;
-
       padding: 0;
       border: none;
       background: none;
-
       width: 100px;
       height: 2.5rem;
       border-radius: 20px/20px;
@@ -102,15 +126,11 @@ $logo-suit-margin: 1.6rem;
       display: flex;
       background: var(--body-background-color-30);
       gap: 4px;
-
     }
 
     p, link {
-      color: var(--point-color);
-      //padding: 1rem;
+      background-color: #cdecee1a;
       border-radius: 20px;
-      //margin-bottom: 0.8rem;
-
     }
   }
 }

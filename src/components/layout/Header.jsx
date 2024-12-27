@@ -67,8 +67,8 @@ const Header = (props) => {
     }
 
     return (<>
-            <div className="headerContainer" onMouseLeave={leaveHeader}>
-                <div className="headerContainer">
+            <div className="headerContainer user-styles " onMouseLeave={leaveHeader}>
+                <div className="header-inner-Container">
                     <div className="headerContentsContainer">
                         <div className="headerLnCContainer">
                             <Link to="/"><h1 className="logo" onMouseEnter={leaveHeader}>ANIMALPING</h1></Link>
