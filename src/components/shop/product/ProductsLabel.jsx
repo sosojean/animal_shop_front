@@ -10,7 +10,7 @@ const ProductsLabel = (props) => {
         <div>
             <span className="title">{props.name}</span>
             {props.isCustom&&
-                <PetSelector />}
+                <PetSelector isEdit={props.isEdit} setIsEdit={props.setIsEdit} />}
         </div>
        {props?.url&&
         <Link to={props.url} ><span>더보기 <FontAwesomeIcon icon={faAngleRight}/> </span></Link>}

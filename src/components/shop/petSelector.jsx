@@ -4,7 +4,7 @@ import instance from "../../utils/axios";
 import PetSelectButton from "./petSelectButton";
 import "../../assets/styles/shop/petSelector.scss"
 
-const PetSelector = ()=> {
+const PetSelector = ({isEdit, setIsEdit})=> {
 
   const [data, setData] = useState([]);
   const [isEdited, setIsEdited] = useState(false)
@@ -18,6 +18,7 @@ const PetSelector = ()=> {
       }).then(res => {
         console.log(res);
         setData(res.data.petProfileList);
+        setIsEdit(!isEdit);
       })
     }
   }, [isEdited]);

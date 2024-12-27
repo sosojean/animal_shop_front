@@ -13,8 +13,8 @@ const AllProduct = (props) => {
 
     const {category,detail} = useParams();
     const [data, setData] = useState()
-    const [selectedItem, setSelectedItem] = useState(null);
-    const [selectedDetailItem, setSelectedDetailItem] = useState(null);
+    const [selectedItem, setSelectedItem] = useState(category||null);
+    const [selectedDetailItem, setSelectedDetailItem] = useState(detail||null);
 
     const navigate = useNavigate();
 

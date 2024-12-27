@@ -8,15 +8,22 @@ import PetSelector from "../../components/shop/petSelector";
 import CategorySelector from "../../components/shop/CategorySelector";
 import SearchBar from "../../components/map/SearchBar";
 import ProductSearchBar from "../../components/shop/product/ProductSearchBar";
+import category from "../board/Category";
 
 const ShopMain = ({isDog, setIsDog}) => {
 
-    const [data, setData] = useState()
+    const [data, setData] = useState({
+        "animal_custom": [],
+        "animal_new": [],
+        "animal_hot": [],
+    });
+
+    const [isEdit, setIsEdit] = useState(false)
+    const [customUrl, setCustomUrl] = useState("")
 
     const selectedSpeceis = isDog ? "강아지" : "고양이";
     const selectedIcon = isDog ? "🐕" : "🐈"
 
-    // const [isDog, setIsDog] = useState(true)
 
     const token  = localStorage.getItem("accessToken");
 
@@ -45,7 +52,20 @@ const ShopMain = ({isDog, setIsDog}) => {
         }).catch(error => {
             console.log(error);
         })
-    },[isDog])
+    },[isDog,isEdit])
+
+
+    useEffect(() => {
+        const category = data?.["animal_custom"]?.[0]?.["category"];
+        const detailedCategory = data?.["animal_custom"]?.[0]?.["detailed_category"];
+
+        if (category && detailedCategory) {
+            setCustomUrl(`/shop/list/${category}/${detailedCategory}`);
+        }
+    }, [data]);
+
+
+
 
     return(
         <>
@@ -59,9 +79,10 @@ const ShopMain = ({isDog, setIsDog}) => {
                                data={data["animal_hot"]} url={"/shop/best"}/>}
 
             {data && <Products name={"✨ 맞춤"} data={data["animal_custom"]}
-                               url={"/shop/all"} isCustom={true}
+                               url={customUrl} isCustom={true}
+                               setIsEdit={setIsEdit} isEdit={isEdit}/>}
 
-            />}
+
 
 
         </>
