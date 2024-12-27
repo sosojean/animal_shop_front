@@ -21,8 +21,8 @@ const BoardList = (props) => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [data, setData] = useState();
-    // const [total, setData] = useState();
 
+    const token = localStorage.getItem('accessToken') || null;
 
     let url = `${process.env.REACT_APP_API}/post/${categoryValue}?page=${currentPage}`;
 
@@ -70,7 +70,7 @@ const BoardList = (props) => {
                     <BoardItem key={data.id} data={data}/>
                 );
             })}
-            {props.isAuth ? <WriteButton/> : null}
+            {(props.isAuth || token) ? <WriteButton/> : null}
             {data.totalCount == 0 && <Information case = "dataNan"/>}
             {data && data.totalCount >= 10 && <Pagination
                 totalPost={data.totalCount}
