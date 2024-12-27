@@ -139,8 +139,8 @@ const ReviewEditor = ({item, setReviewWriting,  isEdit}) => {
                     <button type="reset" className="submit-button" onClick={()=>setReviewWriting(false)}>취소</button>
 
                     {isEdit ?
-                        <button className="submit-button">등록</button>:
-                        <button className="submit-button">수정</button>}
+                        <button className="submit-button">수정</button>:
+                        <button className="submit-button">등록</button>}
                     </div>
                 </div>
             </form>
