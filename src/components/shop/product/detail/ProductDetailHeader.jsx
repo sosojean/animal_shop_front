@@ -37,8 +37,13 @@ const ProductDetailHeader = ({data}) => {
     console.log("data", data);
 
     useEffect(() => {
-        console.log(xy)
-    },[xy])
+        handleSelectChange("","0")
+    },[])
+
+    useEffect(() => {
+        console.log("option",option)
+    },[option])
+
 
     //선택옵션 추가핸들러
     const handleSelectChange = (_,val) => {
@@ -155,13 +160,18 @@ const ProductDetailHeader = ({data}) => {
         const accessToken = localStorage.getItem('accessToken');
         console.log("token", accessToken);
 
-        if (accessToken) {
+        if (option.length === 0) {
+            // navigate("/login");
+            toast.warn("옵션을 하나 이상 선택 해 주세요!");
+            return
+        }else if (accessToken) {
             const purchaseData = dataBuilder();
-            navigate("/order/delivery", {state : {purchaseData : purchaseData , itemId:data.id}});      
-        } else {
+            navigate("/order/delivery", {state : {purchaseData : purchaseData , itemId:data.id}});
+        }else if (!accessToken) {
             navigate("/login");
             toast.warn("구매는 로그인이 필요합니다.");
         }
+
     }
 
     const trimOptionText = (option, priceTrimmer)=>{
