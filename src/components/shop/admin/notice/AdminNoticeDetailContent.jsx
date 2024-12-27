@@ -18,6 +18,10 @@ const AdminNoticeDetailContent = ({isSeller}) => {
     const navigate = useNavigate()
     const [fileName, setFileName] = useState(null)
 
+    useEffect(() => {
+        console.log(fileName)
+    }, [fileName]);
+
     const extensionToMimeType = {
         jpg: "image/jpeg",
         jpeg: "image/jpeg",
@@ -40,8 +44,14 @@ const AdminNoticeDetailContent = ({isSeller}) => {
             console.log(res);
             setData(res.data["noticesDTOList"][0])
             console.log(res.data["noticesDTOList"][0]["attachmentUrl"]);
-            const fileName
-                = res.data["noticesDTOList"][0]["attachmentUrl"].split("_")[2] || "";
+            const fileName = (() => {
+                const attachmentUrl = res.data?.noticesDTOList?.[0]?.attachmentUrl;
+                if (attachmentUrl) {
+                    const parts = attachmentUrl.split("_");
+                    return parts[2] || ""; // split 결과에서 2번째 요소를 반환하거나 빈 문자열
+                }
+                return ""; // attachmentUrl이 없으면 빈 문자열
+            })();
             setFileName(fileName)
         }).catch((error) => {
             console.log(error);
@@ -139,9 +149,17 @@ const AdminNoticeDetailContent = ({isSeller}) => {
                         </div>
 
                         <hr/>
-                        {fileName==""? "":<div className="row file-download"><label className="download" htmlFor="download">첨부파일 다운로드 {fileName}</label>
-                            <button id="download" name="download"  onClick={fileDownloadHandler}><FontAwesomeIcon icon={faFloppyDisk} /></button>
-                        </div>
+
+                        {(fileName===""||null)
+                            ?"":
+
+
+                            <div className="row file-download">
+                                <label className="download" htmlFor="download">첨부파일 다운로드 {fileName}</label>
+                                <button id="download" name="download"  onClick={fileDownloadHandler}>
+                                    <FontAwesomeIcon icon={faFloppyDisk}/>
+                                </button>
+                            </div>
                         }
 
                         <div className="view-content">

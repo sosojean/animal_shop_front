@@ -3,6 +3,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import WriteEditor from "../../../components/board/WriteEditor";
 import instance from "../../../utils/axios";
 import AdminMenu from "../../../components/shop/admin/AdminMenu";
+import {toast} from "react-toastify";
 
 
 function AdminNoticeWrite(props) {
@@ -23,7 +24,15 @@ function AdminNoticeWrite(props) {
             setIsEdit(true);
             setTitle(state.title);
             setIsNotImportant(state.priority === 0);
-            const fileName = state.attachmentUrl.split("_")[2] || "download";
+            // const fileName = state.attachmentUrl.split("_")[2] || "download";
+
+            const fileName = (() => {
+                if (state.attachmentUrl) {
+                    const parts = state.attachmentUrl.split("_");
+                    return parts[2] || ""; // split 결과에서 2번째 요소를 반환하거나 빈 문자열
+                }
+                return ""; // attachmentUrl이 없으면 빈 문자열
+            })();
             setFileName(fileName)
 
             console.log(state)
@@ -57,15 +66,16 @@ function AdminNoticeWrite(props) {
             formData.append('file', new Blob([file], {type: 'multipart/form-data'}),file.name);
         }
 
-        // for (const value of formData.values()) {
-        //     console.log("formdata",value);
-        // };
+
         instance({
             url: url,
             method: method,
             data: formData,
         }).then((response) => {
             console.log(response)
+            toast.success("공지가 등록되었습니다.")
+            navigate("/admin/notice")
+
         }).catch((error) => {
             console.log(error);
         })
