@@ -17,13 +17,13 @@ const Category = ({menuName}) => {
                                 <span className={"description"}> 반려동물용품이 다 모여있어요.</span>
                             </li>
                             <Link to="/shop/list/food">
-                                <li>📍 사료</li>
+                                <li>🍖 사료</li>
                             </Link>
                             <Link to="/shop/list/treats">
-                                <li>🏠 간식</li>
+                                <li>🍪 간식</li>
                             </Link>
                             <Link to="/shop/list/supplies">
-                                <li>📖 용품</li>
+                                <li>🐾 용품</li>
                             </Link>
                             {/*<Link to="/calculator/age">*/}
                             {/*    <li>🩺 건강 계산기</li>*/}
