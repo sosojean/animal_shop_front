@@ -22,15 +22,10 @@
 }
 
 .itemRegContainer {
-    h1 {
-        margin: 2rem 0 2rem 0;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid black;
-    }
-
     .RegNameContainer {
         display: flex;
         gap: 1rem;
+        margin-top: 2rem;
 
         p {
             padding-top: 8px;

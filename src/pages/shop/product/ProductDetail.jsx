@@ -17,6 +17,13 @@ const ProductDetail = () => {
 
     const targetRef = useRef(null);
 
+    function updateOptionName(data) {
+        if (data.options && data.options.length === 1) {
+            data.options[0].name = "단일옵션";
+        }
+        return data;
+    }
+
     useEffect(() => {
         axios({
             url:`${process.env.REACT_APP_API}/item/detail/${itemId}`,
@@ -24,7 +31,7 @@ const ProductDetail = () => {
 
         }).then(
             res => {
-                setData(res.data);
+                setData(updateOptionName(res.data));
                 console.log("ProductDetail", res.data);
             }
         )

@@ -108,7 +108,7 @@ const SellerItemEditor = () => {
 
     return (
         <div className='itemRegContainer'>
-            <Title>{itemId ? '상품 수정' : '상품 등록'}</Title>
+            <Title className={"default title"}>{itemId ? '상품 수정' : '상품 등록'}</Title>
 
             <SellerNameRegister itemName={itemName} setItemName={setItemName} nameCount={nameCount} setNameCount={setNameCount}/>
             <SellerItemStock itemStock={itemStock} setItemStock={setItemStock}/>

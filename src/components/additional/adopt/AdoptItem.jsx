@@ -33,17 +33,23 @@ const AdoptItem = (props) => {
     }
 
     const handleAddInterest = () => {
-        instance({
-            url: `/abandoned_animal/register?desertionNo=${data.desertion_no}`,
-            method: "get",
-        }).then((res) => {
-            // console.log("handleAddInterest response", res.data);
-            toast.success("관심동물에 등록됐습니다!");
-        })
-        .catch((err) => {
-            console.error("handleAddInterest error", err);
-            toast.error("이미 등록된 아이예요!")
-        })
+        const token = localStorage.getItem('accessToken') || null;
+
+        if(token){
+            instance({
+                url: `/abandoned_animal/register?desertionNo=${data.desertion_no}`,
+                method: "get",
+            }).then((res) => {
+                // console.log("handleAddInterest response", res.data);
+                toast.success("관심동물에 등록됐습니다!");
+            })
+            .catch((err) => {
+                console.error("handleAddInterest error", err);
+                toast.error("이미 등록된 아이예요!")
+            })            
+        } else {
+            toast.error("로그인 먼저 해주세요!");
+        }
     }
 
     return (
