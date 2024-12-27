@@ -13,6 +13,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 import parseJwt from "../../utils/parseJwt";
 import ToggleBtn from "../common/ToggleBtn";
+import {toast} from "react-toastify";
 
 const Header = (props) => {
 
@@ -36,7 +37,8 @@ const Header = (props) => {
         }
     })
     const handleLogout = () => {
-        navigate('/');
+        navigate('/login');
+        toast.success("로그아웃되었습니다!")
 
         localStorage.removeItem('accessToken');
         props.setReload(!(props.reload));
