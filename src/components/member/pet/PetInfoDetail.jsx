@@ -65,7 +65,7 @@ const PetInfoDetail = (props) => {
 
                                     <Link to={`/wiki/${item.wikiId}`}>
                                         {/*<span>{item.breed}</span>*/}
-                                        <span> 우리아이 동물백과</span>
+                                        <span>동물백과</span>
 
 
                                     </Link>
