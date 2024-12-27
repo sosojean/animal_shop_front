@@ -18,6 +18,7 @@ import LikedPosts from "./LikedPosts";
 import InterestAnimalList from "./InterestAnimalList";
 import AnimalCommentList from "./AnimalCommentList";
 import instance from "../../../utils/axios";
+import ChattingButton from "../../shop/ChttingButton";
 
 
 const MyPage = () => {
@@ -100,6 +101,7 @@ const MyPage = () => {
             <div className="shop">
                 {selectedSection}
             </div>
+            <ChattingButton/>
         </div>
 
 
