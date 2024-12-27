@@ -1,101 +1,128 @@
-.content-container{
+// ContentsViewer 스타일
+.content-info-container {
 
-  .file-download{
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background-color: var(--default-background-color);
+  border-radius: 8px;
+
+  .info-box {
     display: flex;
-    justify-content: flex-end;
-    .download{
-      cursor: pointer;
-      color: var(--alpha-50);
-      font-size: 0.9rem;
-    }
-    button{
-      color: var(--alpha-50);
-
-      background: none;
-      border: none;
-    }
-  }
-
-  .content-info-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-
+    flex-direction: column;
+    gap: 8px;
 
     .content-info {
-      margin-bottom: 1rem;
-
       h2 {
-        font-size: 1.1rem;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+        color: var(--point-color);
+        margin: 0;
       }
 
       h1 {
-        font-size: 1.8rem;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
+        font-size: 1.6rem;
+        color: var(--default-font-color);
+        margin: 0;
       }
     }
 
     .content-author-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--alpha-50);
 
       .user-name {
-        font-weight: bold;
-        margin-right: 0.5rem;
+        font-weight: 600;
+        color: var(--default-font-color);
       }
-
 
       .hearts {
-        font-weight: bold;
-        margin-right: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-weight: 600;
+        color: var(--point-color);
       }
 
-      .modified-time, .hits {
-        font-size: 0.9rem;
-        color: var(--alpha-30);
-      }
-    }
-
-    .content-modify-button {
-
-
-      button {
-        border: 3px solid transparent;
-
-        padding: 0.3rem;
-
-        background-color: transparent;
-
-        :first-child {
-          margin-right: 0.3rem;
-        }
-
-        .fa-xmark {
-          margin-right: 0.5rem;
-        }
+      .modified-time,
+      .hits {
+        font-size: 0.8rem;
+        color: var(--alpha-40);
       }
     }
-
   }
 
-  .list-button-container{
+  .content-modify-button {
     display: flex;
-    width: 100%;
     justify-content: flex-end;
+    gap: 8px;
+
+    button {
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--reverse-font-color);
+      background: var(--point-background-color);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+
+      &:hover {
+        background: var(--point-background-color-80);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+
+      .fa-xmark {
+        margin-right: 4px;
+      }
+    }
   }
 }
+
 .view-content {
-  margin: 20px;
-  //margin-top: 2rem;
-  //margin-bottom: 2rem;
-  min-height: 150px;
+
+  padding: 16px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--default-font-color);
+  background: var(--layer-background-color);
+  border-radius: 8px;
 }
 
 .heart-button-container {
-  margin: 2rem 0 2rem 0;
   display: flex;
   justify-content: center;
+  padding: 16px 0;
+
+  button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--reverse-font-color);
+    background: var(--point-background-color);
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+
+    &:hover {
+      background: var(--point-background-color-80);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+#download{
+  background: none;
+  border: none;
 }

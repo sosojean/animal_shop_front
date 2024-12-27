@@ -16,7 +16,7 @@ const CopyUrlButton = () => {
     };
 
     return (
-        <div>
+        <>
             <button onClick={handleCopyUrl}>
 
 
@@ -28,7 +28,7 @@ const CopyUrlButton = () => {
                 style={{ position: "absolute", left: "-9999px" }}
                 readOnly
             />
-        </div>
+        </>
     );
 };
 

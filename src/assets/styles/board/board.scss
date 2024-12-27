@@ -1,84 +1,74 @@
 .important{
   background: rgba(255, 207, 0, 0.14);
 }
-.list-container:last-child{
-  border-bottom: none;
 
-}
 .list-container {
-  padding: 5px 10px 5px 10px;
-  border-bottom: solid 1px var(--list-line);
+  padding: 8px 12px; // 더 여유롭게 변경
+  border-bottom: 1px solid var(--alpha-10);
+  transition: background 0.2s ease;
 
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: var(--alpha-5);
+  }
 
   .info {
-    padding: 12px 4px;
-    //background: yellow;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     font-size: 1rem;
-    gap: 8px;
-    font-weight: normal;
-
+    gap: 10px;
 
     .title {
       font-weight: 400;
-
       display: flex;
-      //justify-content: space-between;
-      font-size: 1.2rem;
-      //width: 200px;
-      display: flex;
-      gap: 8px;
       align-items: center;
-
+      gap: 8px;
+      font-size: 1.2rem;
+      color: var(--default-font-color);
 
       .comment-count {
-        font-size: 1rem;
-        padding: 3px;
-        border-radius: 2px/2px;
+        font-size: 0.9rem;
+        padding: 2px 6px;
+        border-radius: 3px;
+        background: var(--point-background-color-10);
         color: var(--point-color);
-
-        * {
-          margin: 1px 2px 1px 2px;
-        }
-
+        display: flex;
+        align-items: center;
+        gap: 4px;
       }
     }
 
     .detail-info {
-      font-weight: normal;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-
+      gap: 6px;
 
       .like-info {
-        align-items: center;
-        font-weight: normal;
-
         display: flex;
+        align-items: center;
         gap: 8px;
         font-size: 0.9rem;
+        color: var(--alpha-50);
 
         .category {
-          font-size: .7rem;
-          padding: 2px;
-
-
-          background: var(--alpha-5);
-          border-radius: 2px/2px;
-          color: var(--alpha-50);
+          font-size: 0.8rem;
+          padding: 3px 6px;
+          background: var(--alpha-10);
+          border-radius: 4px;
+          color: var(--alpha-70);
         }
       }
 
       .author-info {
         display: flex;
-        gap: 8px;
-        font-size: .67rem;
+        gap: 6px;
+        font-size: 0.75rem;
         color: var(--alpha-40);
       }
     }
   }
-
-
 }

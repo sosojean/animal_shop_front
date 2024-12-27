@@ -8,9 +8,11 @@ import {useModifyTime} from '../../utils/useModifyTime.jsx';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFaceGrinTears, faPenToSquare} from "@fortawesome/free-regular-svg-icons";
 import {faHeart, faShare, faXmark} from "@fortawesome/free-solid-svg-icons";
-import "../../assets/styles/board/contentViewer.scss"
 import {categoryTrimmer} from "../../utils/categoryTrimmer";
 import CopyUrlButton from "../common/CopyUrlButton";
+
+import "../../assets/styles/board/contentViewer.scss"
+
 
 const ContentsViewer = ({props}) => {
 
