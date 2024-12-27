@@ -14,6 +14,7 @@ const InterestAnimalList = () => {
     const itemWidth = 300; // 각 아이템의 너비
     const intervalRef = useRef(null); // 자동 이동 타이머 참조
     const [isHovered, setIsHovered] = useState(false); // hover 상태
+    const [update, setUpdate] = useState(false); 
 
     const selectedUrl = "/abandoned_animal/list-interest";
 
@@ -29,7 +30,7 @@ const InterestAnimalList = () => {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [update]);
 
     // 자동 이동 관리
     useEffect(() => {
@@ -92,7 +93,7 @@ const InterestAnimalList = () => {
                                  width: `${itemWidth * data.length}px`
                              }}>
                             {data?.map((item, index) => (
-                                <InterestAnimal key={index} data={item}/>
+                                <InterestAnimal key={index} data={item} update={update} setUpdate={setUpdate}/>
                             ))}
 
                         </div>
