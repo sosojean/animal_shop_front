@@ -4,24 +4,11 @@ import instance from "../../utils/axios";
 import PetSelectButton from "./petSelectButton";
 import "../../assets/styles/shop/petSelector.scss"
 
-const PetSelector = ({isEdit, setIsEdit})=> {
+const PetSelector = ({isEdit, setIsEdit, petData})=> {
 
-  const [data, setData] = useState([]);
-  const [isEdited, setIsEdited] = useState(false)
+  // const [data, setData] = useState([]);
+  // const [isEdited, setIsEdited] = useState(false)
 
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      instance({
-        url:"/pet/list",
-        method:"get",
-      }).then(res => {
-        console.log(res);
-        setData(res.data.petProfileList);
-        setIsEdit(!isEdit);
-      })
-    }
-  }, [isEdited]);
 
 
   return (
@@ -31,8 +18,8 @@ const PetSelector = ({isEdit, setIsEdit})=> {
 
 
           <div className={"row"}>
-          {data&&data.map((item, index) => (
-              <PetSelectButton item={item} key={index} setIsEdited={setIsEdited} isEdited={isEdited}/>
+          {petData&&petData.map((item, index) => (
+              <PetSelectButton item={item} key={index} setIsEdited={setIsEdit} isEdited={isEdit}/>
           ))}
           </div>
         </div>

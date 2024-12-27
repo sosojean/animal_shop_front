@@ -8,8 +8,10 @@ const Products = (props) => {
         <>{props?.name&&<ProductsLabel name={props.name}
                                        url={props.url}
                                        isCustom={props.isCustom}
+                                       petData={props.petData}
                                        isEdit={props.isEdit}
-                                       setIsEdit={props.setIsEdit} />}
+                                       setIsEdit={props.setIsEdit}
+        />}
 
           <div className="products">
               {props.data&&props.data?.map(data=>{

@@ -17,8 +17,10 @@ const ShopMain = ({isDog, setIsDog}) => {
         "animal_new": [],
         "animal_hot": [],
     });
+    const [petData, setPetData] = useState([])
 
     const [isEdit, setIsEdit] = useState(false)
+    const [leaderPetChange, setLeaderPetChange] = useState(false)
     const [customUrl, setCustomUrl] = useState("")
 
     const selectedSpeceis = isDog ? "강아지" : "고양이";
@@ -65,6 +67,17 @@ const ShopMain = ({isDog, setIsDog}) => {
     }, [data]);
 
 
+    useEffect(() => {
+        if (token) {
+            instance({
+                url:"/pet/list",
+                method:"get",
+            }).then(res => {
+                console.log(res);
+                setPetData(res.data.petProfileList);
+            })
+        }
+    }, [isEdit]);
 
 
     return(
@@ -78,8 +91,10 @@ const ShopMain = ({isDog, setIsDog}) => {
             {data && <Products name={`${selectedIcon} 인기 ${selectedSpeceis} 상품`}
                                data={data["animal_hot"]} url={"/shop/best"}/>}
 
-            {data && <Products name={"✨ 맞춤"} data={data["animal_custom"]}
-                               url={customUrl} isCustom={true}
+            {data && <Products name={petData.length>0?"✨ 맞춤":"✨ 오늘의 추천 상품"}
+                               data={data["animal_custom"]}
+                               petData = {petData}
+                               url={customUrl} isCustom={petData.length>0}
                                setIsEdit={setIsEdit} isEdit={isEdit}/>}
 
 
