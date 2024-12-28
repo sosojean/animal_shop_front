@@ -146,7 +146,7 @@ const ProductDetailHeader = ({data}) => {
             let option_item = {
                 count: stock.count,
                 option_name: options[stock.index].name,
-                option_price: (options[stock.index].price *options[stock.index].discount_rate)/100
+                option_price : options[stock.index].price * (1 - options[stock.index].discount_rate / 100)
             };
             option_items.push(option_item);
         })

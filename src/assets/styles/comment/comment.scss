@@ -59,13 +59,20 @@
 
     }
   }
-}
+
+
+    hr{
+      height: 1px;
+
+    }
+
+  }
 
 hr {
   background: var(--alpha-3);
-  height: 1px;
   border: 0;
 }
+
 
 .child {
   //color: #1ea1f1;

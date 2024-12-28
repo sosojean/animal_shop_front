@@ -12,7 +12,7 @@ const ProductDetailNav = ({content , setContent, isFixed}) => {
     return (
         <>
             <ul  className={"productDetailNavContainer" +" "+(isFixed ? "fixed" : "")}>
-                <hr/>
+                {/*<hr/>*/}
                 <li  className={ content == "detail"?"active":""}>
                     <button onClick={scrollCallBack} id="detail">상품 상세</button>
                 </li>
