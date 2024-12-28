@@ -16,8 +16,6 @@ const SearchProduct = () => {
     const keyword = searchParams.get("keyword")
     const [page, setPage] = useState(1)
 
-
-
     useEffect(() => {
         axios({
             url:`${process.env.REACT_APP_API}/item/search`,

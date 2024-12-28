@@ -87,7 +87,8 @@ const SellerItem = (props) => {
             </li>
 
             <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
-                <SellerDiscount data={item} getRefreshData={getRefreshData}/>
+                <SellerDiscount data={item} getRefreshData={getRefreshData} modalOpen={modalOpen}
+                    setModalOpen={setModalOpen}/>
             </Modal>
             <Modal modalOpen={suspendOpen} setModalOpen={setSuspendOpen}>
                 <div style={{backgroundColor:"white", width:"200px", height:"200px"}}>

@@ -224,7 +224,7 @@ const ProductDetailHeader = ({data}) => {
                             <div className="discount-price">
                                 <span className="rate">{data.options[0].discount_rate}%</span>
                                 <span
-                                    className="appliedprice">{(defaultPrice * (1 - (data.options[0].discount_rate / 100))).toLocaleString()} 원</span>
+                                    className="appliedprice">{Math.round((defaultPrice * (1 - (data.options[0].discount_rate / 100)))).toLocaleString()} 원</span>
                             </div>
                         </div> :
                         <div className="origin-price-container">

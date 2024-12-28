@@ -4,8 +4,28 @@ import {Link} from "react-router-dom";
 import DefaultButton from "../../../common/DefaultButton";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinus} from "@fortawesome/free-solid-svg-icons";
+import instance from '../../../../utils/axios';
+import { toast } from "react-toastify";
 
-const InterestAnimal = ({data}) => {
+const InterestAnimal = ({data, update, setUpdate}) => {
+
+    console.log("interestAnimal", data);
+
+    const handleDeleteInterest = () => {
+        instance({
+            url: `/abandoned_animal/delete?animalId=${data.id}`,
+            method: "delete",
+        }).then((res) => {
+            // console.log("handleDeleteInterest response", res.data);
+            toast.success("관심동물 해제됐습니다!");
+            setUpdate(!update);
+        })
+        .catch((err) => {
+            console.error("handleDeleteInterest error", err);
+            toast.error("관심동물 해제 중 오류가 발생했습니다!");
+        })
+    }
+
     return (
         <Card className="adopt-item-Container">
             <Link to={`/adoption/detail/${data.abandoned_animal_id}`} key={data.id}>
@@ -31,8 +51,8 @@ const InterestAnimal = ({data}) => {
                         </div>
                     </div>
                 </Link>
-                <div className="process-container" onClick={() => {}}>
-                    <DefaultButton><FontAwesomeIcon icon={faMinus}/></DefaultButton>
+                <div className="process-container" onClick={() => {handleDeleteInterest()}}>
+                    <DefaultButton ><FontAwesomeIcon icon={faMinus}/></DefaultButton>
                 </div>
             </div>
             <div className="addr-container">
