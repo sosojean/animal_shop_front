@@ -70,7 +70,7 @@ const ContentsViewer = ({props}) => {
             url: `/post/${category}/${post_id}/delete`
 
         }).then(response => {
-            navigate("/post");
+            navigate("/board");
         }).catch(error => console.error(error));
 
     }
