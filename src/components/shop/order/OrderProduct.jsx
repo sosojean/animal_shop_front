@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import "../../../assets/styles/shop/order/orderItem.scss"
 
 
-const OrderProduct = ({url,item, position, applyCheck, subCheck}) => {
+const OrderProduct = ({isDelivery,item, position, applyCheck, subCheck}) => {
     const [reviewWriting, setReviewWriting] = useState(false);
     console.log(item)
 
@@ -19,12 +19,14 @@ const OrderProduct = ({url,item, position, applyCheck, subCheck}) => {
         if (e.target.checked) {
             console.log(item)
             console.log("checked",itemId)
-            applyCheck(itemId)
+
+            isDelivery?applyCheck(item.delivery_item_id):applyCheck(itemId)
+
 
 
         }else if (!e.target.checked){
             console.log("unchecked",itemId)
-            subCheck(itemId)
+            isDelivery?subCheck(item.delivery_item_id):subCheck(itemId)
         }
 
     }
