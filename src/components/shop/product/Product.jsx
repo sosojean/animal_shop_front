@@ -154,7 +154,7 @@ const Product = (props) => {
               </div>
               </Link>
               {props.position==="product" && (
-                  <div>
+                  <div className="cart-button-container">
                       {optionCount > 1 ?
                           <Link to={`${process.env.REACT_APP}/shop/detail/${props.data?.id}`}>
                               <DefaultButton className="cart-button wd100">옵션선택</DefaultButton>
