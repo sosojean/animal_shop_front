@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import Chat from "./Chat";
 import instance from "../../utils/axios";
 import parseJwt from "../../utils/parseJwt";
+import DefaultButton from "../common/DefaultButton";
 
 const ChattingPage = ({ currentUserProfile,setIsConnected,stompClient, selectedRoom, setMessages, messages}) => {
 
@@ -111,11 +112,13 @@ const ChattingPage = ({ currentUserProfile,setIsConnected,stompClient, selectedR
 
             </div>
             <div className="message-input-field">
-                <form action="">
-                    <input className="message-input" type="text" value={currentMessage}
-                           onChange={(e)=>setCurrentMessage(e.target.value)} />
-                    <button onClick={(e)=>sendMessage(e)} className="message-send"></button>
-                </form>
+                {selectedRoom&&<form action="">
+                    <input className="message-input" type="text"
+                           value={currentMessage}
+                           onChange={(e) => setCurrentMessage(e.target.value)}/>
+                    <DefaultButton onClick={(e) => sendMessage(e)}
+                                   className="primary-border message-send"> 전송</DefaultButton>
+                </form>}
             </div>
         </div>
 )
