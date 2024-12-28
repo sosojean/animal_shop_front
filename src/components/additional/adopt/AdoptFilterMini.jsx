@@ -176,7 +176,7 @@ const AdoptFilterMini = (props) => {
                                 <span onClick={() => {
                                     handleDeleteItem(key, item);
                                     getRefreshData();
-                                    }}>{cs} ✖️</span>
+                                    }}>{cs} ✖</span>
                             </DefaultButton>
                         );
                     }
