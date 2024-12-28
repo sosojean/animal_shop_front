@@ -56,7 +56,7 @@ const DeliveryConfirmModal = ({setModalOpen, modalOpen,item, setIsEdited, isEdit
         <Modal setModalOpen={setModalOpen} modalOpen={modalOpen}>
             <div className="delivery-confirm-section">
             {item && item.orderItemDTOList.map((orderItem, index) => {
-                return <OrderProduct key={orderItem["itemNm"] + index} item={orderItem} position={"confirm"}
+                return <OrderProduct isDelivery={true} key={orderItem["itemNm"] + index} item={orderItem} position={"confirm"}
                                      applyCheck={applyCheck} subCheck={subCheck}/>
             })}
                 <div className={"buttons"}>

@@ -20,6 +20,11 @@ const Join = () => {
           <form className={"login-form"} >
 
 
+
+
+            <Link to="/join/email">
+              <button className={"main-button"}>이메일 회원가입</button>
+            </Link>
             {/*<Link to="/join/oAuth">*/}
             <button className={"kakao-signup"}
                     onClick={(e)=>
@@ -33,11 +38,6 @@ const Join = () => {
             >
             </button>
             {/*</Link>*/}
-
-            <Link to="/join/email">
-              <button className={"main-button"}>이메일 회원가입</button>
-            </Link>
-
             <Link to="/login">
               <button >로그인</button>
             </Link>

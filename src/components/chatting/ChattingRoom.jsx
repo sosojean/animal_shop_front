@@ -8,9 +8,11 @@ const ChattingRoom = ({ setCurrentUserProfile,socketConnect,roomInfo, isAdmin, s
     const token = localStorage.getItem("accessToken");
     const modifiedTime = useModifyTime(roomInfo.lastMessageTime)
     const profileImage = isAdmin?roomInfo.buyerProfile:roomInfo.sellerProfile
-    const profileImageSrc = profileImage?
-        `${process.env.REACT_APP_IMG_PRINT}${profileImage}`
-        : "https://placehold.co/50/orange/white"
+    const profileImageSrc = profileImage
+        ? (profileImage.startsWith("http")
+            ? profileImage
+            : `${process.env.REACT_APP_IMG_PRINT}${profileImage}`)
+        : "https://placehold.co/50/orange/white";
 
 
     setCurrentUserProfile(profileImageSrc)

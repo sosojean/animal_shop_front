@@ -89,9 +89,7 @@ const Login = (props) => {
 
                     <button className={"main-button"} onClick={handleLogin}>로그인</button>
 
-                    <Link to="/join">
-                        <button>회원가입</button>
-                    </Link>
+
 
 
 
@@ -102,6 +100,9 @@ const Login = (props) => {
                             backgroundSize: "cover",
                             backgroundPosition: "center"}}>
                     </button>
+                    <Link to="/join">
+                        <button>회원가입</button>
+                    </Link>
 
                     <Link to="/password">
                         <div>

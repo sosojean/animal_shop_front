@@ -101,7 +101,7 @@ const AdoptFilterMini = (props) => {
         <>
         <div className="filter-mini-container">
             <DefaultButton className="primary filter-button" onClick={() => setAllShow(!allShow)}>
-                <span><FontAwesomeIcon icon={faList}/></span><sapn>필터</sapn>
+                <span><FontAwesomeIcon icon={faList}/></span><span>필터</span>
             </DefaultButton>
             {allShow && (
                 <>

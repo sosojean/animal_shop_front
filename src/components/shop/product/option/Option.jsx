@@ -39,7 +39,7 @@ const Option = (props) => {
                 {data.discount_rate > 0 ?
                     <div className="price-container">
                         <span
-                            className="price"> {((props.price * (1 - data.discount_rate / 100)) * stock).toLocaleString() + "원"}</span>
+                            className="price"> {Math.round(((props.price * (1 - data.discount_rate / 100)) * stock)).toLocaleString() + "원"}</span>
                         {/*<span className="discount-rate">{data.discount_rate + "%"}</span>*/}
                         <span className="origin-price"> {(props.price * stock).toLocaleString() + "원"}</span>
                     </div> :

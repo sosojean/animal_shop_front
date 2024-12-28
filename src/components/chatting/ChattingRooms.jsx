@@ -5,6 +5,7 @@ import {Stomp} from "@stomp/stompjs";
 import instance from "../../utils/axios";
 import SockJS from 'sockjs-client';
 import parseJwt from "../../utils/parseJwt";
+import DefaultButton from "../common/DefaultButton";
 
 
 const ChattingRooms = ({ setCurrentUserProfile,isConnected, setIsConnected, stompClient,selectedRoom,setSelectedRoom, messages, setMessages}) => {
@@ -164,7 +165,7 @@ const ChattingRooms = ({ setCurrentUserProfile,isConnected, setIsConnected, stom
         }
 
 
-            {!isAdmin && <button onClick={createChat}>관리자 상담</button>}
+            {!isAdmin && <DefaultButton className={"wd100 primary"} onClick={createChat}>관리자 상담</DefaultButton>}
         </div>
     );
 };
