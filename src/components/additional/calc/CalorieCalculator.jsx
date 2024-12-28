@@ -27,7 +27,7 @@ const CalorieCalculator = () => {
             // 데이터 가공
             let stateData = {...res.data};
 
-            stateData.isPuppy = stateData.age < 2;
+            stateData.isPuppy = stateData.age < 2; // 원래는 1이어야 함
             stateData.neuter = stateData.isNeutered === true ? "완료" : "안함";
             stateData.species = stateData.species === "DOG" ? "강아지" : "고양이";
 
