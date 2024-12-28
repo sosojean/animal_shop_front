@@ -78,7 +78,19 @@ const Cart = (props) => {
     // 장바구니 전체 주문
     const purchaseAllHandler = () => {
 
-        const purchaseData = postData;
+        // discount_rate가 0이면 곱하면 안됨 예외처리 필요
+        const modifitedData = dataList.map(v => {
+            return {
+              ...v,
+              option_price: v.discount_rate !== 0 
+                ? Math.round(v.option_price * (1-v.discount_rate/100))
+                : v.option_price
+            }
+          });
+
+        const purchaseData = {
+            cartDetailDTOList: modifitedData
+        };
         const isCart = true;
         navigate("/order/delivery", {
             state: {
@@ -100,11 +112,18 @@ const Cart = (props) => {
         console.log("dataToOrder", dataToOrder);
 
         // discount_rate가 0이면 곱하면 안됨 예외처리 필요
-        // const test = dataToOrder.forEach(v => v.option_price = Math.round(v.option_price * v.discount_rate))
-        // console.log("dataToOrder", test);
+        const modifitedData = dataToOrder.map(v => {
+            return {
+              ...v,
+              option_price: v.discount_rate !== 0 
+                ? Math.round(v.option_price * (1-v.discount_rate/100))
+                : v.option_price
+            }
+          });
+        console.log("dataToOrder", modifitedData);
 
         const postData = {
-            cartDetailDTOList: dataToOrder
+            cartDetailDTOList: modifitedData
         };
 
         const purchaseData = postData;
@@ -117,7 +136,6 @@ const Cart = (props) => {
               isCart: { type: 'isCart', items: isCart }
             }
           });
-
     }
 
     // 장바구니 아이템 선택 삭제

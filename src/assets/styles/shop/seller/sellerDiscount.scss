@@ -1,142 +1,235 @@
-@mixin column-gap ($a: 0.1fr, $b: 1fr, $c: 0.5fr, $d: 0.6fr, $e: 0fr, $p: 0.7rem)  {
-    display: grid;
-    grid-template-columns: $a $b $c $d $e ; // 4개
-    padding: $p;
-    gap: 30px;
-    align-items: center;
-}
-
-.discount-modal-container {
-    background-color: white;
-
-    width: 600px;
-    height: 700px;
-    
-    padding: 1rem 2rem 1rem 2rem;
-
-    .discount-header {
-        font-weight: 400;
-        font-size: 1.5rem;
-
-        margin: 2rem 0 2rem 0;
+@mixin flex-center {
+    display: flex;
+    // align-items: center;
+    // justify-content: space-between;
+  }
+  
+  @mixin scrollbar {
+    &::-webkit-scrollbar {
+      width: 3px;
     }
-
-    .option-container {
-
-        border-bottom: 2px solid var(--point-background-color-20);
-        padding-bottom: 1rem;
-
-        .option-header {
-            @include column-gap;
-            background-color: var(--point-background-color-20);
-            border-bottom: 2px solid var(--point-background-color-80);
-
-            .원가 {
-                text-align: right;
-            }
+    &::-webkit-scrollbar-thumb {
+      background: var(--alpha-30);
+      border-radius: 10px;
+    }
+    &::-webkit-scrollbar-track {
+      background: var(--alpha-5);
+    }
+  }
+  
+  .discount-modal-container {
+    background-color: white;
+    width: 100%;
+    max-width: 650px;
+    height: 65vh;
+    max-height: 550px;
+    padding: 0.75rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+  
+    .discount-header {
+      font-weight: 500;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid var(--point-background-color-20);
+    }
+  
+    .option-container, .discount-option-container {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 0.3rem;
+    }
+  
+    .option-header{
+        @include flex-center;
+        background-color: var(--point-background-color-20);
+        padding: 0.3rem;
+        font-weight: 500;
+        font-size: 0.8rem;
+        border-radius: 3px 3px 0 0;
+      
+        span {
+          padding: 0 0.2rem;
+          white-space: nowrap;
+          overflow: hidden;
+          text-align: center;
+      
+          &:nth-child(1) { 
+            flex: 0.1; 
+            min-width: 20px;
+            max-width: 25px;
+            padding: 0;
+          }  // 첫 번째 (숫자)
+          &:nth-child(2) { flex: 2; text-align: left;}    // 두 번째 (옵션명)
+          &:nth-child(3) { flex: 1.5; }  // 세 번째 (원가)
+          &:nth-child(4) { flex: 1; }    // 네 번째 (할인율)
         }
-
-        .option-list {
-            height: 200px;
-            overflow-y: scroll;
-
-            &::-webkit-scrollbar {
-                width: 5px;
-            }
-        
-            &::-webkit-scrollbar-thumb {
-                background: var(--alpha-30);
-                border-radius: 10px;
-            }
-        
-            &::-webkit-scrollbar-track {
-                background: var(--alpha-5);
-            }
-
-            .option-item {
-                @include column-gap;
-
-                &:hover {
-                    background-color: var(--point-background-color-10);
-                }
-
-                input {
-                    border: none;
-                    border-bottom: 2px solid #bbbbbb;
-                    width: 50%;
-                    padding-left: 5px;
-                    padding-bottom: 5px;
-                }
-            }            
+      }
+  
+    .option-list {
+      flex: 1;
+      overflow-y: auto;
+      @include scrollbar;
+  
+      .option-item, .discount-option {
+        @include flex-center;
+        align-items: center;
+        padding: 0.2rem 0.3rem;
+        font-size: 0.8rem;
+        transition: background-color 0.2s ease;
+  
+        &:hover {
+          background-color: var(--point-background-color-10);
         }
+  
+        > * {
+          flex: 1;
+          text-align: center;
+          padding: 0 0.2rem;
+          white-space: nowrap;
+          overflow: hidden;
+          &:first-child { flex: 0.1; }
+          &:nth-child(2) { flex: 1.2; text-align: left; }
+          &:nth-child(3) { flex: 0.9; text-align: right; }
+          &:last-child { flex: 0.7; }
+        }
+  
+        input[type="number"] {
+          width: 90%;
+          padding: 0.15rem;
+          border: 1px solid #ddd;
+          border-radius: 3px;
+          font-size: 0.75rem;
+          cursor: auto;
+        }
+      }
     }
 
     .discount-option-container {
-
-        padding-top: 1rem;
-
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            margin-left: 20px;
-
-            .select-button {
-                display: flex;
-                gap: 5px;
-
-                span {
-                    padding: 5px;
-                }
-            }
-        }
-
-        .header-container {
-            @include column-gap($a: 0.2fr, $b: 1fr, $c: 0.5fr, $d: 0.5fr, $e: 0.5fr);
-            border-bottom: 2px solid var(--point-background-color-80);
-            background-color: var(--point-background-color-20);
-        }
-        
-        .option-list {
-
-            height: 200px;
-            overflow-y: scroll;
-
-            &::-webkit-scrollbar {
-                width: 5px;
-            }
-        
-            &::-webkit-scrollbar-thumb {
-                background: var(--alpha-30);
-                border-radius: 10px;
-            }
-        
-            &::-webkit-scrollbar-track {
-                background: var(--alpha-5);
-            }
-            
-            .discount-option {
-
-                @include column-gap($a: 0.2fr, $b: 1fr, $c: 0.5fr, $d: 0.5fr, $e: 0.5fr);
-                
-                &:hover {
-                    background-color: var(--point-background-color-10);
-                }
-            }
-        }
-    }
-
-    .register-button {
+        flex: 1;
+        overflow: hidden;
         display: flex;
-        justify-content: space-between;
-
-        .close-button {
-            background-color: var(--alpha-10);
-
-            &:hover {
-                color: black;
-            }
+        flex-direction: column;
+        margin-bottom: 0.3rem;
+      
+        .button-container {
+          @include flex-center;
+          justify-content: space-between;
+          margin: 0.3rem 0;
+          padding: 0 0.2rem;
+      
+          .select-button {
+            @include flex-center;
+            align-items: center;
+            gap: 0.2rem;
+            font-size: 0.8rem;
+          }
         }
+      
+        .header-container {
+          @include flex-center;
+          background-color: var(--point-background-color-20);
+          padding: 0.3rem;
+          font-weight: 500;
+          font-size: 0.8rem;
+          border-radius: 3px 3px 0 0;
+      
+          span {
+            padding: 0 0.2rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: center;
+      
+            &:nth-child(1) { 
+              flex: 0.1; 
+              min-width: 30px;
+              max-width: 35px;
+              padding: 0;
+            }
+            &:nth-child(2) { flex: 1.5; text-align: left; }
+            &:nth-child(3) { flex: 1.2; text-align: right; }
+            &:nth-child(4) { flex: 0.8; text-align: right; }
+            &:last-child { flex: 1.2; text-align: right; }
+          }
+        }
+      
+        .option-list {
+          flex: 1;
+          overflow-y: auto;
+          @include scrollbar;
+      
+          .discount-option {
+            @include flex-center;
+            align-items: center;
+            padding: 0.2rem 0.3rem;
+            font-size: 0.8rem;
+            transition: background-color 0.2s ease;
+      
+            &:hover {
+              background-color: var(--point-background-color-10);
+            }
+      
+            > * {
+              padding: 0 0.2rem;
+              white-space: nowrap;
+              overflow: hidden;
+      
+              &:nth-child(1) { 
+                flex: 0.1; 
+                min-width: 30px;
+                max-width: 35px;
+                padding: 0;
+              }
+              &:nth-child(2) { flex: 2; text-align: left; }
+              &:nth-child(3) { flex: 1.2; text-align: right; }
+              &:nth-child(4) { flex: 0.8; text-align: right; }
+              &:last-child { flex: 1.2; text-align: right; }
+            }
+      
+            input[type="checkbox"] {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+  
+    .button-container {
+      @include flex-center;
+      justify-content: space-between;
+      margin: 0.3rem 0;
+  
+      .select-button {
+        @include flex-center;
+        gap: 0.2rem;
+        font-size: 0.8rem;
+      }
     }
-    
-}
+  
+    .register-button {
+      @include flex-center;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      margin-top: 0.3rem;
+  
+      button {
+        padding: 0.3rem 0.6rem;
+        border-radius: 3px;
+        font-size: 0.8rem;
+        transition: all 0.2s;
+  
+        &.close-button {
+          background-color: var(--alpha-10);
+          &:hover {
+            background-color: var(--alpha-20);
+          }
+        }
+      }
+    }
+  }
+  

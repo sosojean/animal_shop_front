@@ -214,7 +214,7 @@ const SellerDiscount = (props) => {
                     <span>선택</span>
                     <span>옵션명</span>
                     <span style={{textAlign: "right"}}>옵션가격</span>
-                    <span style={{textAlign: "right"}}>할인율(%)</span>
+                    <span style={{textAlign: "right"}}>할인율</span>
                     <span style={{textAlign: "right"}}>할인가격</span>
                 </div>
                 <div className="option-list">
