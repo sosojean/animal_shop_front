@@ -23,17 +23,31 @@ const Header = (props) => {
     const [menuName, setMenuName] = useState("")
 
     const navigate = useNavigate();
-
     const token = localStorage.getItem("accessToken");
-    const profileImg = parseJwt(token)?.profileImg || "https://placehold.co/250x250";
+
+    const parsedToken = parseJwt(token) ||null;
+
+    if (token){
+
+    }
+    const role = parsedToken?.role;
+    const isAdmin = role === "ADMIN"
+    const isSeller = role === "SELLER"
+    const isUser = role === "USER"
+
+    const headerAuthStyle = isAdmin||isSeller?"admin-seller-styles":"user-styles";
+
+
+
+    const profileImg = parsedToken?.profileImg || "https://placehold.co/250x250";
     const imgSrc = profileImg.startsWith("http")
         ? profileImg: process.env.REACT_APP_IMG_PRINT + profileImg;
 
     useEffect(() => {
         if (token) {
             setIsAuth(true)
-            console.log(parseJwt(token))
-            console.log("role", parseJwt(token).role)
+            console.log(parsedToken)
+            console.log("role", parsedToken.role)
         }
     })
     const handleLogout = () => {
@@ -67,7 +81,7 @@ const Header = (props) => {
     }
 
     return (<>
-            <div className="headerContainer user-styles " onMouseLeave={leaveHeader}>
+            <div className={`headerContainer ${headerAuthStyle}`} onMouseLeave={leaveHeader}>
                 <div className="header-inner-Container">
                     <div className="headerContentsContainer">
                         <div className="headerLnCContainer">
@@ -87,13 +101,13 @@ const Header = (props) => {
                                 </Link>
                                 {/*<ToggleBtn setIsDog={props.setIsDog} isDog={props.isDog}/>*/}
 
-                                {parseJwt(token)?.role === "ADMIN" &&
+                                {isAdmin &&
                                     <Link onMouseEnter={leaveHeader} to="/admin/seller">
                                         <li>관리자</li>
                                     </Link>                                
                                 }
 
-                                {parseJwt(token)?.role === "SELLER" &&
+                                {isSeller &&
                                     <Link onMouseEnter={leaveHeader} to="/seller">
                                         <li>판매자</li>
                                     </Link>
@@ -127,10 +141,10 @@ const Header = (props) => {
                     </div>
 
                 </div>
-                {hover ? <Category menuName={menuName}></Category> : null}
+                {hover ? <Category menuName={menuName} leaveHeader ={leaveHeader} ></Category> : null}
 
             </div>
-            {hover ? <div className="background-blocker"></div> : null}
+            {/*{hover ? <div className="background-blocker"></div> : null}*/}
         </>
 
     )

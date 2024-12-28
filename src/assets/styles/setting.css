@@ -6,9 +6,11 @@
     --body-background-color-50: rgba(255, 255, 255, 0.5);
     --body-background-color-30: rgba(255, 255, 255, 0.3);
 
-    --header-font-color: #FFF;
+    --header-bright-font-color: #FFF;
+    --header-dark-font-color: rgba(17, 61, 12, 0.76);
+
     --header-background-color: var(--point-color);
-    --point-color: rgba(16, 119, 0, 0.51);
+    --point-color: #76a970;
     --point-background-color: #76a970;
     --point-background-color-10: #76a9701a;
     --point-background-color-20: #76a97033;

@@ -1,9 +1,7 @@
-$logo-suit-margin: 1.6rem;
-
 .headerContainer {
-  position: sticky; /* 상단에 고정되도록 설정 */
-  top: 0; /* 화면 상단에 붙이기 */
-  z-index: 1000; /* 다른 요소 위에 위치하도록 설정 */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   width: 100%;
   height: 76px;
   display: flex;
@@ -13,63 +11,55 @@ $logo-suit-margin: 1.6rem;
 
   &.admin-seller-styles {
     background-color: var(--point-color);
-    color: var(--header-font-color);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: var(--header-bright-font-color);
+
+    .headerContentsContainer h1,
+    .headerContentsContainer li,
+    .headerLnCContainer .logo,
+    .headerRegisterContainer a,
+    .headerRegisterContainer .logout,
+    .headerRegisterContainer p,
+    .headerRegisterContainer link {
+      color: var(--header-bright-font-color);
+    }
   }
 
   &.user-styles {
     background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(100px);
-    color: var(--point-color);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    color: var(--header-dark-font-color);
 
-    .headerContentsContainer {
-      h1 {
-        color: var(--point-color);
-      }
-
-      li {
-        color: var(--point-color);
-      }
+    .headerContentsContainer h1,
+    .headerContentsContainer li,
+    .headerLnCContainer .logo,
+    .headerRegisterContainer a,
+    .headerRegisterContainer .logout,
+    .headerRegisterContainer p,
+    .headerRegisterContainer link {
+      color: var(--header-dark-font-color);
     }
 
-    .headerLnCContainer {
-      .logo {
-        color: var(--point-color);
-      }
+    .headerContentsContainer h1 {
+      color: var(--point-color);
     }
 
-    .headerRegisterContainer {
-      a {
-        color: var(--point-color);
-      }
-
-      .logout {
-        color: var(--point-color);
-      }
-
-      p, link {
-        color: var(--point-color);
-      }
+    .headerContentsContainer li:hover {
+      text-decoration: underline;
     }
   }
 
   .headerContentsContainer {
-    //background-color: var(--point-color);
-    color: var(--header-font-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: var(--site-width);
 
     h1 {
-      color: var(--header-font-color);
       font-size: 1.5rem;
       font-weight: bold;
     }
 
     li {
-      color: var(--header-font-color);
       &:hover {
         text-decoration: underline;
       }
@@ -78,8 +68,9 @@ $logo-suit-margin: 1.6rem;
 
   .headerLnCContainer {
     display: flex;
+
     .logo {
-      color: var(--header-font-color);
+      font-size: 1.5rem;
     }
   }
 
@@ -91,21 +82,19 @@ $logo-suit-margin: 1.6rem;
   }
 
   .headerRegisterContainer {
-    text-align: center;
-    align-items: center;
     display: flex;
     gap: var(--banner-gap);
 
     a {
       font-size: 1.3rem;
-      color: var(--header-font-color);
-      background: var(--point-shadow-color);
+      //background: var(--point-shadow-color);
       width: 2.5rem;
       height: 2.5rem;
       border-radius: 50%;
-      align-items: center;
-      justify-content: center;
       display: flex;
+      justify-content: center;
+      align-items: center;
+
       .profile-image {
         width: 100%;
         border-radius: 50%;
@@ -113,19 +102,17 @@ $logo-suit-margin: 1.6rem;
     }
 
     .logout {
-      color: black;
       font-size: 0.9rem;
       padding: 0;
       border: none;
       background: none;
       width: 100px;
       height: 2.5rem;
-      border-radius: 20px/20px;
-      align-items: center;
-      justify-content: center;
+      border-radius: 20px;
       display: flex;
+      justify-content: center;
+      align-items: center;
       background: var(--body-background-color-30);
-      gap: 4px;
     }
 
     p, link {
@@ -133,13 +120,4 @@ $logo-suit-margin: 1.6rem;
       border-radius: 20px;
     }
   }
-}
-
-.background-blocker {
-  z-index: 950; /* 헤더(z-index: 1000)보다 낮게 설정 */
-  position: fixed; /* 화면 전체를 덮도록 고정 */
-  width: 100%;
-  height: 100vh;
-  top: var(--header-height); /* 헤더 바로 아래부터 시작 */
-  background: var(--alpha-50);
 }
