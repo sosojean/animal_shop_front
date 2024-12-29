@@ -75,7 +75,16 @@
     display: flex;
 
     .logo {
-      font-size: 1.5rem;
+
+      .logo-img{
+        width: 40px;
+      }
+
+      span{
+        font-family: "Rammetto One", serif;
+        font-size: 3rem;
+        font-style: normal;
+      }
     }
   }
 

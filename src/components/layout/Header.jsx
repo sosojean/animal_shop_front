@@ -85,7 +85,10 @@ const Header = (props) => {
                 <div className="header-inner-Container">
                     <div className="headerContentsContainer">
                         <div className="headerLnCContainer">
-                            <Link to="/"><h1 className="logo" onMouseEnter={leaveHeader}>ANIMALPING</h1></Link>
+                            <Link to="/"><h1 className="logo" onMouseEnter={leaveHeader}>
+                                {/*<img className={"logo-img"} src={logo} alt=""/>*/}
+                                <span>ANIMALPING</span>
+                                </h1></Link>
 
                             <ul className="headerCatecoryContainer">
                                 <Link id="store" onMouseEnter={(e)=>hoverCategory(e)} to="/">
