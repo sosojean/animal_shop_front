@@ -108,15 +108,21 @@ const ProductReview = ({ isLoggedIn ,item, setIsModified, isModified}) => {
 
                                     </div>
                                     <div className="reviewerStars">
+                                        <p>{modifiedTime}</p>
+
                                         <div>
                                             {[...Array(5)].map((_, i) => {
                                                 return (
                                                     <span key={i}
-                                                          className={i < item.rating ? "selected" : "non-selected"}>
-                                                        <FontAwesomeIcon icon={faStar}/>
-                                                    </span>)})}
+                                                          className={i
+                                                          < item.rating
+                                                              ? "selected"
+                                                              : "non-selected"}>
+                                                        <FontAwesomeIcon
+                                                            icon={faStar}/>
+                                                    </span>)
+                                            })}
                                         </div>
-                                        <p>{modifiedTime}</p>
 
                                     </div>
                                 </div>

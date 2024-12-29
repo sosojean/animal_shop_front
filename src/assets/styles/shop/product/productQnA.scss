@@ -49,6 +49,12 @@
     }
     .answer{
         margin-left: 1rem;
+        .answer-content{
+            background: var(--point-background-color-10);
+            padding: 0.8rem;
+            margin-left: 8px;
+            border-radius: 15px/15px;
+        }
     }
     .placeholder{
         margin-left: 1rem;

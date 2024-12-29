@@ -89,8 +89,9 @@ const ProductQnA = ({item,isEdited,setIsEdited,position, isMyPage}) => {
             <p className="qnaContent">
                 <FontAwesomeIcon icon={faQ}/>{" "+ item.contents}
             </p>
-            {item.reply ? <p className="answer"><FontAwesomeIcon icon={faA}></FontAwesomeIcon> {item.reply}</p> :
-                !isEdit&&<p className="placeholder">아직 답변이 등록되지 않았습니다.</p>}
+            {item.reply ? <p className="answer"><FontAwesomeIcon
+                icon={faA}></FontAwesomeIcon><span className={"answer-content"}>{item.reply}</span> </p> :
+            !isEdit&&<p className="placeholder">아직 답변이 등록되지 않았습니다.</p>}
             {position != "seller" ?
                 <div className={"btn-container"}>
                     {!isMyPage&&<DefaultButton className={"small default delete"} onClick={deleteHandler}>삭제</DefaultButton>}
