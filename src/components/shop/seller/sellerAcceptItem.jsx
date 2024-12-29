@@ -53,23 +53,43 @@ const SellerAcceptItem = ({item, setIsEdited, isEdited}) => {
         })
     }
 
-    const rejectAllProduct =()=> {
+    const rejectAllProduct = () => {
+        // 로딩 메시지 표시
+        const loadingToast = toast.loading("취소 처리 중입니다...");
+
         instance({
-            url:`/seller/delivery/revoke`,
-            method:'POST',
-            data:{
-                orderId : item.orderId,
-                deliveryId : item.deliveryId
+            url: `/seller/delivery/revoke`,
+            method: 'POST',
+            data: {
+                orderId: item.orderId,
+                deliveryId: item.deliveryId
             }
-        }).then(response=>{
-            console.log(response);
-            setIsEdited(!isEdited)
-        }).catch((error) => {
-            console.log(error);
         })
+        .then(response => {
+            console.log(response);
 
-    }
+            // 로딩 메시지를 성공 메시지로 업데이트
+            toast.update(loadingToast, {
+                render: "취소 처리가 완료되었습니다!",
+                type: "success",
+                isLoading: false,
+                autoClose: 3000, // 자동으로 닫힘
+            });
 
+            setIsEdited(!isEdited);
+        })
+        .catch(error => {
+            console.log(error);
+
+            // 로딩 메시지를 오류 메시지로 업데이트
+            toast.update(loadingToast, {
+                render: "취소 처리에 실패했습니다. 다시 시도해주세요.",
+                type: "error",
+                isLoading: false,
+                autoClose: 3000,
+            });
+        });
+    };
 
 
     return (
