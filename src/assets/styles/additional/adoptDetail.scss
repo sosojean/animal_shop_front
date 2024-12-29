@@ -17,7 +17,8 @@
         img {
             width: 400px;
             height: 400px;
-
+            aspect-ratio: 1;
+            object-fit: contain;
             border-radius: 10px;
         }
     
@@ -171,6 +172,8 @@
             width:200px;
 
             img {
+                aspect-ratio: 1;
+                object-fit: cover;
                 height: 100%;
                 width: 100%;
             }
