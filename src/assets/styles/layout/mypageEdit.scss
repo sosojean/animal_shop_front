@@ -10,6 +10,13 @@
     width: 300px;
     //margin-top: 80px;
 
+    label{
+      img{
+        object-fit: cover;
+        aspect-ratio: 1;
+      }
+    }
+
     .icon {
       position: relative;
       left: -200px;

@@ -9,6 +9,11 @@
   align-items: center;
   border-bottom: 1px solid var(--alpha-10);
 
+  img{
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
   &.admin-seller-styles {
     background-color: var(--point-color);
     color: var(--header-bright-font-color);
