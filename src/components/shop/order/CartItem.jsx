@@ -7,6 +7,7 @@ import DefaultButton from "../../common/DefaultButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Card from "../../common/Card";
+import { Link } from "react-router-dom";
 
 const cartItem = (props) => {
 
@@ -123,18 +124,26 @@ const cartItem = (props) => {
           />
           {/* <Product data = {props.data} position="cart"/> */}
           <div className="cart-item-info">
+            {/* <Link to={`/shop/detail/{props.data.itemId}`}>
+            
+            </Link> */}
             <div>
+              <Link to={`/shop/detail/${props.data.itemId}`}>
               <img
                 src={props.data.imgUrl}
                 style={{ width: "100px", height: "100px" }}
               />
+              </Link>
             </div>
             <div>
-              <div className="cart-item-name">{props.data.itemNm}</div>
-              <div>
-                옵션: {props.data.option_name} / {props.data.count}개 /{" "}
-                {props.data.option_price.toLocaleString()}원
-              </div>
+              <Link to={`/shop/detail/${props.data.itemId}`}>
+                <div className="cart-item-name">{props.data.itemNm}</div>
+                <div>
+                  {props.data.option_name === "default" ? "기본 옵션" : props.data.option_name}{" "}
+                  / {props.data.count}개 /{" "}
+                  {props.data.option_price.toLocaleString()}원
+                </div>              
+              </Link>
               <button onClick={() => {
                 props.handleModalOpen();
                 handlePostCartList();}}>

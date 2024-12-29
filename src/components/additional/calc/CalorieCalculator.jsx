@@ -18,7 +18,7 @@ const CalorieCalculator = () => {
     const [showResult, setShowResult] = useState(false);
         // {species: "dog", birth: "20200120", size: "small"}
     
-    // 로그인 회원 대표 펫 정보 가져오기기
+    // 로그인 회원 대표 펫 정보 가져오기
     const getMyPetData = () => {
         instance({
             url: `/calc/calorie`,
@@ -27,7 +27,7 @@ const CalorieCalculator = () => {
             // 데이터 가공
             let stateData = {...res.data};
 
-            stateData.isPuppy = stateData.age < 1;
+            stateData.isPuppy = stateData.age < 2; // 원래는 1이어야 함
             stateData.neuter = stateData.isNeutered === true ? "완료" : "안함";
             stateData.species = stateData.species === "DOG" ? "강아지" : "고양이";
 

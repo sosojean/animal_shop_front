@@ -134,3 +134,69 @@
     }
   }}
 }
+
+.wiki-recommend-card {
+  .products{  
+  
+    .product{
+    width: 200px;
+    height: 200px;
+
+    img{
+      width: 200px;
+      height: 100px;
+      object-fit: cover;
+  
+    }
+  
+    .product-info{
+  
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+  
+  
+      .brand{
+        font-size: 0.8rem;
+      }
+      .title{
+        //text-overflow: ellipsis;
+        font-size: 1.0rem;
+  
+      }
+      .price{
+        font-weight: bold;
+        font-size: 1.0rem;
+      }
+      .origin-price {
+        text-decoration: line-through;
+        color: rgb(194,194,194);
+        font-size: 0.7rem;
+        margin-bottom: 5px;
+      }
+      .origin-price.no-decoration {
+        text-decoration: none;
+      }
+      .discount-rate {
+        color: rgb(255,71,71);
+        font-weight: bold;
+        margin-right: 5px;
+        font-size: 1.0rem;
+      }
+      .star{
+        font-size: 0.8rem;
+        display: none;
+      }
+      .option {
+        display: none;
+      }
+  
+    }
+
+    .cart-button-container {
+      .cart-button {
+        height: 30px;
+      }
+    }
+  }}
+}

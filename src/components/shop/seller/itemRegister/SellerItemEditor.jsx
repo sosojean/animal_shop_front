@@ -31,7 +31,7 @@ const SellerItemEditor = () => {
     // SellerItemCategory
     const [itemSpecies, setItemSpecies] = useState("dog"); // 동물종류
     const [itemType, setItemType] = useState("food"); // 상품종류
-    const [detailedType, setDetailedType] = useState("adult");
+    const [detailedType, setDetailedType] = useState("");
 
     // SellerItemOption
     const [options, setOptions] = useState([{ name: 'default', price: '' }]); // 옵션

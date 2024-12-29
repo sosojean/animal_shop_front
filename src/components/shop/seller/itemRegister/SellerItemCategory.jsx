@@ -68,6 +68,7 @@ const SellerItemCategory = ({itemSpecies, setItemSpecies, itemType, setItemType,
                 </div>
                 <div>
                     <select value={detailedType} onChange={(e) => { setDetailedType(e.target.value) }}>
+                        <option>--세부선택--</option>
                         {itemSpecies === "dog" ?
                             dogDetailedCategory[0]?.subcategories?.map((category, index) => {
                                 return (

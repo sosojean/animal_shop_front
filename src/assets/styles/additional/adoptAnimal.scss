@@ -79,6 +79,12 @@
 
             .selector-button {
                 @include button-shape($w:100%, $f:1rem, $g:10px);
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background-color: var(--point-background-color-80);
+                    font-weight: bold;
+                }
             }
         }
     }

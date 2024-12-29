@@ -83,7 +83,7 @@ const CartModal = ({modalData, refreshCartList, setModalOpen, modalOpen}) => {
                         {optionItem.map((option, index) => {
                             return (
                                 <option value={index}>
-                                    {option.name === "default" ? "기본" : option.name}
+                                    {option.name === "default" ? "기본 옵션" : option.name}
                                     {" " + option.price.toLocaleString() + "원"}
                                 </option>
                             )
