@@ -1,0 +1,101 @@
+.admin-notice-write{
+  .file-upload {
+    width: 95%;
+    background-color: var(--point-background-color-10);
+    padding: 1rem;
+    border: 1px solid var(--point-shadow-color-30);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    label {
+      font-size: 1rem;
+      color: var(--point-color);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button {
+      background-color: var(--point-color);
+      color: var(--reverse-font-color);
+      border: none;
+      border-radius: 3px;
+      padding: 0.3rem 0.5rem;
+      cursor: pointer;
+      box-shadow: 2px 2px 4px var(--point-shadow-color-50);
+
+      &:hover {
+        background-color: var(--point-background-color-80);
+        box-shadow: 2px 2px 6px var(--point-shadow-color);
+      }
+
+      &:active {
+        background-color: var(--point-background-color-90);
+      }
+    }
+  }
+
+  input[name="file"] {
+
+    display: none;
+
+
+  }
+
+  .file-important{
+    justify-content: space-between;
+  }
+  label[for="important"] {
+    font-size: 1.1rem;
+    color: var(--default-font-color);
+    cursor: pointer;
+  }
+
+  input[name="important"] {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    accent-color: var(--point-color);
+  }
+
+  .important-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+
+    label {
+      margin: 0;
+      font-size: 1rem;
+      color: var(--default-font-color);
+    }
+
+    input {
+      margin: 0;
+    }
+  }
+
+  .submitButton {
+    margin-top: 1rem;
+    background-color: var(--point-color);
+    color: var(--reverse-font-color);
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px var(--point-shadow-color);
+
+    &:hover {
+      background-color: var(--point-background-color-80);
+      box-shadow: 2px 2px 7px var(--point-shadow-color-50);
+    }
+
+    &:active {
+      background-color: var(--point-background-color-90);
+    }
+  }
+
+
+}

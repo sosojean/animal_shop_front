@@ -5,6 +5,10 @@ import instance from "../../../utils/axios";
 import AdminMenu from "../../../components/shop/admin/AdminMenu";
 import {toast} from "react-toastify";
 
+import "../../../assets/styles/shop/admin/adminNoticeWrite.scss"
+
+
+
 
 function AdminNoticeWrite(props) {
     const navigate = useNavigate();
@@ -93,7 +97,7 @@ function AdminNoticeWrite(props) {
 
     return (
 
-        <div>
+        <div className={"admin-notice-write"}>
             <AdminMenu/>
             <div>
                 <input placeholder='제목' name='title'
@@ -103,22 +107,31 @@ function AdminNoticeWrite(props) {
             </div>
 
             <WriteEditor ref={editorRef} initialValue={state}/>
-
-            <div>
-                <label htmlFor="file">파일{fileName} </label>
-                <button onClick={onClickDeleteFile}>x</button>
-            </div>
-
             <input name="file" id="file" onChange={fileUpload} type="file"/>
-            <div>
-                <label htmlFor="important">중요</label>
-                <input onChange={e=>{setIsNotImportant(e.target.checked)}}
-                       checked={isNotImportant}
-                       name="important" id="important" type="checkbox"/>
+
+            <div className={"row file-important "}>
+
+                {<div className={"file-upload"}>
+                    <label htmlFor="file">{!fileName &&
+                        <span>첨부 파일</span>} {fileName} </label>
+                    {fileName && <button onClick={onClickDeleteFile}>x</button>}
+                </div>}
 
 
-                <button onClick={onClickEnrollBtn} className="submitButton">{isEdit?"수정":"등록"}</button>
+                <div>
+                    <label htmlFor="important">중요</label>
+                    <input onChange={e => {
+                        setIsNotImportant(e.target.checked)
+                    }}
+                           checked={isNotImportant}
+                           name="important" id="important" type="checkbox"/>
+
+
+                </div>
+
             </div>
+            <button onClick={onClickEnrollBtn}
+                    className="submitButton">{isEdit ? "수정" : "등록"}</button>
 
 
         </div>
