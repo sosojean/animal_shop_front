@@ -23,7 +23,7 @@ const SellerItemEditor = () => {
     const [nameCount, setNameCount] = useState(0); // 글자수
 
     // SellerItemStock
-    const [itemStock, setItemStock] = useState(); // 상품재고고
+    const [itemStock, setItemStock] = useState(); // 상품재고
 
     // SellerItemStatus
     const [sellStatus, setSellStatus] = useState("SELL"); // 상품상태
