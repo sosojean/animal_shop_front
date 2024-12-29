@@ -42,7 +42,7 @@ const SellerInfoItem = (props) => {
 
 
     return (
-        <div className="seller-info-item">
+        <div className={`seller-info-item ${props.isHeader?"header":""}`}>
             <span className="user-name">{item.username}</span>
             <span className="email">{item.bln}</span>
             <span className="phone">{item.phone_number}</span>
