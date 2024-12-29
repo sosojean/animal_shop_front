@@ -69,7 +69,7 @@ const SellerJoin = (props) => {
         const data = {
             category:category,
             contents :content,
-            phone_number : phone1+phone2+phone3+"",
+            phoneNumber : phone1+phone2+phone3+"",
             bln : bln
         }
 
@@ -78,27 +78,14 @@ const SellerJoin = (props) => {
             // &isCheckedBln
             // &!isInvalidBln
             &isPhoneNumber
-            &data["phone_number"].length>10;
+            &data["phoneNumber"].length>10;
 
         if (canRegister){
             setIsInvalidRequest(false)
-            instance({
-                url:"/mypage/seller-register",
-                method:"post",
-                data:data
+            localStorage.setItem("userInfo", JSON.stringify(data));
+            navigate("/join/email")
 
-            }).then(response => {
-                // console.log(response)
-                navigate('success')
 
-            })
-            .catch(error => {
-                console.log(error.response.data.error)
-                const errMsg = error.response.data.error;
-                if (errMsg.startsWith("Member is already Seller")){
-                    setIsAlreadySeller(true)
-                }
-            })
 
         }
         else{

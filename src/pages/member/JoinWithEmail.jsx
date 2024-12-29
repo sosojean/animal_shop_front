@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
+import Title from "../../components/common/Title";
 
 const JoinWithEmail = ({props}) => {
     const navigate = useNavigate();
@@ -26,6 +27,8 @@ const JoinWithEmail = ({props}) => {
     const [emailAlreadyExist, setEmailAlreadyExist] = useState(false);
     const [nameAlreadyExist, setNameAlreadyExist] = useState(false);
 
+    const sellerInfo = JSON.parse(localStorage.getItem("userInfo")) || {};
+
 
     const handleJoin = async (event) => {
         event.preventDefault();
@@ -40,6 +43,7 @@ const JoinWithEmail = ({props}) => {
                 "password": password,
                 "nickname": name,
                 "mail": email,
+                ...sellerInfo
             },
         })
             .then(response => handleResponse(response.data))
@@ -72,8 +76,13 @@ const JoinWithEmail = ({props}) => {
         console.log(response);
         if (response.message === "SignUp success") {
 
-                toast.success("회원가입이 완료되었습니다!",
+            const message = sellerInfo.bln?
+                '판매자 회원가입이 완료되었습니다. 관리자 승인 후 판매자 권한이 부여됩니다.':
+                "회원가입이 완료되었습니다!"
+
+                toast.success(message,
                     {position: "top-right"});
+            localStorage.removeItem("userInfo");
             navigate("/join/success");
         }
     }
@@ -153,7 +162,9 @@ const JoinWithEmail = ({props}) => {
 
     }
 
-    return (
+    return (<>
+        {sellerInfo.bln?<Title>판매자 회원가입</Title>:<Title>이메일 회원가입</Title>}
+
         <div className={"container"}>
             <div className={"box"}>
                 <form className={"login-form"} onSubmit={handleLogin}>
@@ -203,6 +214,8 @@ const JoinWithEmail = ({props}) => {
                 </form>
             </div>
         </div>
+        </>
+
     )
 }
 
