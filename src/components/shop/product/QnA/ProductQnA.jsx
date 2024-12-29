@@ -96,18 +96,19 @@ const ProductQnA = ({item,isEdited,setIsEdited,position, isMyPage}) => {
                     {!isMyPage&&<DefaultButton className={"small default delete"} onClick={deleteHandler}>삭제</DefaultButton>}
                 </div>:
 
-                isEdit ? <>
+                isEdit ? <div className={"seller-answer-area"}>
 
-                    <textarea onChange={e => {
-                                  setReply(e.target.value)
-                              }}
-                              className="edit-review" cols="30" rows="10"/>
-                        <button onClick={answerHandler}>확인</button>
-                        <button onClick={() => {
-                            setIsEdit(false)
-                        }}>취소
-                        </button>
-                    </> :
+                            <textarea onChange={e => {
+                                          setReply(e.target.value)}}
+                                      className="edit-review" cols="30" rows="10"/>
+                            <div className={"btn-container row"}>
+                                <DefaultButton className={"primary mid"} onClick={answerHandler}>확인</DefaultButton>
+                                <DefaultButton  className={"default mid"}
+                                    onClick={() => {setIsEdit(false)}}>
+                                    취소
+                                </DefaultButton>
+                            </div>
+                    </div> :
                     <div className={"btn-container"}>
                         {item.reply&&
                             <DefaultButton className={"small primary"} onClick={answerDeleteHandler}>삭제</DefaultButton>

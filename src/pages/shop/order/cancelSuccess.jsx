@@ -7,6 +7,7 @@ const CancelSuccess = () => {
     const navigator =useNavigate();
     console.log(state);
     useEffect(() => {
+      console.log("refund execute")
         instance({
             url:"/pay/kakaoRefund",
             method:"POST",
@@ -19,7 +20,9 @@ const CancelSuccess = () => {
         })
         .then((response) => {
             console.log(response)
-            navigator("/refund/success");
+          console.log("refund success")
+
+          navigator("/refund/success");
         })
         .catch(err=>{
             console.log(err)});

@@ -16,6 +16,10 @@
 .qnaContainer{
     border-bottom: 1px solid lightgray;
 
+    .seller-answer-area{
+        border-radius: 10px/10px;
+        background: var(--sercondary-background-color);
+    }
     
     .qnaInfoContainer {
         display: flex;
@@ -25,6 +29,8 @@
 
         color: var(--alpha-50);
         font-size: 0.8rem;
+
+
 
 
 
