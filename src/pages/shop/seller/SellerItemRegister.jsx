@@ -8,7 +8,6 @@ const SellerItemRegister = () => {
     return(
         <div>
             <SellerMenu/>
-
             <SellerItemEditor/>
         </div>
     )
